@@ -2,7 +2,7 @@
 // Work out the path to the database, so SQLite/PDO can connect
 $root = __DIR__;
 $database = $root . '/data/data.sqlite';
-$dsn = 'sqlite:' . $database;
+$dsn = 'mysql:dbname=cms;host:127.0.0.1';
 
 // Connect to the database, run a query, handle errors
 $pdo = new PDO($dsn);

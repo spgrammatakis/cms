@@ -44,7 +44,6 @@ try{
 	$conn = new PDO($dsn,$username,$password);
     $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     $conn->exec($sql);
-    echo $sql;
     echo "Database created successfully<br>";
 }
 catch(PDOException $e)
@@ -57,11 +56,12 @@ catch(PDOException $e)
 $count = null;
 if (!$error)
 {
-    $sql = "SELECT COUNT(*) AS c FROM post";
+    $sql = "SELECT * FROM posts";
     $stmt = $conn->query($sql);
     if ($stmt)
     {
         $count = $stmt->fetchColumn();
+        echo $count;
     }
 }
 
