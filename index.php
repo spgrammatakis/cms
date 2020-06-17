@@ -33,7 +33,8 @@ try{
                 <?php echo htmlEscape($row['title'], ENT_HTML5, 'UTF-8') ?>
             </h2>
             <div>
-                <?php echo $row['created_at'] ?>
+                <?php echo convertSqlDate($row['created_at']) ?>
+                (<?php echo countCommentsForPost($row['comment_id']) ?> comments)
             </div>
             <p>
                 <?php echo htmlEscape($row['body'])?>

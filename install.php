@@ -53,7 +53,7 @@ catch(PDOException $e)
  }
 }
 // See how many rows we created, if any
-$count = null;
+$count = 0;
 if (!$error)
 {
     $sql = "SELECT * FROM posts";
@@ -61,7 +61,14 @@ if (!$error)
     if ($stmt)
     {
         $count = $stmt->fetchColumn();
-        echo $count;
+        echo "New posts created: " . $count . "<br>";
+    }
+    $sql = "SELECT * FROM comments";
+    $stmt = $conn->query($sql);
+    if ($stmt)
+    {
+        $count = $stmt->fetchColumn();
+        echo "New posts created: " , $count;
     }
 }
 

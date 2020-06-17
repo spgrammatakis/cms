@@ -36,6 +36,10 @@ if ($result === false)
 
 // Let's get a row
 $row = $stmt->fetch(PDO::FETCH_ASSOC);
+
+// Swap carriage returns for paragraph breaks
+$bodyText = htmlEscape($row['body']);
+$paraText = str_replace("\n", "</p><p>", $bodyText);
 ?>
 <!DOCTYPE html>
 <html>
@@ -53,10 +57,29 @@ $row = $stmt->fetch(PDO::FETCH_ASSOC);
             <?php echo htmlEscape($row['title']) ?>
         </h2>
         <div>
-            <?php echo $row['created_at'] ?>
+            <?php echo convertSqlDate($row['created_at']) ?>
         </div>
         <p>
-            <?php echo htmlEscape($row['body']) ?>
+        <?php echo $paraText ?>
         </p>
+        <h3><?php echo countCommentsForPost($postId) ?> comments</h3>
+        <?php foreach (getCommentsForPost($postId) as $comment): ?>
+            <?php // For now, we'll use a horizontal rule-off to split it up a bit ?>
+            <hr />
+            <div class="comment">
+                <div class="comment-meta">
+                    Comment from
+                    <?php echo htmlEscape($comment['user_name']) ?>
+                    on
+                    <?php echo convertSqlDate($comment['created_at']) ?>
+                </div>
+                <div class="comment-body">
+                    <?php echo htmlEscape($comment['content']) ?>
+                </div>
+                <div class="comment-website">
+                    <?php echo htmlEscape($comment['website']) ?>
+                </div>
+            </div>
+        <?php endforeach ?>
     </body>
 </html>
