@@ -40,11 +40,6 @@ function getPostRow($pdo, $postId){
     
     // Let's get a row
     $row = $stmt->fetch(PDO::FETCH_ASSOC);
-    if($row){
-        echo 'axne';
-    }else{
-        echo 'axoxi';
-    }
     return $row;
 }
 

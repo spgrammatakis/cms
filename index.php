@@ -18,6 +18,19 @@ try{
     die();
 }
 
+try{
+    $stmte = $pdo->query(
+        'SELECT
+            comment_id
+        FROM
+            comments'
+    );
+
+}catch (PDOException $e) {
+    exit("Connection failed: " . $e->getMessage());
+    die();
+}
+
 $notFound = isset($_GET['not-found']);
 
 ?>
@@ -43,7 +56,7 @@ $notFound = isset($_GET['not-found']);
             </h2>
             <div>
                 <?php echo convertSqlDate($row['created_at']) ?>
-                (<?php echo countCommentsForPost($row['comment_id']) ?> comments)
+                <?php echo countCommentsForPost($row['post_id']) ?> comments
             </div>
             <p>
                 <?php echo htmlEscape($row['body'])?>
