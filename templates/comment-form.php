@@ -1,4 +1,10 @@
-<?php // We'll use a rule-off for now, to separate page sections ?>
+<?php // We'll use a rule-off for now, to separate page sections 
+/**
+ * @var $errors string
+ * @var $commentData array
+ */
+?>
+
 <hr />
 <?php // Report any errors in a bullet-point list ?>
 <?php if ($errors): ?>
@@ -20,6 +26,7 @@
             type="text"
             id="comment-name"
             name="comment-name"
+            value="<?php echo htmlEscape($commentData['user_name']) ?>"
         />
     </p>
     <p>
@@ -30,6 +37,7 @@
             type="text"
             id="comment-website"
             name="comment-website"
+            value="<?php echo htmlEscape($commentData['website']) ?>"
         />
     </p>
     <p>
@@ -41,7 +49,7 @@
             name="comment-text"
             rows="8"
             cols="70"
-        ></textarea>
+        ><?php echo htmlEscape($commentData['content']) ?></textarea>
     </p>
     <input type="submit" value="Submit comment" />
 </form>

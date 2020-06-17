@@ -40,6 +40,13 @@ if ($_POST)
     {
         redirectAndExit('view-post.php?post_id=' . $postId);
     }
+}else
+{
+    $commentData = array(
+        'user_name' => '',
+        'website' => '',
+        'content' => '',
+    );
 }
 
 

@@ -97,6 +97,24 @@ function countCommentsForPost($postId)
     return (int) $stmt->fetchColumn();
 }
 
+function getSqlDateForNow()
+{
+    return date('Y-m-d H:i:s');
+}
+
+/**
+ * Converts unsafe text to safe, paragraphed, HTML
+ *
+ * @param string $text
+ * @return string
+ */
+function convertNewlinesToParagraphs($text)
+{
+    $escaped = htmlEscape($text);
+    return '<p>' . str_replace("\n", "</p><p>", $escaped) . '</p>';
+}
+
+
 /**
  * Writes a comment to a particular post
  *
@@ -109,13 +127,13 @@ function addCommentToPost(PDO $pdo, $postId, array $commentData)
 {
     $errors = array();
     // Do some validation
-    if (empty($commentData['name']))
+    if (empty($commentData['user_name']))
     {
-        $errors['name'] = 'A name is required';
+        $errors['user_name'] = 'A name is required';
     }
-    if (empty($commentData['text']))
+    if (empty($commentData['content']))
     {
-        $errors['text'] = 'A comment is required';
+        $errors['content'] = 'A comment is required';
     }
     // If we are error free, try writing the comment
     if (!$errors)
@@ -123,16 +141,20 @@ function addCommentToPost(PDO $pdo, $postId, array $commentData)
         $sql = "
             INSERT INTO
             comments
-            (user_name, website, content, post_id)
-            VALUES(:name, :website, :text, :post_id)
+            (user_name, website, content, created_at, post_id)
+            VALUES(:name, :website, :text, :created_at, :post_id)
         ";
         $stmt = $pdo->prepare($sql);
         if ($stmt === false)
         {
             throw new Exception('Cannot prepare statement to insert comment');
         }
+
         $result = $stmt->execute(
-            array_merge($commentData, array('post_id' => $postId, ))
+            array_merge(
+                $commentData,
+                array('post_id' => $postId, 'created_at' => getSqlDateForNow())
+            )
         );
         if ($result === false)
         {
