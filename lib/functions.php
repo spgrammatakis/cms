@@ -142,7 +142,7 @@ function addCommentToPost(PDO $pdo, $postId, array $commentData)
             INSERT INTO
             comments
             (user_name, website, content, created_at, post_id)
-            VALUES(:name, :website, :text, :created_at, :post_id)
+            VALUES(:user_name, :website, :content, :created_at, :post_id)
         ";
         $stmt = $pdo->prepare($sql);
         if ($stmt === false)
