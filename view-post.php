@@ -14,28 +14,13 @@ else
 
 // Connect to the database, run a query, handle errors
 $pdo = new PDO($dsn,$username,$password);
-$stmt = $pdo->prepare(
-    'SELECT
-        title, created_at, body
-    FROM
-        posts
-    WHERE
-        post_id = :id'
-);
-if ($stmt === false)
-{
-    throw new Exception('There was a problem preparing this query');
-}
-$result = $stmt->execute(
-    array('id' => 1,)
-);
-if ($result === false)
-{
-    throw new Exception('There was a problem running this query');    
-}
+$row = getPostRow($pdo, $postId);
 
-// Let's get a row
-$row = $stmt->fetch(PDO::FETCH_ASSOC);
+if (!$row)
+{
+    echo $postId;
+    redirectAndExit('index.php?not-found=1');
+}
 
 // Swap carriage returns for paragraph breaks
 $bodyText = htmlEscape($row['body']);
