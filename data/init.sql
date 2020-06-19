@@ -1,7 +1,7 @@
 DROP TABLE IF EXISTS posts;
 
 CREATE TABLE posts (
-post_id INT(10) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+post_id INT(10) UNSIGNED AUTO_INCREMENT PRIMARY KEY NOT NULL,
 author_id INT(10) NOT NULL,
 title VARCHAR(50) NOT NULL,
 body VARCHAR(255) NOT NULL,
@@ -15,7 +15,7 @@ VALUES("Here's our first post","This is the body of the first post.It is split i
 DROP TABLE IF EXISTS comments;
 
 CREATE TABLE comments (
-    comment_id INT(10) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    comment_id INT(10) UNSIGNED AUTO_INCREMENT PRIMARY KEY NOT NULL,
     post_id INT(10) NOT NULL,
     user_name VARCHAR(20) NOT NULL,
     website VARCHAR(30),
@@ -26,3 +26,16 @@ CREATE TABLE comments (
 
 INSERT INTO comments(post_id, created_at, user_name, website, content)
 VALUES(1,now(),'Spyros','http://example.com/',"This is Spyros's contribution");
+
+DROP TABLE IF EXISTS users;
+
+CREATE TABLE users (
+    user_id INT(10) UNSIGNED AUTO_INCREMENT PRIMARY KEY NOT NULL,
+    username VARCHAR(20) NOT NULL,
+    password VARCHAR(255) NOT NULL,
+    created_at DATETIME NOT NULL,
+    is_enabled BOOLEAN DEFAULT true;
+)DEFAULT CHARSET=utf8;
+
+INSERT INTO users(username, password, created_at)
+VALUES('admin','admin',now());

@@ -94,7 +94,7 @@ function countCommentsForPost($postId)
     $stmt->execute(
         array('post_id' => $postId, )
     );
-    return (int) $stmt->fetchColumn();
+    return (int) $stmt->rowCount();
 }
 
 function getSqlDateForNow()
