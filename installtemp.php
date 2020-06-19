@@ -7,27 +7,27 @@
  */
 function installBlog()
 {
-    require 'lib/functions.php';
-    require 'lib/dbconnect.php';
+    include_once 'lib/functions.php';
 
-    $sql = file_get_contents($database);
+    $sql = file_get_contents(getDatabase());
     $pdo = getPDO();
+    $pdo->exec($sql);
 
 // See how many rows we created, if any
 
     $sql = "SELECT * FROM posts";
-    $stmt = $conn->query($sql);
+    $stmt = $pdo->query($sql);
     if ($stmt)
     {
-        $postCount = $stmt->fetchColumn();
-        echo "New posts created: " . $count . "<br>";
+        $postCount = $stmt->rowCount();
+        echo "New posts created: " . $postCount . "<br>";
     }
     $sql = "SELECT * FROM comments";
-    $stmt = $conn->query($sql);
+    $stmt = $pdo->query($sql);
     if ($stmt)
     {
-        $commentCount = $stmt->fetchColumn();
-        echo "New posts created: " , $count;
+        $commentCount = $stmt->rowCount();
+        echo "New posts created: " , $commentCount;
     }
     return array($postCount, $commentCount);
 }
@@ -53,11 +53,13 @@ function installBlog()
         </style>
     </head>
     <body>
+    <?php ?>
             <div class="success box">
-                The database and demo data was created OK.
-                <?php if ($postCount and $commentCount): ?>
-                    <?php echo $postCount ?> new posts were created.
-                    <?php echo $commentCount ?> new comments were created.
+                The database and demo data was created OK.<br>
+                <?php installBlog(); ?>
+                <?php if (installBlog()[0] and installBlog()[1]): ?>
+                    <?php echo installBlog()[0] ?> new posts were created.
+                    <?php echo installBlog()[1] ?> new comments were created.
                 <?php endif ?>
             </div>
     </body>
