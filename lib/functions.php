@@ -73,8 +73,7 @@ function getPostRow(PDO $pdo, $postId){
  */
 function getCommentsForPost($postId)
 {
-    require 'dbconnect.php';
-    $pdo = new PDO($dsn,$username,$password);
+    $pdo = getPDO();
     $sql = "
         SELECT
             comment_id, user_name, content, created_at, website
@@ -110,8 +109,7 @@ function redirectAndExit($script)
  */
 function countCommentsForPost($postId)
 {
-    require 'dbconnect.php';
-    $pdo = new PDO($dsn,$username,$password);
+    $pdo = getPDO();
     $sql = " SELECT * FROM comments WHERE post_id = :post_id";
     $stmt = $pdo->prepare($sql);
     $stmt->execute(

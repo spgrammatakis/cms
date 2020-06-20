@@ -1,42 +1,36 @@
 <?php
-// Get the PDO DSN string
-$root = realpath(__DIR__);
-$database = $root . '/data/init.sql';
-$dsn = 'mysql:dbname=cms;host:127.0.0.1';
-$username = "admin";
-$password = "admin";
 
-$sql = file_get_contents($database);
-// Connect to the new database and try to run the SQL commands
-try{
-	$conn = new PDO($dsn,$username,$password);
-    $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-    $conn->exec($sql);
-    echo "Database created successfully<br>";
-}
-catch(PDOException $e)
+/**
+ * Blog installer function
+ * 
+ * @return array(postCount integer, commentCount integer)
+ */
+function installBlog()
 {
-    echo "Connection failed: " . $e->getMessage();
-	die();
- }
+    include_once 'lib/functions.php';
+
+    $sql = file_get_contents(getDatabase());
+    $pdo = getPDO();
+    $pdo->exec($sql);
+
 // See how many rows we created, if any
-$count = 0;
+
     $sql = "SELECT * FROM posts";
-    $stmt = $conn->query($sql);
+    $stmt = $pdo->query($sql);
     if ($stmt)
     {
-        $count = $stmt->fetchColumn();
-        echo "New posts created: " . $count . "<br>";
+        $postCount = $stmt->rowCount();
     }
     $sql = "SELECT * FROM comments";
-    $stmt = $conn->query($sql);
+    $stmt = $pdo->query($sql);
     if ($stmt)
     {
-        $count = $stmt->fetchColumn();
-        echo "New posts created: " , $count;
+        $commentCount = $stmt->rowCount();
     }
-
+    return array($postCount, $commentCount);
+}
 ?>
+
 <!DOCTYPE html>
 <html>
     <head>
@@ -58,10 +52,13 @@ $count = 0;
     </head>
     <body>
             <div class="success box">
-                The database and demo data was created OK.
-                <?php if ($count): ?>
-                    <?php echo $count ?> new rows were created.
+                The database and demo data was created OK.<br>
+                <?php installBlog(); ?>
+                <?php if (installBlog()[0] and installBlog()[1]): ?>
+                    <?php echo "<br>",installBlog()[0] ?> new posts were created.
+                    <?php echo "<br>",installBlog()[1] ?> new comments were created.
                 <?php endif ?>
             </div>
+            <a href="./index.php">Homepage</a>
     </body>
 </html>

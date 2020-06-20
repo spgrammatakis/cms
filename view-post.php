@@ -1,5 +1,4 @@
 <?php
-require_once 'lib/dbconnect.php';
 require_once 'lib/functions.php';
 // Get the post ID
 if (isset($_GET['post_id']))
@@ -13,7 +12,7 @@ else
 }
 
 // Connect to the database, run a query, handle errors
-$pdo = new PDO($dsn,$username,$password);
+$pdo = getPDO();
 $row = getPostRow($pdo, $postId);
 
 if (!$row)

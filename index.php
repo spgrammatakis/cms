@@ -1,9 +1,8 @@
 <?php
-require_once 'lib/dbconnect.php';
 require_once 'lib/functions.php';
 
 // Connect to the database, run a query, handle errors
-$pdo = new PDO($dsn,$username,$password);
+$pdo = getPDO();
 try{
     $stmt = $pdo->query(
         'SELECT
