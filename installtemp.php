@@ -20,14 +20,12 @@ function installBlog()
     if ($stmt)
     {
         $postCount = $stmt->rowCount();
-        echo "New posts created: " . $postCount . "<br>";
     }
     $sql = "SELECT * FROM comments";
     $stmt = $pdo->query($sql);
     if ($stmt)
     {
         $commentCount = $stmt->rowCount();
-        echo "New posts created: " , $commentCount;
     }
     return array($postCount, $commentCount);
 }
@@ -53,13 +51,12 @@ function installBlog()
         </style>
     </head>
     <body>
-    <?php ?>
             <div class="success box">
                 The database and demo data was created OK.<br>
                 <?php installBlog(); ?>
                 <?php if (installBlog()[0] and installBlog()[1]): ?>
                     <?php echo installBlog()[0] ?> new posts were created.
-                    <?php echo installBlog()[1] ?> new comments were created.
+                    <?php echo installBlog()[1] ?> new posts were created.
                 <?php endif ?>
             </div>
     </body>
