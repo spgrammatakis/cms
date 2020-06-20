@@ -1,3 +1,31 @@
+<?php
+require_once 'lib/functions.php';
+// We need to test for a minimum version of PHP, because earlier versions have bugs that affect security
+if (version_compare(PHP_VERSION, '5.3.7') < 0)
+{
+    throw new Exception(
+        'This system needs PHP 5.3.7 or later'
+    );
+}
+// Handle the form posting
+$username = '';
+if ($_POST)
+{
+    // Init the session and the database
+    session_start();
+    $pdo = getPDO();
+    // We redirect only if the password is correct
+    $username = $_POST['username'];
+    $ok = tryLogin($pdo, $username, $_POST['password']);
+    if ($ok)
+    {
+        login($username);
+        redirectAndExit('index.php');
+    }else{
+        echo "Credentials do not match";
+    }
+}
+?>
 <!DOCTYPE html>
 <html>
     <head>
