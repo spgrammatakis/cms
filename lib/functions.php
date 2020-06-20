@@ -1,4 +1,5 @@
 <?php
+
 function getPDO(){
 $dsn = 'mysql:dbname=cms;host:127.0.0.1';
 $username = "admin";
@@ -15,32 +16,39 @@ catch(PDOException $e)
 	die();
  }
     return $conn;
-}
+}?>
 
+<?php
 function getDatabase(){
     return dirname(__DIR__, 1).'/data/init.sql';
 }
+?>
 
-
+<?php
 function htmlEscape($html)
 {
     return htmlspecialchars($html, ENT_HTML5, 'UTF-8');
 }
+?>
 
+<?php
 function convertSqlDate($sqlDate)
 {
     /* @var $date DateTime */
     $date = DateTime::createFromFormat('Y-m-d H:i:s', $sqlDate);
     return $date->format('Y-m-d H:i:s');
 }
+?>
 
+<?php
 /**
  * Returns the post row
  *
  * @param pdo $pdo
  * @param integer $postId
  */
-function getPostRow(PDO $pdo, $postId){
+function getPostRow(PDO $pdo, $postId)
+{
     $stmt = $pdo->prepare(
         'SELECT
             title, created_at, body
@@ -65,42 +73,24 @@ function getPostRow(PDO $pdo, $postId){
     $row = $stmt->fetch(PDO::FETCH_ASSOC);
     return $row;
 }
+?>
 
-/**
- * Returns all the comments for the specified post
- *
- * @param integer $postId
- */
-function getCommentsForPost($postId)
-{
-    $pdo = getPDO();
-    $sql = "
-        SELECT
-            comment_id, user_name, content, created_at, website
-        FROM
-            comments
-        WHERE
-            post_id = :post_id";
-    $stmt = $pdo->prepare($sql);
-    $stmt->execute(
-        array('post_id' => $postId, )
-    );
-    return $stmt->fetchAll(PDO::FETCH_ASSOC);
-}
-
+<?php
 function redirectAndExit($script)
 {
     // Get the domain-relative URL (e.g. /blog/whatever.php or /whatever.php) and work
     // out the folder (e.g. /blog/ or /).
     $relativeUrl = $_SERVER['PHP_SELF'];
     $urlFolder = substr($relativeUrl, 0, strrpos($relativeUrl, '/') + 1);
-    // Redirect to the full URL (http://myhost/blog/script.php)
+    // Redirect to the full URL 
     $host = $_SERVER['HTTP_HOST'];
     $fullUrl = 'http://' . $host . $urlFolder . $script;
     header('Location: ' . $fullUrl);
     exit();
 }
+?>
 
+<?php
 /**
  * Returns the number of comments for the specified post
  *
@@ -117,12 +107,16 @@ function countCommentsForPost($postId)
     );
     return (int) $stmt->rowCount();
 }
+?>
 
+<?php
 function getSqlDateForNow()
 {
     return date('Y-m-d H:i:s');
 }
+?>
 
+<?php
 /**
  * Converts unsafe text to safe, paragraphed, HTML
  *
@@ -134,8 +128,9 @@ function convertNewlinesToParagraphs($text)
     $escaped = htmlEscape($text);
     return '<p>' . str_replace("\n", "</p><p>", $escaped) . '</p>';
 }
+?>
 
-
+<?php
 /**
  * Writes a comment to a particular post
  *
@@ -188,5 +183,49 @@ function addCommentToPost(PDO $pdo, $postId, array $commentData)
         }
     }
     return $errors;
+}?>
+
+<?php
+/**
+ * Gets All Posts
+ *
+ *@return pdo $row
+ */
+function getAllPosts(){
+    $pdo = getPDO();
+	try {
+        $getPosts = $pdo->prepare("SELECT * FROM posts");
+        $getPosts->execute();
+        $row =$getPosts->fetchAll();
+        }
+        catch(PDOException $e)
+    {
+        echo "Connection failed: " . $e->getMessage();
+        die();
+     }
+    return $row;
+}?>
+
+<?php
+/**
+ * Returns all the comments for the specified post
+ *
+ * @param integer $postId
+ */
+function getCommentsForPost($postId)
+{
+    $pdo = getPDO();
+    $sql = "
+        SELECT
+            comment_id, user_name, content, created_at, website
+        FROM
+            comments
+        WHERE
+            post_id = :post_id";
+    $stmt = $pdo->prepare($sql);
+    $stmt->execute(
+        array('post_id' => $postId, )
+    );
+    return $stmt->fetchAll(PDO::FETCH_ASSOC);
 }
 ?>

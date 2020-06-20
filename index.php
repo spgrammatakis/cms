@@ -1,38 +1,3 @@
-<?php
-require_once 'lib/functions.php';
-
-// Connect to the database, run a query, handle errors
-$pdo = getPDO();
-try{
-    $stmt = $pdo->query(
-        'SELECT
-            post_id ,title, created_at, body
-        FROM
-            posts
-        ORDER BY
-            created_at DESC'
-    );
-}catch (PDOException $e) {
-    exit("Connection failed: " . $e->getMessage());
-    die();
-}
-
-try{
-    $stmte = $pdo->query(
-        'SELECT
-            comment_id
-        FROM
-            comments'
-    );
-
-}catch (PDOException $e) {
-    exit("Connection failed: " . $e->getMessage());
-    die();
-}
-
-$notFound = isset($_GET['not-found']);
-
-?>
 <!DOCTYPE html>
 <html>
     <head>
@@ -40,16 +5,12 @@ $notFound = isset($_GET['not-found']);
         <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
     </head>
     <body>
+        <?php   require 'lib/functions.php'; 
+                require 'templates/title.php';
+                $row = getAllPosts();
+                ?>
 
-        <?php require 'templates/title.php' ?>
-
-        <?php if ($notFound): ?>
-            <div style="border: 1px solid #ff6666; padding: 6px;">
-                Error: cannot find the requested blog post
-            </div>
-        <?php endif ?>
-
-        <?php while ($row = $stmt->fetch(PDO::FETCH_ASSOC)): ?>
+        <?php foreach($row as $row): ?>
             <h2>
                 <?php echo htmlEscape($row['title'], ENT_HTML5, 'UTF-8') ?>
             </h2>
@@ -63,7 +24,7 @@ $notFound = isset($_GET['not-found']);
             <p>
                 <a href="view-post.php?post_id=<?php echo $row['post_id'] ?>">Read more...</a>
             </p>
-        <?php endwhile ?>
-
+        <?php endforeach ?>
+        <a href="./install.php">Install</a>
     </body>
 </html>
