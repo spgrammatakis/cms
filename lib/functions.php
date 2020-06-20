@@ -27,7 +27,7 @@ function getDatabase(){
 <?php
 function htmlEscape($html)
 {
-    return htmlspecialchars($html, ENT_HTML5, 'UTF-8');
+    return htmlentities($html, ENT_HTML5, 'UTF-8');
 }
 ?>
 

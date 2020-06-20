@@ -4,10 +4,7 @@ $error = "";
 if (isset($_POST['username'])){
 
   $username = $_POST['username'];
-  /**
-   * Validate data before it enters the database. In this case, we need to check that
-   * the value of the 'id' GET parameter is numeric
-   */
+
    if ( is_string($username) == true){
     try{ // Check connection before executing the SQL query 
       /**
@@ -44,7 +41,7 @@ if (isset($_POST['username'])){
        * HTML encode our result using htmlentities() to prevent stored XSS and print the
        * result to the page
        */
-      print( htmlentities($result) );
+      print( htmlEscape($result) );
       
       //Close the connection to the database.
       $dbh = null;
@@ -92,8 +89,8 @@ if (isset($_POST['username'])){
                 <input type="text" name="username" />
             </p>
             <p>
-<!--                 Password:
-                <input type="password" name="password" /> -->
+                Password:
+                <input type="password" name="password" />
             </p>
             <input type="submit" name="submit" value="Login" />
         </form>
