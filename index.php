@@ -3,6 +3,7 @@
     <head>
         <title>A blog application</title>
         <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+        <meta http-equiv="refresh" content="30">
     </head>
     <body>
         <?php   require 'lib/functions.php'; 

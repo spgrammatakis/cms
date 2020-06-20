@@ -1,16 +1,14 @@
 <?php
 require './lib/functions.php';
-/**
- * Check if the 'id' GET variable is set
- * Example - http://localhost/?id=1
- */
+$error = "";
 if (isset($_POST['username'])){
-  $id = $_POST['username'];
+
+  $username = $_POST['username'];
   /**
    * Validate data before it enters the database. In this case, we need to check that
    * the value of the 'id' GET parameter is numeric
    */
-   if ( is_numeric($id) == true){
+   if ( is_string($username) == true){
     try{ // Check connection before executing the SQL query 
       /**
        * Setup the connection to the database This is usually called a database handle (dbh)
@@ -31,11 +29,11 @@ if (isset($_POST['username'])){
        */
       $q = "SELECT username 
           FROM users
-          WHERE id = :username";
+          WHERE username = :username";
       // Prepare the SQL query string.
       $sth = $dbh->prepare($q);
       // Bind parameters to statement variables.
-      $sth->bindParam(':id', $id);
+      $sth->bindParam(':username', $username, PDO::PARAM_STR);
       // Execute statement.
       $sth->execute();
       // Set fetch mode to FETCH_ASSOC to return an array indexed by column name.
@@ -58,6 +56,7 @@ if (isset($_POST['username'])){
        *
        * For more logging options visit http://php.net/manual/en/function.error-log.php
        */
+
       error_log('PDOException - ' . $e->getMessage(), 0);
       /**
        * Stop executing, return an Internal Server Error HTTP status code (500),
@@ -86,17 +85,15 @@ if (isset($_POST['username'])){
     </head>
     <body>
         <?php require 'templates/title.php' ?>
-        <p>Login here:</p>
-        <form
-            method="post"
-        >
+        <p>Register:</p>
+        <form method="post">
             <p>
                 Username:
                 <input type="text" name="username" />
             </p>
             <p>
-                Password:
-                <input type="password" name="password" />
+<!--                 Password:
+                <input type="password" name="password" /> -->
             </p>
             <input type="submit" name="submit" value="Login" />
         </form>
