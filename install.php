@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Blog installer function
  * 
