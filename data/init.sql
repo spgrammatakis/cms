@@ -34,8 +34,9 @@ CREATE TABLE users (
     username VARCHAR(20) NOT NULL,
     password VARCHAR(255) NOT NULL,
     created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+    modification_time  DATETIME ON UPDATE CURRENT_TIMESTAMP,
     is_enabled BOOLEAN NOT NULL
 )DEFAULT CHARSET=utf8;
 
-INSERT INTO users(username, password, created_at, is_enabled)
-VALUES('admin','admin',now(), TRUE);
+INSERT INTO users(username, password, is_enabled)
+VALUES('admin','admin', TRUE);
