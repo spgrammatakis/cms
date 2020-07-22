@@ -1,9 +1,10 @@
 <?php
 require './lib/functions.php';
 $error = "";
-if (isset($_POST['username'])){
+if (isset($_POST['username']) and isset($_POST['username']) ){
 
   $username = $_POST['username'];
+  $password = $_POST['password'];
 
    if ( is_string($username) == true){
     try{ // Check connection before executing the SQL query 
@@ -24,13 +25,13 @@ if (isset($_POST['username'])){
        * SQL statement before sending it to the database server.
        *
        */
-      $q = "SELECT username 
-          FROM users
-          WHERE username = :username";
+      $q = "INSERT INTO users(username, password)
+            VALUES(:username,:password)";
       // Prepare the SQL query string.
       $sth = $dbh->prepare($q);
       // Bind parameters to statement variables.
       $sth->bindParam(':username', $username, PDO::PARAM_STR);
+      $sth->bindParam(':password', $password, PDO::PARAM_STR);
       // Execute statement.
       $sth->execute();
       // Set fetch mode to FETCH_ASSOC to return an array indexed by column name.
@@ -60,7 +61,6 @@ if (isset($_POST['username'])){
        * and display an error
        */
       http_response_code(500);
-      die('Error establishing connection with database');
     }
    } else{
     /**
@@ -68,7 +68,6 @@ if (isset($_POST['username'])){
      * a 'Bad request' HTTP status code (400), and display an error
      */
     http_response_code(400);
-    die('Error processing bad or malformed request');
    }
 }
 ?>

@@ -2,7 +2,7 @@
 /**
  * Blog installer function
  * 
- * @return array(postCount integer, commentCount integer)
+ * @return array(integer postcount, integer commentCount)
  */
 function installBlog()
 {
