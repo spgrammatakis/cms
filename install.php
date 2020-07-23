@@ -36,7 +36,7 @@ function installBlog()
         <title>Blog installer</title>
         <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
     </head>
-    <body>
+    <body>    
     <div class="create-admin">
     <p><a href="register.php">Create Admin Account</a></p>
     </div>

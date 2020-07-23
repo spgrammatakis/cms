@@ -38,6 +38,3 @@ CREATE TABLE users (
     modification_time  DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     is_enabled BOOLEAN NOT NULL
 )DEFAULT CHARSET=utf8;
-
-INSERT INTO users(username, password, is_enabled)
-VALUES('admin','admin', TRUE);
