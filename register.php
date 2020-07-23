@@ -28,23 +28,14 @@ if (isset($_POST['username']) and isset($_POST['username']) ){
       $q = "INSERT INTO users(username, password)
             VALUES(:username,:password)";
       // Prepare the SQL query string.
-      $sth = $dbh->prepare($q);
-      // Bind parameters to statement variables.
-      $sth->bindParam(':username', $username, PDO::PARAM_STR);
-      $sth->bindParam(':password', $password, PDO::PARAM_STR);
-      // Execute statement.
-      $sth->execute();
-      // Set fetch mode to FETCH_ASSOC to return an array indexed by column name.
-      $sth->setFetchMode(PDO::FETCH_ASSOC);
-      // Fetch result.
-      $result = $sth->fetchColumn();
-      /**
-       * HTML encode our result using htmlentities() to prevent stored XSS and print the
-       * result to the page
-       */
-      print( htmlEscape($result) );
-      
-      //Close the connection to the database.
+      $stmt = $dbh->prepare($q);
+      // Execute statement and Bind parameteres.
+      $result = $stmt->execute(
+        array(
+            'username' => $username,
+            'password' => $password 
+        )
+    );
       $dbh = null;
     }
     catch(PDOException $e){
@@ -54,7 +45,6 @@ if (isset($_POST['username']) and isset($_POST['username']) ){
        *
        * For more logging options visit http://php.net/manual/en/function.error-log.php
        */
-
       error_log('PDOException - ' . $e->getMessage(), 0);
       /**
        * Stop executing, return an Internal Server Error HTTP status code (500),
