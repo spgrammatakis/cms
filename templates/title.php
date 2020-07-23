@@ -2,3 +2,6 @@
 <a href="index.php">
     <h1>Homepage</h1>
 </a>
+<a href="register.php">
+    <h1>Register</h1>
+</a>
