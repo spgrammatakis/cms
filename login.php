@@ -7,7 +7,7 @@ if (version_compare(PHP_VERSION, '5.3.7') < 0)
         'This system needs PHP 5.3.7 or later'
     );
 }
-    $dbh = getPDO();
+    $dbh = new Connection();
  
 // Define variables and initialize with empty values
 $username = $password = "";
@@ -29,24 +29,22 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     } else{
         $password = trim($_POST['password']);
     }
-    
     // Validate credentials
     if(empty($username_err) && empty($password_err)){
         // Prepare a select statement
         $sql = "SELECT username, password FROM users WHERE username = :username";
+        $dbh->prepareStmt($sql);
+
+        // Set parameters
+        $param_username =trim($_POST["username"]);        
         
-        if($stmt = $dbh->prepare($sql)){
-            // Bind variables to the prepared statement as parameters
-            $stmt->bindParam(':username', $param_username, PDO::PARAM_STR);
-            
-            // Set parameters
-           // $test = trim($_POST["username"]);
-            $param_username =trim($_POST["username"]);
+        // Bind variables to the prepared statement as parameters
+        $dbh->bind(':username', $param_username);
             // Attempt to execute the prepared statement
-            if($stmt->execute()){                
+            if($dbh->run()){              
                     // Check if username exists, if yes then verify password
-                    if($stmt->rowCount() == 1){
-                            if($row = $stmt->fetch()){
+                    if($dbh->rowCount() == 1){
+                            if($row = $dbh->SingleRow()){
                                 $hashed_password = $row['password'];
                                 if(password_verify($password, $hashed_password)){
                                     /* Password is correct, so start a new session and
@@ -74,10 +72,8 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
             } else{
                 echo "Oops! Something went wrong. Please try again later.";
             }
-        }
-        
         // Close statement
-        unset($stmt);
+        //unset($stmt);
     }
     
     // Close connection
