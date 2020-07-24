@@ -61,6 +61,11 @@ public function bind($param, $value, $type=null){
     $this->stmt->bindValue($param, $value, $type);
 }
 
+public function run()
+{
+    return $this->stmt->execute();
+}
+
 public function getDatabase(){
     return dirname(__DIR__, 1).'/data/init.sql';
 }
