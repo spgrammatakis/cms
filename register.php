@@ -19,16 +19,25 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     } else{
         // Prepare a select statement
         $sql = "SELECT user_id FROM users WHERE username = :username";
-        
-        if($pdo->prepareStmt($sql)){
-            // Bind variables to the prepared statement as parameters
-            $pdo->bind(':username', $param_username);
-
-            // Set parameters
-            $param_username = trim($_POST["username"]);
+        echo "outside 1st prepareStmt";
+        echo "<br>";      
+        $pdo->prepareStmt($sql);
+            echo "inside 1st prepareStmt";
+            echo "<br>";
+            
+            
+        // Set parameters
+        $param_username = trim($_POST["username"]);
+            
+        // Bind variables to the prepared statement as parameters
+        $pdo->bind(':username', $param_username);
+        echo $param_username;
+        echo "<br>";
 
             // Attempt to execute the prepared statement
             if($pdo->run()){
+                echo "inside run";
+                echo "<br>";
                 if($pdo->rowCount() == 1){
                     $username_err = "This username is already taken.";
                 } else{
@@ -37,7 +46,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
             } else{
                 echo "Oops! Something went wrong. Please try again later.";
             }
-        }
+        
          
         // Close statement
         //unset($pdo);
@@ -51,12 +60,14 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
             // Prepare a select statement
             $sql = "SELECT user_id FROM users WHERE email = :email";
             
-            if($pdo->prepareStmt($sql)){
-                // Bind variables to the prepared statement as parameters
-                $pdo->bind('email', $param_email);
-                
+            $pdo->prepareStmt($sql);
+                echo "inside email";
+                echo "<br>";
+
                 // Set parameters
                 $param_email = trim($_POST["email"]);
+                // Bind variables to the prepared statement as parameters
+                $pdo->bind('email', $param_email);
                 
                 // Attempt to execute the prepared statement
                 if($pdo->run()){
@@ -68,7 +79,6 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                 } else{
                     echo "Oops! Something went wrong. Please try again later.";
                 }
-            }
              
             // Close statement
            // unset($pdo);
@@ -99,18 +109,19 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
         // Prepare an insert statement
         $sql = "INSERT INTO users (username, password, email) VALUES (:username, :password, :email)";
         echo "outside last prepare";
-        if($pdo->prepareStmt($sql)){
+        $pdo->prepareStmt($sql);
             echo "inside last prepare";
+
+            // Set parameters
+            $param_username = ($username);
+            $param_password = password_hash($password, PASSWORD_DEFAULT); // Creates a password hash
+            $param_email    = ($email);
             // Bind variables to the prepared statement as parameters
             $pdo->bind(':username', $param_username);
             $pdo->bind(':password', $param_password);
             $pdo->bind(':email', $param_email);
             
-            // Set parameters
-            $param_username = ($username);
-            $param_password = password_hash($password, PASSWORD_DEFAULT); // Creates a password hash
-            $param_email    = ($email); 
-            echo $pdo;
+ 
             // Attempt to execute the prepared statement
             if($pdo->run()){
                 // Redirect to login page
@@ -118,7 +129,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
             } else{
                 echo "Something went wrong. Please try again later.";
             }
-        }
+        
          
         // Close statement
         //unset($pdo);
