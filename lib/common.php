@@ -142,7 +142,7 @@ public function redirectAndExit($script)
  */
 public function countCommentsForPost($postId)
 {
-    $pdo = getPDO();
+    $pdo = $this->dbh;
     $sql = " SELECT * FROM comments WHERE post_id = :post_id";
     $stmt = $pdo->prepare($sql);
     $stmt->execute(
