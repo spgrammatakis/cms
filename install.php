@@ -7,25 +7,21 @@
 function installBlog()
 {
     include_once 'lib/common.php';
-
-    $sql = file_get_contents(getDatabase());
-    $pdo = getPDO();
-    $pdo->exec($sql);
+    $pdo = new Connection();
+    $db = $pdo->getDatabase();
+    $sql = file_get_contents($db);
+    $pdo->prepareStmt($sql);
+    $pdo->run();
 
 // See how many rows we created, if any
 
     $sql = "SELECT * FROM posts";
-    $stmt = $pdo->query($sql);
-    if ($stmt)
-    {
-        $postCount = $stmt->rowCount();
-    }
+    $stmt = new Connection();
+    $pdo->prepareStmt($sql);
+    $postCount = $pdo->rowCount();
     $sql = "SELECT * FROM comments";
-    $stmt = $pdo->query($sql);
-    if ($stmt)
-    {
-        $commentCount = $stmt->rowCount();
-    }
+    $pdo->prepareStmt($sql);
+    $commentCount = $pdo->rowCount();
     return array($postCount, $commentCount);
 }
 ?>
