@@ -1,5 +1,5 @@
 <?php
-require_once 'lib/functions.php';
+require_once 'lib/common.php';
 // Get the post ID
 if (isset($_GET['post_id']))
 {

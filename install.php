@@ -6,7 +6,7 @@
  */
 function installBlog()
 {
-    include_once 'lib/functions.php';
+    include_once 'lib/common.php';
 
     $sql = file_get_contents(getDatabase());
     $pdo = getPDO();

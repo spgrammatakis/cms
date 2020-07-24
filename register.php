@@ -1,5 +1,5 @@
 <?php
-require './lib/functions.php';
+require './lib/common.php';
 $dbh = getPDO();
  
 // Define variables and initialize with empty values

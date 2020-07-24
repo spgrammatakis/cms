@@ -6,9 +6,9 @@
         <meta http-equiv="refresh" content="30">
     </head>
     <body>
-        <?php   require 'lib/functions.php'; 
+        <?php   require 'lib/common.php'; 
                 require 'templates/title.php';
-                $dbh = new Connection();
+                $dbh = new Connections();
                 $row = getAllPosts();
                 ?>
 
