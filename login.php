@@ -55,7 +55,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                                     $_SESSION['username'] = $username;
                                         if($param_username == admin){
                                             $_SESSION['user_role'] = 'admin';
-                                            header("location:./admin/admin.php");							
+                                            header("location:/admin/admin.php");							
                                         }
                                             else{
                                                 $_SESSION['user_role'] = 'user';

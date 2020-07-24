@@ -1,53 +1,69 @@
 <?php
 
-function getPDO(){
-$dsn = 'mysql:dbname=cms;host:127.0.0.1';
-$username = "admin";
-$password = "admin";
-$database = dirname(__DIR__, 1).'/data/init.sql';
+class Connection{
+private $host = "127.0.0.1";
+private $dbName = "cms";
+private $username = "admin";
+private $password = "admin";
+private $charset = 'utf8';
+//private $dsn = 'mysql:dbname=cms;host:127.0.0.1';
+//private $username = "admin";
+//private $password = "admin";
 
+private $dbh;
+private $error;
+private $stmt;
+
+public function __construct(){
+    $dsn     = "mysql:host=" . $this->host . ";dbname=" . $this->dbName . ";charset=" . $this->charset;  
+    $options = array(
+        PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
+        PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
+        PDO::ATTR_EMULATE_PREPARES => false     
+    );
 try{
-	$conn = new PDO($dsn,$username,$password);
-    $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+	$this->dbh = new PDO($dsn, $this->username, $this->password, $options);
 }
 catch(PDOException $e)
 {
+    $this->error = $e->getMessage();
     echo "Connection failed: " . $e->getMessage();
 	die();
  }
-    return $conn;
-}?>
 
-<?php
-function getDatabase(){
+}//EOF CONSTRUCTOR
+
+public function getPDO(){
+    return $this->dbh; 
+}
+
+
+
+
+public function getDatabase(){
     return dirname(__DIR__, 1).'/data/init.sql';
 }
-?>
 
-<?php
-function htmlEscape($html)
+
+public function htmlEscape($html)
 {
     return htmlentities($html, ENT_HTML5, 'UTF-8');
 }
-?>
 
-<?php
-function convertSqlDate($sqlDate)
+public function convertSqlDate($sqlDate)
 {
     /* @var $date DateTime */
     $date = DateTime::createFromFormat('Y-m-d H:i:s', $sqlDate);
     return $date->format('Y-m-d H:i:s');
 }
-?>
 
-<?php
 /**
  * Returns the post row
  *
  * @param pdo $pdo
  * @param integer $postId
  */
-function getPostRow(PDO $pdo, $postId)
+public function getPostRow(PDO $pdo, $postId)
 {
     $stmt = $pdo->prepare(
         'SELECT
@@ -73,10 +89,8 @@ function getPostRow(PDO $pdo, $postId)
     $row = $stmt->fetch(PDO::FETCH_ASSOC);
     return $row;
 }
-?>
 
-<?php
-function redirectAndExit($script)
+public function redirectAndExit($script)
 {
     // Get the domain-relative URL (e.g. /blog/whatever.php or /whatever.php) and work
     // out the folder (e.g. /blog/ or /).
@@ -88,16 +102,14 @@ function redirectAndExit($script)
     header('Location: ' . $fullUrl);
     exit();
 }
-?>
 
-<?php
 /**
  * Returns the number of comments for the specified post
  *
  * @param integer $postId
  * @return integer
  */
-function countCommentsForPost($postId)
+public function countCommentsForPost($postId)
 {
     $pdo = getPDO();
     $sql = " SELECT * FROM comments WHERE post_id = :post_id";
@@ -107,30 +119,24 @@ function countCommentsForPost($postId)
     );
     return (int) $stmt->rowCount();
 }
-?>
 
-<?php
-function getSqlDateForNow()
+public function getSqlDateForNow()
 {
     return date('Y-m-d H:i:s');
 }
-?>
 
-<?php
 /**
  * Converts unsafe text to safe, paragraphed, HTML
  *
  * @param string $text
  * @return string
  */
-function convertNewlinesToParagraphs($text)
+public function convertNewlinesToParagraphs($text)
 {
     $escaped = htmlEscape($text);
     return '<p>' . str_replace("\n", "</p><p>", $escaped) . '</p>';
 }
-?>
 
-<?php
 /**
  * Writes a comment to a particular post
  *
@@ -139,7 +145,7 @@ function convertNewlinesToParagraphs($text)
  * @param array $commentData
  * @return array
  */
-function addCommentToPost(PDO $pdo, $postId, array $commentData)
+public function addCommentToPost(PDO $pdo, $postId, array $commentData)
 {
     $errors = array();
     // Do some validation
@@ -183,15 +189,13 @@ function addCommentToPost(PDO $pdo, $postId, array $commentData)
         }
     }
     return $errors;
-}?>
-
-<?php
+}
 /**
  * Gets All Posts
  *
  *@return pdo $row
  */
-function getAllPosts(){
+public function getAllPosts(){
     $pdo = getPDO();
 	try {
         $getPosts = $pdo->prepare("SELECT * FROM posts");
@@ -204,15 +208,13 @@ function getAllPosts(){
         die();
      }
     return $row;
-}?>
-
-<?php
+    }
 /**
  * Returns all the comments for the specified post
  *
  * @param integer $postId
  */
-function getCommentsForPost($postId)
+public function getCommentsForPost($postId)
 {
     $pdo = getPDO();
     $sql = "
@@ -228,10 +230,8 @@ function getCommentsForPost($postId)
     );
     return $stmt->fetchAll(PDO::FETCH_ASSOC);
 }
-?>
 
-<?php 
-function tryLogin(PDO $pdo, $username, $password)
+public function tryLogin(PDO $pdo, $username, $password)
 {
     $sql = "
         SELECT
@@ -264,4 +264,7 @@ function login($username)
     session_regenerate_id();
     $_SESSION['logged_in_username'] = $username;
 }
+}
+
+//EOF CONNECTION CLASS
 ?>

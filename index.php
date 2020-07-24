@@ -8,6 +8,7 @@
     <body>
         <?php   require 'lib/functions.php'; 
                 require 'templates/title.php';
+                $dbh = new Connection();
                 $row = getAllPosts();
                 ?>
 
