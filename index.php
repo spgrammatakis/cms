@@ -3,13 +3,14 @@
     <head>
         <title>A blog application</title>
         <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
-        <meta http-equiv="refresh" content="30">
+        <meta http-equiv="refresh" content="5">
     </head>
     <body>
-        <?php   require 'lib/common.php'; 
-                require 'templates/title.php';
-                $dbh = new Connections();
-                $row = getAllPosts();
+        <?php   
+        require 'lib/common.php'; 
+        require 'templates/title.php';
+        $row = new Connection();
+        $row->getAllPosts();
                 ?>
 
         <?php foreach($row as $row): ?>

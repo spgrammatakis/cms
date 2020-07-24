@@ -37,8 +37,29 @@ public function getPDO(){
     return $this->dbh; 
 }
 
+public function insertUserValues($query){
+    $this->stmt = $this->dbh->prepare($query);
+}
 
-
+public function bind($param, $value, $type=null){
+    if (is_null($type)) {
+        switch (true) {
+            case is_int($value):
+                $type = PDO::PARAM_INT;
+                break;
+            case is_bool($value):
+                $type = PDO::PARAM_BOOL;
+                break;
+            case is_null($value):
+                $type = PDO::PARAM_NULL;
+                break;
+            default:
+                $type = PDO::PARAM_STR;
+        }
+    }
+    //actual value binding
+    $this->stmt->bindValue($param, $value, $type);
+}
 
 public function getDatabase(){
     return dirname(__DIR__, 1).'/data/init.sql';
@@ -196,7 +217,7 @@ public function addCommentToPost(PDO $pdo, $postId, array $commentData)
  *@return pdo $row
  */
 public function getAllPosts(){
-    $pdo = getPDO();
+    $pdo = $this->dbh;
 	try {
         $getPosts = $pdo->prepare("SELECT * FROM posts");
         $getPosts->execute();
