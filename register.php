@@ -1,6 +1,7 @@
 <?php
 require './lib/common.php';
-$dbh = getPDO();
+$pdo = new Connection();
+
  
 // Define variables and initialize with empty values
 $username = $password = $confirm_password = $email ="";
@@ -8,24 +9,27 @@ $username_err = $password_err = $confirm_password_err = $email_err  ="";
  
 // Processing form data when form is submitted
 if($_SERVER["REQUEST_METHOD"] == "POST"){
- 
+    echo "past post";
+    echo "<br>";
     // Validate username
     if(empty(trim($_POST["username"]))){
+        echo "empty user";
+        echo "<br>";
         $username_err = "Please enter a username.";
     } else{
         // Prepare a select statement
         $sql = "SELECT user_id FROM users WHERE username = :username";
         
-        if($stmt = $dbh->prepare($sql)){
+        if($pdo->prepareStmt($sql)){
             // Bind variables to the prepared statement as parameters
-            $stmt->bindParam(':username', $param_username, PDO::PARAM_STR);
-            
+            $pdo->bind(':username', $param_username);
+
             // Set parameters
             $param_username = trim($_POST["username"]);
-            
+
             // Attempt to execute the prepared statement
-            if($stmt->execute()){
-                if($stmt->rowCount() == 1){
+            if($pdo->run()){
+                if($pdo->rowCount() == 1){
                     $username_err = "This username is already taken.";
                 } else{
                     $username = trim($_POST["username"]);
@@ -36,7 +40,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
         }
          
         // Close statement
-        unset($stmt);
+        //unset($pdo);
     }
         //Validate email
         if(empty(trim($_POST["email"]))){
@@ -47,16 +51,16 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
             // Prepare a select statement
             $sql = "SELECT user_id FROM users WHERE email = :email";
             
-            if($stmt = $dbh->prepare($sql)){
+            if($pdo->prepareStmt($sql)){
                 // Bind variables to the prepared statement as parameters
-                $stmt->bindParam('email', $param_email, PDO::PARAM_STR);
+                $pdo->bind('email', $param_email);
                 
                 // Set parameters
                 $param_email = trim($_POST["email"]);
                 
                 // Attempt to execute the prepared statement
-                if($stmt->execute()){
-                    if($stmt->rowCount() == 1){
+                if($pdo->run()){
+                    if($pdo->rowCount() == 1){
                         $email_err = "This email is already taken.";
                     } else{
                         $email = trim($_POST["email"]);
@@ -67,7 +71,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
             }
              
             // Close statement
-            unset($stmt);
+           // unset($pdo);
          }
     
     // Validate password
@@ -94,20 +98,21 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
         
         // Prepare an insert statement
         $sql = "INSERT INTO users (username, password, email) VALUES (:username, :password, :email)";
-         
-        if($stmt = $dbh->prepare($sql)){
+        echo "outside last prepare";
+        if($pdo->prepareStmt($sql)){
+            echo "inside last prepare";
             // Bind variables to the prepared statement as parameters
-            $stmt->bindParam(':username', $param_username, PDO::PARAM_STR);
-            $stmt->bindParam(':password', $param_password, PDO::PARAM_STR);
-            $stmt->bindParam(':email', $param_email, PDO::PARAM_STR);
+            $pdo->bind(':username', $param_username);
+            $pdo->bind(':password', $param_password);
+            $pdo->bind(':email', $param_email);
             
             // Set parameters
             $param_username = ($username);
             $param_password = password_hash($password, PASSWORD_DEFAULT); // Creates a password hash
             $param_email    = ($email); 
-            
+            echo $pdo;
             // Attempt to execute the prepared statement
-            if($stmt->execute()){
+            if($pdo->run()){
                 // Redirect to login page
                 header("location: login.php");
             } else{
@@ -116,11 +121,11 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
         }
          
         // Close statement
-        unset($stmt);
+        //unset($pdo);
     }
     
     // Close connection
-    unset($dbh);
+    //unset($pdo);
 }
 ?>
  
