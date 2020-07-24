@@ -237,7 +237,7 @@ public function SingleRow(){
  */
 public function getCommentsForPost($postId)
 {
-    $pdo = getPDO();
+    $pdo = $this->dbh;
     $sql = "
         SELECT
             comment_id, user_name, content, created_at, website
