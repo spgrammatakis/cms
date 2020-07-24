@@ -37,7 +37,7 @@ public function getPDO(){
     return $this->dbh; 
 }
 
-public function insertUserValues($query){
+public function prepareStmt($query){
     $this->stmt = $this->dbh->prepare($query);
 }
 
@@ -64,6 +64,11 @@ public function bind($param, $value, $type=null){
 public function run()
 {
     return $this->stmt->execute();
+}
+
+public function All(){
+    $this->run();
+    return $this->stmt->fetchall();
 }
 
 public function getDatabase(){
@@ -221,19 +226,9 @@ public function addCommentToPost(PDO $pdo, $postId, array $commentData)
  *
  *@return pdo $row
  */
-public function getAllPosts(){
-    $pdo = $this->dbh;
-	try {
-        $getPosts = $pdo->prepare("SELECT * FROM posts");
-        $getPosts->execute();
-        $row =$getPosts->fetchAll();
-        }
-        catch(PDOException $e)
-    {
-        echo "Connection failed: " . $e->getMessage();
-        die();
-     }
-    return $row;
+public function SingleRow(){
+    $this->run();
+    return $this->stmt->fetch();
     }
 /**
  * Returns all the comments for the specified post
