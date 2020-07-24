@@ -33,10 +33,6 @@ catch(PDOException $e)
 
 }//EOF CONSTRUCTOR
 
-public function getPDO(){
-    return $this->dbh; 
-}
-
 public function prepareStmt($query){
     $this->stmt = $this->dbh->prepare($query);
 }
