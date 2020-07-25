@@ -12,8 +12,7 @@
         $conn = new Connection();
         $conn->prepareStmt("SELECT * FROM posts");
         $row  = $conn->All();
-        print_r($row);
-                ?>
+        ?>
         
         <?php foreach($row as $row): ?>
             <h2>
