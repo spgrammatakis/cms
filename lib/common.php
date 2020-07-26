@@ -174,15 +174,11 @@ public function addCommentToPost($postId, array $commentData)
             (user_name, website, content, created_at, post_id)
             VALUES(:user_name, :website, :content, :created_at, :post_id)
         ";
-        print_r($commentData);
-        print("</br>");
         $commentData = array_merge(
                 $commentData,
                 array('post_id' => $postId, 'created_at' => getSqlDateForNow())
             );
         $this->prepareStmt($sql);
-        print_r($commentData);
-        print("</br>");
         $this->runArray($commentData);
         if ($result === false)
         {
