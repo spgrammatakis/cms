@@ -51,7 +51,11 @@ if ($_POST)
 
 // Swap carriage returns for paragraph breaks
 $bodyText = $dbh->htmlEscape($row['body']);
+echo "</br>";
 $paraText = str_replace("\n", "</p><p>", $bodyText);
+print_r($paraText);
+echo "</br>";
+
 ?>
 <!DOCTYPE html>
 <html>
@@ -74,7 +78,7 @@ $paraText = str_replace("\n", "</p><p>", $bodyText);
         <p>
         <?php echo $paraText ?>
         </p>
-        <h3><?php echo countCommentsForPost($postId) ?> comments</h3>
+        <h3><?php echo $dbh->countCommentsForPost($postId) ?> comments</h3>
         <?php foreach (getCommentsForPost($postId) as $comment): ?>
             <?php // For now, we'll use a horizontal rule-off to split it up a bit ?>
             <hr />

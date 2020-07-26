@@ -123,13 +123,9 @@ public function getPostRow($postId)
  */
 public function countCommentsForPost($postId)
 {
-    $pdo = $this->dbh;
-    $sql = " SELECT * FROM comments WHERE post_id = :post_id";
-    $stmt = $pdo->prepare($sql);
-    $stmt->execute(
-        array('post_id' => $postId, )
-    );
-    return (int) $stmt->rowCount();
+    $this->prepareStmt('SELECT * FROM comments WHERE post_id = :post_id');
+    $this->bind('post_id',$postId);
+    return (int) $this->rowCount();
 }
 
 public function getSqlDateForNow()
