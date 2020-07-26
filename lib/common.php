@@ -94,25 +94,22 @@ public function convertSqlDate($sqlDate)
  */
 public function getPostRow($postId)
 {
-    $sql ="SELECT title, created_at, body FROM posts WHERE post_id = $postId";
+    $sql ="SELECT title, body, created_at FROM posts WHERE post_id = $postId";
     $this->prepareStmt($sql);
-    $this->bind("post_id",$postId);
+    $this->bind(':post_id',$postId);
     // Let's get a row
     $this->SingleRow();
 }
 
-public function redirectAndExit($script)
-{
-    // Get the domain-relative URL (e.g. /blog/whatever.php or /whatever.php) and work
-    // out the folder (e.g. /blog/ or /).
-    $relativeUrl = $_SERVER['PHP_SELF'];
-    $urlFolder = substr($relativeUrl, 0, strrpos($relativeUrl, '/') + 1);
-    // Redirect to the full URL 
-    $host = $_SERVER['HTTP_HOST'];
-    $fullUrl = 'http://' . $host . $urlFolder . $script;
-    header('Location: ' . $fullUrl);
-    exit();
-}
+/**
+ * Gets Single Row
+ *
+ *@return pdo $row
+ */
+public function SingleRow(){
+    $this->run();
+    return $this->stmt->fetch();
+    }
 
 /**
  * Returns the number of comments for the specified post
@@ -201,15 +198,7 @@ public function addCommentToPost(PDO $pdo, $postId, array $commentData)
     }
     return $errors;
 }
-/**
- * Gets Single Row
- *
- *@return pdo $row
- */
-public function SingleRow(){
-    $this->run();
-    return $this->stmt->fetch();
-    }
+
 /**
  * Returns all the comments for the specified post
  *
@@ -231,6 +220,8 @@ public function getCommentsForPost($postId)
     );
     return $stmt->fetchAll(PDO::FETCH_ASSOC);
 }
+
+
 
 public function tryLogin(PDO $pdo, $username, $password)
 {
@@ -268,4 +259,18 @@ function login($username)
 }
 
 //EOF CONNECTION CLASS
+?>
+<?php
+function redirectAndExit($script)
+{
+    // Get the domain-relative URL (e.g. /blog/whatever.php or /whatever.php) and work
+    // out the folder (e.g. /blog/ or /).
+    $relativeUrl = $_SERVER['PHP_SELF'];
+    $urlFolder = substr($relativeUrl, 0, strrpos($relativeUrl, '/') + 1);
+    // Redirect to the full URL 
+    $host = $_SERVER['HTTP_HOST'];
+    $fullUrl = 'http://' . $host . $urlFolder . $script;
+    header('Location: ' . $fullUrl);
+    exit();
+}
 ?>

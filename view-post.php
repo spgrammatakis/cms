@@ -12,13 +12,13 @@ else
 }
 
 // Connect to the database, run a query, handle errors
-$pdo = new Connection();
-$pdo->getPostRow($postId);
-echo "done";
+$dbh = new Connection();
+$row = $dbh->getPostRow($postId);
+print_r($row);
 if (!$row)
 {
-    echo $postId;
-    redirectAndExit('index.php?not-found=1');
+    echo "!row";
+    //redirectAndExit('index.php?not-found=1');
 }
 
 $errors = null;
@@ -50,7 +50,7 @@ if ($_POST)
 
 
 // Swap carriage returns for paragraph breaks
-$bodyText = htmlEscape($row['body']);
+$bodyText = $dbh->htmlEscape($row['body']);
 $paraText = str_replace("\n", "</p><p>", $bodyText);
 ?>
 <!DOCTYPE html>
