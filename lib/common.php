@@ -92,31 +92,13 @@ public function convertSqlDate($sqlDate)
  * @param pdo $pdo
  * @param integer $postId
  */
-public function getPostRow(PDO $pdo, $postId)
+public function getPostRow($postId)
 {
-    $stmt = $pdo->prepare(
-        'SELECT
-            title, created_at, body
-        FROM
-            posts
-        WHERE
-            post_id = :post_id'
-    );
-    if ($stmt === false)
-    {
-        throw new Exception('There was a problem preparing this query');
-    }
-    $result = $stmt->execute(
-        array('post_id' => $postId)
-    );
-    if ($result === false)
-    {
-        throw new Exception('There was a problem running this query');    
-    }
-    
+    $sql ="SELECT title, created_at, body FROM posts WHERE post_id = $postId";
+    $this->prepareStmt($sql);
+    $this->bind("post_id",$postId);
     // Let's get a row
-    $row = $stmt->fetch(PDO::FETCH_ASSOC);
-    return $row;
+    $this->SingleRow();
 }
 
 public function redirectAndExit($script)

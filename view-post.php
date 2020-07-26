@@ -12,9 +12,9 @@ else
 }
 
 // Connect to the database, run a query, handle errors
-$pdo = getPDO();
-$row = getPostRow($pdo, $postId);
-
+$pdo = new Connection();
+$pdo->getPostRow($postId);
+echo "done";
 if (!$row)
 {
     echo $postId;
