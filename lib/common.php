@@ -94,11 +94,13 @@ public function convertSqlDate($sqlDate)
  */
 public function getPostRow($postId)
 {
-    $sql ="SELECT title, body, created_at FROM posts WHERE post_id = $postId";
+    $sql ="SELECT title, body, created_at FROM posts WHERE post_id = :post_id";
     $this->prepareStmt($sql);
     $this->bind(':post_id',$postId);
     // Let's get a row
-    $this->SingleRow();
+    $this->run();
+    return $this->stmt->fetch();
+    //$this->SingleRow();
 }
 
 /**
