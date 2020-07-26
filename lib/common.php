@@ -253,7 +253,9 @@ function login($username)
 
 //EOF CONNECTION CLASS
 ?>
+
 <?php
+// COMMOM FUNCTIONS
 function redirectAndExit($script)
 {
     // Get the domain-relative URL (e.g. /blog/whatever.php or /whatever.php) and work
