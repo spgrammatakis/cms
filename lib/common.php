@@ -249,8 +249,36 @@ function login($username)
     session_regenerate_id();
     $_SESSION['logged_in_username'] = $username;
 }
+public function addPost(){
+session_start();
+if(!isset($_SESSION['user_role']) || $_SESSION['user_role'] != 'admin') {
+     echo '<h1>You are not an authorised user</h1>';
+     //maybe redirect to login page
+     die();
+}
+if (isset($_GET['submit'])) {
+    $title = $_GET['title'];
+    $body = $_GET['body'];
+}
+try {
+    $title = $_GET['title'];
+    $summary = $_GET['summary'];
+    $body = $_GET['body'];
+    $sql = "INSERT INTO posts(title, body
+            VALUES (':title', ':body')))";
+    $this->prepareStmt($sql);
+    $this->bind(':title',$title);
+    $this->bind(':body',$body);
+    $this->run();
+
+}
+    catch (PDOException $e) {
+        exit("Connection failed: " . $e->getMessage());
+    }
+$this->redirectAndExit('index.php');
 }
 
+}
 //EOF CONNECTION CLASS
 ?>
 
