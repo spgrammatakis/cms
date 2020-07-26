@@ -104,10 +104,14 @@ public function getPostRow($postId)
 /**
  * Gets Single Row
  *
- *@return pdo $row
+ *
  */
 public function SingleRow(){
+    echo "in single row";
+    echo "<br>";
     $this->run();
+    echo " after run";
+    echo "<br>";
     return $this->stmt->fetch();
     }
 
