@@ -18,7 +18,7 @@ print_r($row);
 if (!$row)
 {
     echo "!row";
-    //redirectAndExit('index.php?not-found=1');
+    redirectAndExit('index.php?not-found=1');
 }
 
 $errors = null;

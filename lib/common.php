@@ -86,6 +86,7 @@ public function convertSqlDate($sqlDate)
     return $date->format('Y-m-d H:i:s');
 }
 
+
 /**
  * Returns the post row
  *
@@ -100,22 +101,19 @@ public function getPostRow($postId)
     // Let's get a row
     $this->run();
     return $this->stmt->fetch();
-    //$this->SingleRow();
 }
 
 /**
  * Gets Single Row
- *
+ *@return fetchArray    
  *
  */
-public function SingleRow(){
-    echo "in single row";
-    echo "<br>";
+/* public function SingleRow(){
+    echo "in single row <br>";
     $this->run();
-    echo " after run";
-    echo "<br>";
+    echo " after run <br>";
     return $this->stmt->fetch();
-    }
+    } */
 
 /**
  * Returns the number of comments for the specified post
