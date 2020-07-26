@@ -55,8 +55,13 @@ public function bind($param, $value, $type=null){
 }
 
 public function run()
-{
+{   
     return $this->stmt->execute();
+}
+
+public function runArray($data)
+{   
+    return $this->stmt->execute($data);
 }
 
 public function All(){
@@ -169,19 +174,16 @@ public function addCommentToPost($postId, array $commentData)
             (user_name, website, content, created_at, post_id)
             VALUES(:user_name, :website, :content, :created_at, :post_id)
         ";
-        $stmt = $this->prepareStmt($sql);
-        print_r($stmt);
-        if (!($stmt))
-        {
-            throw new Exception('Cannot prepare statement to insert comment');
-        }
-
-        $result = $this->run(
-            array_merge(
+        print_r($commentData);
+        print("</br>");
+        $commentData = array_merge(
                 $commentData,
                 array('post_id' => $postId, 'created_at' => getSqlDateForNow())
-            )
-        );
+            );
+        $this->prepareStmt($sql);
+        print_r($commentData);
+        print("</br>");
+        $this->runArray($commentData);
         if ($result === false)
         {
             $errorInfo = $this->errorInfo();
