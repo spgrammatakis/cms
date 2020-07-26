@@ -128,11 +128,6 @@ public function countCommentsForPost($postId)
     return (int) $this->rowCount();
 }
 
-public function getSqlDateForNow()
-{
-    return date('Y-m-d H:i:s');
-}
-
 /**
  * Converts unsafe text to safe, paragraphed, HTML
  *
@@ -153,7 +148,7 @@ public function convertNewlinesToParagraphs($text)
  * @param array $commentData
  * @return array
  */
-public function addCommentToPost(PDO $pdo, $postId, array $commentData)
+public function addCommentToPost($postId, array $commentData)
 {
     $errors = array();
     // Do some validation
@@ -174,13 +169,14 @@ public function addCommentToPost(PDO $pdo, $postId, array $commentData)
             (user_name, website, content, created_at, post_id)
             VALUES(:user_name, :website, :content, :created_at, :post_id)
         ";
-        $stmt = $pdo->prepare($sql);
-        if ($stmt === false)
+        $stmt = $this->prepareStmt($sql);
+        print_r($stmt);
+        if (!($stmt))
         {
             throw new Exception('Cannot prepare statement to insert comment');
         }
 
-        $result = $stmt->execute(
+        $result = $this->run(
             array_merge(
                 $commentData,
                 array('post_id' => $postId, 'created_at' => getSqlDateForNow())
@@ -188,8 +184,7 @@ public function addCommentToPost(PDO $pdo, $postId, array $commentData)
         );
         if ($result === false)
         {
-            // @todo This renders a database-level message to the user, fix this
-            $errorInfo = $stmt->errorInfo();
+            $errorInfo = $this->errorInfo();
             if ($errorInfo)
             {
                 $errors[] = $errorInfo[2];
@@ -273,4 +268,10 @@ function redirectAndExit($script)
     header('Location: ' . $fullUrl);
     exit();
 }
+
+function getSqlDateForNow()
+{
+    return date('Y-m-d H:i:s');
+}
 ?>
+

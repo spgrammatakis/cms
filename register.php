@@ -19,11 +19,9 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     } else{
         // Prepare a select statement
         $sql = "SELECT user_id FROM users WHERE username = :username";
-        echo "outside 1st prepareStmt";
-        echo "<br>";      
+    
         $pdo->prepareStmt($sql);
-            echo "inside 1st prepareStmt";
-            echo "<br>";
+
             
             
         // Set parameters
