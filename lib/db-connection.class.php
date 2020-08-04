@@ -25,4 +25,8 @@ class Db_Connection{
    }
     
     }//EOF CONSTRUCTOR   
+
+    public function getPDO(){
+        return $this->pdo;
+    }
 }
