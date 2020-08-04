@@ -1,5 +1,7 @@
 <?php
 
+require 'common-functions.php';
+
 class Connection{
 private $host = "127.0.0.1";
 private $dbName = "cms";
@@ -57,6 +59,7 @@ public function bind($param, $value, $type=null){
 public function run()
 {   
     return $this->stmt->execute();
+
 }
 
 public function runArray($data)
@@ -113,12 +116,10 @@ public function getPostRow($postId)
  *@return fetchArray    
  *
  */
-/* public function SingleRow(){
-    echo "in single row <br>";
+public function SingleRow(){
     $this->run();
-    echo " after run <br>";
     return $this->stmt->fetch();
-    } */
+    } 
 
 /**
  * Returns the number of comments for the specified post
