@@ -92,7 +92,8 @@ $paraText = str_replace("\n", "</p><p>", $bodyText);
                 <div class="comment-website">
                     <?php echo $dbh->htmlEscape($comment['website']) ?>
                 </div>
-            </div>
+                <button class="btn" onclick="window.location.href='/lib/edit-post.php?post_id='">Edit Post</button>
+                </div>
             </div>
         <?php endforeach ?>
         <?php require 'templates/comment-form.php' ?>
