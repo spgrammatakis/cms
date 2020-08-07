@@ -79,7 +79,7 @@ $paraText = str_replace("\n", "</p><p>", $bodyText);
         <?php foreach ($dbh->getCommentsForPost($postId) as $comment): ?>
             <?php // For now, we'll use a horizontal rule-off to split it up a bit ?>
             <hr style='border: 5px solid red;'>
-        <?php echo "<div class='comment-" . $comment['comment_id']."'>"; ?>
+        <?php echo "<div class='comment' id='" . $comment['comment_id']."'>"; ?>
                 <div class="comment-meta">
                     Comment from
                     <?php echo $dbh->htmlEscape($comment['user_name']) ?>
@@ -92,10 +92,18 @@ $paraText = str_replace("\n", "</p><p>", $bodyText);
                 <div class="comment-website">
                     <?php echo $dbh->htmlEscape($comment['website']) ?>
                 </div>
-                <button class="btn" onclick="window.location.href='/lib/edit-post.php?post_id='">Edit Post</button>
                 </div>
-            </div>
+
+            <button id="1" onclick="window.location.href='/lib/edit-post.php?post_id='">Edit</button>
+            <button id="1" onClick="myfunction(this)">Js</button>
         <?php endforeach ?>
+        </div>
         <?php require 'templates/comment-form.php' ?>
+        <script>
+        function myfunction(obj) {
+        var x = obj.parentNode.getAttribute('id');
+        alert(x);
+        }
+        </script>
     </body>
 </html>
