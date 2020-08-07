@@ -30,7 +30,7 @@ catch(PDOException $e)
 	die();
  }
 
-}//EOF CONSTRUCTOR
+}
 
 public function prepareStmt($query){
     $this->stmt = $this->dbh->prepare($query);
@@ -52,7 +52,6 @@ public function bind($param, $value, $type=null){
                 $type = PDO::PARAM_STR;
         }
     }
-    //actual value binding
     $this->stmt->bindValue($param, $value, $type);
 }
 
@@ -89,18 +88,10 @@ public function htmlEscape($html)
 
 public function convertSqlDate($sqlDate)
 {
-    /* @var $date DateTime */
     $date = DateTime::createFromFormat('Y-m-d H:i:s', $sqlDate);
     return $date->format('Y-m-d H:i:s');
 }
 
-
-/**
- * Returns the post row
- *
- * @param pdo $pdo
- * @param integer $postId
- */
 public function getPostRow($postId)
 {
     $sql ="SELECT title, body, created_at FROM posts WHERE post_id = :post_id";
@@ -111,22 +102,11 @@ public function getPostRow($postId)
     return $this->stmt->fetch();
 }
 
-/**
- * Gets Single Row
- *@return fetchArray    
- *
- */
 public function SingleRow(){
     $this->run();
     return $this->stmt->fetch();
     } 
 
-/**
- * Returns the number of comments for the specified post
- *
- * @param integer $postId
- * @return integer
- */
 public function countCommentsForPost($postId)
 {
     $this->prepareStmt('SELECT * FROM comments WHERE post_id = :post_id');
@@ -134,26 +114,14 @@ public function countCommentsForPost($postId)
     return (int) $this->rowCount();
 }
 
-/**
- * Converts unsafe text to safe, paragraphed, HTML
- *
- * @param string $text
- * @return string
- */
+
 public function convertNewlinesToParagraphs($text)
 {
     $escaped = htmlEscape($text);
     return '<p>' . str_replace("\n", "</p><p>", $escaped) . '</p>';
 }
 
-/**
- * Writes a comment to a particular post
- *
- * @param PDO $pdo
- * @param integer $postId
- * @param array $commentData
- * @return array
- */
+
 public function addCommentToPost($postId, array $commentData)
 {
     $errors = array();
@@ -193,11 +161,6 @@ public function addCommentToPost($postId, array $commentData)
     return $errors;
 }
 
-/**
- * Returns all the comments for the specified post
- *
- * @param integer $postId
- */
 public function getCommentsForPost($postId)
 {
     $pdo = $this->dbh;
@@ -214,8 +177,6 @@ public function getCommentsForPost($postId)
     );
     return $stmt->fetchAll(PDO::FETCH_ASSOC);
 }
-
-
 
 public function tryLogin(PDO $pdo, $username, $password)
 {
@@ -264,7 +225,12 @@ try {
     }
 $this->redirectAndExit('index.php');
 }
-
+public function delete($commentid){
+    $stmt = $this->db->prepare("DELETE FROM posts WHERE id=:id");
+    $stmt->bindparam(":id",$commentid);
+    $stmt->execute();
+    return true;
+   }
 }
-//EOF CONNECTION CLASS
+
 ?>

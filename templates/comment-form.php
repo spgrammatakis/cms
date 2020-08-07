@@ -1,21 +1,4 @@
-<?php // We'll use a rule-off for now, to separate page sections 
-/**
- * @var $errors string
- * @var $commentData array
- */
-?>
-
-<hr />
-<?php // Report any errors in a bullet-point list ?>
-<?php if ($errors): ?>
-    <div style="border: 1px solid #ff6666; padding: 6px;">
-        <ul>
-            <?php foreach ($errors as $error): ?>
-                <li><?php echo $error ?></li>
-            <?php endforeach ?>
-        </ul>
-    </div>
-<?php endif ?>
+<hr style='border: 5px solid red;'>
 <h3>Add your comment</h3>
 <form method="post">
     <p>

@@ -78,8 +78,8 @@ $paraText = str_replace("\n", "</p><p>", $bodyText);
         <h3><?php echo $dbh->countCommentsForPost($postId) ?> comments</h3>
         <?php foreach ($dbh->getCommentsForPost($postId) as $comment): ?>
             <?php // For now, we'll use a horizontal rule-off to split it up a bit ?>
-            <hr />
-            <div class="comment">
+            <hr style='border: 5px solid red;'>
+        <?php echo "<div class='comment-" . $comment['comment_id']."'>"; ?>
                 <div class="comment-meta">
                     Comment from
                     <?php echo $dbh->htmlEscape($comment['user_name']) ?>
@@ -92,6 +92,7 @@ $paraText = str_replace("\n", "</p><p>", $bodyText);
                 <div class="comment-website">
                     <?php echo $dbh->htmlEscape($comment['website']) ?>
                 </div>
+            </div>
             </div>
         <?php endforeach ?>
         <?php require 'templates/comment-form.php' ?>
