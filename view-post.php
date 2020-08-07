@@ -92,16 +92,16 @@ $paraText = str_replace("\n", "</p><p>", $bodyText);
                 <div class="comment-website">
                     <?php echo $dbh->htmlEscape($comment['website']) ?>
                 </div>
-                </div>
-        <?php echo "<div id='button". $comment['comment_id']."'>"; ?>
+        <?php //echo "<div id='button". $comment['comment_id']."'>"; ?>
         <button id='btn' onClick="myfunction(this)">Js</button>
-        <div>
+        <!-- <div> -->
+        </div>
         <?php endforeach ?>
         </div>
         <?php require 'templates/comment-form.php' ?>
         <script>
         function myfunction(obj) {
-        var x = obj.parentNode.id;
+        var x = obj.parentElement.id;
         alert(x);
         }
         </script>
