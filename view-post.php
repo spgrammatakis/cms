@@ -93,13 +93,16 @@ $paraText = str_replace("\n", "</p><p>", $bodyText);
                     <?php echo $dbh->htmlEscape($comment['website']) ?>
                 </div>
                 </div>
-            <button id='btn' onClick="myfunction(this)">Js</button>
+        <?php echo "<div id='button". $comment['comment_id']."'>"; ?>
+        <button id='btn' onClick="myfunction(this)">Js</button>
+        <div>
         <?php endforeach ?>
         </div>
         <?php require 'templates/comment-form.php' ?>
         <script>
         function myfunction(obj) {
-        alert(obj.text);
+        var x = obj.parentNode.id;
+        alert(x);
         }
         </script>
     </body>
