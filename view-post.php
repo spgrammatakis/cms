@@ -103,6 +103,7 @@ $paraText = str_replace("\n", "</p><p>", $bodyText);
         function myfunction(obj) {
         var x = obj.parentElement.id;
         alert(x);
+        window.location.href = "./lib/edit_post.php?post_id=" + x;
         }
         </script>
     </body>
