@@ -1,5 +1,5 @@
 <?php
-require 'lib/common.php';
+//require 'lib/common.php';
 // Get the post ID
 if (isset($_GET['post_id']))
 {
@@ -12,8 +12,8 @@ else
 }
 
 // Connect to the database, run a query, handle errors
-$dbh = new Connection();
-$row = $dbh->getPostRow($postId);
+$pdo = new Connection();
+$row = $pdo->getPostRow($postId);
 
 if (!$row)
 {
@@ -28,7 +28,7 @@ if ($_POST)
         'website' => $_POST['comment-website'],
         'content' => $_POST['comment-text'],
     );
-    $errors = $dbh->addCommentToPost(
+    $errors = $pdo->addCommentToPost(
         $postId,
         $commentData
     );
@@ -46,13 +46,6 @@ if ($_POST)
     );
 }
 
-
-// Swap carriage returns for paragraph breaks
-$bodyText = $dbh->htmlEscape($row['body']);
-
-$paraText = str_replace("\n", "</p><p>", $bodyText);
-
-
 ?>
 <!DOCTYPE html>
 <html>
@@ -60,42 +53,48 @@ $paraText = str_replace("\n", "</p><p>", $bodyText);
     <script type="text/javascript" src="./js/get-parent-id.js"></script>
         <title>
             A blog application |
-            <?php echo $dbh->htmlEscape($row['title']) ?>
+            <?php echo $pdo->htmlEscape($row['title']) ?>
         </title>
         <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
     </head>
     <body>
     <?php require 'templates/title.php' ?>
-
+    <?php echo "<div class='post' id='" . $postId."'>"; ?>
         <h2>
-            <?php echo $dbh->htmlEscape($row['title']) ?>
+            <?php echo $pdo->htmlEscape($row['title']) ?>
         </h2>
+        </div>
         <div>
-            <?php echo $dbh->convertSqlDate($row['created_at']) ?>
+            <?php echo $pdo->convertSqlDate($row['created_at']) ?>
         </div>
         <p>
-        <?php echo $paraText ?>
+        <div>
+        <?php 
+        $bodyText = $pdo->htmlEscape($row['body']);
+            $paraText = str_replace("\n", "</p><p>", $bodyText);              
+        echo $paraText 
+        ?>
+        </div>
+        <button class='btn' onClick="redirectToEditPost(this)">Edit Post</button>
         </p>
-        <h3><?php echo $dbh->countCommentsForPost($postId) ?> comments</h3>
-        <?php foreach ($dbh->getCommentsForPost($postId) as $comment): ?>
-            <?php // For now, we'll use a horizontal rule-off to split it up a bit ?>
+        <h3><?php echo $pdo->countCommentsForPost($postId) ?> comments</h3>
+        </div>
+        <?php foreach ($pdo->getCommentsForPost($postId) as $comment): ?>
             <hr style='border: 5px solid red;'>
         <?php echo "<div class='comment' id='" . $comment['comment_id']."'>"; ?>
                 <div class="comment-meta">
                     Comment from
-                    <?php echo $dbh->htmlEscape($comment['user_name']) ?>
+                    <?php echo $pdo->htmlEscape($comment['user_name']) ?>
                     on
-                    <?php echo $dbh->convertSqlDate($comment['created_at']) ?>
+                    <?php echo $pdo->convertSqlDate($comment['created_at']) ?>
                 </div>
                 <div class="comment-body">
-                    <?php echo $dbh->htmlEscape($comment['content']) ?>
+                    <?php echo $pdo->htmlEscape($comment['content']) ?>
                 </div>
                 <div class="comment-website">
-                    <?php echo $dbh->htmlEscape($comment['website']) ?>
+                    <?php echo $pdo->htmlEscape($comment['website']) ?>
                 </div>
-        <?php //echo "<div id='button". $comment['comment_id']."'>"; ?>
-        <button id='btn' onClick="myfunction(this)">Js</button>
-        <!-- <div> -->
+        <button class='btn' onClick="redirectToEditComment(this)">Edit Comment</button>
         </div>
         <?php endforeach ?>
         </div>

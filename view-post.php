@@ -59,22 +59,26 @@ if ($_POST)
     </head>
     <body>
     <?php require 'templates/title.php' ?>
+    <?php echo "<div class='post' id='" . $postId."'>"; ?>
         <h2>
             <?php echo $pdo->htmlEscape($row['title']) ?>
         </h2>
+        </div>
         <div>
             <?php echo $pdo->convertSqlDate($row['created_at']) ?>
         </div>
         <p>
+        <div>
         <?php 
         $bodyText = $pdo->htmlEscape($row['body']);
             $paraText = str_replace("\n", "</p><p>", $bodyText);              
         echo $paraText 
         ?>
+        </div>
         <button class='btn' onClick="redirectToEditPost(this)">Edit Post</button>
         </p>
-        <?php  ?>
         <h3><?php echo $pdo->countCommentsForPost($postId) ?> comments</h3>
+        </div>
         <?php foreach ($pdo->getCommentsForPost($postId) as $comment): ?>
             <hr style='border: 5px solid red;'>
         <?php echo "<div class='comment' id='" . $comment['comment_id']."'>"; ?>
