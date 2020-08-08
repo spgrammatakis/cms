@@ -71,7 +71,7 @@ if ($_POST)
         $paraText = str_replace("\n", "</p><p>", $bodyText);              
         echo $paraText 
         ?>
-        <button id='btn' onClick="redirectToEditPost(this)">Edit Post</button>
+        <button class='btn' onClick="redirectToEditPost(this)">Edit Post</button>
         </p>
         <?php  ?>
         <h3><?php echo $dbh->countCommentsForPost($postId) ?> comments</h3>
@@ -90,7 +90,7 @@ if ($_POST)
                 <div class="comment-website">
                     <?php echo $dbh->htmlEscape($comment['website']) ?>
                 </div>
-        <button id='btn' onClick="redirectToEditComment(this)">Edit Comment</button>
+        <button class='btn' onClick="redirectToEditComment(this)">Edit Comment</button>
         </div>
         <?php endforeach ?>
         </div>
