@@ -46,6 +46,13 @@ if ($_POST)
     );
 }
 
+
+// Swap carriage returns for paragraph breaks
+$bodyText = $dbh->htmlEscape($row['body']);
+
+$paraText = str_replace("\n", "</p><p>", $bodyText);
+
+
 ?>
 <!DOCTYPE html>
 <html>
@@ -59,6 +66,7 @@ if ($_POST)
     </head>
     <body>
     <?php require 'templates/title.php' ?>
+
         <h2>
             <?php echo $dbh->htmlEscape($row['title']) ?>
         </h2>
@@ -66,16 +74,11 @@ if ($_POST)
             <?php echo $dbh->convertSqlDate($row['created_at']) ?>
         </div>
         <p>
-        <?php 
-        $bodyText = $dbh->htmlEscape($row['body']);
-        $paraText = str_replace("\n", "</p><p>", $bodyText);              
-        echo $paraText 
-        ?>
-        <button id='btn' onClick="redirectToEditPost(this)">Edit Post</button>
+        <?php echo $paraText ?>
         </p>
-        <?php  ?>
         <h3><?php echo $dbh->countCommentsForPost($postId) ?> comments</h3>
         <?php foreach ($dbh->getCommentsForPost($postId) as $comment): ?>
+            <?php // For now, we'll use a horizontal rule-off to split it up a bit ?>
             <hr style='border: 5px solid red;'>
         <?php echo "<div class='comment' id='" . $comment['comment_id']."'>"; ?>
                 <div class="comment-meta">
@@ -90,7 +93,9 @@ if ($_POST)
                 <div class="comment-website">
                     <?php echo $dbh->htmlEscape($comment['website']) ?>
                 </div>
-        <button id='btn' onClick="redirectToEditComment(this)">Edit Comment</button>
+        <?php //echo "<div id='button". $comment['comment_id']."'>"; ?>
+        <button id='btn' onClick="myfunction(this)">Js</button>
+        <!-- <div> -->
         </div>
         <?php endforeach ?>
         </div>

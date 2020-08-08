@@ -197,11 +197,10 @@ public function tryLogin(PDO $pdo, $username, $password)
     $success = password_verify($password, $hash);
     return $success;
 }
-public function addPost(){
+public function addPost(){//NEEDS REFACTORING
 session_start();
 if(!isset($_SESSION['user_role']) || $_SESSION['user_role'] != 'admin') {
      echo '<h1>You are not an authorised user</h1>';
-     //maybe redirect to login page
      die();
 }
 if (isset($_GET['submit'])) {
