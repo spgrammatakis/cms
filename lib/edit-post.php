@@ -10,22 +10,46 @@ else
     // So we always have a post ID var defined
     $postId = 0;
 }
-echo $postId;
+
 // Connect to the database, run a query, handle errors
 $pdo = new Connection();
-$row = $pdo->getPostRow(1);
+$row = $pdo->getPostRow($postId);
 
 if (!$row)
 {
     redirectAndExit('index.php?not-found=1');
 }
-
 $errors = null;
+if ($_POST)
+{
+    $commentData = array(
+        'user_name' => $_POST['comment-name'],
+        'website' => $_POST['comment-website'],
+        'content' => $_POST['comment-text'],
+    );
+    $errors = $pdo->addCommentToPost(
+        $postId,
+        $commentData
+    );
+    // If there are no errors, redirect back to self and redisplay
+    if (!$errors)
+    {
+        redirectAndExit('view-post.php?post_id=' . $postId);
+    }
+}else
+{
+    $commentData = array(
+        'user_name' => '',
+        'website' => '',
+        'content' => '',
+    );
+}
+
 ?>
 <!DOCTYPE html>
 <html>
     <head>
-    <script type="text/javascript" src=".   ./js/get-parent-id.js"></script>
+    <script type="text/javascript" src="../js/get-parent-id.js"></script>
         <title>
             A blog application |
             <?php echo $pdo->htmlEscape($row['title']) ?>

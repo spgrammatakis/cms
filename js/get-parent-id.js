@@ -1,4 +1,5 @@
 function redirectToEditPost(obj) {  
+    console.log(obj.parentElement.id);
     window.location.href = "./lib/edit-post.php?post_id=" + obj.parentElement.id;
     }
 

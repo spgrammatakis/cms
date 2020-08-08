@@ -61,6 +61,7 @@ if ($_POST)
     <body>
     <?php require 'templates/title.php' ?>
     <?php echo "<div class='post' id='" . $postId."'>"; ?>
+        <div>
         <h2>
             <?php echo $pdo->htmlEscape($row['title']) ?>
         </h2>
