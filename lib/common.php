@@ -210,7 +210,7 @@ public function getCommentsForPost($postId)
     $stmt->execute(
         array('post_id' => $postId, )
     );
-    return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    return $stmt->fetchAll();
 }
 
 public function tryLogin(PDO $pdo, $username, $password)
