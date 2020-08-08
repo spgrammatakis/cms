@@ -120,11 +120,9 @@ public function convertNewlinesToParagraphs($text)
     return '<p>' . str_replace("\n", "</p><p>", $escaped) . '</p>';
 }
 
-
-public function addCommentToPost($postId, array $commentData)
-{
+public function updatePost($postId, array $commentData){
     $errors = array();
-    // Do some validation
+
     if (empty($commentData['user_name']))
     {
         $errors['user_name'] = 'A name is required';
@@ -133,7 +131,45 @@ public function addCommentToPost($postId, array $commentData)
     {
         $errors['content'] = 'A comment is required';
     }
-    // If we are error free, try writing the comment
+
+    if (!$errors)
+    {
+        $sql = "
+            UPDATE comments
+            SET user_name=:user_name, website=:website, content=:content
+            WHERE post_id=:post_id;
+        ";
+        $commentData = array_merge(
+                $commentData,
+                array('post_id' => $postId, 'created_at' => getSqlDateForNow())
+            );
+        $this->prepareStmt($sql);
+        $this->runArray($commentData);
+        if ($result === false)
+        {
+            $errorInfo = $this->errorInfo();
+            if ($errorInfo)
+            {
+                $errors[] = $errorInfo[2];
+            }
+        }
+    }
+    return $errors;
+}
+
+public function addCommentToPost($postId, array $commentData)
+{
+    $errors = array();
+
+    if (empty($commentData['user_name']))
+    {
+        $errors['user_name'] = 'A name is required';
+    }
+    if (empty($commentData['content']))
+    {
+        $errors['content'] = 'A comment is required';
+    }
+
     if (!$errors)
     {
         $sql = "

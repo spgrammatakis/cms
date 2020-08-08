@@ -27,24 +27,16 @@ if ($_POST)
         'website' => $_POST['comment-website'],
         'content' => $_POST['comment-text'],
     );
-    $errors = $pdo->addCommentToPost(
+    $errors = $pdo->updatePost(
         $postId,
         $commentData
     );
     // If there are no errors, redirect back to self and redisplay
     if (!$errors)
     {
-        redirectAndExit('view-post.php?post_id=' . $postId);
+        redirectAndExit('edit-post.php?post_id=' . $postId);
     }
-}else
-{
-    $commentData = array(
-        'user_name' => '',
-        'website' => '',
-        'content' => '',
-    );
 }
-
 ?>
 <!DOCTYPE html>
 <html>
@@ -81,22 +73,9 @@ if ($_POST)
         <?php foreach ($pdo->getCommentsForPost($postId) as $comment): ?>
             <hr style='border: 5px solid red;'>
         <?php echo "<div class='comment' id='" . $comment['comment_id']."'>"; ?>
-                <div class="comment-meta">
-                    Comment from
-                    <?php echo $pdo->htmlEscape($comment['user_name']) ?>
-                    on
-                    <?php echo $pdo->convertSqlDate($comment['created_at']) ?>
-                </div>
-                <div class="comment-body">
-                    <?php echo $pdo->htmlEscape($comment['content']) ?>
-                </div>
-                <div class="comment-website">
-                    <?php echo $pdo->htmlEscape($comment['website']) ?>
-                </div>
-        <button class='btn' onClick="redirectToEditComment(this)">Edit Comment</button>
+        <?php require '../templates/post-edit-form.php' ?>
         </div>
         <?php endforeach ?>
         </div>
-        <?php require '../templates/comment-form.php' ?>
     </body>
 </html>
