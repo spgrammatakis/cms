@@ -12,8 +12,8 @@ else
 }
 
 // Connect to the database, run a query, handle errors
-$dbh = new Connection();
-$row = $dbh->getPostRow($postId);
+$pdo = new Connection();
+$row = $pdo->getPostRow($postId);
 
 if (!$row)
 {
@@ -28,7 +28,7 @@ if ($_POST)
         'website' => $_POST['comment-website'],
         'content' => $_POST['comment-text'],
     );
-    $errors = $dbh->addCommentToPost(
+    $errors = $pdo->addCommentToPost(
         $postId,
         $commentData
     );
@@ -53,42 +53,42 @@ if ($_POST)
     <script type="text/javascript" src="./js/get-parent-id.js"></script>
         <title>
             A blog application |
-            <?php echo $dbh->htmlEscape($row['title']) ?>
+            <?php echo $pdo->htmlEscape($row['title']) ?>
         </title>
         <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
     </head>
     <body>
     <?php require 'templates/title.php' ?>
         <h2>
-            <?php echo $dbh->htmlEscape($row['title']) ?>
+            <?php echo $pdo->htmlEscape($row['title']) ?>
         </h2>
         <div>
-            <?php echo $dbh->convertSqlDate($row['created_at']) ?>
+            <?php echo $pdo->convertSqlDate($row['created_at']) ?>
         </div>
         <p>
         <?php 
-        $bodyText = $dbh->htmlEscape($row['body']);
-        $paraText = str_replace("\n", "</p><p>", $bodyText);              
+        $bodyText = $pdo->htmlEscape($row['body']);
+            $paraText = str_replace("\n", "</p><p>", $bodyText);              
         echo $paraText 
         ?>
         <button class='btn' onClick="redirectToEditPost(this)">Edit Post</button>
         </p>
         <?php  ?>
-        <h3><?php echo $dbh->countCommentsForPost($postId) ?> comments</h3>
-        <?php foreach ($dbh->getCommentsForPost($postId) as $comment): ?>
+        <h3><?php echo $pdo->countCommentsForPost($postId) ?> comments</h3>
+        <?php foreach ($pdo->getCommentsForPost($postId) as $comment): ?>
             <hr style='border: 5px solid red;'>
         <?php echo "<div class='comment' id='" . $comment['comment_id']."'>"; ?>
                 <div class="comment-meta">
                     Comment from
-                    <?php echo $dbh->htmlEscape($comment['user_name']) ?>
+                    <?php echo $pdo->htmlEscape($comment['user_name']) ?>
                     on
-                    <?php echo $dbh->convertSqlDate($comment['created_at']) ?>
+                    <?php echo $pdo->convertSqlDate($comment['created_at']) ?>
                 </div>
                 <div class="comment-body">
-                    <?php echo $dbh->htmlEscape($comment['content']) ?>
+                    <?php echo $pdo->htmlEscape($comment['content']) ?>
                 </div>
                 <div class="comment-website">
-                    <?php echo $dbh->htmlEscape($comment['website']) ?>
+                    <?php echo $pdo->htmlEscape($comment['website']) ?>
                 </div>
         <button class='btn' onClick="redirectToEditComment(this)">Edit Comment</button>
         </div>

@@ -197,7 +197,7 @@ public function tryLogin(PDO $pdo, $username, $password)
     return $success;
 }
 public function getPosts(){
-    $this->prepareStmt("SELECT * FROM posts");
+    $this->prepareStmt("SELECT post_id,title,body,created_at FROM posts");
     $row  = $this->All();
     
     foreach($row as $row):
