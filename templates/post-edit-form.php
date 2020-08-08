@@ -7,30 +7,19 @@
             type="text"
             id="post-title"
             name="post-title"
-            value="<?php echo $pdo->htmlEscape($commentData['user_name']);?>"
+            value="<?php echo $paraText;?>"
         >
     </p>
     <p>
-        <label for="comment-website">
+        <label for="post-body">
             Website:
         </label>
-        <input
-            type="text"
-            id="comment-website"
-            name="comment-website"
-            value="<?php echo $pdo->htmlEscape($commentData['website']) ?>"
-        />
-    </p>
-    <p>
-        <label for="comment-text">
-            Comment:
-        </label>
         <textarea
-            id="comment-text"
-            name="comment-text"
+            id="post-body"
+            name="post-body"
             rows="8"
             cols="70"
-        ><?php echo $pdo->htmlEscape($commentData['content']) ?></textarea>
+        ><?php echo $paraText; ?></textarea>
     </p>
-    <input type="submit" value="Submit comment" />
+    <input type="submit" value="Finish Edit" />
 </form>

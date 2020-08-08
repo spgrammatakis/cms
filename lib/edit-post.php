@@ -62,18 +62,18 @@ if ($_POST)
         <div>
         <?php 
         $bodyText = $pdo->htmlEscape($row['body']);
-            $paraText = str_replace("\n", "</p><p>", $bodyText);              
-        echo $paraText 
+        $paraText = str_replace("\n", "</p><p>", $bodyText);              
+        echo $paraText;
+        require '../templates/post-edit-form.php'; 
         ?>
         </div>
-        <button class='btn' onClick="redirectToEditPost(this)">Edit Post</button>
         </p>
         <h3><?php echo $pdo->countCommentsForPost($postId) ?> comments</h3>
         </div>
         <?php foreach ($pdo->getCommentsForPost($postId) as $comment): ?>
             <hr style='border: 5px solid red;'>
         <?php echo "<div class='comment' id='" . $comment['comment_id']."'>"; ?>
-        <?php require '../templates/post-edit-form.php' ?>
+        <?php //require '' ?>
         </div>
         <?php endforeach ?>
         </div>
