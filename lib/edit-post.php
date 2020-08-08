@@ -1,5 +1,5 @@
 <?php
-//require 'lib/common.php';
+require 'common.php';
 // Get the post ID
 if (isset($_GET['post_id']))
 {
@@ -10,10 +10,10 @@ else
     // So we always have a post ID var defined
     $postId = 0;
 }
-
+echo $postId;
 // Connect to the database, run a query, handle errors
 $pdo = new Connection();
-$row = $pdo->getPostRow($postId);
+$row = $pdo->getPostRow(1);
 
 if (!$row)
 {
@@ -21,36 +21,11 @@ if (!$row)
 }
 
 $errors = null;
-if ($_POST)
-{
-    $commentData = array(
-        'user_name' => $_POST['comment-name'],
-        'website' => $_POST['comment-website'],
-        'content' => $_POST['comment-text'],
-    );
-    $errors = $pdo->addCommentToPost(
-        $postId,
-        $commentData
-    );
-    // If there are no errors, redirect back to self and redisplay
-    if (!$errors)
-    {
-        redirectAndExit('view-post.php?post_id=' . $postId);
-    }
-}else
-{
-    $commentData = array(
-        'user_name' => '',
-        'website' => '',
-        'content' => '',
-    );
-}
-
 ?>
 <!DOCTYPE html>
 <html>
     <head>
-    <script type="text/javascript" src="./js/get-parent-id.js"></script>
+    <script type="text/javascript" src=".   ./js/get-parent-id.js"></script>
         <title>
             A blog application |
             <?php echo $pdo->htmlEscape($row['title']) ?>
@@ -58,7 +33,7 @@ if ($_POST)
         <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
     </head>
     <body>
-    <?php require 'templates/title.php' ?>
+    <a href="../index.php"><h1>Homepage</h1></a>
     <?php echo "<div class='post' id='" . $postId."'>"; ?>
         <h2>
             <?php echo $pdo->htmlEscape($row['title']) ?>
@@ -98,6 +73,6 @@ if ($_POST)
         </div>
         <?php endforeach ?>
         </div>
-        <?php require 'templates/comment-form.php' ?>
+        <?php require '../templates/comment-form.php' ?>
     </body>
 </html>
