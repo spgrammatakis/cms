@@ -9,26 +9,9 @@
         <?php   
         require 'lib/common.php'; 
         require 'templates/title.php';
-        $conn = new Connection();
-        $conn->prepareStmt("SELECT * FROM posts");
-        $row  = $conn->All();
+        $pdo = new Connection();
+        $pdo->getPosts();
         ?>
-        
-        <?php foreach($row as $row): ?>
-            <h2>
-                <?php echo $conn->htmlEscape($row['title']) ?>
-            </h2>
-            <div>
-                <?php echo $conn->convertSqlDate($row['created_at']) ?>
-                <?php echo $conn->countCommentsForPost($row['post_id']) ?> comments
-            </div>
-            <p>
-                <?php echo $conn->htmlEscape($row['body'])?>
-            </p>
-            <p>
-                <a href="view-post.php?post_id=<?php echo $conn->htmlEscape($row['post_id']) ?>">Read more...</a>
-            </p>
-        <?php endforeach ?>
         <a href="./install.php">Install</a>
     </body>
 </html>

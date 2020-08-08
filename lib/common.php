@@ -192,13 +192,34 @@ public function tryLogin(PDO $pdo, $username, $password)
     $stmt->execute(
         array('username' => $username, )
     );
-    // Get the hash from this row, and use the third-party hashing library to check it
     $hash = $stmt->fetchColumn();
     $success = password_verify($password, $hash);
     return $success;
 }
+public function getPosts(){
+    $this->prepareStmt("SELECT * FROM posts");
+    $row  = $this->All();
+    
+    foreach($row as $row):
+        echo "<div class=post-title>";
+        echo $this->htmlEscape($row['title']);
+        echo "</div>";
+        echo "<div class=post-date>";
+        echo $this->convertSqlDate($row['created_at']);
+        echo "</div>";
+        echo "<div class=post-comment-number>";
+        echo $this->countCommentsForPost($row['post_id']). " comments";
+        echo "</div>";
+        echo "<div class=post-body>";
+        echo "<p>";
+        echo $this->htmlEscape($row['body']);
+        echo "</p>";
+        echo "</div>";
+        echo "<a href='view-post.php?post_id=". $this->htmlEscape($row['post_id']) ."'>Read more...</a>";
+    endforeach;
+}
+
 public function addPost(){//NEEDS REFACTORING
-session_start();
 if(!isset($_SESSION['user_role']) || $_SESSION['user_role'] != 'admin') {
      echo '<h1>You are not an authorised user</h1>';
      die();
