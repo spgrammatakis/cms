@@ -7,7 +7,7 @@
             type="text"
             id="post-title"
             name="post-title"
-            value="<?php echo $paraText;?>"
+            value="<?php echo $pdo->htmlEscape($row['title'])?>"
         >
     </p>
     <p>

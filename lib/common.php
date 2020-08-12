@@ -120,20 +120,8 @@ public function convertNewlinesToParagraphs($text)
     return '<p>' . str_replace("\n", "</p><p>", $escaped) . '</p>';
 }
 
-public function updatePost($postId, array $commentData){
+public function updatePost($postId){
     $errors = array();
-
-    if (empty($commentData['user_name']))
-    {
-        $errors['user_name'] = 'A name is required';
-    }
-    if (empty($commentData['content']))
-    {
-        $errors['content'] = 'A comment is required';
-    }
-
-    if (!$errors)
-    {
         $sql = "
             UPDATE comments
             SET user_name=:user_name, website=:website, content=:content
@@ -153,7 +141,6 @@ public function updatePost($postId, array $commentData){
                 $errors[] = $errorInfo[2];
             }
         }
-    }
     return $errors;
 }
 

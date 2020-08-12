@@ -19,24 +19,7 @@ if (!$row)
 {
     redirectAndExit('index.php?not-found=1');
 }
-$errors = null;
-if ($_POST)
-{
-    $commentData = array(
-        'user_name' => $_POST['comment-name'],
-        'website' => $_POST['comment-website'],
-        'content' => $_POST['comment-text'],
-    );
-    $errors = $pdo->updatePost(
-        $postId,
-        $commentData
-    );
-    // If there are no errors, redirect back to self and redisplay
-    if (!$errors)
-    {
-        redirectAndExit('edit-post.php?post_id=' . $postId);
-    }
-}
+
 ?>
 <!DOCTYPE html>
 <html>
@@ -68,14 +51,5 @@ if ($_POST)
         ?>
         </div>
         </p>
-        <h3><?php echo $pdo->countCommentsForPost($postId) ?> comments</h3>
-        </div>
-        <?php foreach ($pdo->getCommentsForPost($postId) as $comment): ?>
-            <hr style='border: 5px solid red;'>
-        <?php echo "<div class='comment' id='" . $comment['comment_id']."'>"; ?>
-        <?php //require '' ?>
-        </div>
-        <?php endforeach ?>
-        </div>
     </body>
 </html>
