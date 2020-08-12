@@ -120,27 +120,38 @@ public function convertNewlinesToParagraphs($text)
     return '<p>' . str_replace("\n", "</p><p>", $escaped) . '</p>';
 }
 
-public function updatePost($postId){
+public function updatePost($postId,$postTitle,$postBody){
     $errors = array();
-        $sql = "
-            UPDATE comments
-            SET user_name=:user_name, website=:website, content=:content
-            WHERE post_id=:post_id;
-        ";
-        $commentData = array_merge(
-                $commentData,
-                array('post_id' => $postId, 'created_at' => getSqlDateForNow())
-            );
-        $this->prepareStmt($sql);
-        $this->runArray($commentData);
-        if ($result === false)
-        {
-            $errorInfo = $this->errorInfo();
-            if ($errorInfo)
-            {
-                $errors[] = $errorInfo[2];
-            }
-        }
+    
+    $date = getSqlDateForNow();
+    if (empty($postId))
+    {
+        $errors['post_id'] = 'An id is required';
+    }    
+    if (empty($postTitle))
+    {
+        $errors['post_title'] = 'A title is required';
+    }
+    if (empty($postBody))
+    {
+        echo "empty post title";
+        $errors['post_body'] = 'A body is required';
+    }
+    if (!$errors){
+        
+    $sql = "
+    UPDATE posts
+    SET post_id=:post_id, title=:post_title, body=:post_body, created_at=:date
+    WHERE post_id=:post_id;
+    ";
+    $this->prepareStmt($sql);
+    $this->bind(':post_id',$postId);
+    $this->bind(':post_title',$postTitle);
+    $this->bind(':post_body',$postBody);
+    $this->bind(':date',$date);
+    $this->run();
+    } 
+
     return $errors;
 }
 

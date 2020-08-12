@@ -20,6 +20,17 @@ if (!$row)
     redirectAndExit('index.php?not-found=1');
 }
 
+$errors=null;
+if($_POST){
+    $postTitle=$_POST['post-title'];
+    $postBody=$_POST['post-body'];
+    $errors=$pdo->updatePost($postId,$postTitle,$postBody);
+    print_r($errors);
+    if (!$errors)
+    {
+        redirectAndExit('../view-post.php?post_id=' . $postId);
+    }
+}
 ?>
 <!DOCTYPE html>
 <html>
