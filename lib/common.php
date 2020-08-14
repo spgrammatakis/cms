@@ -83,7 +83,12 @@ public function getDatabase():string{
 
 public function htmlEscape($html)
 {
-    return htmlentities($html, ENT_HTML5, 'UTF-8');
+    //return htmlentities($html, ENT_HTML5, 'UTF-8');
+    $array = array(
+        1 => "<b>",
+        2 => "<a>", 
+    );
+    return strip_tags($html,$array);
 }
 
 public function convertSqlDate($sqlDate)

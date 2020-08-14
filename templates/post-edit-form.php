@@ -21,5 +21,5 @@
             cols="70"
         ><?php echo $paraText; ?></textarea>
     </p>
-    <input type="submit" value="Finish Edit" />
+    <input type="submit" onsubmit='return copycontent()' value="Finish Edit" />
 </form>

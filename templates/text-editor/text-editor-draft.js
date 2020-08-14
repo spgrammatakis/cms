@@ -17,3 +17,9 @@ function getSelectionText() {
 document.onmouseup = document.onkeyup = document.onselectionchange = function() {
 document.getElementById("sel").value = getSelectionText();
 };
+
+function copyContent () {
+  document.getElementById("hiddenTextarea").value =  
+      document.getElementById("myContentEditable").innerHTML;
+  return true;
+}

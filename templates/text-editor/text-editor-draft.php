@@ -12,4 +12,30 @@ Selection:
 <br>
 <textarea>Some text in a textarea</textarea>
 <script src="text-editor-draft.js"></script>
+
+<hr style='border: 5px solid red;'>
+<h3>Edit your post</h3>
+<form method="post">
+<p>
+        <label for="post-title">Title:</label>
+        <input
+            type="text"
+            id="post-title"
+            name="post-title"
+            value="Lorem Title"
+        >
+    </p>
+    <p>
+        <label for="post-body">
+            Website:
+        </label>
+        <textarea
+            id="post-body"
+            name="post-body"
+            rows="8"
+            cols="70"
+        >Lorem ipsum Body</textarea>
+    </p>
+    <input type="submit" value="Finish Edit" />
+</form>
 </html>
