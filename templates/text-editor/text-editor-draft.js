@@ -14,7 +14,7 @@ function getSelectionText() {
   return text;
 }
 
-document.onmouseup = document.onkeyup = document.onselectionchange = function() {
+document.onmouseup = document.onselectionchange = function() {
 document.getElementById("sel").value = getSelectionText();
 };
 
