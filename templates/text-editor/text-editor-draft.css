@@ -1,0 +1,38 @@
+html{   
+}
+
+ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+  }
+  
+  li {
+    float: left;
+  }
+  
+  li a {
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 16px;
+    text-decoration: none;
+  }
+  
+  li a:hover {
+    background-color: #111111;
+  }
+
+#post-body-editor{
+    height: 50rem;
+    overflow-y: scroll;
+    padding: 1rem;
+    outline-style: solid;
+    outline-width: 3px;
+}
+
+#post-body-editor:focus {
+    outline-style: solid;
+    outline-width: 3px;
+}
