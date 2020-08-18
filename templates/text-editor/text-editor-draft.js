@@ -18,14 +18,21 @@ function formatBold(){
   console.log("Selection End is :" + activeEl.selectionEnd);
   var text = activeEl.value.slice(activeEl.selectionStart, activeEl.selectionEnd);
   var activeElTagName = activeEl ? activeEl.tagName.toLowerCase() : null;
-  console.log(text);
-  return;
+  console.log("Text is :" + text);
+  return text;
 }
 
 document.onmouseup = function() {
   document.getElementById("hiddenTextArea").value = formatBold();
   console.log(document.getElementById("hiddenTextArea").value);
   };
+
+document.onmouseup = function(){
+  var sel = document.getSelection().toString();
+  var str = document.activeElement.innerHTML; 
+  var res = str.replace(sel, "<b>"+sel+"</b>");
+  console.log(res);
+}
   
 function formatItalic(){
   console.log("Italic");
