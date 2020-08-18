@@ -33,6 +33,7 @@
             Lorem ipsum dolor sit amet consectetur adipisicing elit. Corporis aliquam nisi laborum quos esse ex saepe? Enim odio deleniti id velit neque praesentium esse. Optio quia exercitationem illum ipsum doloremque!
         </div>
     </p>
+    <textarea name="hiddenTextArea" id="hiddenTextArea" style="display:none;"></textarea>
     <input type="submit" value="Finish Edit" />
 </form>
 <script src="text-editor-draft.js"></script>
