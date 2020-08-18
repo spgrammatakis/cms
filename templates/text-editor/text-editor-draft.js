@@ -34,3 +34,9 @@ function formatUnderline(){
   document.getElementById("post-body-editor").innerHTML = originalString.replace(selection, "<u>"+ selection +"</u>");
   return;
 }
+
+document.addEventListener('keydown', function(event) {
+  if (event.ctrlKey && event.key === 'z') {
+    alert('Undo!');
+  }
+});
