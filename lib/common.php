@@ -86,7 +86,10 @@ public function htmlEscape($html)
     //return htmlentities($html, ENT_HTML5, 'UTF-8');
     $array = array(
         1 => "<b>",
-        2 => "<a>", 
+        2 => "<strong>",
+        3 => "<a>",
+        4 => "<i>",
+        5 => "<u>"
     );
     return strip_tags($html,$array);
 }
