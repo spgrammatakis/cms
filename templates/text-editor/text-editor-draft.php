@@ -23,11 +23,11 @@
         >
 </br>
 <ul>
-  <li><input type="button" class="button" value="Bold"></li>
-  <li><input type="button" class="button" value="Italic"></li>
-  <li><input type="button" class="button" value="Underline"></li>
-  <li><input type="button" class="button" value="Copy"></li>
-  <li><input type="button" class="button" value="Paste"></li>
+  <li><input type="button" class="button" value="Bold" onclick="formatText(this)"></li>
+  <li><input type="button" class="button" value="Italic" onclick="formatText(this)"></li>
+  <li><input type="button" class="button" value="Underline" onclick="formatText(this)"></li>
+  <li><input type="button" class="button" value="Copy" onclick="formatText(this)"></li>
+  <li><input type="button" class="button" value="Paste" onclick="formatText(this)"></li>
 </ul>
         <div id="post-body-editor" contenteditable=true>
             Lorem ipsum dolor sit amet consectetur adipisicing elit. Corporis aliquam nisi laborum quos esse ex saepe? Enim odio deleniti id velit neque praesentium esse. Optio quia exercitationem illum ipsum doloremque!

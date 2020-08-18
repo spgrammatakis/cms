@@ -23,3 +23,7 @@ function copyContent () {
       document.getElementById("myContentEditable").innerHTML;
   return true;
 }
+
+function formatText(element){
+console.log(element.value);
+}
