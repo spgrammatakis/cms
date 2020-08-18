@@ -30,7 +30,7 @@
   <li><button type="button" class="button" value="Paste" onclick="formatText(this)">Paste</button></li>
 </ul>
         <div id="post-body-editor" contenteditable=true>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Corporis aliquam nisi laborum quos esse ex saepe? Enim odio deleniti id velit neque praesentium esse. Optio quia exercitationem illum ipsum doloremque!
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Corporis aliquam nisi laborum quos esse ex saepe? Enim odio deleniti id velit neque praesentium esse. Optio quia exercitationem illum ipsum doloremque!
         </div>
     </p>
     <textarea name="hiddenTextArea" id="hiddenTextArea" style="display:none;"></textarea>

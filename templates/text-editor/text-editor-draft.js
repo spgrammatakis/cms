@@ -8,6 +8,7 @@ function formatText(element){
 if(element.value == "Bold") formatBold();
 if(element.value == "Italic") formatItalic();
 if(element.value == "Underline") formatUnderline();
+return;
 }
 
 function formatBold(){
@@ -15,6 +16,7 @@ function formatBold(){
   var selection = document.getSelection().toString();
   var originalString = document.getElementById("post-body-editor").innerHTML;
   document.getElementById("post-body-editor").innerHTML = originalString.replace(selection, "<b>"+ selection +"</b>");
+  return;
 }
 
 function formatItalic(){
@@ -22,6 +24,7 @@ function formatItalic(){
   var selection = document.getSelection().toString();
   var originalString = document.getElementById("post-body-editor").innerHTML;
   document.getElementById("post-body-editor").innerHTML = originalString.replace(selection, "<i>"+ selection +"</i>");
+  return;
 }
 
 function formatUnderline(){
@@ -29,4 +32,5 @@ function formatUnderline(){
   var selection = document.getSelection().toString();
   var originalString = document.getElementById("post-body-editor").innerHTML;
   document.getElementById("post-body-editor").innerHTML = originalString.replace(selection, "<u>"+ selection +"</u>");
+  return;
 }
