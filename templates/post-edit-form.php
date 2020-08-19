@@ -30,7 +30,7 @@
   <li><button type="button" class="button" value="Paste" onclick="formatText(this)">Paste</button></li>
 </ul>
         <div id="post-body-editor" contenteditable=true>
-        <?php echo $paraText?>
+        <?php echo $pdo->htmlEscape($row['body']);?>
         </div>
     </p>
     <input type="submit" value="Finish Edit"/>

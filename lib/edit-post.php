@@ -57,9 +57,7 @@ if($_POST){
         <p>
         <div>
         <?php 
-        $bodyText = $pdo->htmlEscape($row['body']);
-        $paraText = str_replace("\n", "</p><p>", $bodyText);              
-        echo $paraText;
+        echo $pdo->htmlEscape($row['body']);
         require '../templates/post-edit-form.php'; 
         ?>
         </div>

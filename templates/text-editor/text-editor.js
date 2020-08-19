@@ -16,7 +16,7 @@ function formatBold(){
   console.log("Bold");
   var selection = document.getSelection().toString();
   var originalString = document.getElementById("post-body-editor").innerHTML;
-  document.getElementById("post-body-editor").innerHTML = originalString.replace(selection, "<b>"+ selection +"</b>");
+  document.getElementById("post-body-editor").innerHTML = originalString.replace(selection, '<b>'+ selection +'</b>');
   return;
 }
 
