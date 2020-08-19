@@ -25,10 +25,6 @@ if($_POST){
     $postTitle=$_POST['post-title'];
     $postBody=$_POST['post-body'];
     $errors=$pdo->updatePost($postId,$postTitle,$postBody);
-    echo $postTitle;
-    echo "</br>";
-    echo $postBody;
-    echo "</br>";
     print_r($errors);
     if (!$errors)
     {
