@@ -52,3 +52,10 @@ document.addEventListener('keydown', function(event) {
   }
   return;
 });
+
+function appendnode(){
+  let parent = document.getElementById("post-body-editor");
+  let b = document.createElement("p");
+  parent.append("Some Text", p);
+  console.log(parent.textContent);
+}

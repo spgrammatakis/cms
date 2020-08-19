@@ -28,7 +28,7 @@
   <li><button type="button" class="button" value="Underline" onclick="formatText(this)">Underline</button></li>
   <li><button type="button" class="button" value="Insert Link" onclick="formatText(this)">Insert Link</button></li>
   <li><button type="button" class="button" value="Copy" onclick="copyContent()">Copy</button></li>
-  <li><button type="button" class="button" value="Paste" onclick=")">Paste</button></li>
+  <li><button type="button" class="button" value="Paste" onclick="appendnode()">Test</button></li>
 </ul>
         <div id="post-body-editor" contenteditable=true>
         <?php echo $pdo->htmlEscape($row['body']);?>
