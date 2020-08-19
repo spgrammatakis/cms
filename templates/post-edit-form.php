@@ -1,6 +1,7 @@
+
 <hr style='border: 5px solid red;'>
 <h3>Edit your post</h3>
-<form method="post">
+<form method="post" id="post-edit" onsubmit="copyContent()" >
 <p>
         <label for="post-title">Title:</label>
         <input
@@ -11,15 +12,26 @@
         >
     </p>
     <p>
-        <label for="post-body">
-            Website:
-        </label>
+    <label for="post-body">
+        Post-Body
+    </label>
         <textarea
             id="post-body"
             name="post-body"
-            rows="8"
-            cols="70"
-        ><?php echo $paraText; ?></textarea>
+            form="post-edit"
+            style="display:none"
+        ></textarea>
+</br>
+<ul>
+  <li><button type="button" class="button" value="Bold" onclick="formatText(this)">Bold</button></li>
+  <li><button type="button" class="button" value="Italic" onclick="formatText(this)">Italic</button></li>
+  <li><button type="button" class="button" value="Underline" onclick="formatText(this)">Underline</button></li>
+  <li><button type="button" class="button" value="Copy" onclick="copyContent()">Copy</button></li>
+  <li><button type="button" class="button" value="Paste" onclick="formatText(this)">Paste</button></li>
+</ul>
+        <div id="post-body-editor" contenteditable=true>
+        <?php echo $paraText?>
+        </div>
     </p>
-    <input type="submit" onsubmit='return copycontent()' value="Finish Edit" />
+    <input type="submit" value="Finish Edit"/>
 </form>

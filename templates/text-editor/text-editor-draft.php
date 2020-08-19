@@ -34,7 +34,7 @@
         </div>
     </p>
     <textarea name="hiddenTextArea" id="hiddenTextArea" style="display:none;"></textarea>
-    <input type="submit" value="Finish Edit" />
+    <input type="submit" value="Finish Edit" onsubmit="return copyContent()" />
 </form>
 <script src="text-editor-draft.js"></script>
 </html>

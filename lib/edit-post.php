@@ -25,6 +25,10 @@ if($_POST){
     $postTitle=$_POST['post-title'];
     $postBody=$_POST['post-body'];
     $errors=$pdo->updatePost($postId,$postTitle,$postBody);
+    echo $postTitle;
+    echo "</br>";
+    echo $postBody;
+    echo "</br>";
     print_r($errors);
     if (!$errors)
     {
@@ -35,6 +39,8 @@ if($_POST){
 <!DOCTYPE html>
 <html>
     <head>
+    <link rel="stylesheet" type="text/css" href="../templates/text-editor/text-editor-draft.css">
+    <script src="../templates/text-editor/text-editor-draft.js"></script>
     <script type="text/javascript" src="../js/get-parent-id.js"></script>
         <title>
             A blog application |
