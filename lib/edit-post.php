@@ -39,8 +39,8 @@ if($_POST){
 <!DOCTYPE html>
 <html>
     <head>
-    <link rel="stylesheet" type="text/css" href="../templates/text-editor/text-editor-draft.css">
-    <script src="../templates/text-editor/text-editor-draft.js"></script>
+    <link rel="stylesheet" type="text/css" href="../templates/text-editor/text-editor.css">
+    <script src="../templates/text-editor/text-editor.js"></script>
     <script type="text/javascript" src="../js/get-parent-id.js"></script>
         <title>
             A blog application |
