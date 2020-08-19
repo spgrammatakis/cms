@@ -58,8 +58,13 @@ if($_POST){
         <div>
         <?php 
         echo $pdo->htmlEscape($row['body']);
+        ?>
+        </div>
+        <div class="post-editor-wrapper">
+        <?php
         require '../templates/post-edit-form.php'; 
         ?>
+        </div>
         </div>
         </p>
     </body>

@@ -26,8 +26,9 @@
   <li><button type="button" class="button" value="Bold" onclick="formatText(this)">Bold</button></li>
   <li><button type="button" class="button" value="Italic" onclick="formatText(this)">Italic</button></li>
   <li><button type="button" class="button" value="Underline" onclick="formatText(this)">Underline</button></li>
+  <li><button type="button" class="button" value="Insert Link" onclick="formatText(this)">Insert Link</button></li>
   <li><button type="button" class="button" value="Copy" onclick="copyContent()">Copy</button></li>
-  <li><button type="button" class="button" value="Paste" onclick="formatText(this)">Paste</button></li>
+  <li><button type="button" class="button" value="Paste" onclick=")">Paste</button></li>
 </ul>
         <div id="post-body-editor" contenteditable=true>
         <?php echo $pdo->htmlEscape($row['body']);?>
