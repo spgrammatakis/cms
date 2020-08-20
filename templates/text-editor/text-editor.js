@@ -54,24 +54,13 @@ document.addEventListener('keydown', function(event) {
 });
 
 window.onload = function () {
-  window.textEditor = document.getElementById('post-editor').contentWindow;
+  window.textEditor = document.getElementById('post-editor-wrapper').contentWindow;
   textEditor.document.designMode="on";
   textEditor.document.open();
   textEditor.document.innerHTML='<head><style type="text/css">body{ font-family:arial; font-size:13px;}</style></head>';
   textEditor.document.close();
-  document.getElementById("fonts").selectedIndex=0;
-  document.getElementById("size").selectedIndex=1;
-  document.getElementById("color").selectedIndex=2;
-  textEditor.document.addEventListener('keyup', showHTML, false);
-  textEditor.document.addEventListener('paste', showHTML, false);
 }
 function showHTML () {
   document.getElementById('showHTMLFrame').textContent = textEditor.document.body.innerHTML;
   return;
-}
-function fontEdit(x,y) {
-  textEditor.document.execCommand(x,"",y);
-  showHTML();
-  textEditor.focus();
-  
 }
