@@ -61,9 +61,8 @@ if($_POST){
         ?>
         </div>
         <div id="post-editor-wrapper">
-        <iframe id="post-editor-iframe" src="../templates/post-edit-form.html" width="500" height="200">
+        <iframe id="post-editor-iframe" src="../templates/post-edit-form.html" width="100%" height="500">
         </iframe>
-        </div>
         </div>
         </p>
     </body>
