@@ -7,7 +7,7 @@
             type="text"
             id="post-title"
             name="post-title"
-            value=""
+            value="<?php echo $pdo->htmlEscape($row['title']) ?>"
         >
     </p>
     <p>
@@ -30,6 +30,7 @@
   <li><button type="button" class="button" value="Paste" onclick="appendnode()">Test</button></li>
 </ul>
         <div id="post-body-editor" contenteditable=true>
+        <?php echo $pdo->htmlEscape($row['body']);?>
         </div>
     </p>
     <input type="submit" value="Finish Edit"/>

@@ -56,13 +56,11 @@ if($_POST){
         </div>
         <p>
         <div>
-        <?php 
-        echo $pdo->htmlEscape($row['body']);
-        ?>
         </div>
-        <div id="post-editor-wrapper">
-        <iframe id="post-editor-iframe" src="../templates/post-edit-form.html" width="100%" height="500">
-        </iframe>
+        <div id="post-editor-wrapper">>
+        <?php 
+        require '../templates/post-edit-form.php'; 
+        ?>
         </div>
         </p>
     </body>

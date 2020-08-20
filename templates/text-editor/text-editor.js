@@ -52,15 +52,3 @@ document.addEventListener('keydown', function(event) {
   }
   return;
 });
-
-window.onload = function () {
-  window.textEditor = document.getElementById('post-editor-wrapper').contentWindow;
-  textEditor.document.designMode="on";
-  textEditor.document.open();
-  textEditor.document.innerHTML='<head><style type="text/css">body{ font-family:arial; font-size:13px;}</style></head>';
-  textEditor.document.close();
-}
-function showHTML () {
-  document.getElementById('showHTMLFrame').textContent = textEditor.document.body.innerHTML;
-  return;
-}
