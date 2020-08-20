@@ -60,10 +60,9 @@ if($_POST){
         echo $pdo->htmlEscape($row['body']);
         ?>
         </div>
-        <div class="post-editor-wrapper">
-        <?php
-        require '../templates/post-edit-form.php'; 
-        ?>
+        <div id="post-editor-wrapper">
+        <iframe id="post-editor-iframe" src="../templates/post-edit-form.html" width="500" height="200">
+        </iframe>
         </div>
         </div>
         </p>
