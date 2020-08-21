@@ -50,5 +50,9 @@ document.addEventListener('keydown', function(event) {
     formatInsertLink();
     return;
   }
+  if(event.ctrlKey && event.key === 'b'){
+    formatBold();
+    return;
+  }
   return;
 });

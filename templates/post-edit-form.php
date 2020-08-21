@@ -9,6 +9,9 @@
             name="post-title"
             value="<?php echo $pdo->htmlEscape($row['title']) ?>"
         >
+        <div id="post-title-editor" contenteditable=true>
+        <?php echo $pdo->htmlEscape($row['body']);?>
+        </div>
     </p>
     <p>
     <label for="post-body">
