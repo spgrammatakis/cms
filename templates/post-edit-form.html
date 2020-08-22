@@ -1,16 +1,14 @@
-<hr style='border: 5px solid red;'>
-<h3>Edit your post</h3>
+<body>
 <form method="post" id="post-edit" onsubmit="copyContent()" >
+<h3>Edit your post</h3>
 <p>
         <label for="post-title">Title:</label>
         <input
-            type="text"
             id="post-title"
             name="post-title"
-            value="<?php echo $pdo->htmlEscape($row['title']) ?>"
+            form="post-edit"
         >
         <div id="post-title-editor" contenteditable=true>
-        <?php echo $pdo->htmlEscape($row['body']);?>
         </div>
     </p>
     <p>
@@ -33,8 +31,8 @@
   <li><button type="button" class="button" value="Paste" onclick="appendnode()">Test</button></li>
 </ul>
         <div id="post-body-editor" contenteditable=true>
-        <?php echo $pdo->htmlEscape($row['body']);?>
         </div>
     </p>
     <input type="submit" value="Finish Edit"/>
 </form>
+</body>

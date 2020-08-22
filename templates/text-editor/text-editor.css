@@ -31,8 +31,15 @@ ul {
     outline-style: solid;
     outline-width: 3px;
 }
+#post-title-editor{
+  height: 1rem;
+  overflow-y: scroll;
+  padding: 1rem;
+  outline-style: solid;
+  outline-width: 3px;
+}
 
-#post-body-editor:focus {
+#post-body-editor:focus,#post-title-editor:focus {
     outline-style: solid;
     outline-width: 3px;
 }

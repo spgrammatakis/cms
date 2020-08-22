@@ -47,20 +47,21 @@ if($_POST){
     <body>
     <a href="../index.php"><h1>Homepage</h1></a>
     <?php echo "<div class='post' id='" . $postId."'>"; ?>
+    <p>
         <h2>
             <?php echo $pdo->htmlEscape($row['title']) ?>
         </h2>
         </div>
         <div>
+        <?php echo $pdo->htmlEscape($row['body']);?>
+        </div>
+        <div>
             <?php echo $pdo->convertSqlDate($row['created_at']) ?>
         </div>
-        <p>
-        <div>
-        </div>
-        <div id="post-editor-wrapper">>
-        <?php 
-        require '../templates/post-edit-form.php'; 
-        ?>
+        <div id="post-editor-wrapper">
+        <hr style='border: 5px solid red;'>
+        <iframe id=post-editor-iframe onload="initIframe()" src="../templates/post-edit-form.html">
+        <iframe>
         </div>
         </p>
     </body>
