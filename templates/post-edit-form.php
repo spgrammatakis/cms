@@ -25,10 +25,10 @@
         ></textarea>
 </br>
 <ul>
-  <li><button type="button" class="button" value="Bold" onclick="formatText(this)">Bold</button></li>
-  <li><button type="button" class="button" value="Italic" onclick="formatText(this)">Italic</button></li>
-  <li><button type="button" class="button" value="Underline" onclick="formatText(this)">Underline</button></li>
-  <li><button type="button" class="button" value="Insert Link" onclick="formatText(this)">Insert Link</button></li>
+  <li><button type="button" class="button" value="Bold" onclick="formatBold()">Bold</button></li>
+  <li><button type="button" class="button" value="Italic" onclick="formatItalic()">Italic</button></li>
+  <li><button type="button" class="button" value="Underline" onclick="formatUnderline()">Underline</button></li>
+  <li><button type="button" class="button" value="Insert Link" onclick="formatInsertLink()">Insert Link</button></li>
   <li><button type="button" class="button" value="Copy" onclick="copyContent()">Copy</button></li>
   <li><button type="button" class="button" value="Paste" onclick="appendnode()">Test</button></li>
 </ul>

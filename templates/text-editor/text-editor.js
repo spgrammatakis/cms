@@ -5,14 +5,6 @@ function copyContent () {
   return true;
 }
 
-function formatText(element){
-if(element.value == "Bold") formatBold();
-if(element.value == "Italic") formatItalic();
-if(element.value == "Underline") formatUnderline();
-if(element.value == "Insert Link") formatInsertLink();
-return;
-}
-
 function formatBold(){
   console.log("Bold");
   var selection = document.getSelection().toString();
