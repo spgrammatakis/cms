@@ -35,8 +35,9 @@ if($_POST){
 <!DOCTYPE html>
 <html>
     <head>
-    <script src="../templates/text-editor/text-editor.js"></script>
+    
     <script type="text/javascript" src="../js/get-parent-id.js"></script>
+    <script type="text/javascript" src="../templates/text-editor/text-editor.js"></script>
         <title>
             A blog application |
             <?php echo $pdo->htmlEscape($row['title']) ?>

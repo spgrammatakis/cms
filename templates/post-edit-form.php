@@ -39,4 +39,5 @@
     <input type="submit" value="Finish Edit"/>
 </form>
 </body>
+<script type="text/javascript" src="../templates/text-editor/text-editor.js"></script>
 </html>
