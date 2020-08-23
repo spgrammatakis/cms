@@ -1,7 +1,10 @@
 function copyContent () {
-  document.getElementById("post-body").value =  
-      document.getElementById("post-body-editor").innerHTML;
-      console.log(document.getElementById("post-body").value);
+  let iframe = document.getElementById("post-editor-iframe");
+  let iframeContent = (iframe.contentWindow || iframe.contenDocument); 
+  let iframeEditor = iframeContent.window.document.getElementById("post-body-editor");
+  console.log(iframeEditor.innerHTML);
+  document.getElementsByClassName("post-body-textarea").value =  
+  iframeEditor.innerHTML;
   return true;
 }
 

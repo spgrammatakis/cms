@@ -22,6 +22,7 @@
             name="post-body"
             form="post-edit"
             style="display:none"
+            class="post-body-textarea"
         ></textarea>
 </br>
 <ul>
