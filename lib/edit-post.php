@@ -35,7 +35,6 @@ if($_POST){
 <!DOCTYPE html>
 <html>
     <head>
-    <link rel="stylesheet" type="text/css" href="../templates/text-editor/text-editor.css">
     <script src="../templates/text-editor/text-editor.js"></script>
     <script type="text/javascript" src="../js/get-parent-id.js"></script>
         <title>
@@ -60,7 +59,7 @@ if($_POST){
         </div>
         <div id="post-editor-wrapper">
         <hr style='border: 5px solid red;'>
-        <iframe id=post-editor-iframe onload="initIframe()" src="../templates/post-edit-form.html">
+        <iframe id=post-editor-iframe onload="initIframe()" width="50%" height="500" src="../templates/post-edit-form.php">
         <iframe>
         </div>
         </p>

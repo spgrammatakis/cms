@@ -1,3 +1,5 @@
+<html>
+<link rel="stylesheet" type="text/css" href="../templates/text-editor/text-editor.css">
 <body>
 <form method="post" id="post-edit" onsubmit="copyContent()" >
 <h3>Edit your post</h3>
@@ -36,3 +38,4 @@
     <input type="submit" value="Finish Edit"/>
 </form>
 </body>
+</html>
