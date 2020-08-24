@@ -6,12 +6,8 @@ function copyContent () {
 
 function iframeInit(){
   let iframe = document.getElementById('post-editor-iframe');
-  console.log(window.parent.document.getElementById('post-body').innerHTML);
-  console.log(window.document.getElementById('post-body-editor').innerHTML);
   iframeDoc = iframe.contentDocument || iframeWin.document;
-  iframeDoc.open();
-  iframeDoc.write('iframe here');
-  iframeDoc.close();
+  console.log(iframe.doc.getElementById("post-body-editor").innerHTML);
   window.document.getElementById('post-body-editor').innerHTML = window.parent.document.getElementById('post-body').innerHTML;
   document.getElementById('post-title-editor').innerHTML = window.parent.document.getElementById('post-title').innerHTML;
   return; 

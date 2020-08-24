@@ -1,6 +1,5 @@
 <html>
 <head>
-<link rel="stylesheet" type="text/css" href="/template/text-editor/text-editor.css">
 </head>
 <body>
 <form method="post" id="post-edit" onsubmit="copyConent()" >
@@ -28,4 +27,5 @@
     <input type="submit" value="Finish Edit"/>
 </form>
 </body>
+<script type="text/javascript" src="../templates/text-editor/text-editor.js"></script>
 </html>
