@@ -3,13 +3,11 @@ function copyContent () {
 }
 
 function getiframeBody(){
- let iframe = document.getElementById('post-editor-iframe').contentWindow;
- return iframe.document.getElementById('post-body-editor').innerHTML;
+ return document.getElementById('post-editor-iframe').contentWindow.document.getElementById('post-body-editor').innerHTML;
 }
 
 function getiframeTitle(){
-  let iframe = document.getElementById('post-editor-iframe').contentWindow;
-  return iframe.document.getElementById('post-title-editor').innerHTML;
+  return document.getElementById('post-editor-iframe').contentWindow.document.getElementById('post-title-editor').innerHTML;
  }
 
 function copyToHidden () {
