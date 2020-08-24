@@ -22,10 +22,10 @@ if (!$row)
 
 $errors=null;
 if($_POST){
-    $postTitle=$_POST['post-title'];
-    $postBody=$_POST['post-body'];
-    echo $_POST['post-title-textarea'];
-    echo $_POST['post-title'];
+    $postTitle=$_POST['post-title-textarea'];
+    $postBody=$_POST['post-body-textarea'];
+    echo $postTitle;
+    echo $postBody;
     $errors=$pdo->updatePost($postId,$postTitle,$postBody);
     print_r($errors);
     if (!$errors)
@@ -39,7 +39,7 @@ if($_POST){
     <head>
     
     <script type="text/javascript" src="../js/get-parent-id.js"></script>
-    <script type="text/javascript" src="../templates/text-editor/text-editor.js"></script>
+    <script type="text/javascript" src="../js/iframe-interactions.js"></script>
     <h2>
         <title>
             A blog application |

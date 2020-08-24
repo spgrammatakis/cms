@@ -2,33 +2,6 @@ function copyContent () {
   return;
 }
 
-function getiframeBody(){
- return document.getElementById('post-editor-iframe').contentWindow.document.getElementById('post-body-editor').innerHTML;
-}
-
-function getiframeTitle(){
-  return document.getElementById('post-editor-iframe').contentWindow.document.getElementById('post-title-editor').innerHTML;
- }
-
-function copyToHidden () {
-  let body = getiframeBody();
-  let title = getiframeTitle();
-  console.log(body);
-  console.log(title);
-  document.getElementById('post-body-textarea').innerHTML = body;
-  document.getElementById('post-title-textarea').innerHTML = title;
-  return;
-}
-
-function iframeInit(){
-  //document.getElementById('targetFrame').contentWindow.targetFunction();
-  //document.getElementById('post-editor-iframe').contentWindow.targetfunction();
-  let iframe = document.getElementById('post-editor-iframe');
-  iframe.contentDocument.getElementById('post-body-editor').innerHTML = parent.document.getElementById('post-body').innerHTML; 
-  iframe.contentDocument.getElementById('post-title-editor').innerHTML = parent.document.getElementById('post-title').innerHTML; 
-  return; 
-}
-
 function formatBold(){
   console.log("Bold");
   var selection = document.getSelection().toString();
