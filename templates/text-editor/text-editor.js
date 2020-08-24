@@ -1,18 +1,20 @@
-function postContent () {
+function copyContent () {
   window.parent.document.getElementById('post-body').innerHTML = document.getElementById('post-body-editor').innerHTML;
   window.parent.document.getElementById('post-title').innerHTML = document.getElementById('post-title-editor').innerHTML;
-  var xhr = new XMLHttpRequest();
-xhr.open("POST", '/edit-post.php', true);
-
-//Send the proper header information along with the request
-xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-
-xhr.onreadystatechange = function() { // Call a function when the state changes.
-    if (this.readyState === XMLHttpRequest.DONE && this.status === 200) {
-        // Request finished. Do processing here.
-    }
-}
   return;
+}
+
+function iframeInit(){
+  let iframe = document.getElementById('post-editor-iframe');
+  console.log(window.parent.document.getElementById('post-body').innerHTML);
+  console.log(window.document.getElementById('post-body-editor').innerHTML);
+  iframeDoc = iframe.contentDocument || iframeWin.document;
+  iframeDoc.open();
+  iframeDoc.write('iframe here');
+  iframeDoc.close();
+  window.document.getElementById('post-body-editor').innerHTML = window.parent.document.getElementById('post-body').innerHTML;
+  document.getElementById('post-title-editor').innerHTML = window.parent.document.getElementById('post-title').innerHTML;
+  return; 
 }
 
 function formatBold(){

@@ -13,7 +13,6 @@ ul {
 
 #post-title-editor{
     overflow-y: scroll;
-    height:10%;
     outline-style: solid;
     outline-width: 3px;
 }  
@@ -22,7 +21,6 @@ ul {
     overflow-y: scroll;
     outline-style: solid;
     outline-width: 3px;
-    height: 70%;
 }
 
 button{
