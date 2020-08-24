@@ -2,9 +2,20 @@ function copyContent () {
   return;
 }
 
+function getiframeBody(){
+ let iframe = document.getElementById('post-editor-iframe').contentWindow;
+ return iframe.document.getElementById('post-body-editor').innerHTML;
+}
+
+function getiframeTitle(){
+  let iframe = document.getElementById('post-editor-iframe').contentWindow;
+  return iframe.document.getElementById('post-title-editor').innerHTML;
+ }
+
 function copyToHidden () {
-  window.parent.document.getElementById('post-body-textarea').innerHTML = document.getElementById('post-body-editor').innerHTML;
-  window.parent.document.getElementById('post-title-textarea').innerHTML = document.getElementById('post-title-editor').innerHTML;
+  let body = getiframeBody();
+  document.getElementById('post-body-textarea').innerHTML = body;
+  document.getElementById('post-title-textarea').innerHTML = getiframeTitle();
   return;
 }
 
