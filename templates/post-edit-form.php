@@ -2,19 +2,19 @@
 <head>
 </head>
 <body>
-<form method="post" id="post-edit" onsubmit="copyToHidden()" >
+<form method="post" id="post-edit">
 <h3>Edit your post</h3>
 <p>
         <textarea
             id="post-title-textarea"
-            name="post-title-textarea"
+            name="post-title"
             form="post-edit"
         ></textarea>
     </p>
     <p>
         <textarea
             id="post-body-textarea"
-            name="post-body-textarea"
+            name="post-body"
             form="post-edit"
         ></textarea>
     </p>

@@ -1,6 +1,4 @@
 function copyContent () {
-  window.parent.document.getElementById('post-body').innerHTML = document.getElementById('post-body-editor').innerHTML;
-  window.parent.document.getElementById('post-title').innerHTML = document.getElementById('post-title-editor').innerHTML;
   return;
 }
 

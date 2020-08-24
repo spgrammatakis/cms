@@ -22,10 +22,10 @@ if (!$row)
 
 $errors=null;
 if($_POST){
-    echo $_POST['post-title'];
-    echo $_POST['post-body'];
     $postTitle=$_POST['post-title'];
     $postBody=$_POST['post-body'];
+    echo $_POST['post-title-textarea'];
+    echo $_POST['post-title'];
     $errors=$pdo->updatePost($postId,$postTitle,$postBody);
     print_r($errors);
     if (!$errors)
