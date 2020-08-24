@@ -61,7 +61,6 @@ if($_POST){
         </div>
         <div id="post-editor-wrapper">
         <hr style='border: 5px solid red;'>
-        <form>
         <?php require '../templates/post-edit-form.php' ?>
         </div>
         </p>

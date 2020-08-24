@@ -4,6 +4,12 @@ function copyContent () {
   return;
 }
 
+function copyToHidden () {
+  window.parent.document.getElementById('post-body').innerHTML = document.getElementById('post-body-editor').innerHTML;
+  window.parent.document.getElementById('post-title').innerHTML = document.getElementById('post-title-editor').innerHTML;
+  return;
+}
+
 function iframeInit(){
   //document.getElementById('targetFrame').contentWindow.targetFunction();
   //document.getElementById('post-editor-iframe').contentWindow.targetfunction();

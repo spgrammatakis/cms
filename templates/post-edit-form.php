@@ -2,7 +2,7 @@
 <head>
 </head>
 <body>
-<form method="post" id="post-edit" onsubmit="copyConent()" >
+<form method="post" id="post-edit" onsubmit="copyToHidden()" >
 <h3>Edit your post</h3>
 <p>
         <input
