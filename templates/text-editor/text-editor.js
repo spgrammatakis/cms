@@ -5,8 +5,8 @@ function copyContent () {
 }
 
 function copyToHidden () {
-  window.parent.document.getElementById('post-body').innerHTML = document.getElementById('post-body-editor').innerHTML;
-  window.parent.document.getElementById('post-title').innerHTML = document.getElementById('post-title-editor').innerHTML;
+  window.parent.document.getElementById('post-body-textarea').innerHTML = document.getElementById('post-body-editor').innerHTML;
+  window.parent.document.getElementById('post-title-textarea').innerHTML = document.getElementById('post-title-editor').innerHTML;
   return;
 }
 

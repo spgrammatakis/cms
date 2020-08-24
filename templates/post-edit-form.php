@@ -5,20 +5,17 @@
 <form method="post" id="post-edit" onsubmit="copyToHidden()" >
 <h3>Edit your post</h3>
 <p>
-        <input
-            id="post-title"
-            name="post-title"
+        <textarea
+            id="post-title-textarea"
+            name="post-title-textarea"
             form="post-edit"
-            style="display:none"
-        >
+        ></textarea>
     </p>
     <p>
         <textarea
-            id="post-body"
-            name="post-body"
+            id="post-body-textarea"
+            name="post-body-textarea"
             form="post-edit"
-            style="display:none"
-            class="post-body-textarea"
         ></textarea>
     </p>
 </br>
