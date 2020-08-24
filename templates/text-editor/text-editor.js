@@ -5,11 +5,8 @@ function copyContent () {
 }
 
 function iframeInit(){
-  let iframe = document.getElementById('post-editor-iframe');
-  iframeDoc = iframe.contentDocument || iframeWin.document;
-  console.log(iframe.doc.getElementById("post-body-editor").innerHTML);
-  window.document.getElementById('post-body-editor').innerHTML = window.parent.document.getElementById('post-body').innerHTML;
-  document.getElementById('post-title-editor').innerHTML = window.parent.document.getElementById('post-title').innerHTML;
+  //document.getElementById('targetFrame').contentWindow.targetFunction();
+  document.getElementById('post-editor-iframe').contentWindow;
   return; 
 }
 
