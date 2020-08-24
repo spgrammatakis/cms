@@ -38,21 +38,22 @@ if($_POST){
     
     <script type="text/javascript" src="../js/get-parent-id.js"></script>
     <script type="text/javascript" src="../templates/text-editor/text-editor.js"></script>
+    <h2>
         <title>
             A blog application |
             <?php echo $pdo->htmlEscape($row['title']) ?>
         </title>
         <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+    </h2>
     </head>
     <body>
     <a href="../index.php"><h1>Homepage</h1></a>
     <?php echo "<div class='post' id='" . $postId."'>"; ?>
     <p>
-        <h2>
+        <div id="post-title">
             <?php echo $pdo->htmlEscape($row['title']) ?>
-        </h2>
         </div>
-        <div>
+        <div id="post-body">
         <?php echo $pdo->htmlEscape($row['body']);?>
         </div>
         <div>
@@ -60,8 +61,8 @@ if($_POST){
         </div>
         <div id="post-editor-wrapper">
         <hr style='border: 5px solid red;'>
-        <iframe id="post-editor-iframe" onload="initIframe()" width="50%" height="500" src="../templates/post-edit-form.php">
-        </iframe>
+        <form>
+        <?php require '../templates/post-edit-form.php' ?>
         </div>
         </p>
     </body>

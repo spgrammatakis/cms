@@ -3,7 +3,6 @@ html{
 
 ul {
     list-style-type: none;
-    margin: 0;
     padding: 0;
     overflow: hidden;
   }
@@ -11,35 +10,38 @@ ul {
   li {
     float: left;
   }
-  
-  li a {
-    display: block;
-    color: white;
-    text-align: center;
-    padding: 16px;
-    text-decoration: none;
-  }
-  
-  li a:hover {
-    background-color: #111111;
-  }
 
-#post-body-editor{
-    height: 10rem;
+#post-title-editor{
     overflow-y: scroll;
-    padding: 1rem;
+    height:10%;
     outline-style: solid;
     outline-width: 3px;
+}  
+
+#post-body-editor{
+    overflow-y: scroll;
+    outline-style: solid;
+    outline-width: 3px;
+    height: 70%;
 }
-#post-title-editor{
-  height: 1rem;
-  overflow-y: scroll;
-  padding: 1rem;
-  outline-style: solid;
-  outline-width: 3px;
+
+button{
+  border: none;
+  background-color: inherit;
+  padding: 14px 28px;
+  font-size: 16px;
+  cursor: pointer;
+  display: inline-block;
 }
+
+button:hover {background:gray;}
+
 
 #post-body-editor:focus,#post-title-editor:focus {
     outline-style: solid;
     outline-width: 3px;
+}
+
+body{
+  overflow: hidden;
 }
