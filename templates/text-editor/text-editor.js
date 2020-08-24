@@ -14,6 +14,9 @@ function getiframeTitle(){
 
 function copyToHidden () {
   let body = getiframeBody();
+  let title = getiframeTitle();
+  console.log(body);
+  console.log(title);
   document.getElementById('post-body-textarea').innerHTML = body;
   document.getElementById('post-title-textarea').innerHTML = getiframeTitle();
   return;
