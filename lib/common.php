@@ -44,7 +44,7 @@ public function bind($param, $value, $type=null){
                 break;
             case is_bool($value):
                 $type = PDO::PARAM_BOOL;
-                break;
+                break;  
             case is_null($value):
                 $type = PDO::PARAM_NULL;
                 break;
