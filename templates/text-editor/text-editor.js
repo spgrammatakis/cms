@@ -2,6 +2,20 @@ function copyContent () {
   return;
 }
 
+let selection;
+
+document.onmouseup= function() {
+    var el = document.getElementById("post-body-editor")
+    var range = document.createRange()
+    var sel = window.getSelection()
+    
+    range.setStart(el.childNodes[0], 5)
+    range.collapse(true)
+    
+    sel.removeAllRanges()
+    sel.addRange(range)
+};
+
 function formatBold(){
   console.log("Bold");
   var selection = document.getSelection().toString();
