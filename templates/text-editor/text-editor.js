@@ -4,16 +4,16 @@ function copyContent () {
 
 let selection;
 
-document.onmouseup= function() {
-    var el = document.getElementById("post-body-editor")
-    var range = document.createRange()
-    var sel = window.getSelection()
+document.onkeypress = function() {
+    var el = document.getElementById("post-body-editor");
+    var range = document.createRange();
+    var sel = window.getSelection();
+    console.log(el.childNodes[1]);
+    range.setStart(el.childNodes[0], 5);
+    range.collapse(true);
     
-    range.setStart(el.childNodes[0], 5)
-    range.collapse(true)
-    
-    sel.removeAllRanges()
-    sel.addRange(range)
+    sel.removeAllRanges();
+    sel.addRange(range);
 };
 
 function formatBold(){
