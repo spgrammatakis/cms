@@ -6,7 +6,7 @@
         <meta http-equiv="refresh" content="5">
     </head>
     <body>
-        <?php   
+        <?php 
         require 'lib/common.php'; 
         require 'templates/title.php';
         $pdo = new Connection();
