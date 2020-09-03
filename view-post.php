@@ -1,17 +1,15 @@
 <?php
 require 'lib/common.php';
 // Get the post ID
-if (isset($_GET['post_id']))
+if (isset($_GET['post_id'])&& is_int($_GET['post-id']))
 {
     $postId = $_GET['post_id'];
 }
 else
 {
-    // So we always have a post ID var defined
     $postId = 0;
 }
 
-// Connect to the database, run a query, handle errors
 $pdo = new Connection();
 $row = $pdo->getPostRow($postId);
 
