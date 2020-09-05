@@ -1,7 +1,7 @@
 <?php
 require 'lib/common.php';
 // Get the post ID
-if (isset($_GET['post_id'])&& is_int($_GET['post-id']))
+if (isset($_GET['post_id']) AND is_numeric($_GET['post_id']))
 {
     $postId = $_GET['post_id'];
 }
@@ -9,14 +9,8 @@ else
 {
     $postId = 0;
 }
-
 $pdo = new Connection();
 $row = $pdo->getPostRow($postId);
-
-if (!$row)
-{
-    redirectAndExit('index.php?not-found=1');
-}
 
 $errors = null;
 if ($_POST)
