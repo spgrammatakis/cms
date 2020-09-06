@@ -1,4 +1,4 @@
-<hr style='border: 5px solid red;'>
+<hr>
 <h3>Add your comment</h3>
 <form method="post">
 <p>

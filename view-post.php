@@ -37,13 +37,13 @@ if ($_POST)
         'content' => '',
     );
 }
-
+//    script-src 'sha256-dZ9mgGecmXBGZ6+nu6onHRqp0s0CQ2YhnxzHEzsfLv4=';
 ?>
-
 <!DOCTYPE html>
 <html>
     <head>
-    <script type="text/javascript" src="./js/get-parent-id.js"></script>
+    <meta http-equiv="Content-Security-Policy" content="script-src 'self';">
+    
         <title>
             A blog application |
             <?php echo $pdo->htmlEscape($row['title']) ?>
@@ -67,12 +67,12 @@ if ($_POST)
         echo $pdo->htmlEscape($row['body']);
         ?>
         </div>
-        <button class='btn' onClick="redirectToEditPost(this)">Edit Post</button>
+        <button class='post-button'>Edit Post</button>
         </p>
         <h3><?php echo $pdo->countCommentsForPost($postId) ?> comments</h3>
         </div>
         <?php foreach ($pdo->getCommentsForPost($postId) as $comment): ?>
-            <hr style='border: 5px solid red;'>
+        <hr>
         <?php echo "<div class='comment' id='" . $comment['comment_id']."'>"; ?>
                 <div class="comment-meta">
                     Comment from
@@ -86,10 +86,11 @@ if ($_POST)
                 <div class="comment-website">
                     <?php echo $pdo->htmlEscape($comment['website']) ?>
                 </div>
-        <button class='btn' onClick="redirectToEditComment(this)">Edit Comment</button>
+        <button class='comment-button'>Edit Comment</button>
         </div>
         <?php endforeach ?>
         </div>
         <?php require 'templates/comment-form.php' ?>
     </body>
+    <script type="text/javascript" src="./js/get-parent-id.js"></script>
 </html>
