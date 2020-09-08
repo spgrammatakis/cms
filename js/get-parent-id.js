@@ -17,5 +17,8 @@ function redirectToEditComment(id) {
                 button[i].addEventListener("click", function(){
                     redirectToEditComment(button[i].parentElement.id);
                 });
+                button[i].addEventListener("click", function(){
+                    redirectToEditComment(button[i].parentElement.id);
+                });
             }
         }

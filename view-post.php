@@ -37,13 +37,13 @@ if ($_POST)
         'content' => '',
     );
 }
-//    script-src 'sha256-dZ9mgGecmXBGZ6+nu6onHRqp0s0CQ2YhnxzHEzsfLv4=';
+
 ?>
 <!DOCTYPE html>
 <html>
     <head>
     <meta http-equiv="Content-Security-Policy" content="script-src 'self';">
-    
+    <script type="text/javascript" src="./js/get-parent-id.js" defer></script>
         <title>
             A blog application |
             <?php echo $pdo->htmlEscape($row['title']) ?>
@@ -92,5 +92,4 @@ if ($_POST)
         </div>
         <?php require 'templates/comment-form.php' ?>
     </body>
-    <script type="text/javascript" src="./js/get-parent-id.js"></script>
 </html>
