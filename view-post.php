@@ -1,7 +1,8 @@
 <?php
+
 require 'lib/common.php';
 // Get the post ID
-if (isset($_GET['post_id']) AND is_numeric($_GET['post_id']))
+if ((isset($_GET['post_id']) && is_numeric($_GET['post_id'])))
 {
     $postId = $_GET['post_id'];
 }
@@ -9,12 +10,27 @@ else
 {
     $postId = 0;
 }
+
+ini_set('display_errors', 1);
+ini_set('log_errors', 0);
+    
 $pdo = new Connection();
 $row = $pdo->getPostRow($postId);
+if(!$row){
+    header("HTTP/1.0 404 Not Found");
+    echo "psofos";
+    exit;
+}
+$commentData = array(
+    'user_name' => '',
+    'website' => '',
+    'content' => '',
+);
 
 $errors = null;
-if ($_POST)
+if ($_POST && $postId !== 0)
 {
+    echo "post found";
     $commentData = array(
         'user_name' => $_POST['comment-name'],
         'website' => $_POST['comment-website'],
@@ -29,13 +45,7 @@ if ($_POST)
     {
         redirectAndExit('view-post.php?post_id=' . $postId);
     }
-}else
-{
-    $commentData = array(
-        'user_name' => '',
-        'website' => '',
-        'content' => '',
-    );
+
 }
 
 ?>
@@ -55,7 +65,9 @@ if ($_POST)
     <?php echo "<div class='post' id='" . $postId."'>"; ?>
         <div>
         <h2>
-            <?php echo $pdo->htmlEscape($row['title']) ?>
+            <?php
+            echo $pdo->htmlEscape($row['title']);
+            ?>
         </h2>
         </div>
         <div>
@@ -93,3 +105,10 @@ if ($_POST)
         <?php require 'templates/comment-form.php' ?>
     </body>
 </html>
+
+<!-- ob_start();
+
+echo "Hello World";
+
+$out = ob_get_clean();
+$out = strtolower($out); -->
