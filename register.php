@@ -2,37 +2,22 @@
 require './lib/common.php';
 $pdo = new Connection();
 
- 
-// Define variables and initialize with empty values
 $username = $password = $confirm_password = $email ="";
 $username_err = $password_err = $confirm_password_err = $email_err  ="";
- 
-// Processing form data when form is submitted
+
 if($_SERVER["REQUEST_METHOD"] == "POST"){
     echo "past post";
     echo "<br>";
-    // Validate username
     if(empty(trim($_POST["username"]))){
         echo "empty user";
         echo "<br>";
         $username_err = "Please enter a username.";
-    } else{
-        // Prepare a select statement
-        $sql = "SELECT user_id FROM users WHERE username = :username";
-    
+    } else{        
+        $sql = "SELECT user_id FROM users WHERE username = :username";    
         $pdo->prepareStmt($sql);
-
-            
-            
-        // Set parameters
         $param_username = trim($_POST["username"]);
-            
-        // Bind variables to the prepared statement as parameters
         $pdo->bind(':username', $param_username);
-        echo $param_username;
-        echo "<br>";
 
-            // Attempt to execute the prepared statement
             if($pdo->run()){
                 echo "inside run";
                 echo "<br>";
@@ -44,30 +29,25 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
             } else{
                 echo "Oops! Something went wrong. Please try again later.";
             }
-        
-         
-        // Close statement
-        //unset($pdo);
+
     }
-        //Validate email
+
         if(empty(trim($_POST["email"]))){
             if (filter_var($_POST["email"], FILTER_VALIDATE_EMAIL)){
             $email_err = "Please enter an email.";
             }
         } else{
-            // Prepare a select statement
+
             $sql = "SELECT user_id FROM users WHERE email = :email";
             
             $pdo->prepareStmt($sql);
                 echo "inside email";
                 echo "<br>";
 
-                // Set parameters
                 $param_email = trim($_POST["email"]);
-                // Bind variables to the prepared statement as parameters
+
                 $pdo->bind('email', $param_email);
                 
-                // Attempt to execute the prepared statement
                 if($pdo->run()){
                     if($pdo->rowCount() == 1){
                         $email_err = "This email is already taken.";
@@ -78,11 +58,10 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                     echo "Oops! Something went wrong. Please try again later.";
                 }
              
-            // Close statement
-           // unset($pdo);
+
          }
     
-    // Validate password
+
     if(empty(trim($_POST['password']))){
         $password_err = "Please enter a password.";     
     } elseif(strlen(trim($_POST['password'])) < 5){
@@ -91,7 +70,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
         $password = trim($_POST['password']);
     }
     
-    // Validate confirm password
+
     if(empty(trim($_POST["confirm_password"]))){
         $confirm_password_err = 'Please confirm password.';     
     } else{
@@ -101,40 +80,31 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
         }
     }
     
-    // Check input errors before inserting in database
+
     if(empty($username_err) && empty($password_err) && empty($confirm_password_err) && empty($email_err)){
         
-        // Prepare an insert statement
+
         $sql = "INSERT INTO users (username, password, email) VALUES (:username, :password, :email)";
         echo "outside last prepare";
         $pdo->prepareStmt($sql);
             echo "inside last prepare";
 
-            // Set parameters
             $param_username = ($username);
-            $param_password = password_hash($password, PASSWORD_DEFAULT); // Creates a password hash
+            $param_password = password_hash($password, PASSWORD_DEFAULT);
             $param_email    = ($email);
-            // Bind variables to the prepared statement as parameters
+
             $pdo->bind(':username', $param_username);
             $pdo->bind(':password', $param_password);
             $pdo->bind(':email', $param_email);
-            
- 
-            // Attempt to execute the prepared statement
+
             if($pdo->run()){
-                // Redirect to login page
+
                 header("location: login.php");
             } else{
                 echo "Something went wrong. Please try again later.";
             }
-        
-         
-        // Close statement
-        //unset($pdo);
     }
     
-    // Close connection
-    //unset($pdo);
 }
 ?>
  
