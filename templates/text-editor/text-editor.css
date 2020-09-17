@@ -12,12 +12,14 @@ ul {
     overflow-y: scroll;
     outline-style: solid;
     outline-width: 3px;
+    height: 10%;
 }  
 
 #post-body-editor{
     overflow-y: scroll;
     outline-style: solid;
     outline-width: 3px;
+    height: 70%;
 }
 
 button{

@@ -30,7 +30,6 @@ $commentData = array(
 $errors = null;
 if ($_POST && $postId !== 0)
 {
-    echo "post found";
     $commentData = array(
         'user_name' => $_POST['comment-name'],
         'website' => $_POST['comment-website'],
