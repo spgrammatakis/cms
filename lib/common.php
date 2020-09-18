@@ -284,7 +284,7 @@ try {
     catch (PDOException $e) {
         exit("Connection failed: " . $e->getMessage());
     }
-$this->redirectAndExit('index.php');
+redirectAndExit('index.php');
 }
 public function delete($commentid){
     $stmt = $this->db->prepare("DELETE FROM posts WHERE id=:id");

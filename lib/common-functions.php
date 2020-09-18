@@ -2,13 +2,9 @@
 
 function redirectAndExit($script)
 {
-
-    $relativeUrl = $_SERVER['PHP_SELF'];
-    $urlFolder = substr($relativeUrl, 0, strrpos($relativeUrl, '/') + 1);
-    $host = $_SERVER['HTTP_HOST'];
-    $fullUrl = 'http://' . $host . $urlFolder . $script;
-    header('Location: ' . $fullUrl);
-    exit();
+    header('HTTP/1.0 404 Not Found');
+    include '../templates/404.php';
+    exit;
 }
 
 function getSqlDateForNow()

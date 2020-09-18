@@ -42,7 +42,9 @@ if ($_POST && $postId !== 0)
     // If there are no errors, redirect back to self and redisplay
     if (!$errors)
     {
-        redirectAndExit('view-post.php?post_id=' . $postId);
+        //redirectAndExit('view-post.php?post_id=' . $postId);
+        header('Location: ' . $_SERVER['PHP_SELF'] . "?post_id=" . $postId);
+        exit;
     }
 
 }
