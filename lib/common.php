@@ -149,14 +149,13 @@ public function updatePost($postId,$postTitle,$postBody){
         
     $sql = "
     UPDATE posts
-    SET post_id=:post_id, title=:post_title, body=:post_body, created_at=:date
+    SET post_id=:post_id, title=:post_title, body=:post_body
     WHERE post_id=:post_id;
     ";
     $this->prepareStmt($sql);
     $this->bind(':post_id',$postId);
     $this->bind(':post_title',$postTitle);
-    $this->bind(':post_body',$postBody);
-    $this->bind(':date',$date);
+    $this->bind(':post_body',$postBody);;
     $this->run();
     } 
 

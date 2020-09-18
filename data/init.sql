@@ -6,7 +6,7 @@ author_id INT(10) NOT NULL,
 title VARCHAR(50) NOT NULL,
 body VARCHAR(255) NOT NULL,
 created_at DATETIME NOT NULL,
-updated_at DATETIME
+updated_at DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 )DEFAULT CHARSET=utf8;
 
 INSERT INTO posts(title, body, author_id, created_at)
@@ -21,7 +21,7 @@ CREATE TABLE comments (
     website VARCHAR(30),
     content VARCHAR(255) NOT NULL,
     created_at DATETIME NOT NULL,
-    updated_at DATETIME
+    updated_at DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 )DEFAULT CHARSET=utf8;
 
 INSERT INTO comments(post_id, created_at, user_name, website, content)

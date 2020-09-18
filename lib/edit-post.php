@@ -28,7 +28,8 @@ if($_POST){
     print_r($errors);
     if (!$errors)
     {
-        redirectAndExit('../view-post.php?post_id=' . $postId);
+        header('Location: ' . $_SERVER['PHP_SELF'] . "?post_id=" . $postId);
+        exit;
     }
 }
 ?>
