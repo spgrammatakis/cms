@@ -9,6 +9,7 @@
     <body>
         <?php 
         session_start();
+        print_r($_SESSION);
         require 'lib/common.php'; 
         require 'templates/title.php';
         $pdo = new Connection();
