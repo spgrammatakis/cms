@@ -293,10 +293,22 @@ public function delete($commentid){
    }
 
 public function sessionCheck(){
-    if(!isset($_COOKIE["user_name"])){
+    if(!isset($_COOKIE["user_name"]) || empty($_COOKIE['user_name'])){
     return;
     }
-    $token = $_COOKIE["session_token"]; 
+    $token = $_COOKIE["session_token"];
+    echo $token . "</br>";
+    $username = $_COOKIE["user_name"];
+    echo $username;
+    $sql = "SELECT user_id FROM users WHERE username = :username";
+    $this->prepareStmt($sql);
+    $this->bind(':username', $username);
+    if($this->run()){              
+        if($this->rowCount() == 1){
+                if($row = $this->SingleRow()){
+                    $userID = $row['user_id'];
+                }
+    }
     $sql = "
     INSERT INTO
     users_metadata
@@ -304,10 +316,11 @@ public function sessionCheck(){
     VALUES(:user_id, :session_token)
     ";
     $this->prepareStmt($sql);
-    $this->bind(':user_id',$_COOKIE["user_name"]);
+    $this->bind(':user_id',$userID);
     $this->bind(':session_token',$token);
     $this->run();
-}
-}
+    }
 
+}
+}
 ?>
