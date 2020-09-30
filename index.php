@@ -1,9 +1,7 @@
 <?php
-if(isset($_COOKIE["user_name"])){
-    echo $_COOKIE["user_name"];
-}else{
-    echo $_SERVER['HTTP_HOST'];
+if(!(isset($_COOKIE["user_name"]))){
     setcookie("user_name", "spyros", time()+ 60,'/', $_SERVER['HTTP_HOST'], false, true);
+    setcookie("session_id", bin2hex(random_bytes(30)), time()+ 60,'/', $_SERVER['HTTP_HOST'], false, true);
 }
 ?>
 <!DOCTYPE html>
@@ -19,6 +17,7 @@ if(isset($_COOKIE["user_name"])){
         require 'lib/common.php'; 
         require 'templates/title.php';
         $pdo = new Connection();
+        $pdo->sessionCheck();
         $pdo->getPosts();
         ?>
         <a href="./install.php">Install</a>

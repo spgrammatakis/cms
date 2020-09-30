@@ -1,7 +1,5 @@
 <?php
-if(!isset($_COOKIE["user_name"])){
-    echo "no cookie";
-}
+
 require 'common-functions.php';
 
 class Connection{
@@ -293,6 +291,12 @@ public function delete($commentid){
     $stmt->execute();
     return true;
    }
+
+public function sessionCheck(){
+    if(!isset($_COOKIE["user_name"])){
+   
+    }
+}
 }
 
 ?>
