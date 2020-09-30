@@ -272,7 +272,7 @@ try {
     $title = $_GET['title'];
     $summary = $_GET['summary'];
     $body = $_GET['body'];
-    $sql = "INSERT INTO posts(title, body
+    $sql = "INSERT INTO posts(title, body)
             VALUES (':title', ':body')))";
     $this->prepareStmt($sql);
     $this->bind(':title',$title);
@@ -294,8 +294,19 @@ public function delete($commentid){
 
 public function sessionCheck(){
     if(!isset($_COOKIE["user_name"])){
-   
+    return;
     }
+    $token = $_COOKIE["session_token"]; 
+    $sql = "
+    INSERT INTO
+    users_metadata
+    (user_id, session_token)
+    VALUES(:user_id, :session_token)
+    ";
+    $this->prepareStmt($sql);
+    $this->bind(':user_id',$_COOKIE["user_name"]);
+    $this->bind(':session_token',$token);
+    $this->run();
 }
 }
 
