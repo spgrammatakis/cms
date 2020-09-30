@@ -1,5 +1,7 @@
 <?php
-
+if(!isset($_COOKIE["user_name"])){
+    echo "no cookie";
+}
 require 'common-functions.php';
 
 class Connection{

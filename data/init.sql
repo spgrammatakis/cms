@@ -39,11 +39,19 @@ CREATE TABLE users (
     is_enabled BOOLEAN NOT NULL
 )DEFAULT CHARSET=utf8;
 
-DROP TABLE IF EXISTS auth_tokens;
+/*DROP TABLE IF EXISTS auth_tokens;
 
 CREATE TABLE auth_tokens (
     token_id INT(10) UNSIGNED AUTO_INCREMENT PRIMARY KEY NOT NULL,
     token VARCHAR(33),
-    userid INT(11) UNSIGNED NOT NULL,
-    expires INT(11)
-)DEFAULT CHARSET=utf8;;
+    userid INT(10) UNSIGNED NOT NULL,
+    created_at DATETIME NOT NULL
+)DEFAULT CHARSET=utf8;*/
+
+DROP TABLE IF EXISTS users_metadata;
+
+CREATE TABLE users_metadata(
+        meta_id INT(10) UNSIGNED AUTO_INCREMENT PRIMARY KEY NOT NULL,
+        user_id INT(10) 
+
+)DEFAULT CHARSET=utf8;
