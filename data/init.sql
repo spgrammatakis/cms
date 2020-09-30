@@ -39,6 +39,8 @@ CREATE TABLE users (
     is_enabled BOOLEAN NOT NULL
 )DEFAULT CHARSET=utf8;
 
+INSERT INTO users(username, password)
+VALUES('admin','admin');
 /*DROP TABLE IF EXISTS auth_tokens;
 
 CREATE TABLE auth_tokens (
@@ -53,5 +55,6 @@ DROP TABLE IF EXISTS users_metadata;
 CREATE TABLE users_metadata(
         meta_id INT(10) UNSIGNED AUTO_INCREMENT PRIMARY KEY NOT NULL,
         user_id INT(10) NOT NULL,
-        session_token LONGTEXT NOT NULL
+        session_token LONGTEXT NOT NULL,
+        initiated_at DATETIME DEFAULT CURRENT_TIMESTAMP
 )DEFAULT CHARSET=utf8;

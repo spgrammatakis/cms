@@ -309,6 +309,7 @@ public function sessionCheck(){
                     $userID = $row['user_id'];
                 }
     }
+    if(!isset($userID) || empty($userID)) return;
     $sql = "
     INSERT INTO
     users_metadata
