@@ -12,9 +12,4 @@ function getSqlDateForNow()
     return date('Y-m-d H:i:s');
 }
 
-function login($username)
-{
-    session_regenerate_id();
-    $_SESSION['logged_in_username'] = $username;
-}
 ?>
