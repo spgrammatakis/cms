@@ -1,6 +1,5 @@
 <?php
 if(!(isset($_COOKIE["user_name"]))){
-    setcookie("session_token", bin2hex(random_bytes(20)), mktime(0, 0, 0, date("m"),   date("d"),   date("Y")+1),'/', $_SERVER['HTTP_HOST'], false, true);
     setcookie("user_name", "admin", [
         "expires" => mktime(0, 0, 0, date("m"),   date("d"),   date("Y")+1),
         "path" => '/',
