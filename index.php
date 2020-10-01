@@ -1,7 +1,7 @@
 <?php
 if(!(isset($_COOKIE["user_name"]))){
     setcookie("user_name", "admin", time()+ 60,'/', $_SERVER['HTTP_HOST'], false, true);
-    setcookie("session_token", bin2hex(random_bytes(30)), time()+ 60,'/', $_SERVER['HTTP_HOST'], false, true);
+    setcookie("session_token", bin2hex(random_bytes(20)), time()+ 60,'/', $_SERVER['HTTP_HOST'], false, true);
 }
 ?>
 <!DOCTYPE html>

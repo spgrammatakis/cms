@@ -296,8 +296,8 @@ public function sessionCheck(){
     if(!isset($_COOKIE["user_name"]) || empty($_COOKIE['user_name'])){
     return;
     }
-    $token = $_COOKIE["session_token"];
-    echo $token . "</br>";
+    $tokens = serialize(array($_COOKIE["session_token"]));
+    echo $tokens . "</br>";
     $username = $_COOKIE["user_name"];
     echo $username;
     $sql = "SELECT user_id FROM users WHERE username = :username";
@@ -313,15 +313,20 @@ public function sessionCheck(){
     $sql = "
     INSERT INTO
     users_metadata
-    (user_id, session_token)
-    VALUES(:user_id, :session_token)
+    (user_id, session_tokens)
+    VALUES(:user_id, :session_tokens)
     ";
     $this->prepareStmt($sql);
     $this->bind(':user_id',$userID);
-    $this->bind(':session_token',$token);
+    $this->bind(':session_tokens',$tokens);
     $this->run();
     }
 
+}
+public function sessionIfAlreadyExists(){
+    if(!isset($_COOKIE["user_name"]) || empty($_COOKIE['user_name'])){
+        return;
+        }
 }
 }
 ?>
