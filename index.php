@@ -26,9 +26,9 @@ if(!(isset($_COOKIE["user_name"]))){
     </head>
     <body>
         <?php 
-        require 'lib/common.php'; 
+        require 'lib/dbconnection.class.php'; 
         require 'templates/title.php';
-        $pdo = new Connection();
+        $pdo = new DbConnection();
         $pdo->sessionCheck();
         $pdo->getPosts();
         ?>

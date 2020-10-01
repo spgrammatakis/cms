@@ -1,6 +1,6 @@
 <?php
-require './lib/common.php';
-$pdo = new Connection();
+require './lib/dbconnection.class.php.php';
+$pdo = new DbConnection();
 
 $username = $password = $confirm_password = $email ="";
 $username_err = $password_err = $confirm_password_err = $email_err  ="";

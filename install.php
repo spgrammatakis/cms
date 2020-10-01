@@ -6,8 +6,8 @@
  */
 function installBlog()
 {
-    include_once 'lib/common.php';
-    $pdo = new Connection();
+    include_once 'lib/dbconnection.class.php';
+    $pdo = new DbConnection();
     $db = $pdo->getDatabase();
     $sql = file_get_contents($db);
     $pdo->prepareStmt($sql);
@@ -16,7 +16,7 @@ function installBlog()
 // See how many rows we created, if any
 
     $sql = "SELECT * FROM posts";
-    $stmt = new Connection();
+    $stmt = new DbConnection();
     $pdo->prepareStmt($sql);
     $postCount = $pdo->rowCount();
     $sql = "SELECT * FROM comments";

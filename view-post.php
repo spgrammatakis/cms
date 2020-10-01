@@ -1,6 +1,6 @@
 <?php
 
-require 'lib/common.php';
+require 'lib/dbconnection.class.php';
 // Get the post ID
 if ((isset($_GET['post_id']) && is_numeric($_GET['post_id'])))
 {
@@ -14,7 +14,7 @@ else
 ini_set('display_errors', 1);
 ini_set('log_errors', 0);
     
-$pdo = new Connection();
+$pdo = new DbConnection();
 $row = $pdo->getPostRow($postId);
 if(!$row){
     header("HTTP/1.0 404 Not Found");

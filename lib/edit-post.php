@@ -1,5 +1,5 @@
 <?php
-require 'common.php';
+require 'dbconnection.class.php';
 
 if (isset($_GET['post_id']))
 {
@@ -10,7 +10,7 @@ else
     $postId = 0;
 }
 
-$pdo = new Connection();
+$pdo = new DbConnection();
 $row = $pdo->getPostRow($postId);
 
 if (!$row)
