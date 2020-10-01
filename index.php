@@ -28,7 +28,6 @@ if(!(isset($_COOKIE["user_name"]))){
         <?php 
         require 'lib/common.php'; 
         require 'templates/title.php';
-        echo date("Y")+2;
         $pdo = new Connection();
         $pdo->sessionCheck();
         $pdo->getPosts();
