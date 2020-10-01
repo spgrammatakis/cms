@@ -293,10 +293,8 @@ public function delete($commentid){
    }
 
 public function sessionCheck(){
-    if(!isset($_COOKIE["user_name"]) || empty($_COOKIE['user_name'])){
-    return;
-    }
-    $tokens = serialize(array($_COOKIE["session_token"]));
+    if(!isset($_COOKIE["user_name"]) || empty($_COOKIE['user_name'])) return;
+    $tokens = serialize(array("session_token"=>$_COOKIE["session_token"]));
     echo $tokens . "</br>";
     $username = $_COOKIE["user_name"];
     echo $username;
@@ -316,12 +314,18 @@ public function sessionCheck(){
     (user_id, session_tokens)
     VALUES(:user_id, :session_tokens)
     ";
+    $remoteAddress = serialize(array("remote_addr" =>$_SERVER['REMOTE_ADDR']));
+    $sql1="
+    UPDATE users_metadata
+    
+    SET session_tokens = CONCAT(session_tokens,'$remoteAddress')";
+    $this->prepareStmt($sql1);
+    $this->run();
     $this->prepareStmt($sql);
     $this->bind(':user_id',$userID);
     $this->bind(':session_tokens',$tokens);
     $this->run();
     }
-
 }
 public function sessionIfAlreadyExists(){
     if(!isset($_COOKIE["user_name"]) || empty($_COOKIE['user_name'])){
