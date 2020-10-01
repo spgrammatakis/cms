@@ -327,6 +327,11 @@ public function sessionCheck(){
     $this->run();
     }
 }
+
+public function updateUserMetaData(){
+    
+}
+
 public function sessionIfAlreadyExists(){
     if(!isset($_COOKIE["user_name"]) || empty($_COOKIE['user_name'])){
         return;
