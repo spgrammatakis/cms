@@ -1,8 +1,21 @@
 <?php
 if(!(isset($_COOKIE["user_name"]))){
-    setcookie("user_name", "admin", time()+ 60,'/', $_SERVER['HTTP_HOST'], false, true);
-    setcookie("session_token", bin2hex(random_bytes(20)), time()+ 60,'/', $_SERVER['HTTP_HOST'], false, true);
+    setcookie("session_token", bin2hex(random_bytes(20)), mktime(0, 0, 0, date("m"),   date("d"),   date("Y")+1),'/', $_SERVER['HTTP_HOST'], false, true);
+    setcookie("user_name", "admin", [
+        "expires" => mktime(0, 0, 0, date("m"),   date("d"),   date("Y")+1),
+        "path" => '/',
+        "domain" => "",
+        "secure" => false,
+        "httponly" => true,
+        "samesite" => "Strict"]);
 }
+    setcookie("session_token", bin2hex(random_bytes(20)), [
+        "expires" => mktime(0, 0, 0, date("m"),   date("d"),   date("Y")+1),
+        "path" => '/',
+        "domain" => "",
+        "secure" => false,
+        "httponly" => true,
+        "samesite" => "Strict"]);
 ?>
 <!DOCTYPE html>
 <html>
@@ -16,6 +29,7 @@ if(!(isset($_COOKIE["user_name"]))){
         <?php 
         require 'lib/common.php'; 
         require 'templates/title.php';
+        echo date("Y")+2;
         $pdo = new Connection();
         $pdo->sessionCheck();
         $pdo->getPosts();
