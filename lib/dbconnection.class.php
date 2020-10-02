@@ -323,13 +323,29 @@ public function updateUserMetaData($userID){
     if(!isset($userID) || empty($userID)) return false;
     $tokensToAppend = serialize(array("st"=>$_COOKIE["session_token"],
                                       "ra"=>$_SERVER['REMOTE_ADDR'],
-                                      "ua"=>$_SERVER['HTTP_USER_AGENT']));
+                                      "ua"=>$_SERVER['HTTP_USER_AGENT']));   
+    $test = unserialize($this->getCurrentSessionToken($userID));
+    array_push($test,serialize(array("st"=>$_COOKIE["session_token"],
+    "ra"=>$_SERVER['REMOTE_ADDR'],
+    "ua"=>$_SERVER['HTTP_USER_AGENT'])));
+    $tokensToAppend = serialize($test);            
     $sql="
     UPDATE users_metadata
     SET session_tokens = CONCAT(session_tokens,'$tokensToAppend')
     WHERE user_id = " . $userID;
     $this->prepareStmt($sql);
     return $this->run();
+}
+
+public function getCurrentSessionToken($userID){
+    if(!isset($_COOKIE["user_name"]) || empty($_COOKIE['user_name'])) return false;
+    $sql = "SELECT session_tokens FROM users_metadata WHERE user_id = :user_id";
+    $this->prepareStmt($sql);
+    $this->bind(':user_id', $userID);
+    $this->run();
+    $row = $this->SingleRow();
+    $currentSessionToken = $row['session_tokens'];
+    return $currentSessionToken;
 }
 
 public function sessionInsertNewRow($userID){
