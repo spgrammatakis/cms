@@ -327,9 +327,11 @@ public function updateUserMetaData($userID){
     $sessionTokenFromDB[] = $this->getCurrentSessionToken($userID);
     print_r($sessionTokenFromDB);
     //$tokensToAppend = $tokensToAppend + $sessionTokenFromDB;
-    $tokensToAppend = array_unshift($sessionTokenFromDB,$tokensToAppend[0]);
+   //$tokensToAppend = array_push($sessionTokenFromDB,$tokensToAppend);
     //$tokensToAppend = array_push($tokensToAppend,$sessionTokenFromDB);
+    $temparray = array_merge($tokensToAppend[0],$sessionTokenFromDB[0]);
     echo "</br>";
+    $tokensToAppend = $temparray;
     print_r($tokensToAppend);
     //$tokensToAppend[] = $sessionTokenFromDB;
     $serializedTokens = serialize($tokensToAppend);
