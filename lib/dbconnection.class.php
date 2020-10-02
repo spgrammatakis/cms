@@ -293,49 +293,59 @@ public function delete($commentid){
    }
 
 public function sessionCheck(){
-    if(!isset($_COOKIE["user_name"]) || empty($_COOKIE['user_name'])) return;
-    $tokens = serialize(array("session_token"=>$_COOKIE["session_token"]));
-    echo $tokens . "</br>";
+    if(!isset($_COOKIE["user_name"]) || empty($_COOKIE['user_name'])) return false; 
     $username = $_COOKIE["user_name"];
-    echo $username;
     $sql = "SELECT user_id FROM users WHERE username = :username";
     $this->prepareStmt($sql);
     $this->bind(':username', $username);
-    if($this->run()){              
-        if($this->rowCount() == 1){
-                if($row = $this->SingleRow()){
-                    $userID = $row['user_id'];
-                }
+    if(($this->run())&&($this->rowCount() == 1)){              
+            $row = $this->SingleRow();
+            $userID = $row['user_id'];
+            if($this->sessionCheckIfAlreadyExists($userID)){
+                $this->updateUserMetaData($userID);
+            }else{
+                $this->sessionInsertNewRow($userID);
+            } 
     }
-    if(!isset($userID) || empty($userID)) return;
+}
+
+public function sessionCheckIfAlreadyExists($userID){
+    if(!isset($_COOKIE["user_name"]) || empty($_COOKIE['user_name'])) return false;
+    $sql = "SELECT user_id FROM users_metadata WHERE user_id = :user_id";
+    $this->prepareStmt($sql);
+    $this->bind(':user_id', $userID);
+    $this->run();
+    return $this->rowCount() == 1;
+}
+
+
+public function updateUserMetaData($userID){
+    if(!isset($userID) || empty($userID)) return false;
+    $tokensToAppend = serialize(array("st"=>$_COOKIE["session_token"],
+                                      "ra"=>$_SERVER['REMOTE_ADDR'],
+                                      "ua"=>$_SERVER['HTTP_USER_AGENT']));
+    $sql="
+    UPDATE users_metadata
+    SET session_tokens = CONCAT(session_tokens,'$tokensToAppend')
+    WHERE user_id = " . $userID;
+    $this->prepareStmt($sql);
+    return $this->run();
+}
+
+public function sessionInsertNewRow($userID){
+    $tokensToInsert = serialize(array("st"=>$_COOKIE["session_token"],
+    "ra"=>$_SERVER['REMOTE_ADDR'],
+    "ua"=>$_SERVER['HTTP_USER_AGENT']));    
     $sql = "
     INSERT INTO
     users_metadata
     (user_id, session_tokens)
     VALUES(:user_id, :session_tokens)
     ";
-    $remoteAddress = serialize(array("remote_addr" =>$_SERVER['REMOTE_ADDR']));
-    $sql1="
-    UPDATE users_metadata
-    
-    SET session_tokens = CONCAT(session_tokens,'$remoteAddress')";
-    $this->prepareStmt($sql1);
-    $this->run();
     $this->prepareStmt($sql);
     $this->bind(':user_id',$userID);
-    $this->bind(':session_tokens',$tokens);
+    $this->bind(':session_tokens',$tokensToInsert);
     $this->run();
-    }
-}
-
-public function updateUserMetaData(){
-    
-}
-
-public function sessionIfAlreadyExists(){
-    if(!isset($_COOKIE["user_name"]) || empty($_COOKIE['user_name'])){
-        return;
-        }
 }
 }
 ?>
