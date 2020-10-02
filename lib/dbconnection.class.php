@@ -321,17 +321,23 @@ public function sessionCheckIfAlreadyExists($userID){
 
 public function updateUserMetaData($userID){
     if(!isset($userID) || empty($userID)) return false;
-    $tokensToAppend = serialize(array("st"=>$_COOKIE["session_token"],
-                                      "ra"=>$_SERVER['REMOTE_ADDR'],
-                                      "ua"=>$_SERVER['HTTP_USER_AGENT']));   
-    $test = unserialize($this->getCurrentSessionToken($userID));
-    array_push($test,serialize(array("st"=>$_COOKIE["session_token"],
-    "ra"=>$_SERVER['REMOTE_ADDR'],
-    "ua"=>$_SERVER['HTTP_USER_AGENT'])));
-    $tokensToAppend = serialize($test);            
+    $tokensToAppend = array(array($_COOKIE["session_token"]=>array("st"=>$_COOKIE["session_token"],
+                            "ra"=>$_SERVER['REMOTE_ADDR'],
+                            "ua"=>$_SERVER['HTTP_USER_AGENT'])));   
+    $sessionTokenFromDB[] = $this->getCurrentSessionToken($userID);
+    print_r($sessionTokenFromDB);
+    //$tokensToAppend = $tokensToAppend + $sessionTokenFromDB;
+    $tokensToAppend = array_unshift($sessionTokenFromDB,$tokensToAppend[0]);
+    //$tokensToAppend = array_push($tokensToAppend,$sessionTokenFromDB);
+    echo "</br>";
+    print_r($tokensToAppend);
+    //$tokensToAppend[] = $sessionTokenFromDB;
+    $serializedTokens = serialize($tokensToAppend);
+    echo "</br>";
+    print_r($serializedTokens);
     $sql="
     UPDATE users_metadata
-    SET session_tokens ='$tokensToAppend'
+    SET session_tokens = '$serializedTokens'
     WHERE user_id = " . $userID;
     $this->prepareStmt($sql);
     return $this->run();
@@ -345,7 +351,7 @@ public function getCurrentSessionToken($userID){
     $this->run();
     $row = $this->SingleRow();
     $currentSessionToken = $row['session_tokens'];
-    return $currentSessionToken;
+    return unserialize($currentSessionToken);
 }
 
 public function sessionInsertNewRow($userID){

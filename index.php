@@ -31,6 +31,7 @@ if(!(isset($_COOKIE["user_name"]))){
         $pdo = new DbConnection();
         $pdo->sessionCheck();
         $pdo->getPosts();
+        
         ?>
         <a href="./install.php">Install</a>
         
