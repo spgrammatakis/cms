@@ -326,17 +326,9 @@ public function updateUserMetaData($userID){
                                 "ua"=>$_SERVER['HTTP_USER_AGENT'])));   
     $sessionTokenFromDB[] = $this->getCurrentSessionToken($userID);
     print_r($sessionTokenFromDB);
-    //$tokensToAppend = $tokensToAppend + $sessionTokenFromDB;
-   //$tokensToAppend = array_push($sessionTokenFromDB,$tokensToAppend);
-    //$tokensToAppend = array_push($tokensToAppend,$sessionTokenFromDB);
     $temparray = array_merge($sessionTokenFromDB[0],$tokensToAppend);
-    echo "</br>";
     $tokensToAppend = $temparray;
-    print_r($tokensToAppend);
-    //$tokensToAppend[] = $sessionTokenFromDB;
     $serializedTokens = serialize($tokensToAppend);
-    echo "</br>";
-    print_r($serializedTokens);
     $sql="
     UPDATE users_metadata
     SET session_tokens = '$serializedTokens'
