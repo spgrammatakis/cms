@@ -321,15 +321,15 @@ public function sessionCheckIfAlreadyExists($userID){
 
 public function updateUserMetaData($userID){
     if(!isset($userID) || empty($userID)) return false;
-    $tokensToAppend = array(array($_COOKIE["session_token"]=>array("st"=>$_COOKIE["session_token"],
-                            "ra"=>$_SERVER['REMOTE_ADDR'],
-                            "ua"=>$_SERVER['HTTP_USER_AGENT'])));   
+    $tokensToAppend = array(array($_COOKIE["session_token"]=>
+                        array(  "ra"=>$_SERVER['REMOTE_ADDR'],
+                                "ua"=>$_SERVER['HTTP_USER_AGENT'])));   
     $sessionTokenFromDB[] = $this->getCurrentSessionToken($userID);
     print_r($sessionTokenFromDB);
     //$tokensToAppend = $tokensToAppend + $sessionTokenFromDB;
    //$tokensToAppend = array_push($sessionTokenFromDB,$tokensToAppend);
     //$tokensToAppend = array_push($tokensToAppend,$sessionTokenFromDB);
-    $temparray = array_merge($tokensToAppend[0],$sessionTokenFromDB[0]);
+    $temparray = array_merge($sessionTokenFromDB[0],$tokensToAppend);
     echo "</br>";
     $tokensToAppend = $temparray;
     print_r($tokensToAppend);
@@ -357,9 +357,9 @@ public function getCurrentSessionToken($userID){
 }
 
 public function sessionInsertNewRow($userID){
-    $tokensToInsert = serialize(array("st"=>$_COOKIE["session_token"],
-    "ra"=>$_SERVER['REMOTE_ADDR'],
-    "ua"=>$_SERVER['HTTP_USER_AGENT']));    
+    $tokensToInsert = serialize(array(array($_COOKIE["session_token"]=>
+    array(  "ra"=>$_SERVER['REMOTE_ADDR'],
+            "ua"=>$_SERVER['HTTP_USER_AGENT']))));    
     $sql = "
     INSERT INTO
     users_metadata
