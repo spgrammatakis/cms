@@ -331,7 +331,7 @@ public function updateUserMetaData($userID){
     $tokensToAppend = serialize($test);            
     $sql="
     UPDATE users_metadata
-    SET session_tokens = CONCAT(session_tokens,'$tokensToAppend')
+    SET session_tokens ='$tokensToAppend'
     WHERE user_id = " . $userID;
     $this->prepareStmt($sql);
     return $this->run();
