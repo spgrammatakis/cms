@@ -364,4 +364,4 @@ public function sessionInsertNewRow($userID){
     $this->run();
 }
 }
-?>
+?>  
