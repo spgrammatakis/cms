@@ -341,11 +341,27 @@ public function sessionGetCurrentSessionToken($userID){
     $this->prepareStmt($sql);
     $this->bind(':user_id', $userID);
     $this->run();
-    $row = $this->SingleRow();
-    $currentSessionToken = $row['session_tokens'];
-    $temp[] =  unserialize($row['session_tokens']);
-    print_r($temp[0][0]["iat"]);
-    return unserialize($currentSessionToken);
+    $serializedTokens = $this->SingleRow();
+    $unserializedTokens =  unserialize($serializedTokens['session_tokens']);
+    echo $this->sessionExtractInitiatedAtFromToken($unserializedTokens);
+    return unserialize($serializedTokens['session_tokens']);
+}
+
+public function sessionExtractInitiatedAtFromToken($unserializedTokens){
+    return  array_values($initiatedAt = array_column($unserializedTokens[0],"iat"));
+}
+
+public function sessionExtractUserAgentFromToken($unserializedTokens){
+    return  print_r($initiatedAt = array_column($unserializedTokens[0],"ua"));
+}
+
+public function sessionExtractRemoteAddressFromToken($unserializedTokens){
+    return  print_r($initiatedAt = array_column($unserializedTokens[0],"ra"));
+}
+
+public function sessionExtractExpireFromToken($unserializedTokens){
+    return  print_r($initiatedAt = array_column($unserializedTokens[0],"iat"));
+
 }
 
 public function sessionInsertNewRow($userID){
@@ -364,7 +380,7 @@ public function sessionInsertNewRow($userID){
 
 public function sesssionCreateNewToken(){
     return  array(array($_COOKIE["session_token"]=>
-                  array(   "ra"=>$_SERVER['REMOTE_ADDR'],
+                  array(        "ra"=>$_SERVER['REMOTE_ADDR'],
                                 "ua"=>$_SERVER['HTTP_USER_AGENT'],
                                 "iat"=>time(),
                                 "expire"=>time() + (365 * 24 * 60 * 60)
