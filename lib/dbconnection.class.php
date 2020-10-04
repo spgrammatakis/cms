@@ -348,19 +348,23 @@ public function sessionGetCurrentSessionToken($userID){
 }
 
 public function sessionExtractInitiatedAtFromToken($unserializedTokens){
-    return  array_values($initiatedAt = array_column($unserializedTokens[0],"iat"));
+    $initiatedAt = array_column($unserializedTokens[0],"iat");
+    return  $initiatedAt[0];
 }
 
 public function sessionExtractUserAgentFromToken($unserializedTokens){
-    return  print_r($initiatedAt = array_column($unserializedTokens[0],"ua"));
+    $userAgent = array_column($unserializedTokens[0],"ua");
+    return  $userAgent[0];
 }
 
 public function sessionExtractRemoteAddressFromToken($unserializedTokens){
-    return  print_r($initiatedAt = array_column($unserializedTokens[0],"ra"));
+    return  $remoteAddress = array_column($unserializedTokens[0],"ra");
+    return  $remoteAddress[0];
 }
 
 public function sessionExtractExpireFromToken($unserializedTokens){
-    return  print_r($initiatedAt = array_column($unserializedTokens[0],"iat"));
+    return $initiatedAt = array_column($unserializedTokens[0],"iat");
+    return $expire[0];
 
 }
 
