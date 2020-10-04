@@ -302,8 +302,10 @@ public function sessionCheck(){
             $row = $this->SingleRow();
             $userID = $row['user_id'];
             if($this->sessionCheckIfAlreadyExists($userID)){
+                echo "</br>updating";
                 $this->updateUserMetaData($userID);
             }else{
+                echo "</br>new row";
                 $this->sessionInsertNewRow($userID);
             } 
     }
@@ -323,9 +325,7 @@ public function updateUserMetaData($userID){
     if(!isset($userID) || empty($userID)) return false;
     $tokensToAppend = $this->sesssionCreateNewToken();  
     $sessionTokenFromDB[] = $this->sessionGetCurrentSessionToken($userID);
-    $tokensToAppend = array_merge($sessionTokenFromDB[0],$tokensToAppend);
-    //$temparray = array_merge($sessionTokenFromDB[0],$tokensToAppend);
-    //$tokensToAppend = $temparray;
+    $tokensToAppend = array_merge($tokensToAppend,$sessionTokenFromDB[0]);
     $serializedTokens = serialize($tokensToAppend);
     $sql="
     UPDATE users_metadata
@@ -343,6 +343,8 @@ public function sessionGetCurrentSessionToken($userID){
     $this->run();
     $row = $this->SingleRow();
     $currentSessionToken = $row['session_tokens'];
+    $temp[] =  unserialize($row['session_tokens']);
+    print_r($temp[0][0]["iat"]);
     return unserialize($currentSessionToken);
 }
 
@@ -362,8 +364,11 @@ public function sessionInsertNewRow($userID){
 
 public function sesssionCreateNewToken(){
     return  array(array($_COOKIE["session_token"]=>
-            array(  "ra"=>$_SERVER['REMOTE_ADDR'],
-                    "ua"=>$_SERVER['HTTP_USER_AGENT']))); 
+                  array(   "ra"=>$_SERVER['REMOTE_ADDR'],
+                                "ua"=>$_SERVER['HTTP_USER_AGENT'],
+                                "iat"=>time(),
+                                "expire"=>time() + (365 * 24 * 60 * 60)
+                            ))); 
 }
 }
-?>  
+?>
