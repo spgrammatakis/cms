@@ -25,13 +25,12 @@ if(!(isset($_COOKIE["user_name"]))){
         <!-- <meta http-equiv="refresh" content="5"> -->
     </head>
     <body>
-        <?php 
+        <?php
         require 'lib/dbconnection.class.php'; 
         require 'templates/title.php';
         $pdo = new DbConnection();
         $pdo->sessionCheck();
         $pdo->getPosts();
-        
         ?>
         <a href="./install.php">Install</a>
         
