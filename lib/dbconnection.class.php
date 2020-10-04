@@ -321,13 +321,11 @@ public function sessionCheckIfAlreadyExists($userID){
 
 public function updateUserMetaData($userID){
     if(!isset($userID) || empty($userID)) return false;
-    $tokensToAppend = array(array($_COOKIE["session_token"]=>
-                        array(  "ra"=>$_SERVER['REMOTE_ADDR'],
-                                "ua"=>$_SERVER['HTTP_USER_AGENT'])));   
-    $sessionTokenFromDB[] = $this->getCurrentSessionToken($userID);
-    print_r($sessionTokenFromDB);
-    $temparray = array_merge($sessionTokenFromDB[0],$tokensToAppend);
-    $tokensToAppend = $temparray;
+    $tokensToAppend = $this->sesssionCreateNewToken();  
+    $sessionTokenFromDB[] = $this->sessionGetCurrentSessionToken($userID);
+    $tokensToAppend = array_merge($sessionTokenFromDB[0],$tokensToAppend);
+    //$temparray = array_merge($sessionTokenFromDB[0],$tokensToAppend);
+    //$tokensToAppend = $temparray;
     $serializedTokens = serialize($tokensToAppend);
     $sql="
     UPDATE users_metadata
@@ -337,7 +335,7 @@ public function updateUserMetaData($userID){
     return $this->run();
 }
 
-public function getCurrentSessionToken($userID){
+public function sessionGetCurrentSessionToken($userID){
     if(!isset($_COOKIE["user_name"]) || empty($_COOKIE['user_name'])) return false;
     $sql = "SELECT session_tokens FROM users_metadata WHERE user_id = :user_id";
     $this->prepareStmt($sql);
@@ -349,9 +347,7 @@ public function getCurrentSessionToken($userID){
 }
 
 public function sessionInsertNewRow($userID){
-    $tokensToInsert = serialize(array(array($_COOKIE["session_token"]=>
-    array(  "ra"=>$_SERVER['REMOTE_ADDR'],
-            "ua"=>$_SERVER['HTTP_USER_AGENT']))));    
+    $tokensToInsert = serialize($this->sesssionCreateNewToken());   
     $sql = "
     INSERT INTO
     users_metadata
@@ -362,6 +358,12 @@ public function sessionInsertNewRow($userID){
     $this->bind(':user_id',$userID);
     $this->bind(':session_tokens',$tokensToInsert);
     $this->run();
+}
+
+public function sesssionCreateNewToken(){
+    return  array(array($_COOKIE["session_token"]=>
+            array(  "ra"=>$_SERVER['REMOTE_ADDR'],
+                    "ua"=>$_SERVER['HTTP_USER_AGENT']))); 
 }
 }
 ?>  
