@@ -37,8 +37,8 @@ if($_POST){
 <html>
     <head>
     
-    <script type="text/javascript" src="../js/get-parent-id.js"></script>
-    <script type="text/javascript" src="../js/iframe-interactions.js"></script>
+    <script type="text/javascript" src="js/get-parent-id.js"></script>
+    <script type="text/javascript" src="js/iframe-interactions.js"></script>
     <h2>
         <title>
             A blog application |
