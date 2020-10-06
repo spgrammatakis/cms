@@ -2,6 +2,10 @@
 
 class SessionManager extends DbConnection{
 
+    public function __construct(){
+        parent::__construct();
+    }
+
     public function sessionCheck(){
         if(!isset($_COOKIE["user_name"]) || empty($_COOKIE['user_name'])) return false; 
         $username = $_COOKIE["user_name"];
