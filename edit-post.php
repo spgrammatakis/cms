@@ -48,7 +48,7 @@ if($_POST){
     </h2>
     </head>
     <body>
-    <a href="../index.php"><h1>Homepage</h1></a>
+    <a href="index.php"><h1>Homepage</h1></a>
     <?php echo "<div class='post' id='" . $postId."'>"; ?>
     <p>
         <div id="post-title">
