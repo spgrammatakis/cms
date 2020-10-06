@@ -1,4 +1,8 @@
 <?php
+
+namespace lib;
+use \Datetime;
+
 class Utilities{
     public static function redirectAndExit($script)
     {

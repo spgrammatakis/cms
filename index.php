@@ -1,4 +1,5 @@
 <?php
+
 if(!(isset($_COOKIE["user_name"]))){
     setcookie("user_name", "admin", [
         "expires" => mktime(0, 0, 0, date("m"),   date("d"),   date("Y")+1),
@@ -28,8 +29,8 @@ if(!(isset($_COOKIE["user_name"]))){
     </head>
     <body>
         <?php
-        $postHandler = new PostManager();
-        $session = new SessionManager();
+        $postHandler = new lib\PostManager();
+        $session = new lib\SessionManager();
         $session->sessionCheck();
         $postHandler->getPosts();
         ?>

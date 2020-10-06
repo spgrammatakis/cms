@@ -1,54 +1,47 @@
 <?php
 include 'lib/includes/autoload.inc.php';
-// We need to test for a minimum version of PHP, because earlier versions have bugs that affect security
-if (version_compare(PHP_VERSION, '5.3.7') < 0)
-{
-    throw new Exception(
-        'This system needs PHP 5.3.7 or later'
-    );
-}
-    $dbh = new DbConnection();
+
+    $dbh = new lib\DbConnection();
  
-// Define variables and initialize with empty values
+
 $username = $password = "";
 $username_err = $password_err = "";
  
-// Processing form data when form is submitted
+
 if($_SERVER["REQUEST_METHOD"] == "POST"){
  
-    // Check if username is empty
+
     if(empty(trim($_POST["username"]))){
         $username_err = 'Please enter username.';
     } else{        
         $username = trim($_POST["username"]);
     }
     
-    // Check if password is empty
+
     if(empty(trim($_POST['password']))){
         $password_err = 'Please enter your password.';
     } else{
         $password = trim($_POST['password']);
     }
-    // Validate credentials
+
     if(empty($username_err) && empty($password_err)){
-        // Prepare a select statement
+
         $sql = "SELECT username, password FROM users WHERE username = :username";
         $dbh->prepareStmt($sql);
 
-        // Set parameters
+
         $param_username =trim($_POST["username"]);        
         
-        // Bind variables to the prepared statement as parameters
+        
         $dbh->bind(':username', $param_username);
-            // Attempt to execute the prepared statement
+            
             if($dbh->run()){              
-                    // Check if username exists, if yes then verify password
+                    
                     if($dbh->rowCount() == 1){
                             if($row = $dbh->SingleRow()){
                                 $hashed_password = $row['password'];
                                 if(password_verify($password, $hashed_password)){
-                                    /* Password is correct, so start a new session and
-                                    save the username to the session */
+                                   
                                     session_start();
                                     $_SESSION['username'] = $username;
                                         if($param_username == admin){
@@ -61,23 +54,20 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                                             }
 
                                 } else{
-                                    // Display an error message if password is not valid
+                                    
                                     $password_err = 'The password you entered was not valid.';
                                 }
                             }
                     } else{
-                        // Display an error message if username doesn't exist
+                        
                         $username_err = 'No account found with that username.';
                     }   
             } else{
                 echo "Oops! Something went wrong. Please try again later.";
             }
-        // Close statement
-        //unset($stmt);
+
     }
-    
-    // Close connection
-    unset($dbh);
+
 }
 ?>
  

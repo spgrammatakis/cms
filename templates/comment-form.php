@@ -7,7 +7,7 @@
             type="text"
             id="comment-name"
             name="comment-name"
-            value="<?php echo Utilities::htmlEscape($commentData['user_name']);?>"
+            value="<?php echo lib\Utilities::htmlEscape($commentData['user_name']);?>"
         >
     </p>
     <p>
@@ -18,7 +18,7 @@
             type="text"
             id="comment-website"
             name="comment-website"
-            value="<?php echo Utilities::htmlEscape($commentData['website']) ?>"
+            value="<?php echo lib\Utilities::htmlEscape($commentData['website']) ?>"
         />
     </p>
     <p>
@@ -30,7 +30,7 @@
             name="comment-text"
             rows="8"
             cols="70"
-        ><?php echo Utilities::htmlEscape($commentData['content']) ?></textarea>
+        ><?php echo lib\Utilities::htmlEscape($commentData['content']) ?></textarea>
     </p>
     <input type="submit" value="Submit comment" />
 </form>

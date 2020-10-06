@@ -1,4 +1,7 @@
 <?php
+
+namespace lib;
+
 class PostManager extends DbConnection{
     
 public function __construct(){

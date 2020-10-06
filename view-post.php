@@ -14,7 +14,7 @@ else
 ini_set('display_errors', 1);
 ini_set('log_errors', 1);
     
-$pdo = new PostManager();
+$pdo = new lib\PostManager();
 $row = $pdo->getPostRow($postId);
 if(!$row){
     header("HTTP/1.0 404 Not Found");
@@ -56,7 +56,7 @@ if ($_POST && $postId !== 0)
     <script type="text/javascript" src="./js/get-parent-id.js" defer></script>
         <title>
             A blog application |
-            <?php echo Utilities::htmlEscape($row['title']) ?>
+            <?php echo lib\Utilities::htmlEscape($row['title']) ?>
         </title>
         <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
     </head>
@@ -66,17 +66,17 @@ if ($_POST && $postId !== 0)
         <div>
         <h2>
             <?php
-            echo Utilities::htmlEscape($row['title']);
+            echo lib\Utilities::htmlEscape($row['title']);
             ?>
         </h2>
         </div>
         <div>
-            <?php echo Utilities::convertSqlDate($row['created_at']) ?>
+            <?php echo lib\Utilities::convertSqlDate($row['created_at']) ?>
         </div>
         <p>
         <div>
         <?php 
-        echo Utilities::htmlEscape($row['body']);
+        echo lib\Utilities::htmlEscape($row['body']);
         ?>
         </div>
         <button class='post-button'>Edit Post</button>
@@ -88,15 +88,15 @@ if ($_POST && $postId !== 0)
         <?php echo "<div class='comment' id='" . $comment['comment_id']."'>"; ?>
                 <div class="comment-meta">
                     Comment from
-                    <?php echo Utilities::htmlEscape($comment['user_name']) ?>
+                    <?php echo lib\Utilities::htmlEscape($comment['user_name']) ?>
                     on
-                    <?php echo Utilities::convertSqlDate($comment['created_at']) ?>
+                    <?php echo lib\Utilities::convertSqlDate($comment['created_at']) ?>
                 </div>
                 <div class="comment-body">
-                    <?php echo Utilities::htmlEscape($comment['content']) ?>
+                    <?php echo lib\Utilities::htmlEscape($comment['content']) ?>
                 </div>
                 <div class="comment-website">
-                    <?php echo Utilities::htmlEscape($comment['website']) ?>
+                    <?php echo lib\Utilities::htmlEscape($comment['website']) ?>
                 </div>
         <button class='comment-button'>Edit Comment</button>
         </div>
@@ -105,10 +105,3 @@ if ($_POST && $postId !== 0)
         <?php require 'templates/comment-form.php' ?>
     </body>
 </html>
-
-<!-- ob_start();
-
-echo "Hello World";
-
-$out = ob_get_clean();
-$out = strtolower($out); -->

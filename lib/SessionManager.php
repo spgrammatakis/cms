@@ -1,5 +1,7 @@
 <?php
 
+namespace lib;
+
 class SessionManager extends DbConnection{
 
     public function __construct(){

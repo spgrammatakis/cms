@@ -1,7 +1,7 @@
 <?php
 include 'lib/includes/autoload.inc.php';
 
-$pdo = new DbConnection();
+$pdo = new lib\DbConnection();
 
 $username = $password = $confirm_password = $email ="";
 $username_err = $password_err = $confirm_password_err = $email_err  ="";

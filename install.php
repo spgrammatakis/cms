@@ -1,13 +1,9 @@
 <?php
-/**
- * Blog installer function
- * 
- * @return array(integer postcount, integer commentCount)
- */
+include 'lib/includes/autoload.inc.php';
 function installBlog()
 {
-    include_once 'lib/dbconnection.class.php';
-    $pdo = new DbConnection();
+    
+    $pdo = new lib\DbConnection();
     $db = $pdo->getDatabase();
     $sql = file_get_contents($db);
     $pdo->prepareStmt($sql);
@@ -16,7 +12,6 @@ function installBlog()
 // See how many rows we created, if any
 
     $sql = "SELECT * FROM posts";
-    $stmt = new DbConnection();
     $pdo->prepareStmt($sql);
     $postCount = $pdo->rowCount();
     $sql = "SELECT * FROM comments";
