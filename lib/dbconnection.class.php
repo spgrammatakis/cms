@@ -13,7 +13,7 @@ protected $dbh;
 protected $error;
 protected $stmt;
 
-protected function __construct(){
+public function __construct(){
     $dsn     = "mysql:host=" . $this->host . ";dbname=" . $this->dbName . ";charset=" . $this->charset;  
     $options = array(
         PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
@@ -76,6 +76,11 @@ public function rowCount(){
     return $this->stmt->rowCount();
 }
 
+public function SingleRow(){
+    $this->run();
+    return $this->stmt->fetch();
+    } 
+
 public function getDatabase():string{
     return dirname(__DIR__, 1).'/data/init.sql';
 }
@@ -100,10 +105,6 @@ public function convertSqlDate($sqlDate)
     return $date->format('Y-m-d H:i:s');
 }
 
-public function SingleRow(){
-    $this->run();
-    return $this->stmt->fetch();
-    } 
 
 public function convertNewlinesToParagraphs($text)
 {
