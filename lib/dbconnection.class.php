@@ -105,32 +105,10 @@ protected function SingleRow(){
     return $this->stmt->fetch();
     } 
 
-
-
-
 protected function convertNewlinesToParagraphs($text)
 {
     $escaped = htmlEscape($text);
     return '<p>' . str_replace("\n", "</p><p>", $escaped) . '</p>';
-}
-
-protected function tryLogin(PDO $pdo, $username, $password)
-{
-    $sql = "
-        SELECT
-            password
-        FROM
-            users
-        WHERE
-            username = :username
-    ";
-    $stmt = $pdo->prepare($sql);
-    $stmt->execute(
-        array('username' => $username, )
-    );
-    $hash = $stmt->fetchColumn();
-    $success = password_verify($password, $hash);
-    return $success;
 }
 
 }
