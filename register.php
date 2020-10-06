@@ -1,5 +1,5 @@
 <?php
-require 'lib/dbconnection.class.php';
+include 'lib/includes/autoload.inc.php';
 
 $pdo = new DbConnection();
 

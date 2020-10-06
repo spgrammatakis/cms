@@ -1,8 +1,6 @@
 <?php
 
-require 'lib/dbconnection.class.php';
-require 'lib/postmanager.class.php';
-require 'lib/sessionmanager.class.php'; 
+include 'lib/includes/autoload.inc.php';
 // Get the post ID
 if ((isset($_GET['post_id']) && is_numeric($_GET['post_id'])))
 {

@@ -1,7 +1,5 @@
 <?php
 
-require 'common-functions.php';
-
 class DbConnection{
 private $host = "127.0.0.1";
 private $dbName = "cms";

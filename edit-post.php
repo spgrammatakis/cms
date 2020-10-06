@@ -1,7 +1,5 @@
 <?php
-require 'dbconnection.class.php';
-require 'postmanager.class.php';
-require 'sessionmanager.class.php'; 
+include 'lib/includes/autoload.inc.php';
 
 if (isset($_GET['post_id']))
 {
@@ -64,7 +62,7 @@ if($_POST){
         </div>
         <div id="post-editor-wrapper">
         <hr style='border: 5px solid red;'>
-        <?php require '../templates/post-edit-form.php' ?>
+        <?php require 'templates/post-edit-form.php' ?>
         </div>
         </p>
     </body>

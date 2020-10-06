@@ -1,5 +1,5 @@
 <?php
-require_once 'lib/dbconnection.class.php';
+include 'lib/includes/autoload.inc.php';
 // We need to test for a minimum version of PHP, because earlier versions have bugs that affect security
 if (version_compare(PHP_VERSION, '5.3.7') < 0)
 {

@@ -15,9 +15,7 @@ if(!(isset($_COOKIE["user_name"]))){
         "secure" => false,
         "httponly" => true,
         "samesite" => "Strict"]);
-        require 'lib/dbconnection.class.php';
-        require 'lib/postmanager.class.php';
-        require 'lib/sessionmanager.class.php'; 
+        include 'lib/includes/autoload.inc.php';
         require 'templates/title.php';
 ?>
 <!DOCTYPE html>

@@ -21,7 +21,7 @@
         ></textarea>
     </p>
 </br>
-<iframe id="post-editor-iframe" width="50%" height="600" onload="ifameInit()" style="border-style:none" src="../templates/text-editor/text-editor.html">
+<iframe id="post-editor-iframe" width="50%" height="600" onload="ifameInit()" style="border-style:none" src="templates/text-editor/text-editor.html">
 </iframe>
     </p>
     <input type="submit" value="Finish Edit"/>
