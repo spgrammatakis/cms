@@ -23,7 +23,7 @@ public function countCommentsForPost($postId)
 public function updatePost($postId,$postTitle,$postBody){
     $errors = array();
     
-    $date = getSqlDateForNow();
+    $date = Utilities::getSqlDateForNow();
     if (empty($postId))
     {
         $errors['post_id'] = 'An id is required';
@@ -77,7 +77,7 @@ public function addCommentToPost($postId, array $commentData)
         ";
         $commentData = array_merge(
                 $commentData,
-                array('post_id' => $postId, 'created_at' => getSqlDateForNow())
+                array('post_id' => $postId, 'created_at' => Utilities::getSqlDateForNow())
             );
         $this->prepareStmt($sql);
         $this->runArray($commentData);
@@ -116,20 +116,20 @@ public function getPosts(){
     
     foreach($row as $row):
         echo "<div class=post-title>";
-        echo $this->htmlEscape($row['title']);
+        echo Utilities::htmlEscape($row['title']);
         echo "</div>";
         echo "<div class=post-date>";
-        echo $this->convertSqlDate($row['created_at']);
+        echo Utilities::convertSqlDate($row['created_at']);
         echo "</div>";
         echo "<div class=post-comment-number>";
         echo $this->countCommentsForPost($row['post_id']). " comments";
         echo "</div>";
         echo "<div class=post-body>";
         echo "<p>";
-        echo $this->htmlEscape($row['body']);
+        echo Utilities::htmlEscape($row['body']);
         echo "</p>";
         echo "</div>";
-        echo "<a href='view-post.php?post_id=". $this->htmlEscape($row['post_id']) ."'>Read more...</a>";
+        echo "<a href='view-post.php?post_id=". Utilities::htmlEscape($row['post_id']) ."'>Read more...</a>";
     endforeach;
 }
 
@@ -157,7 +157,7 @@ try {
     catch (PDOException $e) {
         exit("Connection failed: " . $e->getMessage());
     }
-redirectAndExit('index.php');
+Utilities::redirectAndExit('index.php');
 }
 public function delete($commentid){
     $stmt = $this->db->prepare("DELETE FROM posts WHERE id=:id");

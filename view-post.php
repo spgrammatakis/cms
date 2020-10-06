@@ -58,7 +58,7 @@ if ($_POST && $postId !== 0)
     <script type="text/javascript" src="./js/get-parent-id.js" defer></script>
         <title>
             A blog application |
-            <?php echo $pdo->htmlEscape($row['title']) ?>
+            <?php echo Utilities::htmlEscape($row['title']) ?>
         </title>
         <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
     </head>
@@ -68,17 +68,17 @@ if ($_POST && $postId !== 0)
         <div>
         <h2>
             <?php
-            echo $pdo->htmlEscape($row['title']);
+            echo Utilities::htmlEscape($row['title']);
             ?>
         </h2>
         </div>
         <div>
-            <?php echo $pdo->convertSqlDate($row['created_at']) ?>
+            <?php echo Utilities::convertSqlDate($row['created_at']) ?>
         </div>
         <p>
         <div>
         <?php 
-        echo $pdo->htmlEscape($row['body']);
+        echo Utilities::htmlEscape($row['body']);
         ?>
         </div>
         <button class='post-button'>Edit Post</button>
@@ -90,15 +90,15 @@ if ($_POST && $postId !== 0)
         <?php echo "<div class='comment' id='" . $comment['comment_id']."'>"; ?>
                 <div class="comment-meta">
                     Comment from
-                    <?php echo $pdo->htmlEscape($comment['user_name']) ?>
+                    <?php echo Utilities::htmlEscape($comment['user_name']) ?>
                     on
-                    <?php echo $pdo->convertSqlDate($comment['created_at']) ?>
+                    <?php echo Utilities::convertSqlDate($comment['created_at']) ?>
                 </div>
                 <div class="comment-body">
-                    <?php echo $pdo->htmlEscape($comment['content']) ?>
+                    <?php echo Utilities::htmlEscape($comment['content']) ?>
                 </div>
                 <div class="comment-website">
-                    <?php echo $pdo->htmlEscape($comment['website']) ?>
+                    <?php echo Utilities::htmlEscape($comment['website']) ?>
                 </div>
         <button class='comment-button'>Edit Comment</button>
         </div>

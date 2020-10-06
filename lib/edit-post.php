@@ -17,7 +17,7 @@ $row = $pdo->getPostRow($postId);
 
 if (!$row)
 {
-    redirectAndExit('index.php?not-found=1');
+    Utilities::redirectAndExit('index.php?not-found=1');
 }
 
 $errors=null;
@@ -44,7 +44,7 @@ if($_POST){
     <h2>
         <title>
             A blog application |
-            <?php echo $pdo->htmlEscape($row['title']) ?>
+            <?php echo Utilities::htmlEscape($row['title']) ?>
         </title>
         <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
     </h2>
@@ -54,13 +54,13 @@ if($_POST){
     <?php echo "<div class='post' id='" . $postId."'>"; ?>
     <p>
         <div id="post-title">
-            <?php echo $pdo->htmlEscape($row['title']) ?>
+            <?php echo Utilities::htmlEscape($row['title']) ?>
         </div>
         <div id="post-body">
-        <?php echo $pdo->htmlEscape($row['body']);?>
+        <?php echo Utilities::htmlEscape($row['body']);?>
         </div>
         <div>
-            <?php echo $pdo->convertSqlDate($row['created_at']) ?>
+            <?php echo Utilities::convertSqlDate($row['created_at']) ?>
         </div>
         <div id="post-editor-wrapper">
         <hr style='border: 5px solid red;'>

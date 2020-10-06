@@ -85,32 +85,5 @@ public function getDatabase():string{
     return dirname(__DIR__, 1).'/data/init.sql';
 }
 
-
-public function htmlEscape($html)
-{
-    //return htmlentities($html, ENT_HTML5, 'UTF-8');
-    $array = array(
-        1 => "<b>",
-        2 => "<strong>",
-        3 => "<a>",
-        4 => "<i>",
-        5 => "<u>"
-    );
-    return strip_tags($html,$array);
-}
-
-public function convertSqlDate($sqlDate)
-{
-    $date = DateTime::createFromFormat('Y-m-d H:i:s', $sqlDate);
-    return $date->format('Y-m-d H:i:s');
-}
-
-
-public function convertNewlinesToParagraphs($text)
-{
-    $escaped = htmlEscape($text);
-    return '<p>' . str_replace("\n", "</p><p>", $escaped) . '</p>';
-}
-
 }
 ?>
