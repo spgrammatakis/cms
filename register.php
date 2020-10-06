@@ -1,5 +1,5 @@
 <?php
-require './lib/dbconnection.class.php.php';
+require './lib/dbconnection.class.php';
 $pdo = new DbConnection();
 
 $username = $password = $confirm_password = $email ="";

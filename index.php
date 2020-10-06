@@ -15,6 +15,9 @@ if(!(isset($_COOKIE["user_name"]))){
         "secure" => false,
         "httponly" => true,
         "samesite" => "Strict"]);
+        require 'lib/dbconnection.class.php';
+        require 'lib/sessionmanager.class.php'; 
+        require 'templates/title.php';
 ?>
 <!DOCTYPE html>
 <html>
@@ -26,10 +29,9 @@ if(!(isset($_COOKIE["user_name"]))){
     </head>
     <body>
         <?php
-        require 'lib/dbconnection.class.php'; 
-        require 'templates/title.php';
         $pdo = new DbConnection();
-        $pdo->sessionCheck();
+        $session = new SessionManager();
+        $session->sessionCheck();
         $pdo->getPosts();
         ?>
         <a href="./install.php">Install</a>

@@ -56,5 +56,6 @@ CREATE TABLE users_metadata(
         meta_id INT(10) UNSIGNED AUTO_INCREMENT PRIMARY KEY NOT NULL,
         user_id INT(10) NOT NULL,
         session_tokens LONGTEXT NOT NULL,
+        user_role LONGTEXT NOT NULL,
         initiated_at DATETIME DEFAULT CURRENT_TIMESTAMP
 )DEFAULT CHARSET=utf8;
