@@ -1,5 +1,7 @@
 <?php
 require 'dbconnection.class.php';
+require 'postmanager.class.php';
+require 'sessionmanager.class.php'; 
 
 if (isset($_GET['post_id']))
 {
@@ -10,7 +12,7 @@ else
     $postId = 0;
 }
 
-$pdo = new DbConnection();
+$pdo = new PostManager();
 $row = $pdo->getPostRow($postId);
 
 if (!$row)

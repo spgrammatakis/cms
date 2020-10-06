@@ -9,9 +9,9 @@ private $username = "admin";
 private $password = "admin";
 private $charset = 'utf8';
 
-private $dbh;
-private $error;
-private $stmt;
+protected $dbh;
+protected $error;
+protected $stmt;
 
 protected function __construct(){
     $dsn     = "mysql:host=" . $this->host . ";dbname=" . $this->dbName . ";charset=" . $this->charset;  
@@ -32,11 +32,11 @@ catch(PDOException $e)
 
 }
 
-protected function prepareStmt($query){
+public function prepareStmt($query){
     $this->stmt = $this->dbh->prepare($query);
 }
 
-protected function bind($param, $value, $type=null){
+public function bind($param, $value, $type=null){
     if (is_null($type)) {
         switch (true) {
             case is_int($value):
@@ -55,33 +55,33 @@ protected function bind($param, $value, $type=null){
     $this->stmt->bindValue($param, $value, $type);
 }
 
-protected function run()
+public function run()
 {   
     return $this->stmt->execute();
 
 }
 
-protected function runArray($data)
+public function runArray($data)
 {   
     return $this->stmt->execute($data);
 }
 
-protected function All(){
+public function All(){
     $this->run();
     return $this->stmt->fetchall();
 }
 
-protected function rowCount(){
+public function rowCount(){
     $this->run();
     return $this->stmt->rowCount();
 }
 
-protected function getDatabase():string{
+public function getDatabase():string{
     return dirname(__DIR__, 1).'/data/init.sql';
 }
 
 
-protected function htmlEscape($html)
+public function htmlEscape($html)
 {
     //return htmlentities($html, ENT_HTML5, 'UTF-8');
     $array = array(
@@ -94,18 +94,18 @@ protected function htmlEscape($html)
     return strip_tags($html,$array);
 }
 
-protected function convertSqlDate($sqlDate)
+public function convertSqlDate($sqlDate)
 {
     $date = DateTime::createFromFormat('Y-m-d H:i:s', $sqlDate);
     return $date->format('Y-m-d H:i:s');
 }
 
-protected function SingleRow(){
+public function SingleRow(){
     $this->run();
     return $this->stmt->fetch();
     } 
 
-protected function convertNewlinesToParagraphs($text)
+public function convertNewlinesToParagraphs($text)
 {
     $escaped = htmlEscape($text);
     return '<p>' . str_replace("\n", "</p><p>", $escaped) . '</p>';
