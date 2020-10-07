@@ -40,12 +40,10 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                     if($dbh->rowCount() == 1){
                             if($row = $dbh->SingleRow()){
                                 $hashed_password = $row['password'];
-                                echo password_hash("admin", PASSWORD_DEFAULT);
                                 if(password_verify($password, $hashed_password)){
-                                    echo "verfied";
                                    $session = new lib\SessionManager();
                                    $session->sessionCheck();
-                                    
+                                    $session->redirectUser($session->getUserRole());
                                 } else{
                                     
                                     $password_err = 'The password you entered was not valid.';

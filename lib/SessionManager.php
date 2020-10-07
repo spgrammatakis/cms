@@ -5,6 +5,7 @@ namespace lib;
 class SessionManager extends DbConnection{
 
     private $userID;
+    
 
     public function __construct(){
         parent::__construct();
@@ -18,26 +19,42 @@ class SessionManager extends DbConnection{
         $this->bind(':username', $username);
         if(($this->run())&&($this->rowCount() == 1)){              
                 $row = $this->SingleRow();
-                $userID = $row['user_id'];
-                if($this->sessionCheckIfAlreadyExists($userID)){
-                    echo "</br>updating";
-                    $this->updateUserMetaData($userID);
+                $this->userID = $row['user_id'];
+                $this->setUserID($row['user_id']);
+                if($this->sessionCheckIfAlreadyExists($row['user_id'])){
+                    $this->updateUserMetaData($row['user_id']);
                 }else{
                     echo "</br>new row";
-                    $this->sessionInsertNewRow($userID);
+                    $this->sessionInsertNewRow($row['user_id']);
                 } 
         }
 
     }
 
+    public function setUserID($id){
+        $this->userID = $id;
+    }
+
     public function getUserID(){
-        return $userID;
+        return $this->userID;
+    }
+
+    public function redirectUser($userRole){
+        print_r($userRole);
+        if($userRole['user_role'] === "admin"){
+            echo "redirecting to admin";
+            return;
+        }elseif($userRole['user_role'] === "author"){
+            echo "redirecting to author";
+        }else{
+            echo "redirecting to guest";
+        }
     }
 
     public function getUserRole(){
         $sql = "SELECT user_role FROM users_metadata WHERE user_id = :user_id";
         $this->prepareStmt($sql);
-        $this->bind(':user_id', $userID);
+        $this->bind(':user_id', $this->getUserID());
         $this->run();
         return $this->SingleRow();
     }
