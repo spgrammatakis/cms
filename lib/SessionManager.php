@@ -5,6 +5,7 @@ namespace lib;
 class SessionManager extends DbConnection{
 
     private $userID;
+    private $userRole;
     
 
     public function __construct(){
@@ -30,7 +31,7 @@ class SessionManager extends DbConnection{
 
     }
 
-    public function setUserID($id){
+    private function setUserID($id){
         $this->userID = $id;
     }
 
@@ -38,23 +39,30 @@ class SessionManager extends DbConnection{
         return $this->userID;
     }
 
-    public function redirectUser($userRole){
-        if($userRole['user_role'] === "admin"){
-            echo "redirecting to admin";
-            return;
-        }elseif($userRole['user_role'] === "author"){
-            echo "redirecting to author";
-        }else{
-            echo "redirecting to guest";
-        }
+    private function setUserRole($userRole){
+        $this->userRole = $userRole;
     }
 
     public function getUserRole(){
+        if(!isset($_COOKIE['user_name']) || $_COOKIE['user_name'] == "guest") return "guest";
         $sql = "SELECT user_role FROM users_metadata WHERE user_id = :user_id";
         $this->prepareStmt($sql);
         $this->bind(':user_id', $this->getUserID());
         $this->run();
-        return $this->SingleRow();
+        $row = $this->SingleRow();
+        $this->setUserRole($row['user_role']);
+        return $this->userRole;
+    }
+
+    public function redirectUser($userRole){
+        if($userRole === "admin"){
+            echo "redirecting to admin";
+            return;
+        }elseif($userRole === "author"){
+            echo "redirecting to author";
+        }else{
+            echo "redirecting to guest";
+        }
     }
 
     public function sessionCheckIfAlreadyExists($userID){

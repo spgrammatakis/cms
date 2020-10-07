@@ -1,21 +1,23 @@
 <?php
 
-if(!(isset($_COOKIE["user_name"]))){
-    setcookie("user_name", "admin", [
+if(!isset($_COOKIE["user_name"])){
+    setcookie("user_name", "guest", [
         "expires" => mktime(0, 0, 0, date("m"),   date("d"),   date("Y")+1),
         "path" => '/',
         "domain" => "",
         "secure" => false,
         "httponly" => true,
         "samesite" => "Strict"]);
-}
+    }
+if(!isset($_COOKIE["session_token"])){    
     setcookie("session_token", bin2hex(random_bytes(20)), [
-        "expires" => mktime(0, 0, 0, date("m"),   date("d"),   date("Y")+1),
-        "path" => '/',
-        "domain" => "",
-        "secure" => false,
-        "httponly" => true,
-        "samesite" => "Strict"]);
+    "expires" => mktime(0, 0, 0, date("m"),   date("d"),   date("Y")+1),
+    "path" => '/',
+    "domain" => "",
+    "secure" => false,
+    "httponly" => true,
+    "samesite" => "Strict"]);
+}
         include 'lib/includes/autoload.inc.php';
         require 'templates/title.php';
 ?>
