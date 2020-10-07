@@ -136,11 +136,8 @@ public function getPosts(){
     endforeach;
 }
 
-public function addPost(){//NEEDS REFACTORING
-if(!isset($_SESSION['user_role']) || $_SESSION['user_role'] != 'admin') {
-     echo '<h1>You are not an authorised user</h1>';
-     die();
-}
+public function addPost(){
+if(!isset($_COOKIE["user_name"]) || empty($_COOKIE['user_name'])) return false;
 if (isset($_GET['submit'])) {
     $title = $_GET['title'];
     $body = $_GET['body'];

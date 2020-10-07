@@ -24,7 +24,6 @@ class SessionManager extends DbConnection{
                 if($this->sessionCheckIfAlreadyExists($row['user_id'])){
                     $this->updateUserMetaData($row['user_id']);
                 }else{
-                    echo "</br>new row";
                     $this->sessionInsertNewRow($row['user_id']);
                 } 
         }
@@ -40,7 +39,6 @@ class SessionManager extends DbConnection{
     }
 
     public function redirectUser($userRole){
-        print_r($userRole);
         if($userRole['user_role'] === "admin"){
             echo "redirecting to admin";
             return;
@@ -91,7 +89,6 @@ class SessionManager extends DbConnection{
         $this->run();
         $serializedTokens = $this->SingleRow();
         $unserializedTokens =  unserialize($serializedTokens['session_tokens']);
-        echo $this->sessionExtractInitiatedAtFromToken($unserializedTokens);
         return unserialize($serializedTokens['session_tokens']);
     }
     
