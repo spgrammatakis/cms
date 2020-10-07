@@ -89,15 +89,10 @@ class SessionManager extends DbConnection{
     }
 
     public function getUserRole(){
-        if(!isset($this->userRole)){
-            echo "</br>";
-            echo "AXNE";
-            echo $this->userRole;
-            echo "</br>";
+        if(empty($this->getUserName())){
             $this->setUserRole("guest");
             return $this->userRole;
         }
-        echo "AXNE";
         $sql = "SELECT user_role FROM users_metadata WHERE user_id = :user_id";
         $this->prepareStmt($sql);
         $this->bind(':user_id', $this->getUserID());
