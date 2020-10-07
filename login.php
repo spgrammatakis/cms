@@ -1,7 +1,6 @@
 <?php
 include 'lib/includes/autoload.inc.php';
 $session = new lib\SessionManager();
-$session->sessionCheck();
 $dbh = new lib\DbConnection();
  
 
@@ -35,13 +34,19 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
         
         
         $dbh->bind(':username', $param_username);
-            
+        $session->sessionCheck($param_username);   
             if($dbh->run()){              
                     if($dbh->rowCount() == 1){
                             if($row = $dbh->SingleRow()){
-                                $_COOKIE['user_name'] = $row['username'];
                                 $hashed_password = $row['password'];
                                 if(password_verify($password, $hashed_password)){
+                                    setcookie("user_name", $row['username'], [
+                                        "expires" => mktime(0, 0, 0, date("m"),   date("d"),   date("Y")+1),
+                                        "path" => '/',
+                                        "domain" => "",
+                                        "secure" => false,
+                                        "httponly" => true,
+                                        "samesite" => "Strict"]);
                                     $session->redirectUser($session->getUserRole());
                                 } else{
                                     

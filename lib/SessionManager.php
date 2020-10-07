@@ -13,23 +13,18 @@ class SessionManager extends DbConnection{
         parent::__construct();
     }
 
-    public function sessionCheck(){
-        if(!isset($_COOKIE['user_name']) || empty($_COOKIE['user_name'])){
+    public function sessionCheck($username){
+        if(!isset($_COOKIE['user_name']) || empty($_COOKIE['user_name']) || !isset($username) || $_COOKIE['user_name'] === "guest"){
             $this->setCookiesParams();
             return; 
         }
-        $this->userName = $_COOKIE['user_name'];
-        echo "</br> this username </br>";
-        if($this->userName = "guest"){
-            echo "DO GUEST WORK";
-            return;
-        }
-        $user_name = $this->getUserName();
-        $_COOKIE['user_name'] = $this->getUserName();
-        $username = $_COOKIE['user_name'];
+        $this->userName = $username;
+        echo "AXOXI";
+        $user_name = $this->getUserName();       
+        $username = $this->getUserName();
         $sql = "SELECT user_id FROM users WHERE username = :username";
         $this->prepareStmt($sql);
-        $this->bind(':username', $_COOKIE['user_name']);
+        $this->bind(':username',  $username);
         if($this->run()){  
             echo "</br>PRINT R</br>"; 
             print_r($this->All());
@@ -103,9 +98,14 @@ class SessionManager extends DbConnection{
     }
 
     public function getUserRole(){
-        if(!isset($_COOKIE['user_name']) || $_COOKIE['user_name'] == "guest") return "guest";
+        if(!isset($_COOKIE['user_name']) || $_COOKIE['user_name'] == "guest"){
+            echo "in 1st if of get user role";
+            $this->setUserRole("guest");
+            return $this->userRole;
+        } 
         echo "</br>get user id is before</br>";
         var_dump($this->getUserID());
+        print_r($_COOKIE);
         $sql = "SELECT user_role FROM users_metadata WHERE user_id = :user_id";
         $this->prepareStmt($sql);
         $this->bind(':user_id', $this->getUserID());
