@@ -5,6 +5,7 @@ namespace lib;
 class SessionManager extends DbConnection{
 
     private $userID;
+    private $userName;  
     private $userRole;
     
 
@@ -13,13 +14,29 @@ class SessionManager extends DbConnection{
     }
 
     public function sessionCheck(){
-        if(!isset($_COOKIE["user_name"]) || empty($_COOKIE['user_name'])) return false; 
-        $username = $_COOKIE["user_name"];
+        if(!isset($_COOKIE['user_name']) || empty($_COOKIE['user_name'])){
+            $this->setCookiesParams();
+            
+            return; 
+        }
+        echo "</br> COOKIE </br>";
+        print_r($_COOKIE);
+        echo "</br> USER ID </br>";
+        var_dump($this->getUserID());
+        echo "</br> USER NAME </br>";
+        var_dump($this->getUserName());
+        echo "</br>";
+        $_COOKIE['user_name'] = $this->getUserName();
+        $username = $_COOKIE['user_name'];
+        print_r($_COOKIE);
         $sql = "SELECT user_id FROM users WHERE username = :username";
         $this->prepareStmt($sql);
         $this->bind(':username', $username);
-        if(($this->run())&&($this->rowCount() == 1)){              
+        if(($this->run())&&($this->rowCount() == 1)){   
+            echo "axne";           
                 $row = $this->SingleRow();
+                echo "row user id in session check";
+                var_dump($row['user_id']);  
                 $this->userID = $row['user_id'];
                 $this->setUserID($row['user_id']);
                 if($this->sessionCheckIfAlreadyExists($this->getUserID())){
@@ -33,14 +50,56 @@ class SessionManager extends DbConnection{
 
     private function setUserID($id){
         $this->userID = $id;
+        return;
     }
 
     public function getUserID(){
         return $this->userID;
     }
 
+    private function setCookieUserName(){
+        $sql = "SELECT users.username 
+        FROM users 
+        INNER JOIN users_metadata ON users_metadata.user_id = users.user_id 
+        WHERE users.user_id = :user_id";
+        $this->prepareStmt($sql);
+        echo "inside set cookie user name";
+        var_dump($this->getUserID());
+        $this->bind(':user_id', $this->getUserID());
+        $row['user_name'] = $this->run();
+        $this->userName = $row['user_name'];
+        return;
+    }
+
+    private function setCookiesParams(){
+        if(!isset($_COOKIE["user_name"])){
+            setcookie("user_name", "guest", [
+                "expires" => mktime(0, 0, 0, date("m"),   date("d"),   date("Y")+1),
+                "path" => '/',
+                "domain" => "",
+                "secure" => false,
+                "httponly" => true,
+                "samesite" => "Strict"]);
+            }
+        if(!isset($_COOKIE["session_token"])){    
+            setcookie("session_token", bin2hex(random_bytes(20)), [
+            "expires" => mktime(0, 0, 0, date("m"),   date("d"),   date("Y")+1),
+            "path" => '/',
+            "domain" => "",
+            "secure" => false,
+            "httponly" => true,
+            "samesite" => "Strict"]);
+        }
+        return;
+    }
+
+    public function getUserName(){
+        return $this->userName;
+    }
+
     private function setUserRole($userRole){
         $this->userRole = $userRole;
+        return;
     }
 
     public function getUserRole(){
@@ -50,18 +109,27 @@ class SessionManager extends DbConnection{
         $this->bind(':user_id', $this->getUserID());
         $this->run();
         $row = $this->SingleRow();
+        echo "</br>get user id is</br>";
+        var_dump($this->getUserID());
+        echo "</br>single row is</br>";
+        var_dump($row);
         $this->setUserRole($row['user_role']);
+        $this->setCookieUserName();
         return $this->userRole;
     }
 
     public function redirectUser($userRole){
         if($userRole === "admin"){
+            $_COOKIE['user_name'] = $this->getUserName();
             echo "redirecting to admin";
             return;
         }elseif($userRole === "author"){
+            $_COOKIE['user_name'] = $this->getUserName();
             echo "redirecting to author";
+            return;
         }else{
             echo "redirecting to guest";
+            return;
         }
     }
 

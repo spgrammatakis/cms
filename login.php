@@ -1,7 +1,8 @@
 <?php
 include 'lib/includes/autoload.inc.php';
-
-    $dbh = new lib\DbConnection();
+$session = new lib\SessionManager();
+$session->sessionCheck();
+$dbh = new lib\DbConnection();
  
 
 $username = $password = "";
@@ -41,8 +42,6 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                                 $_COOKIE['user_name'] = $row['username'];
                                 $hashed_password = $row['password'];
                                 if(password_verify($password, $hashed_password)){
-                                    $session = new lib\SessionManager();
-                                    $session->sessionCheck();
                                     $session->redirectUser($session->getUserRole());
                                 } else{
                                     
