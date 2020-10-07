@@ -36,13 +36,13 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
         $dbh->bind(':username', $param_username);
             
             if($dbh->run()){              
-                    
                     if($dbh->rowCount() == 1){
                             if($row = $dbh->SingleRow()){
+                                $_COOKIE['user_name'] = $row['username'];
                                 $hashed_password = $row['password'];
                                 if(password_verify($password, $hashed_password)){
-                                   $session = new lib\SessionManager();
-                                   $session->sessionCheck();
+                                    $session = new lib\SessionManager();
+                                    $session->sessionCheck();
                                     $session->redirectUser($session->getUserRole());
                                 } else{
                                     
