@@ -40,19 +40,12 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                     if($dbh->rowCount() == 1){
                             if($row = $dbh->SingleRow()){
                                 $hashed_password = $row['password'];
+                                echo password_hash("admin", PASSWORD_DEFAULT);
                                 if(password_verify($password, $hashed_password)){
-                                   
-                                    session_start();
-                                    $_SESSION['username'] = $username;
-                                        if($param_username == admin){
-                                            $_SESSION['user_role'] = 'admin';
-                                            header("location:/admin/admin.php");							
-                                        }
-                                            else{
-                                                $_SESSION['user_role'] = 'user';
-                                                header("location: welcome.php");
-                                            }
-
+                                    echo "verfied";
+                                   $session = new lib\SessionManager();
+                                   $session->sessionCheck();
+                                    
                                 } else{
                                     
                                     $password_err = 'The password you entered was not valid.';

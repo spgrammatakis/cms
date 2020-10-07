@@ -4,6 +4,8 @@ namespace lib;
 
 class SessionManager extends DbConnection{
 
+    private $userID;
+
     public function __construct(){
         parent::__construct();
     }
@@ -25,6 +27,19 @@ class SessionManager extends DbConnection{
                     $this->sessionInsertNewRow($userID);
                 } 
         }
+
+    }
+
+    public function getUserID(){
+        return $userID;
+    }
+
+    public function getUserRole(){
+        $sql = "SELECT user_role FROM users_metadata WHERE user_id = :user_id";
+        $this->prepareStmt($sql);
+        $this->bind(':user_id', $userID);
+        $this->run();
+        return $this->SingleRow();
     }
 
     public function sessionCheckIfAlreadyExists($userID){

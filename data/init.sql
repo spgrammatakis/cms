@@ -40,7 +40,7 @@ CREATE TABLE users (
 )DEFAULT CHARSET=utf8;
 
 INSERT INTO users(username, password)
-VALUES('admin','admin');
+VALUES('admin','$2y$10$LmNcpUSpES6plyPDtnBIG.SeFcN761AcsZ/OPeKFyxMsnrxPB9fjm');
 /*DROP TABLE IF EXISTS auth_tokens;
 
 CREATE TABLE auth_tokens (
