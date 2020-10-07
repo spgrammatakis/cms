@@ -21,10 +21,10 @@ class SessionManager extends DbConnection{
                 $row = $this->SingleRow();
                 $this->userID = $row['user_id'];
                 $this->setUserID($row['user_id']);
-                if($this->sessionCheckIfAlreadyExists($row['user_id'])){
-                    $this->updateUserMetaData($row['user_id']);
+                if($this->sessionCheckIfAlreadyExists($this->getUserID())){
+                    $this->updateUserMetaData($this->getUserID());
                 }else{
-                    $this->sessionInsertNewRow($row['user_id']);
+                    $this->sessionInsertNewRow($this->getUserID());
                 } 
         }
 
