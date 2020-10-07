@@ -2,8 +2,7 @@
 include 'lib/includes/autoload.inc.php';
 require 'templates/title.php';
 $session = new lib\SessionManager();
-$username = $_COOKIE['user_name'] || null;
-print_r($_COOKIE);
+$username = $_COOKIE['user_name'] ?? null;
 $session->sessionCheck($username);
 ?>
 <!DOCTYPE html>

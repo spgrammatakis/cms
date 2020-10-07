@@ -18,14 +18,13 @@ class SessionManager extends DbConnection{
             $this->setCookiesParams();
             return; 
         }
-        $this->userName = $username;
-        $user_name = $this->getUserName();       
+        $this->userName = $username;       
         $username = $this->getUserName();
         $sql = "SELECT user_id FROM users WHERE username = :username";
         $this->prepareStmt($sql);
         $this->bind(':username',  $username);
-        if($this->run()){           
-                $row = $this->SingleRow(); 
+        if($this->run()){         
+                $row = $this->SingleRow();                
                 $this->userID = $row['user_id'];
                 $this->setUserID($row['user_id']);
                 if($this->sessionCheckIfAlreadyExists($this->getUserID())){
@@ -90,27 +89,32 @@ class SessionManager extends DbConnection{
     }
 
     public function getUserRole(){
-        if(!isset($_COOKIE['user_name']) || $_COOKIE['user_name'] == "guest"){
+        if(!isset($this->userRole)){
+            echo "</br>";
+            echo "AXNE";
+            echo $this->userRole;
+            echo "</br>";
             $this->setUserRole("guest");
             return $this->userRole;
-        } 
+        }
+        echo "AXNE";
         $sql = "SELECT user_role FROM users_metadata WHERE user_id = :user_id";
         $this->prepareStmt($sql);
         $this->bind(':user_id', $this->getUserID());
         $this->run();
         $row = $this->SingleRow();
         $this->setUserRole($row['user_role']);
+        echo $row['user_role'];
         $this->setCookieUserName();
         return $this->userRole;
     }
 
     public function redirectUser($userRole){
         if($userRole === "admin"){
-            $_COOKIE['user_name'] = $this->getUserName();
             echo "redirecting to admin";
             return;
         }elseif($userRole === "author"){
-            $_COOKIE['user_name'] = $this->getUserName();
+
             echo "redirecting to author";
             return;
         }else{
