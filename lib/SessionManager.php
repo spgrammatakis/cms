@@ -16,24 +16,24 @@ class SessionManager extends DbConnection{
     public function sessionCheck(){
         if(!isset($_COOKIE['user_name']) || empty($_COOKIE['user_name'])){
             $this->setCookiesParams();
-            
             return; 
         }
-        echo "</br> COOKIE </br>";
-        print_r($_COOKIE);
-        echo "</br> USER ID </br>";
-        var_dump($this->getUserID());
-        echo "</br> USER NAME </br>";
-        var_dump($this->getUserName());
-        echo "</br>";
+        $this->userName = $_COOKIE['user_name'];
+        echo "</br> this username </br>";
+        if($this->userName = "guest"){
+            echo "DO GUEST WORK";
+            return;
+        }
+        $user_name = $this->getUserName();
         $_COOKIE['user_name'] = $this->getUserName();
         $username = $_COOKIE['user_name'];
-        print_r($_COOKIE);
         $sql = "SELECT user_id FROM users WHERE username = :username";
         $this->prepareStmt($sql);
-        $this->bind(':username', $username);
-        if(($this->run())&&($this->rowCount() == 1)){   
-            echo "axne";           
+        $this->bind(':username', $_COOKIE['user_name']);
+        if($this->run()){  
+            echo "</br>PRINT R</br>"; 
+            print_r($this->All());
+            echo "</br>AFTER RUN</br>";           
                 $row = $this->SingleRow();
                 echo "row user id in session check";
                 var_dump($row['user_id']);  
@@ -104,12 +104,14 @@ class SessionManager extends DbConnection{
 
     public function getUserRole(){
         if(!isset($_COOKIE['user_name']) || $_COOKIE['user_name'] == "guest") return "guest";
+        echo "</br>get user id is before</br>";
+        var_dump($this->getUserID());
         $sql = "SELECT user_role FROM users_metadata WHERE user_id = :user_id";
         $this->prepareStmt($sql);
         $this->bind(':user_id', $this->getUserID());
         $this->run();
         $row = $this->SingleRow();
-        echo "</br>get user id is</br>";
+        echo "</br>get user id is after</br>";
         var_dump($this->getUserID());
         echo "</br>single row is</br>";
         var_dump($row);

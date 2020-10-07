@@ -3,12 +3,6 @@ include 'lib/includes/autoload.inc.php';
 require 'templates/title.php';
 $session = new lib\SessionManager();
 $session->sessionCheck();
-$arr = array(1, 2, 3, 4);
-foreach ($arr as $value) {
-    $value = $arr;
-    echo $value;
-break;
-}
 ?>
 <!DOCTYPE html>
 <html>
