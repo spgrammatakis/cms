@@ -28,11 +28,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 
         $sql = "SELECT username, password FROM users WHERE username = :username";
         $dbh->prepareStmt($sql);
-
-
-        $param_username =trim($_POST["username"]);        
-        
-        
+        $param_username =trim($_POST["username"]);                
         $dbh->bind(':username', $param_username);
         $session->sessionCheck($param_username);   
             if($dbh->run()){              
