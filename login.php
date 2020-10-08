@@ -71,6 +71,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 	<link rel="stylesheet" type="text/css" href="./includes/register.css">
 </head>
 <body>
+<a href="./index.php">Homepage</a>
     <div class="form-area">
         <div class="form">
             <h2>Login</h2>
