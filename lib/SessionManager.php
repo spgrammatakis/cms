@@ -16,15 +16,18 @@ class SessionManager extends DbConnection{
     }
 
     public function sessionCheck(){     
-        echo $this->getUserName();
+        echo $this->getUserName()."</br>";
         if($this->getUserName() === "guest") $this->setCookiesParams();
         $sql = "SELECT user_id FROM users WHERE username = :username";
         $this->prepareStmt($sql);
         $this->bind(':username',  $this->getUserName());
-        if($this->run()){      
+        if($this->run()){   
+            echo "axne </br>";   
                 $row =$this->SingleRow() ? $this->SingleRow():array('user_id'=>0);
                 $this->setUserID($row['user_id']);
+                print_r($this->getUserID());
                 if($this->sessionCheckIfAlreadyExists($this->getUserID())){
+                    echo "axoxi </br>";
                     $this->updateUserMetaData($this->getUserID());
                 }else{
                     $this->sessionInsertNewRow($this->getUserID());
