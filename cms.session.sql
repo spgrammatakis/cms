@@ -1,1 +1,0 @@
-UPDATE users_metadata SET user_role = "guest" WHERE user_id = 1;
