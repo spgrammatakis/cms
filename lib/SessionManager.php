@@ -17,12 +17,12 @@ class SessionManager extends DbConnection{
 
     public function sessionCheck(){     
         echo $this->getUserName();
+        if($this->getUserName() === "guest") $this->setCookiesParams();
         $sql = "SELECT user_id FROM users WHERE username = :username";
         $this->prepareStmt($sql);
         $this->bind(':username',  $this->getUserName());
-        if($this->run()){         
-                $row = $this->SingleRow();
-                print_r($row);
+        if($this->run()){      
+                $row =$this->SingleRow() ? $this->SingleRow():array('user_id'=>0);
                 $this->setUserID($row['user_id']);
                 if($this->sessionCheckIfAlreadyExists($this->getUserID())){
                     $this->updateUserMetaData($this->getUserID());
