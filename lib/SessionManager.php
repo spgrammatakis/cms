@@ -62,8 +62,8 @@ class SessionManager extends DbConnection{
     }
 
     private function setCookiesParams(){
+        if(!isset($_COOKIE["user_name"]) || empty($_COOKIE['user_name'])) return;
         if(time() < $this->getExpireFromToken(($this->getCurrentSessionToken($this->getUserID())))){
-            print_r($this->getExpireFromToken(($this->getCurrentSessionToken($this->getUserID()))));
             return;}
         if(!isset($_COOKIE["user_name"])){
             setcookie("user_name", "guest", [
