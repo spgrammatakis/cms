@@ -27,9 +27,10 @@ class SessionManager extends DbConnection{
                 $this->setUserID($row['user_id']);
                 print_r($this->getUserID());
                 if($this->sessionCheckIfAlreadyExists($this->getUserID())){
-                    echo "axoxi </br>";
+                    echo "</br> it exists </br>";
                     $this->updateUserMetaData($this->getUserID());
                 }else{
+                    echo "</br>doesnt exist </br>";
                     $this->sessionInsertNewRow($this->getUserID());
                 } 
         }
@@ -132,6 +133,28 @@ class SessionManager extends DbConnection{
         return $this->rowCount() == 1;
     }
     
+    public function sessionInsertNewRow($userID){
+        $tokensToInsert = serialize($this->sesssionCreateNewToken());   
+        $sql = "
+        INSERT INTO
+        users_metadata
+        (user_id, session_tokens)
+        VALUES(:user_id, :session_tokens)
+        ";
+        $this->prepareStmt($sql);
+        $this->bind(':user_id',$userID);
+        $this->bind(':session_tokens',$tokensToInsert);
+        $this->run();
+    }
+    
+    public function sesssionCreateNewToken(){
+        return  array(array($_COOKIE["session_token"]=>
+                      array(        "ra"=>$_SERVER['REMOTE_ADDR'],
+                                    "ua"=>$_SERVER['HTTP_USER_AGENT'],
+                                    "iat"=>time(),
+                                    "expire"=>time() + (365 * 24 * 60 * 60)
+                                ))); 
+    }   
     
     public function updateUserMetaData($userID){
         if(!isset($userID) || empty($userID)) return false;
@@ -178,28 +201,6 @@ class SessionManager extends DbConnection{
         return $expire[0];
     
     }
-    
-    public function sessionInsertNewRow($userID){
-        $tokensToInsert = serialize($this->sesssionCreateNewToken());   
-        $sql = "
-        INSERT INTO
-        users_metadata
-        (user_id, session_tokens)
-        VALUES(:user_id, :session_tokens)
-        ";
-        $this->prepareStmt($sql);
-        $this->bind(':user_id',$userID);
-        $this->bind(':session_tokens',$tokensToInsert);
-        $this->run();
-    }
-    
-    public function sesssionCreateNewToken(){
-        return  array(array($_COOKIE["session_token"]=>
-                      array(        "ra"=>$_SERVER['REMOTE_ADDR'],
-                                    "ua"=>$_SERVER['HTTP_USER_AGENT'],
-                                    "iat"=>time(),
-                                    "expire"=>time() + (365 * 24 * 60 * 60)
-                                ))); 
-    }
+
 }
 ?>
