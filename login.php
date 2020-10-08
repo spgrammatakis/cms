@@ -1,6 +1,8 @@
 <?php
 include 'lib/includes/autoload.inc.php';
-$session = new lib\SessionManager();
+$username = $_COOKIE['user_name'] ?? "guest";
+$session = new lib\SessionManager($username);
+$session->sessionCheck();
 $dbh = new lib\DbConnection();
  
 
@@ -30,7 +32,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
         $dbh->prepareStmt($sql);
         $param_username =trim($_POST["username"]);                
         $dbh->bind(':username', $param_username);
-        $session->sessionCheck($param_username);   
+        $session->sessionCheck();
             if($dbh->run()){              
                     if($dbh->rowCount() == 1){
                                 $row = $dbh->SingleRow();

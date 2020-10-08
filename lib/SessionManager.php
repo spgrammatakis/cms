@@ -21,16 +21,12 @@ class SessionManager extends DbConnection{
         $sql = "SELECT user_id FROM users WHERE username = :username";
         $this->prepareStmt($sql);
         $this->bind(':username',  $this->getUserName());
-        if($this->run()){   
-            echo "axne </br>";   
+        if($this->run()){    
                 $row =$this->SingleRow() ? $this->SingleRow():array('user_id'=>0);
                 $this->setUserID($row['user_id']);
-                print_r($this->getUserID());
                 if($this->sessionCheckIfAlreadyExists($this->getUserID())){
-                    echo "</br> it exists </br>";
                     $this->updateUserMetaData($this->getUserID());
-                }else{
-                    echo "</br>doesnt exist </br>";
+                }else{  
                     $this->sessionInsertNewRow($this->getUserID());
                 } 
         }
@@ -104,7 +100,6 @@ class SessionManager extends DbConnection{
         $this->bind(':user_id', $this->getUserID());
         $this->run();
         $row = $this->SingleRow() ?? array('user_role'=>"guest");
-        var_dump($row);
         $this->setUserRole($row['user_role']);
         $this->setCookieUserName();
         return $this->userRole;
@@ -148,6 +143,14 @@ class SessionManager extends DbConnection{
     }
     
     public function sesssionCreateNewToken(){
+        if(!isset($_COOKIE["user_name"]) || empty($_COOKIE['user_name'])){
+            return array(array(bin2hex(random_bytes(20))=>
+            array(        "ra"=>$_SERVER['REMOTE_ADDR'],
+                          "ua"=>$_SERVER['HTTP_USER_AGENT'],
+                          "iat"=>time(),
+                          "expire"=>time() + (365 * 24 * 60 * 60)
+                      ))); 
+}   
         return  array(array($_COOKIE["session_token"]=>
                       array(        "ra"=>$_SERVER['REMOTE_ADDR'],
                                     "ua"=>$_SERVER['HTTP_USER_AGENT'],
