@@ -59,3 +59,6 @@ CREATE TABLE users_metadata(
         user_role LONGTEXT NOT NULL,
         initiated_at DATETIME DEFAULT CURRENT_TIMESTAMP
 )DEFAULT CHARSET=utf8;
+
+INSERT INTO users_metadata(user_id, user_role)
+VALUES(0,"guest");

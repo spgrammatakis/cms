@@ -1,9 +1,9 @@
 <?php
 include 'lib/includes/autoload.inc.php';
 require 'templates/title.php';
-$session = new lib\SessionManager();
-$username = $_COOKIE['user_name'] ?? null;
-$session->sessionCheck($username);
+$username = $_COOKIE['user_name'] ?? "guest";
+$session = new lib\SessionManager($username);
+$session->sessionCheck();
 ?>
 <!DOCTYPE html>
 <html>

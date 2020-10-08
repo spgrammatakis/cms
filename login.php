@@ -33,7 +33,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
         $session->sessionCheck($param_username);   
             if($dbh->run()){              
                     if($dbh->rowCount() == 1){
-                            if($row = $dbh->SingleRow()){
+                                $row = $dbh->SingleRow();
                                 $hashed_password = $row['password'];
                                 if(password_verify($password, $hashed_password)){
                                     setcookie("user_name", $row['username'], [
@@ -48,7 +48,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                                     
                                     $password_err = 'The password you entered was not valid.';
                                 }
-                            }
+                            
                     } else{
                         
                         $username_err = 'No account found with that username.';

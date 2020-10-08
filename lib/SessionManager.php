@@ -3,29 +3,26 @@
 namespace lib;
 
 class SessionManager extends DbConnection{
-
-    private $userID;
-    private $userName;  
-    private $userRole;
     
+    private $userID;
+    private $userName;
+    private $userRole;
 
-    public function __construct(){
+    public function __construct($userName){
         parent::__construct();
+        $this->userID = 0;
+        $this->userName = $userName;
+        $this->userRole = "guest";     
     }
 
-    public function sessionCheck($username){
-        if(!isset($_COOKIE['user_name']) || empty($_COOKIE['user_name']) || !isset($username) || $_COOKIE['user_name'] === "guest"){
-            $this->setCookiesParams();
-            return; 
-        }
-        $this->userName = $username;       
-        $username = $this->getUserName();
+    public function sessionCheck(){     
+        echo $this->getUserName();
         $sql = "SELECT user_id FROM users WHERE username = :username";
         $this->prepareStmt($sql);
-        $this->bind(':username',  $username);
+        $this->bind(':username',  $this->getUserName());
         if($this->run()){         
-                $row = $this->SingleRow();                
-                $this->userID = $row['user_id'];
+                $row = $this->SingleRow();
+                print_r($row);
                 $this->setUserID($row['user_id']);
                 if($this->sessionCheckIfAlreadyExists($this->getUserID())){
                     $this->updateUserMetaData($this->getUserID());
@@ -34,6 +31,11 @@ class SessionManager extends DbConnection{
                 } 
         }
 
+    }
+
+    private function setUserName($name){
+        $this->userName = $name;
+        return;
     }
 
     private function setUserID($id){
@@ -97,9 +99,9 @@ class SessionManager extends DbConnection{
         $this->prepareStmt($sql);
         $this->bind(':user_id', $this->getUserID());
         $this->run();
-        $row = $this->SingleRow();
+        $row = $this->SingleRow() ?? array('user_role'=>"guest");
+        var_dump($row);
         $this->setUserRole($row['user_role']);
-        echo $row['user_role'];
         $this->setCookieUserName();
         return $this->userRole;
     }
