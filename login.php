@@ -44,8 +44,6 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                                         "secure" => false,
                                         "httponly" => true,
                                         "samesite" => "Strict"]);
-                                    echo "user role admin </br>";
-                                    var_dump($session->getUserRole());
                                     $session->redirectUser($session->getUserRole());
                                 } else{
                                     

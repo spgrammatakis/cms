@@ -10,13 +10,10 @@ class SessionManager extends DbConnection{
 
     public function __construct($userName){
         parent::__construct();
-        $this->userID = 0;
-        $this->userName = $userName;
-        $this->userRole = "guest";     
+        $this->userName = $userName;    
     }
 
-    public function sessionCheck(){     
-        echo $this->getUserName()."</br>";
+    public function sessionCheck(){
         if($this->getUserName() === "guest") $this->setCookiesParams();
         $sql = "SELECT user_id FROM users WHERE username = :username";
         $this->prepareStmt($sql);
@@ -27,7 +24,7 @@ class SessionManager extends DbConnection{
                 if($this->sessionCheckIfAlreadyExists($this->getUserID())){
                     $this->updateUserMetaData($this->getUserID());
                 }else{
-                    echo "new";
+                    echo "</br> new </br>";
                     print_r($this->getUserID());
                     $this->sessionInsertNewRow($this->getUserID());
                 } 
@@ -138,8 +135,6 @@ class SessionManager extends DbConnection{
         (user_id, session_tokens, user_role)
         VALUES(:user_id, :session_tokens, :user_role)
         ";
-        echo "USER ROLE";
-        echo $this->getUserRole();
         $userRole = $this->getUserRole();
         $this->prepareStmt($sql);
         $this->bind(':user_id',$userID);
@@ -168,13 +163,15 @@ class SessionManager extends DbConnection{
     public function updateUserMetaData($userID){
         if(!isset($userID) || empty($userID)) return false;
         $tokensToAppend = $this->sesssionCreateNewToken();  
+        $userRole = $this->getUserRole();
+        echo $userRole;
         $sessionTokenFromDB[] = $this->sessionGetCurrentSessionToken($userID);
         $tokensToAppend = array_merge($tokensToAppend,$sessionTokenFromDB[0]);
         $serializedTokens = serialize($tokensToAppend);
         $sql="
         UPDATE users_metadata
-        SET session_tokens = '$serializedTokens'
-        WHERE user_id = " . $userID;
+        SET session_tokens = '$serializedTokens', user_role = '$userRole'
+        WHERE user_id =  '$userID' "; 
         $this->prepareStmt($sql);
         return $this->run();
     }
