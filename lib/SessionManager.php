@@ -14,7 +14,10 @@ class SessionManager extends DbConnection{
     }
 
     public function sessionCheck(){
-        if($this->getUserName() === "guest") $this->setCookiesParams();
+        if($this->getUserName() === "guest"){
+            $this->setUserID(0);
+            $this->setCookiesParams();
+        }
         $sql = "SELECT user_id FROM users WHERE username = :username";
         $this->prepareStmt($sql);
         $this->bind(':username',  $this->getUserName());
@@ -32,12 +35,12 @@ class SessionManager extends DbConnection{
 
     }
 
-    private function setUserName($name){
+    public function setUserName($name){
         $this->userName = $name;
         return;
     }
 
-    private function setUserID($id){
+    public function setUserID($id){
         $this->userID = $id;
         return;
     }
@@ -59,6 +62,9 @@ class SessionManager extends DbConnection{
     }
 
     private function setCookiesParams(){
+        if(time() < $this->getExpireFromToken(($this->getCurrentSessionToken($this->getUserID())))){
+            print_r($this->getExpireFromToken(($this->getCurrentSessionToken($this->getUserID()))));
+            return;}
         if(!isset($_COOKIE["user_name"])){
             setcookie("user_name", "guest", [
                 "expires" => mktime(0, 0, 0, date("m"),   date("d"),   date("Y")+1),
@@ -99,6 +105,7 @@ class SessionManager extends DbConnection{
         $this->bind(':user_id', $this->getUserID());
         $this->run();
         $row = $this->SingleRow() ? $this->SingleRow() : array('user_role'=>"guest");
+        print_r($row);
         $this->setUserRole($row['user_role']);
         $this->setCookieUserName();
         return $this->userRole;
@@ -164,8 +171,7 @@ class SessionManager extends DbConnection{
         if(!isset($userID) || empty($userID)) return false;
         $tokensToAppend = $this->sesssionCreateNewToken();  
         $userRole = $this->getUserRole();
-        echo $userRole;
-        $sessionTokenFromDB[] = $this->sessionGetCurrentSessionToken($userID);
+        $sessionTokenFromDB[] = $this->getCurrentSessionToken($userID);
         $tokensToAppend = array_merge($tokensToAppend,$sessionTokenFromDB[0]);
         $serializedTokens = serialize($tokensToAppend);
         $sql="
@@ -176,7 +182,7 @@ class SessionManager extends DbConnection{
         return $this->run();
     }
     
-    public function sessionGetCurrentSessionToken($userID){
+    public function getCurrentSessionToken($userID){
         if(!isset($_COOKIE["user_name"]) || empty($_COOKIE['user_name'])) return false;
         $sql = "SELECT session_tokens FROM users_metadata WHERE user_id = :user_id";
         $this->prepareStmt($sql);
@@ -187,23 +193,23 @@ class SessionManager extends DbConnection{
         return unserialize($serializedTokens['session_tokens']);
     }
     
-    public function sessionExtractInitiatedAtFromToken($unserializedTokens){
+    public function getInitiatedAtFromToken($unserializedTokens){
         $initiatedAt = array_column($unserializedTokens[0],"iat");
         return  $initiatedAt[0];
     }
     
-    public function sessionExtractUserAgentFromToken($unserializedTokens){
+    public function getUserAgentFromToken($unserializedTokens){
         $userAgent = array_column($unserializedTokens[0],"ua");
         return  $userAgent[0];
     }
     
-    public function sessionExtractRemoteAddressFromToken($unserializedTokens){
+    public function getRemoteAddressFromToken($unserializedTokens){
         return  $remoteAddress = array_column($unserializedTokens[0],"ra");
         return  $remoteAddress[0];
     }
     
-    public function sessionExtractExpireFromToken($unserializedTokens){
-        return $initiatedAt = array_column($unserializedTokens[0],"iat");
+    public function getExpireFromToken($unserializedTokens){
+        return $expire = array_column($unserializedTokens[0],"expire");
         return $expire[0];
     
     }
