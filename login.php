@@ -32,7 +32,6 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
         $dbh->prepareStmt($sql);
         $param_username =trim($_POST["username"]);                
         $dbh->bind(':username', $param_username);
-        $session->sessionCheck();
             if($dbh->run()){              
                     if($dbh->rowCount() == 1){
                                 $row = $dbh->SingleRow();
@@ -45,6 +44,8 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                                         "secure" => false,
                                         "httponly" => true,
                                         "samesite" => "Strict"]);
+                                    echo "user role admin </br>";
+                                    var_dump($session->getUserRole());
                                     $session->redirectUser($session->getUserRole());
                                 } else{
                                     

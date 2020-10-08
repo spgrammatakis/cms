@@ -26,7 +26,8 @@ class SessionManager extends DbConnection{
                 $this->setUserID($row['user_id']);
                 if($this->sessionCheckIfAlreadyExists($this->getUserID())){
                     $this->updateUserMetaData($this->getUserID());
-                }else{  
+                }else{
+                    echo "new";
                     $this->sessionInsertNewRow($this->getUserID());
                 } 
         }
@@ -99,7 +100,9 @@ class SessionManager extends DbConnection{
         $this->prepareStmt($sql);
         $this->bind(':user_id', $this->getUserID());
         $this->run();
-        $row = $this->SingleRow() ?? array('user_role'=>"guest");
+        $row = $this->SingleRow() ? $this->SingleRow() : array('user_role'=>"guest");
+        echo "</br>";
+        print_r($row);
         $this->setUserRole($row['user_role']);
         $this->setCookieUserName();
         return $this->userRole;
@@ -133,12 +136,13 @@ class SessionManager extends DbConnection{
         $sql = "
         INSERT INTO
         users_metadata
-        (user_id, session_tokens)
-        VALUES(:user_id, :session_tokens)
+        (user_id, session_tokens, user_role)
+        VALUES(:user_id, :session_tokens, :user_role)
         ";
         $this->prepareStmt($sql);
         $this->bind(':user_id',$userID);
         $this->bind(':session_tokens',$tokensToInsert);
+        $this->bind(':user_role',$this->getUserRole());
         $this->run();
     }
     
