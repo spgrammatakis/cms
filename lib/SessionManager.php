@@ -28,6 +28,7 @@ class SessionManager extends DbConnection{
                     $this->updateUserMetaData($this->getUserID());
                 }else{
                     echo "new";
+                    print_r($this->getUserID());
                     $this->sessionInsertNewRow($this->getUserID());
                 } 
         }
@@ -101,8 +102,6 @@ class SessionManager extends DbConnection{
         $this->bind(':user_id', $this->getUserID());
         $this->run();
         $row = $this->SingleRow() ? $this->SingleRow() : array('user_role'=>"guest");
-        echo "</br>";
-        print_r($row);
         $this->setUserRole($row['user_role']);
         $this->setCookieUserName();
         return $this->userRole;
@@ -139,10 +138,13 @@ class SessionManager extends DbConnection{
         (user_id, session_tokens, user_role)
         VALUES(:user_id, :session_tokens, :user_role)
         ";
+        echo "USER ROLE";
+        echo $this->getUserRole();
+        $userRole = $this->getUserRole();
         $this->prepareStmt($sql);
         $this->bind(':user_id',$userID);
         $this->bind(':session_tokens',$tokensToInsert);
-        $this->bind(':user_role',$this->getUserRole());
+        $this->bind(':user_role',$this->userRole);
         $this->run();
     }
     
