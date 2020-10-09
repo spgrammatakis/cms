@@ -21,7 +21,6 @@ function installBlog()
 }
 ?>
 
-<!DOCTYPE html>
 <html>
     <head>
         <title>Blog installer</title>
@@ -29,7 +28,6 @@ function installBlog()
     </head>
     <body>    
     <div class="create-admin">
-    <p><a href="register.php">Create Admin Account</a></p>
     </div>
     <?php?>
             <div class="success-box">

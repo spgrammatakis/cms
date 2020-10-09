@@ -1,5 +1,6 @@
 <?php
 include 'lib/includes/autoload.inc.php';
+require 'install.php';
 $pdo = new lib\DbConnection();
 
 $username = $password = $confirm_password = $email ="";
@@ -82,8 +83,6 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     
 
     if(empty($username_err) && empty($password_err) && empty($confirm_password_err) && empty($email_err)){
-        
-
         $sql = "INSERT INTO users (username, password, email) VALUES (:username, :password, :email)";
         echo "outside last prepare";
         $pdo->prepareStmt($sql);
@@ -98,8 +97,6 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
             $pdo->bind(':email', $param_email);
 
             if($pdo->run()){
-
-                header("location: login.php");
             } else{
                 echo "Something went wrong. Please try again later.";
             }
