@@ -84,7 +84,6 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                 $session = new lib\SessionManager($param_username);
                 $session->setUserID(1);
                 $session->setUserRole("admin");
-                var_dump($session->getUserID());
                 $session->sessionInsertNewRow($session->getUserID());
                 //header('Location: index.php');
             } else{
