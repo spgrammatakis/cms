@@ -14,7 +14,9 @@ class SessionManager extends DbConnection{
     }
 
     public function sessionCheck(){
-        if($this->getUserName() === "guest"){
+        if($this->getUserName() === "guest" || (!isset($_COOKIE['user_name']) || empty($_COOKIE['user_name']))){
+            $this->setUserName("guest");
+            $this->setUserRole("guest");
             $this->setUserID(0);
             $this->setCookiesParams();
         }
@@ -80,6 +82,7 @@ class SessionManager extends DbConnection{
         }
         return;
         if(time() > $this->getExpireFromToken(($this->getCurrentSessionToken($this->getUserID())))){
+            echo "axne";
             setCookiesParams();
             return;
         }
