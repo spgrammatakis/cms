@@ -4,9 +4,9 @@ namespace lib;
 
 class SessionManager extends DbConnection{
     
-    private $userID;
-    private $userName;
-    private $userRole;
+    protected $userID;
+    protected $userName;
+    protected $userRole;
 
     public function __construct($userName){
         parent::__construct();
