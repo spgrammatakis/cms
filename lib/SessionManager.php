@@ -14,11 +14,14 @@ class SessionManager extends DbConnection{
     }
 
     public function sessionCheck(){
-        if($this->getUserName() === "guest" || (!isset($_COOKIE['user_name']) || empty($_COOKIE['user_name']))){
+        if( $this->getUserName() === "guest" 
+            || (!isset($_COOKIE['user_name']) || empty($_COOKIE['user_name']))
+            || (!isset($_COOKIE['session_token']) || empty($_COOKIE['session_token']))){
             $this->setUserName("guest");
             $this->setUserRole("guest");
             $this->setUserID(0);
             $this->setCookiesParams();
+            return;
         }
         $sql = "SELECT user_id FROM users WHERE username = :username";
         $this->prepareStmt($sql);
