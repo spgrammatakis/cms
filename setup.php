@@ -7,21 +7,14 @@ $username = $password = $confirm_password = $email ="";
 $username_err = $password_err = $confirm_password_err = $email_err  ="";
 
 if($_SERVER["REQUEST_METHOD"] == "POST"){
-    echo "past post";
-    echo "<br>";
     if(empty(trim($_POST["username"]))){
-        echo "empty user";
-        echo "<br>";
         $username_err = "Please enter a username.";
     } else{        
         $sql = "SELECT user_id FROM users WHERE username = :username";    
         $pdo->prepareStmt($sql);
         $param_username = trim($_POST["username"]);
         $pdo->bind(':username', $param_username);
-
             if($pdo->run()){
-                echo "inside run";
-                echo "<br>";
                 if($pdo->rowCount() == 1){
                     $username_err = "This username is already taken.";
                 } else{
@@ -42,11 +35,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
             $sql = "SELECT user_id FROM users WHERE email = :email";
             
             $pdo->prepareStmt($sql);
-                echo "inside email";
-                echo "<br>";
-
                 $param_email = trim($_POST["email"]);
-
                 $pdo->bind('email', $param_email);
                 
                 if($pdo->run()){
@@ -84,10 +73,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 
     if(empty($username_err) && empty($password_err) && empty($confirm_password_err) && empty($email_err)){
         $sql = "INSERT INTO users (username, password, email) VALUES (:username, :password, :email)";
-        echo "outside last prepare";
         $pdo->prepareStmt($sql);
-            echo "inside last prepare";
-
             $param_username = ($username);
             $param_password = password_hash($password, PASSWORD_DEFAULT);
             $param_email    = ($email);
@@ -97,6 +83,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
             $pdo->bind(':email', $param_email);
 
             if($pdo->run()){
+                header('Location: index.php');
             } else{
                 echo "Something went wrong. Please try again later.";
             }
