@@ -77,24 +77,16 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
             $param_username = ($username);
             $param_password = password_hash($password, PASSWORD_DEFAULT);
             $param_email    = ($email);
-
             $pdo->bind(':username', $param_username);
             $pdo->bind(':password', $param_password);
             $pdo->bind(':email', $param_email);
-
             if($pdo->run()){
                 $session = new lib\SessionManager($param_username);
-                $session->setUserID(0);
-                $sql="INSERT INTO users_metadata(user_id,username,session_tokens,user_role,expire_at)
-                        VALUES (:user_id,:username,:session_tokens,:user_role,:expire_at)";
-                $pdo->prepareStmt($sql);
-                $pdo->bind(':user_id',$session->getUserID());
-                $pdo->bind(':username',$session->getUserName());
-                $pdo->bind(':session_tokens',bin2hex(random_bytes(20)));
-                $pdo->bind(':user_role',"admin");
-                $pdo->bind(':expire_at',mktime(0, 0, 0, date("m"),   date("d"),   date("Y")+1));
-                $pdo->run();
-                header('Location: index.php');
+                $session->setUserID(1);
+                $session->setUserRole("admin");
+                var_dump($session->getUserID());
+                $session->sessionInsertNewRow($session->getUserID());
+                //header('Location: index.php');
             } else{
                 echo "Something went wrong. Please try again later.";
             }

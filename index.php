@@ -2,7 +2,7 @@
 include 'lib/includes/autoload.inc.php';
 require 'templates/title.php';
 $username = $_COOKIE['user_name'] ?? "guest";
-echo $username;
+echo "USERNAME:".$username;
 $session = new lib\SessionManager($username);
 $session->sessionCheck();
 ?>
@@ -19,7 +19,7 @@ $session->sessionCheck();
         $postHandler = new lib\PostManager();
         $postHandler->getPosts();
         ?>
-        <a href="./install.php">Install</a>
+        <a href="./setup.php">Setup</a>
         
     </body>
 </html>

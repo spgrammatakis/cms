@@ -150,17 +150,15 @@ class SessionManager extends DbConnection{
 
     public function sessionInsertNewRow($userID){
         $tokensToInsert = serialize($this->sesssionCreateNewToken());   
-        $sql = "
-        INSERT INTO
-        users_metadata
-        (user_id, session_tokens, user_role)
-        VALUES(:user_id, :session_tokens, :user_role)
-        ";
-        $userRole = $this->getUserRole();
+        $sql="INSERT INTO users_metadata(user_id,username,session_tokens,user_role,expire_at)
+        VALUES (:user_id,:username,:session_tokens,:user_role,:expire_at)";
         $this->prepareStmt($sql);
-        $this->bind(':user_id',$userID);
-        $this->bind(':session_tokens',$tokensToInsert);
-        $this->bind(':user_role',$userRole);
+        echo $userID;
+        $this->bind(':user_id',$this->getUserID());
+        $this->bind(':username',$this->getUserName());
+        $this->bind(':session_tokens',bin2hex(random_bytes(20)));
+        $this->bind(':user_role',"admin");
+        $this->bind(':expire_at',mktime(0, 0, 0, date("m"),   date("d"),   date("Y")+1));
         $this->run();
     }
     
