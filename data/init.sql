@@ -41,6 +41,9 @@ CREATE TABLE users (
 
 INSERT INTO users(username, password)
 VALUES('admin','$2y$10$LmNcpUSpES6plyPDtnBIG.SeFcN761AcsZ/OPeKFyxMsnrxPB9fjm');
+
+INSERT INTO users(username, password)
+VALUES('author','$2y$10$QPNYMR4U4FTR3yxUB8XiteT5yrJKhln2W89Hdqy4aPeh4COzY8NXC');
 /*DROP TABLE IF EXISTS auth_tokens;
 
 CREATE TABLE auth_tokens (
