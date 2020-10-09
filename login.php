@@ -1,8 +1,6 @@
 <?php
 include 'lib/includes/autoload.inc.php';
 $username = $_COOKIE['user_name'] ?? "guest";
-$session = new lib\SessionManager($username);
-$session->sessionCheck();
 $dbh = new lib\DbConnection();
  
 
@@ -44,6 +42,8 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                                         "secure" => false,
                                         "httponly" => true,
                                         "samesite" => "Strict"]);
+                                    $session = new lib\SessionManager($row['username']);
+                                    $session->sessionCheck();
                                     $session->redirectUser($session->getUserRole());
                                 } else{
                                     
@@ -51,7 +51,9 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                                 }
                             
                     } else{
-                        
+                        $username = $_COOKIE['user_name'] ?? "guest";
+                        $session = new lib\SessionManager($username);
+                        $session->sessionCheck();
                         $username_err = 'No account found with that username.';
                     }   
             } else{

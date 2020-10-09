@@ -14,9 +14,10 @@ class SessionManager extends DbConnection{
     }
 
     public function sessionCheck(){
-        if( $this->getUserName() === "guest" 
-            || (!isset($_COOKIE['user_name']) || empty($_COOKIE['user_name']))
+        print_r($_COOKIE);
+        if((!isset($_COOKIE['user_name']) || empty($_COOKIE['user_name']))
             || (!isset($_COOKIE['session_token']) || empty($_COOKIE['session_token']))){
+            echo "axne";
             $this->setUserName("guest");
             $this->setUserRole("guest");
             $this->setUserID(0);
@@ -85,7 +86,7 @@ class SessionManager extends DbConnection{
         }
         return;
         if(time() > $this->getExpireFromToken(($this->getCurrentSessionToken($this->getUserID())))){
-            echo "axne";
+            echo "time >";
             setCookiesParams();
             return;
         }
@@ -101,7 +102,7 @@ class SessionManager extends DbConnection{
     }
 
     public function getUserRole(){
-
+        echo "INSIDE USER ROLE";
         echo $this->getUserID();
         $sql = "SELECT user_role FROM users_metadata WHERE user_id = :user_id";
         $this->prepareStmt($sql);
@@ -118,7 +119,6 @@ class SessionManager extends DbConnection{
             echo "redirecting to admin";
             return;
         }elseif($userRole === "author"){
-
             echo "redirecting to author";
             return;
         }else{
