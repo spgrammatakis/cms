@@ -64,7 +64,7 @@ class SessionManager extends DbConnection{
     }
 
     private function setCookiesParams(){
-        if(!isset($_COOKIE['user_name']) || empty($_COOKIE['user_name'])|| $this->getUserName === "guest"){
+        if(!isset($_COOKIE['user_name']) || empty($_COOKIE['user_name'])|| $this->getUserName() === "guest"){
             setcookie("user_name", "guest", [
                 "expires" => mktime(0, 0, 0, date("m"),   date("d"),   date("Y")+1),
                 "path" => '/',
@@ -73,7 +73,7 @@ class SessionManager extends DbConnection{
                 "httponly" => true,
                 "samesite" => "Strict"]);
             }
-        if(!isset($_COOKIE['session_token']) || empty($_COOKIE['session_token']) || $this->getUserName === "guest"){    
+        if(!isset($_COOKIE['session_token']) || empty($_COOKIE['session_token']) || $this->getUserName() === "guest"){    
             setcookie("session_token", bin2hex(random_bytes(20)), [
             "expires" => mktime(0, 0, 0, date("m"),   date("d"),   date("Y")+1),
             "path" => '/',

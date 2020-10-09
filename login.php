@@ -43,6 +43,13 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                                         "secure" => false,
                                         "httponly" => true,
                                         "samesite" => "Strict"]);
+                                    setcookie("session_token", bin2hex(random_bytes(20)), [
+                                        "expires" => mktime(0, 0, 0, date("m"),   date("d"),   date("Y")+1),
+                                        "path" => '/',
+                                        "domain" => "",
+                                        "secure" => false,
+                                        "httponly" => true,
+                                        "samesite" => "Strict"]);    
                                     $session = new lib\SessionManager($row['username']);
                                     $session->sessionCheck();
                                     $session->redirectUser($session->getUserRole());
