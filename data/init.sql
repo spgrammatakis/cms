@@ -58,16 +58,18 @@ DROP TABLE IF EXISTS users_metadata;
 CREATE TABLE users_metadata(
         meta_id INT(10) UNSIGNED AUTO_INCREMENT PRIMARY KEY NOT NULL,
         user_id INT(10) NOT NULL,
+        username VARCHAR(20) NOT NULL,
         session_tokens LONGTEXT NOT NULL,
         user_role LONGTEXT NOT NULL,
+        expire_at DATETIME NOT NULL,
         initiated_at DATETIME DEFAULT CURRENT_TIMESTAMP
 )DEFAULT CHARSET=utf8;
 
-INSERT INTO users_metadata(user_id, user_role)
+/*INSERT INTO users_metadata(user_id, user_role)
 VALUES(0,"guest");
 
 INSERT INTO users_metadata(user_id,user_role)
 VALUES(1,"admin");
 
 INSERT INTO users_metadata(user_id,user_role)
-VALUES(2,"author");
+VALUES(2,"author");*/
