@@ -15,11 +15,7 @@ class SessionManager extends DbConnection{
 
     public function sessionCheck(){
         print_r($_COOKIE);
-        if($this->getUserName() === "guest"){
-            $this->setCookiesParams();
-            echo "Guest Account";
-            return;
-        }
+        $this->setCookiesParams();
         $sql = "SELECT user_id FROM users WHERE username = :username";
         $this->prepareStmt($sql);
         $this->bind(':username',  $this->getUserName());
