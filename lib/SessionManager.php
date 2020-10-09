@@ -137,7 +137,7 @@ class SessionManager extends DbConnection{
     }
     
     public function sesssionCreateNewToken(){
-        if(!isset($_COOKIE["user_name"]) || empty($_COOKIE['user_name'])){
+        if(!isset($_COOKIE['session_token']) || empty($_COOKIE['session_token'])){
             return array(array(bin2hex(random_bytes(20))=>
             array(        "ra"=>$_SERVER['REMOTE_ADDR'],
                           "ua"=>$_SERVER['HTTP_USER_AGENT'],
