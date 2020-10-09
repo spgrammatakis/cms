@@ -90,7 +90,7 @@ class SessionManager extends DbConnection{
         return $this->userName;
     }
 
-    private function setUserRole($userRole){
+    public function setUserRole($userRole){
         $this->userRole = $userRole;
         return;
     }
@@ -103,6 +103,7 @@ class SessionManager extends DbConnection{
         $this->bind(':user_id', $this->getUserID());
         $this->run();
         $row = $this->SingleRow() ? $this->SingleRow() : array('user_role'=>"guest");
+        print_r($row);
         $this->setUserRole($row['user_role']);
         $this->setCookieUserName();
         return $this->userRole;
@@ -168,7 +169,7 @@ class SessionManager extends DbConnection{
         $tokensToAppend = $this->sesssionCreateNewToken();  
         $userRole = $this->getUserRole();
         $sessionTokenFromDB[] = $this->getCurrentSessionToken($userID);
-        $tokensToAppend = array_merge($tokensToAppend,$sessionTokenFromDB[0]);
+        $tokensToAppend = array_merge($tokensToAppend,$sessionTokenFromDB[0]) ?? $tokensToAppend;
         $serializedTokens = serialize($tokensToAppend);
         $sql="
         UPDATE users_metadata

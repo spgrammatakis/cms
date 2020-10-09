@@ -62,3 +62,9 @@ CREATE TABLE users_metadata(
 
 INSERT INTO users_metadata(user_id, user_role)
 VALUES(0,"guest");
+
+INSERT INTO users_metadata(user_id,user_role)
+VALUES(1,"admin");
+
+INSERT INTO users_metadata(user_id,user_role)
+VALUES(2,"author");

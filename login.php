@@ -52,6 +52,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                                         "samesite" => "Strict"]);    
                                     $session = new lib\SessionManager($row['username']);
                                     $session->sessionCheck();
+                                    $session->setuserRole("admin");
                                     $session->redirectUser($session->getUserRole());
                                 } else{
                                     
