@@ -15,13 +15,8 @@ class SessionManager extends DbConnection{
 
     public function sessionCheck(){
         print_r($_COOKIE);
-        if((!isset($_COOKIE['user_name']) || empty($_COOKIE['user_name']))
-            || (!isset($_COOKIE['session_token']) || empty($_COOKIE['session_token']))){
-            echo "axne";
-            $this->setUserName("guest");
-            $this->setUserRole("guest");
-            $this->setUserID(0);
-            $this->setCookiesParams();
+        if($this->getUserName() === "guest"){
+            echo "Guest Account";
             return;
         }
         $sql = "SELECT user_id FROM users WHERE username = :username";
@@ -31,8 +26,10 @@ class SessionManager extends DbConnection{
                 $row =$this->SingleRow() ? $this->SingleRow():array('user_id'=>0);
                 $this->setUserID($row['user_id']);
                 if($this->sessionCheckIfAlreadyExists($this->getUserID())){
+                    echo "</br> already exists </br>";
                     $this->updateUserMetaData($this->getUserID());
                 }else{
+                    echo "</br> doesnt exist</br>";
                     $this->sessionInsertNewRow($this->getUserID());
                 } 
         }
