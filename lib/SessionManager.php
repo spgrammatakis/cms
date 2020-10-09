@@ -95,10 +95,8 @@ class SessionManager extends DbConnection{
     }
 
     public function getUserRole(){
-        if(empty($this->getUserName())){
-            $this->setUserRole("guest");
-            return $this->userRole;
-        }
+
+        echo $this->getUserID();
         $sql = "SELECT user_role FROM users_metadata WHERE user_id = :user_id";
         $this->prepareStmt($sql);
         $this->bind(':user_id', $this->getUserID());
@@ -132,6 +130,23 @@ class SessionManager extends DbConnection{
         return $this->rowCount() == 1;
     }
     
+    public function sesssionCreateNewToken(){
+        if(!isset($_COOKIE["user_name"]) || empty($_COOKIE['user_name'])){
+            return array(array(bin2hex(random_bytes(20))=>
+            array(        "ra"=>$_SERVER['REMOTE_ADDR'],
+                          "ua"=>$_SERVER['HTTP_USER_AGENT'],
+                          "iat"=>time(),
+                          "expire"=>mktime(0, 0, 0, date("m"),   date("d"),   date("Y")+1)
+                      ))); 
+}   
+        return  array(array($_COOKIE["session_token"]=>
+                      array(        "ra"=>$_SERVER['REMOTE_ADDR'],
+                                    "ua"=>$_SERVER['HTTP_USER_AGENT'],
+                                    "iat"=>time(),
+                                    "expire"=>mktime(0, 0, 0, date("m"),   date("d"),   date("Y")+1)
+                                ))); 
+    }   
+
     public function sessionInsertNewRow($userID){
         $tokensToInsert = serialize($this->sesssionCreateNewToken());   
         $sql = "
@@ -144,26 +159,9 @@ class SessionManager extends DbConnection{
         $this->prepareStmt($sql);
         $this->bind(':user_id',$userID);
         $this->bind(':session_tokens',$tokensToInsert);
-        $this->bind(':user_role',$this->userRole);
+        $this->bind(':user_role',$userRole);
         $this->run();
     }
-    
-    public function sesssionCreateNewToken(){
-        if(!isset($_COOKIE["user_name"]) || empty($_COOKIE['user_name'])){
-            return array(array(bin2hex(random_bytes(20))=>
-            array(        "ra"=>$_SERVER['REMOTE_ADDR'],
-                          "ua"=>$_SERVER['HTTP_USER_AGENT'],
-                          "iat"=>time(),
-                          "expire"=>time() + (365 * 24 * 60 * 60)
-                      ))); 
-}   
-        return  array(array($_COOKIE["session_token"]=>
-                      array(        "ra"=>$_SERVER['REMOTE_ADDR'],
-                                    "ua"=>$_SERVER['HTTP_USER_AGENT'],
-                                    "iat"=>time(),
-                                    "expire"=>time() + (365 * 24 * 60 * 60)
-                                ))); 
-    }   
     
     public function updateUserMetaData($userID){
         if(!isset($userID) || empty($userID)) return false;
