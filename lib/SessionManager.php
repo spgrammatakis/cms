@@ -1,7 +1,5 @@
 <?php
-
 namespace lib;
-
 class SessionManager extends DbConnection{
     
     protected $userID;
@@ -46,10 +44,8 @@ class SessionManager extends DbConnection{
                 $row =$this->SingleRow() ? $this->SingleRow():array('user_id'=>0);
                 $this->setUserID($row['user_id']);
                 if($this->sessionCheckIfAlreadyExists($this->getUserID())){
-                    echo "</br> already exists </br>";
                     $this->updateUserMetaData($this->getUserID());
                 }else{
-                    echo "</br> doesnt exist</br>";
                     $this->sessionInsertNewRow($this->getUserID());
                 } 
         }
