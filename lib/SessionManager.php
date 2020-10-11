@@ -38,7 +38,6 @@ class SessionManager extends DbConnection{
     }
 
     public function sessionCheck(){
-        print_r($_COOKIE);
         $this->setCookiesParams();
         $sql = "SELECT user_id FROM users WHERE username = :username";
         $this->prepareStmt($sql);

@@ -1,11 +1,9 @@
 <?php
 include 'lib/includes/autoload.inc.php';
-require 'templates/title.php';
 $username = $_COOKIE['user_name'] ?? "guest";
-var_dump("USERNAME:".$username);
 $session = new lib\SessionManager($username);
 $session->sessionCheck();
-var_dump($session->getUserRole());
+require 'templates/title.php';
 ?>
 <!DOCTYPE html>
 <html>
