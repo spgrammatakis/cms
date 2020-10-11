@@ -6,7 +6,7 @@ $pdo = new lib\DbConnection();
 $username = $password = $confirm_password = $email ="";
 $username_err = $password_err = $confirm_password_err = $email_err  ="";
 
-if($_SERVER["REQUEST_METHOD"] == "POST"){
+if($_SERVER["REQUEST_METHOD"] = "POST"){
     if(empty(trim($_POST["username"]))){
         $username_err = "Please enter a username.";
     } else{        
