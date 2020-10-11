@@ -30,8 +30,21 @@ class SessionManager extends DbConnection{
         return $this->userName;
     }
 
+    public function getUserRole(){
+        return $this->userRole;
+    }
+
     public function setUserRole(string $userRole){
+        if($this->userRole === null){
+            $sql = "SELECT user_role FROM users_metadata WHERE user_id = :user_id";
+            $this->prepareStmt($sql);
+            $this->bind(':user_id', $this->getUserID());
+            $this->run();
+            $row = $this->SingleRow() ? $this->SingleRow() : array('user_role'=>"guest");
+            $this->userRole = $row['user_role'];
+        }
         $this->userRole = $userRole;
+        $this->setCookieUserName();
         return;
     }
 
@@ -58,7 +71,7 @@ class SessionManager extends DbConnection{
         INNER JOIN users_metadata ON users_metadata.user_id = users.user_id 
         WHERE users.user_id = :user_id";
         $this->prepareStmt($sql);
-        $this->bind(':user_id', $this->getUserID());
+        $this->bind(':user_id', $this->userID);
         $row['user_name'] = $this->run();
         $this->userName = $row['user_name'];
         return;
@@ -88,19 +101,6 @@ class SessionManager extends DbConnection{
             setCookiesParams();
             return;
         }
-    }
-
-    public function getUserRole(){
-        if($this->getUserRole()=== null){
-            $sql = "SELECT user_role FROM users_metadata WHERE user_id = :user_id";
-            $this->prepareStmt($sql);
-            $this->bind(':user_id', $this->getUserID());
-            $this->run();
-            $row = $this->SingleRow() ? $this->SingleRow() : array('user_role'=>"guest");
-            $this->setUserRole($row['user_role']);
-        }
-        $this->setCookieUserName();
-        return $this->userRole;
     }
 
     public function redirectUser($userRole){
@@ -147,10 +147,10 @@ class SessionManager extends DbConnection{
         $sql="INSERT INTO users_metadata(user_id,username,session_tokens,user_role,expire_at)
         VALUES (:user_id,:username,:session_tokens,:user_role,:expire_at)";
         $this->prepareStmt($sql);
-        $this->bind(':user_id',$this->getUserID());
-        $this->bind(':username',$this->getUserName());
+        $this->bind(':user_id',$this->userID);
+        $this->bind(':username',$this->userName);
         $this->bind(':session_tokens',$tokensToInsert);
-        $this->bind(':user_role',$this->getUserRole());
+        $this->bind(':user_role',$this->userRole);
         $this->bind(':expire_at',mktime(0, 0, 0, date("m"),   date("d"),   date("Y")+1));
         $this->run();
     }
@@ -158,7 +158,7 @@ class SessionManager extends DbConnection{
     public function updateUserMetaData($userID){
         if(!isset($userID) || empty($userID)) return false;
         $tokensToAppend = $this->sesssionCreateNewToken();  
-        $userRole = $this->getUserRole();
+        $userRole = $this->userRole;
         $sessionTokenFromDB[] = $this->getCurrentSessionToken($userID);
         $tokensToAppend = array_merge($tokensToAppend,$sessionTokenFromDB[0]) ?? $tokensToAppend;
         $serializedTokens = serialize($tokensToAppend);
