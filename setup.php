@@ -2,7 +2,6 @@
 include 'lib/includes/autoload.inc.php';
 require 'install.php';
 $pdo = new lib\DbConnection();
-var_dump($_COOKIE);
 $username = $password = $confirm_password = $email ="";
 $username_err = $password_err = $confirm_password_err = $email_err  ="";
 
