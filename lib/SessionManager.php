@@ -13,6 +13,20 @@ class SessionManager extends DbConnection{
         $this->userName = $userName;    
     }
 
+    public function setUserName($name){
+        $this->userName = $name;
+        return;
+    }
+
+    public function setUserID($id){
+        $this->userID = $id;
+        return;
+    }
+
+    public function getUserID(){
+        return $this->userID;
+    }
+
     public function sessionCheck(){
         print_r($_COOKIE);
         $this->setCookiesParams();
@@ -31,20 +45,6 @@ class SessionManager extends DbConnection{
                 } 
         }
 
-    }
-
-    public function setUserName($name){
-        $this->userName = $name;
-        return;
-    }
-
-    public function setUserID($id){
-        $this->userID = $id;
-        return;
-    }
-
-    public function getUserID(){
-        return $this->userID;
     }
 
     private function setCookieUserName(){
@@ -156,7 +156,7 @@ class SessionManager extends DbConnection{
         echo $userID;
         $this->bind(':user_id',$this->getUserID());
         $this->bind(':username',$this->getUserName());
-        $this->bind(':session_tokens',bin2hex(random_bytes(20)));
+        $this->bind(':session_tokens',$tokensToInsert);
         $this->bind(':user_role',"admin");
         $this->bind(':expire_at',mktime(0, 0, 0, date("m"),   date("d"),   date("Y")+1));
         $this->run();
