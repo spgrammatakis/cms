@@ -30,7 +30,7 @@ class SessionManager extends DbConnection{
         return $this->userName;
     }
 
-    public function setUserRole($userRole){
+    public function setUserRole(string $userRole){
         $this->userRole = $userRole;
         return;
     }
@@ -91,12 +91,14 @@ class SessionManager extends DbConnection{
     }
 
     public function getUserRole(){
-        $sql = "SELECT user_role FROM users_metadata WHERE user_id = :user_id";
-        $this->prepareStmt($sql);
-        $this->bind(':user_id', $this->getUserID());
-        $this->run();
-        $row = $this->SingleRow() ? $this->SingleRow() : array('user_role'=>"guest");
-        $this->setUserRole($row['user_role']);
+        if($this->getUserRole()=== null){
+            $sql = "SELECT user_role FROM users_metadata WHERE user_id = :user_id";
+            $this->prepareStmt($sql);
+            $this->bind(':user_id', $this->getUserID());
+            $this->run();
+            $row = $this->SingleRow() ? $this->SingleRow() : array('user_role'=>"guest");
+            $this->setUserRole($row['user_role']);
+        }
         $this->setCookieUserName();
         return $this->userRole;
     }
