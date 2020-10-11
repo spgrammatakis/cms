@@ -40,7 +40,7 @@ class SessionManager extends DbConnection{
         $this->bind(':user_id', $this->userID);
         $this->run();
         $row = $this->SingleRow() ? $this->SingleRow() : array('user_role'=>"guest");
-        $this->userRole = $row['user_role'] ?? "guest";
+        $this->userRole = $row['user_role'];
         var_dump($this->userRole());
         $this->setCookieUserName();
         return;
@@ -156,6 +156,7 @@ class SessionManager extends DbConnection{
         $this->bind(':user_role',$this->userRole);
         $this->bind(':expire_at',mktime(0, 0, 0, date("m"),   date("d"),   date("Y")+1));
         $this->run();
+        return;
     }
     
     public function updateUserMetaData($userID){
