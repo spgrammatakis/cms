@@ -35,17 +35,19 @@ class SessionManager extends DbConnection{
     }
 
     public function setUserRole(string $userRole){
-        if($this->userRole === null){
-            $sql = "SELECT user_role FROM users_metadata WHERE user_id = :user_id";
-            $this->prepareStmt($sql);
-            $this->bind(':user_id', $this->getUserID());
-            $this->run();
-            $row = $this->SingleRow() ? $this->SingleRow() : array('user_role'=>"guest");
-            $this->userRole = $row['user_role'];
-        }
-        $this->userRole = $userRole;
+        $sql = "SELECT user_role FROM users_metadata WHERE user_id = :user_id";
+        $this->prepareStmt($sql);
+        $this->bind(':user_id', $this->userID);
+        $this->run();
+        $row = $this->SingleRow() ? $this->SingleRow() : array('user_role'=>"guest");
+        $this->userRole = $row['user_role'] ?? "guest";
+        var_dump($this->userRole());
         $this->setCookieUserName();
         return;
+    }
+
+    public function checkIfUserRoleExists(){
+
     }
 
     public function sessionCheck(){
@@ -56,10 +58,11 @@ class SessionManager extends DbConnection{
         if($this->run()){    
                 $row =$this->SingleRow() ? $this->SingleRow():array('user_id'=>0);
                 $this->setUserID($row['user_id']);
-                if($this->sessionCheckIfAlreadyExists($this->getUserID())){
-                    $this->updateUserMetaData($this->getUserID());
+                var_dump($this->userID);
+                if($this->sessionCheckIfAlreadyExists($this->userID)){
+                    $this->updateUserMetaData($this->userID);
                 }else{
-                    $this->sessionInsertNewRow($this->getUserID());
+                    $this->sessionInsertNewRow($this->userID);
                 } 
         }
 
