@@ -1,5 +1,5 @@
 <a href="login.php">Log in</a>
-<?php echo ("</br>"); ?>
+<?php echo "</br>"; ?>
 <a href="index.php">
     <h1>Homepage</h1>
 </a>

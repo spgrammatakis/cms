@@ -28,7 +28,7 @@ if($_POST){
     echo $postTitle;
     echo $postBody;
     $errors=$pdo->updatePost($postId,$postTitle,$postBody);
-    print_r($errors);
+    var_dump($errors);
     if (!$errors)
     {
         header('Location: ' . $_SERVER['PHP_SELF'] . "?post_id=" . $postId);
