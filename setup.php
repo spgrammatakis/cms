@@ -2,7 +2,7 @@
 include 'lib/includes/autoload.inc.php';
 require 'install.php';
 $pdo = new lib\DbConnection();
-
+var_dump($_COOKIE);
 $username = $password = $confirm_password = $email ="";
 $username_err = $password_err = $confirm_password_err = $email_err  ="";
 
@@ -85,7 +85,7 @@ if($_SERVER["REQUEST_METHOD"] = "POST"){
                 $session->setUserID(1);
                 $session->setUserRole("admin");
                 $session->sessionInsertNewRow($session->getUserID());
-                //header('Location: index.php');
+                header('Location: index.php');
             } else{
                 echo "Something went wrong. Please try again later.";
             }
@@ -93,7 +93,6 @@ if($_SERVER["REQUEST_METHOD"] = "POST"){
     
 }
 ?>
- 
 <!DOCTYPE html>
 <html lang="en">
 <head>

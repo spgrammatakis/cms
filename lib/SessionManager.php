@@ -37,6 +37,7 @@ class SessionManager extends DbConnection{
 
     public function sessionCheck(){
         $this->setCookiesParams();
+        var_dump($_COOKIE);
         $sql = "SELECT user_id FROM users WHERE username = :username";
         $this->prepareStmt($sql);
         $this->bind(':username',  $this->getUserName());
@@ -147,7 +148,7 @@ class SessionManager extends DbConnection{
         $sql="INSERT INTO users_metadata(user_id,username,session_tokens,user_role,expire_at)
         VALUES (:user_id,:username,:session_tokens,:user_role,:expire_at)";
         $this->prepareStmt($sql);
-        var_dumo($userID);
+        var_dump($userID);
         $this->bind(':user_id',$this->getUserID());
         $this->bind(':username',$this->getUserName());
         $this->bind(':session_tokens',$tokensToInsert);
