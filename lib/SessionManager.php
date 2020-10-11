@@ -27,6 +27,16 @@ class SessionManager extends DbConnection{
         return $this->userID;
     }
 
+    
+    public function getUserName(){
+        return $this->userName;
+    }
+
+    public function setUserRole($userRole){
+        $this->userRole = $userRole;
+        return;
+    }
+
     public function sessionCheck(){
         print_r($_COOKIE);
         $this->setCookiesParams();
@@ -84,15 +94,6 @@ class SessionManager extends DbConnection{
             setCookiesParams();
             return;
         }
-    }
-
-    public function getUserName(){
-        return $this->userName;
-    }
-
-    public function setUserRole($userRole){
-        $this->userRole = $userRole;
-        return;
     }
 
     public function getUserRole(){
