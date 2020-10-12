@@ -84,10 +84,10 @@ CREATE TABLE users_options(
 )DEFAULT CHARSET=utf8;
 
 INSERT INTO users_options(user_role,user_privileges)
-VALUES("admin",'a:1:{s:5:"admin";a:5:{s:12:"create_users";i:1;s:9:"edit_user";i:1;s:10:"edit_posts";i:1;s:13:"edit_comments";i:1;s:12:"upload_files";i:1;}}');
+VALUES("admin",'{"admin":{"create_users":1,"edit_user":1,"edit_posts":1,"edit_comments":1,"upload_files":1}}');
 
 INSERT INTO users_options(user_role,user_privileges)
-VALUES("author",'a:1:{s:6:"author";a:3:{s:15:"edit_self_posts";i:1;s:9:"edit_self";i:1;s:12:"upload_files";i:1;}}');
+VALUES("author",'{"author":{"edit_self_posts":1,"edit_self":1,"upload_files":1}}');
 
 INSERT INTO users_options(user_role,user_privileges)
-VALUES("guest",'a:1:{s:5:"guest";a:1:{s:13:"post_comments";i:1;}}');
+VALUES("guest",'{"guest":{"post_comments":1}}');
