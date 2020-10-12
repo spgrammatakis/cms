@@ -9,8 +9,6 @@ function installBlog()
     $pdo->prepareStmt($sql);
     $pdo->run();
 
-// See how many rows we created, if any
-
     $sql = "SELECT * FROM posts";
     $pdo->prepareStmt($sql);
     $postCount = $pdo->rowCount();

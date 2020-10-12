@@ -73,3 +73,21 @@ VALUES(1,"admin");
 
 INSERT INTO users_metadata(user_id,user_role)
 VALUES(2,"author");*/
+
+DROP TABLE IF EXISTS users_options;
+
+CREATE TABLE users_options(
+    option_id int(10) UNSIGNED AUTO_INCREMENT PRIMARY KEY NOT NULL,
+    user_role LONGTEXT NOT NULL,
+    user_privileges LONGTEXT NOT NULL
+
+)DEFAULT CHARSET=utf8;
+
+INSERT INTO users_options(user_role,user_privileges)
+VALUES("admin",'a:1:{s:5:"admin";a:5:{s:12:"create_users";i:1;s:9:"edit_user";i:1;s:10:"edit_posts";i:1;s:13:"edit_comments";i:1;s:12:"upload_files";i:1;}}');
+
+INSERT INTO users_options(user_role,user_privileges)
+VALUES("author",'a:1:{s:6:"author";a:3:{s:15:"edit_self_posts";i:1;s:9:"edit_self";i:1;s:12:"upload_files";i:1;}}');
+
+INSERT INTO users_options(user_role,user_privileges)
+VALUES("guest",'a:1:{s:5:"guest";a:1:{s:13:"post_comments";i:1;}}');
