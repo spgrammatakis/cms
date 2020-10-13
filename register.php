@@ -18,6 +18,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
         if(!(in_array($_POST["role"], $tempArray))){
             $role_err = "Invalid Role";
         }
+        $role = $_POST["role"];
     }
     
 
@@ -106,7 +107,9 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
             $pdo->bind(':email', $param_email);
 
             if($pdo->run()){
-
+                $session = new lib\SessionManager($param_username);
+                $session->setUserRole($role);
+                $session->sessionInsertNewRow($session->getUserID());
                 //header("location: login.php");
             } else{
                 echo "Something went wrong. Please try again later.";
@@ -163,6 +166,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                 </div>
                 <p>Already have an account? <a href="login.php">Login here</a>.</p>
             </form>
+            <a href="index.php"><h1>Homepage</h1></a>
         </div>
     </div>        
 </body>
