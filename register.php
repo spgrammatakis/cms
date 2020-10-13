@@ -109,6 +109,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
             if($pdo->run()){
                 
                 $session = new lib\SessionManager($param_username);
+                var_dump($param_username);
                 $session->setUserRole($role);
                 var_dump($role);
                 $sql = "SELECT user_id FROM users WHERE username=:username";
@@ -118,7 +119,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                 echo $param_username;
                 var_dump($session->getUserRole());
                 $session->setUserID($userID);
-                $session->sessionInsertNewRow($userID);
+                $session->sessionCheck();
                 //header("location: login.php");
             } else{
                 echo "Something went wrong. Please try again later.";

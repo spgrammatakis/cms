@@ -46,10 +46,6 @@ class SessionManager extends DbConnection{
         return;
     }
 
-    public function checkIfUserRoleExists(){
-
-    }
-
     public function sessionCheck(){
         $this->setCookiesParams();
         $sql = "SELECT user_id FROM users WHERE username = :username";
@@ -147,7 +143,8 @@ class SessionManager extends DbConnection{
 
     public function sessionInsertNewRow($userID){
         echo "</br> new row user ID" . $userID;
-        echo "</br> new row user Role" . $this->userRole ."</br>";
+        echo "</br> new row user ROLE" . $this->userRole ."</br>";
+        echo "</br> new row user NAME" . $this->userName;
         $tokensToInsert = serialize($this->sesssionCreateNewToken());   
         $sql="INSERT INTO users_metadata(user_id,username,session_tokens,user_role,expire_at)
         VALUES (:user_id,:username,:session_tokens,:user_role,:expire_at)";
