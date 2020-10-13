@@ -90,4 +90,4 @@ INSERT INTO users_options(user_role,user_privileges)
 VALUES("author",'{"edit_self_posts":1,"edit_self":1,"upload_files":1}');
 
 INSERT INTO users_options(user_role,user_privileges)
-VALUES("guest",'{"post_comments":1}');
+VALUES("commenter",'{"post_comments":1}');
