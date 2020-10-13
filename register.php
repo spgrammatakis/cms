@@ -3,10 +3,24 @@ include 'lib/includes/autoload.inc.php';
 
 $pdo = new lib\DbConnection();
 
-$username = $password = $confirm_password = $email ="";
-$username_err = $password_err = $confirm_password_err = $email_err  ="";
+$username = $password = $confirm_password = $email = $role ="";
+$username_err = $password_err = $confirm_password_err = $email_err  = $role_err ="";
 
 if($_SERVER["REQUEST_METHOD"] == "POST"){
+
+    
+    if(empty(trim($_POST["role"]))){
+        $role_err = "Invalid role";
+    }else{
+        $sql = "SELECT user_role FROM users_options ";
+        $pdo->prepareStmt($sql);
+        $tempArray = $pdo->fetchCollumn();
+        if(!(in_array($_POST["role"], $tempArray))){
+            $role_err = "Invalid Role";
+        }
+    }
+    
+
     if(empty(trim($_POST["username"]))){
         $username_err = "Please enter a username.";
     } else{        
@@ -71,9 +85,13 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
             $confirm_password_err = 'Password did not match.';
         }
     }
-    
 
-    if(empty($username_err) && empty($password_err) && empty($confirm_password_err) && empty($email_err)){
+
+    if( empty($username_err) && 
+        empty($password_err) && 
+        empty($confirm_password_err) && 
+        empty($email_err) &&
+        empty($role_err)){
         
 
         $sql = "INSERT INTO users (username, password, email) VALUES (:username, :password, :email)";
@@ -130,6 +148,14 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                     <label>Confirm Password</label>
                     <input type="password" name="confirm_password"  value="<?php echo $confirm_password; ?>" placeholder="Confirm Password">
                     <span class="help-block"><?php echo $confirm_password_err; ?></span>
+                </div>
+                <div class="form-role">
+                <select name="role">
+                <option value="admin">Admin</option>
+                <option value="author">Author</option>
+                <option value="commenter">Commenter</option>
+                </select>
+                <span class="help-block"><?php echo $role_err; ?></span>
                 </div>
                 <div class="form-submit">
                     <input type="submit" class="submit-btn btn"  value="Submit">

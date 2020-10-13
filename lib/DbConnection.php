@@ -73,6 +73,11 @@ public function All(){
     return $this->stmt->fetchall();
 }
 
+public function fetchCollumn(){
+    $this->run();
+    return $this->stmt->fetchall(PDO::FETCH_COLUMN);
+}
+
 public function rowCount(){
     $this->run();
     return $this->stmt->rowCount();

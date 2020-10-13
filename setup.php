@@ -128,6 +128,8 @@ if($_SERVER["REQUEST_METHOD"] = "POST"){
                     <input type="submit" class="submit-btn btn"  value="Submit">
                     <input type="reset" class="reset-btn btn" value="Reset">
                 </div>
+                <div>
+                </div>
             </form>
         </div>
     </div>        
