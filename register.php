@@ -19,6 +19,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
             $role_err = "Invalid Role";
         }
         $role = $_POST["role"];
+        var_dump($role);
     }
     
 
@@ -109,11 +110,13 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                 
                 $session = new lib\SessionManager($param_username);
                 $session->setUserRole($role);
+                var_dump($role);
                 $sql = "SELECT user_id FROM users WHERE username=:username";
                 $pdo->prepareStmt($sql);
                 $pdo->bind(":username",$param_username);
                 $userID = $pdo->run();
                 echo $param_username;
+                var_dump($session->getUserRole());
                 $session->setUserID($userID);
                 $session->sessionInsertNewRow($userID);
                 //header("location: login.php");
