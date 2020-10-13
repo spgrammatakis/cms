@@ -94,23 +94,28 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
         empty($email_err) &&
         empty($role_err)){
         
-
         $sql = "INSERT INTO users (username, password, email) VALUES (:username, :password, :email)";
         echo "outside last prepare";
         $pdo->prepareStmt($sql);
-            $param_username = ($username);
+            $param_username = $username;
             $param_password = password_hash($password, PASSWORD_DEFAULT);
-            $param_email    = ($email);
+            $param_email    = $email;
 
             $pdo->bind(':username', $param_username);
             $pdo->bind(':password', $param_password);
             $pdo->bind(':email', $param_email);
 
             if($pdo->run()){
+                echo "axne";
                 $session = new lib\SessionManager($param_username);
                 $session->setUserRole($role);
-                $session->sessionInsertNewRow($session->getUserID());
-                //header("location: login.php");
+                $sql = "SELECT user_id FROM users WHERE username=:username";
+                $pdo->prepareStmt($sql);
+                $pdo->bind(":username",$param_username);
+                $userID = $pdo->run();
+                $session->setUserID($userID);
+                $session->sessionInsertNewRow($userID);
+                header("location: login.php");
             } else{
                 echo "Something went wrong. Please try again later.";
             }

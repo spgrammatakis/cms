@@ -41,7 +41,6 @@ class SessionManager extends DbConnection{
         $this->run();
         $row = $this->SingleRow() ? $this->SingleRow() : array('user_role'=>"guest");
         $this->userRole = $row['user_role'];
-        var_dump($this->userRole());
         $this->setCookieUserName();
         return;
     }
