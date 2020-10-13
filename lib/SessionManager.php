@@ -145,6 +145,8 @@ class SessionManager extends DbConnection{
     }   
 
     public function sessionInsertNewRow($userID){
+        echo "</br> new row user ID" . $userID;
+        echo "</br> new row user Role" . $this->userRole ."</br>";
         $tokensToInsert = serialize($this->sesssionCreateNewToken());   
         $sql="INSERT INTO users_metadata(user_id,username,session_tokens,user_role,expire_at)
         VALUES (:user_id,:username,:session_tokens,:user_role,:expire_at)";
