@@ -81,7 +81,7 @@ if($_SERVER["REQUEST_METHOD"] = "POST"){
             $pdo->bind(':email', $param_email);
             if($pdo->run()){
                 $session = new lib\SessionManager($param_username);
-                $session->setUserID(1);
+                $session->setUserID(0);
                 $session->setUserRole("admin");
                 $session->sessionInsertNewRow($session->getUserID());
                 //header('Location: index.php');

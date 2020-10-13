@@ -106,13 +106,14 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
             $pdo->bind(':email', $param_email);
 
             if($pdo->run()){
-                echo "axne";
+                
                 $session = new lib\SessionManager($param_username);
                 $session->setUserRole($role);
                 $sql = "SELECT user_id FROM users WHERE username=:username";
                 $pdo->prepareStmt($sql);
                 $pdo->bind(":username",$param_username);
                 $userID = $pdo->run();
+                echo $param_username;
                 $session->setUserID($userID);
                 $session->sessionInsertNewRow($userID);
                 //header("location: login.php");
