@@ -42,7 +42,7 @@ class SessionManager extends DbConnection{
         // $row = $this->SingleRow() ? $this->SingleRow() : array('user_role'=>"guest");
         //$this->userRole = $row['user_role'];
         $this->userRole = $userRole;
-        $this->setCookieUserName();
+        //$this->setCookieUserName();
         return;
     }
 
@@ -57,8 +57,10 @@ class SessionManager extends DbConnection{
                 var_dump($this->userID);
                 if($this->sessionCheckIfAlreadyExists($this->userID)){
                     $this->updateUserMetaData($this->userID);
+                    $this->setCookieUserName();
                 }else{
                     $this->sessionInsertNewRow($this->userID);
+                    $this->setCookieUserName();
                 } 
         }
 
@@ -125,20 +127,12 @@ class SessionManager extends DbConnection{
     }
     
     public function sesssionCreateNewToken(){
-        if(!isset($_COOKIE['session_token']) || empty($_COOKIE['session_token'])){
             return array(array(bin2hex(random_bytes(20))=>
             array(        "ra"=>$_SERVER['REMOTE_ADDR'],
                           "ua"=>$_SERVER['HTTP_USER_AGENT'],
                           "iat"=>time(),
                           "expire"=>mktime(0, 0, 0, date("m"),   date("d"),   date("Y")+1)
-                      ))); 
-}   
-        return  array(array($_COOKIE["session_token"]=>
-                      array(        "ra"=>$_SERVER['REMOTE_ADDR'],
-                                    "ua"=>$_SERVER['HTTP_USER_AGENT'],
-                                    "iat"=>time(),
-                                    "expire"=>mktime(0, 0, 0, date("m"),   date("d"),   date("Y")+1)
-                                ))); 
+                      )));    
     }   
 
     public function sessionInsertNewRow($userID){
