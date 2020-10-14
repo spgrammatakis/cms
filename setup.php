@@ -71,17 +71,19 @@ if($_SERVER["REQUEST_METHOD"] = "POST"){
     
 
     if(empty($username_err) && empty($password_err) && empty($confirm_password_err) && empty($email_err)){
-        $sql = "INSERT INTO users (username, password, email) VALUES (:username, :password, :email)";
+        $sql = "INSERT INTO users (user_id,username, password, email) VALUES (:user_id,:username, :password, :email)";
         $pdo->prepareStmt($sql);
-            $param_username = ($username);
+            $param_username = $username;
             $param_password = password_hash($password, PASSWORD_DEFAULT);
-            $param_email    = ($email);
+            $param_email    = $email;
+            $param_id    = bin2hex(random_bytes(5));
+            $pdo->bind(':user_id',$param_id);
             $pdo->bind(':username', $param_username);
             $pdo->bind(':password', $param_password);
             $pdo->bind(':email', $param_email);
             if($pdo->run()){
                 $session = new lib\SessionManager($param_username);
-                $session->setUserID(0);
+                $session->setUserID($param_id);
                 $session->setUserRole("admin");
                 $session->sessionInsertNewRow($session->getUserID());
                 header('Location: index.php');

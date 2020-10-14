@@ -19,7 +19,6 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
             $role_err = "Invalid Role";
         }
         $role = $_POST["role"];
-        var_dump($role);
     }
     
 
@@ -95,13 +94,13 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
         empty($email_err) &&
         empty($role_err)){
         
-        $sql = "INSERT INTO users (username, password, email) VALUES (:username, :password, :email)";
+        $sql = "INSERT INTO users (user_id,username, password, email) VALUES (:user_id,:username, :password, :email)";
         echo "outside last prepare";
         $pdo->prepareStmt($sql);
             $param_username = $username;
             $param_password = password_hash($password, PASSWORD_DEFAULT);
             $param_email    = $email;
-
+            $pdo->bind(':user_id',bin2hex(random_bytes(5)));
             $pdo->bind(':username', $param_username);
             $pdo->bind(':password', $param_password);
             $pdo->bind(':email', $param_email);
@@ -109,18 +108,15 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
             if($pdo->run()){
                 
                 $session = new lib\SessionManager($param_username);
-                var_dump($param_username);
                 $session->setUserRole($role);
-                var_dump($role);
                 $sql = "SELECT user_id FROM users WHERE username=:username";
                 $pdo->prepareStmt($sql);
                 $pdo->bind(":username",$param_username);
                 $userID = $pdo->run();
                 echo $param_username;
-                var_dump($session->getUserRole());
                 $session->setUserID($userID);
                 $session->sessionCheck();
-                //header("location: login.php");
+                header("location: login.php");
             } else{
                 echo "Something went wrong. Please try again later.";
             }

@@ -30,7 +30,7 @@ VALUES(1,now(),'Spyros','http://example.com/',"This is Spyros's contribution");
 DROP TABLE IF EXISTS users;
 
 CREATE TABLE users (
-    user_id INT(10) UNSIGNED AUTO_INCREMENT PRIMARY KEY NOT NULL,
+    user_id VARCHAR(10) PRIMARY KEY NOT NULL UNIQUE,
     username VARCHAR(20) NOT NULL,
     password VARCHAR(255) NOT NULL,
     created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
@@ -39,40 +39,17 @@ CREATE TABLE users (
     is_enabled BOOLEAN NOT NULL
 )DEFAULT CHARSET=utf8;
 
-/*INSERT INTO users(username, password)
-VALUES('admin','$2y$10$LmNcpUSpES6plyPDtnBIG.SeFcN761AcsZ/OPeKFyxMsnrxPB9fjm');
-
-INSERT INTO users(username, password)
-VALUES('author','$2y$10$QPNYMR4U4FTR3yxUB8XiteT5yrJKhln2W89Hdqy4aPeh4COzY8NXC');*/
-/*DROP TABLE IF EXISTS auth_tokens;
-
-CREATE TABLE auth_tokens (
-    token_id INT(10) UNSIGNED AUTO_INCREMENT PRIMARY KEY NOT NULL,
-    token VARCHAR(33),
-    userid INT(10) UNSIGNED NOT NULL,
-    created_at DATETIME NOT NULL
-)DEFAULT CHARSET=utf8;*/
-
 DROP TABLE IF EXISTS users_metadata;
 
 CREATE TABLE users_metadata(
         meta_id INT(10) UNSIGNED AUTO_INCREMENT PRIMARY KEY NOT NULL,
-        user_id INT(10) NOT NULL,
+        user_id VARCHAR(10) NOT NULL,
         username VARCHAR(20) NOT NULL,
         session_tokens LONGTEXT NOT NULL,
         user_role LONGTEXT NOT NULL,
         expire_at DATETIME NOT NULL,
         initiated_at DATETIME DEFAULT CURRENT_TIMESTAMP
 )DEFAULT CHARSET=utf8;
-
-/*INSERT INTO users_metadata(user_id, user_role)
-VALUES(0,"guest");
-
-INSERT INTO users_metadata(user_id,user_role)
-VALUES(1,"admin");
-
-INSERT INTO users_metadata(user_id,user_role)
-VALUES(2,"author");*/
 
 DROP TABLE IF EXISTS users_options;
 

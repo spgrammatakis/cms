@@ -2,9 +2,9 @@
 namespace lib;
 class SessionManager extends DbConnection{
     
-    protected $userID;
-    protected $userName;
-    protected $userRole;
+    protected string $userID;
+    protected string $userName;
+    protected string $userRole;
 
     public function __construct($userName){
         parent::__construct();
@@ -16,7 +16,7 @@ class SessionManager extends DbConnection{
         return;
     }
 
-    public function setUserID($id){
+    public function setUserID(string $id){
         $this->userID = $id;
         return;
     }
@@ -45,10 +45,9 @@ class SessionManager extends DbConnection{
         $this->prepareStmt($sql);
         $this->bind(':username',  $this->getUserName());
         if($this->run()){    
-                $row =$this->SingleRow() ? $this->SingleRow():array('user_id'=>0);
+                $row =$this->SingleRow() ? $this->SingleRow():array('user_id'=>"guest");
                 $this->setUserID($row['user_id']);
-                var_dump($this->userID);
-                var_dump($this->getUserID());
+                if($row['user_id'] === "guest") $this->setUserRole("guest");
                 if($this->sessionCheckIfAlreadyExists($this->userID)){
                     $this->updateUserMetaData($this->userID);
                     $this->setCookieUserName();
@@ -111,7 +110,7 @@ class SessionManager extends DbConnection{
         }
     }
 
-    public function sessionCheckIfAlreadyExists($userID){
+    public function sessionCheckIfAlreadyExists(string $userID){
         if(!isset($_COOKIE["user_name"]) || empty($_COOKIE['user_name'])) return false;
         $sql = "SELECT user_id FROM users_metadata WHERE user_id = :user_id";
         $this->prepareStmt($sql);
@@ -129,7 +128,7 @@ class SessionManager extends DbConnection{
                       )));    
     }   
 
-    public function sessionInsertNewRow($userID){
+    public function sessionInsertNewRow(string $userID){
         echo "</br> new row user ID" . $userID;
         echo "</br> new row user ROLE" . $this->userRole ."</br>";
         echo "</br> new row user NAME" . $this->userName;
@@ -146,7 +145,7 @@ class SessionManager extends DbConnection{
         return;
     }
     
-    public function updateUserMetaData($userID){
+    public function updateUserMetaData(string $userID){
         if(!isset($userID) || empty($userID)) return false;
         $tokensToAppend = $this->sesssionCreateNewToken();  
         $userRole = $this->userRole;
@@ -161,7 +160,7 @@ class SessionManager extends DbConnection{
         return $this->run();
     }
     
-    public function getCurrentSessionToken($userID){
+    public function getCurrentSessionToken(string $userID){
         if(!isset($_COOKIE["user_name"]) || empty($_COOKIE['user_name'])) return false;
         $sql = "SELECT session_tokens FROM users_metadata WHERE user_id = :user_id";
         $this->prepareStmt($sql);
