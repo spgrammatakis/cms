@@ -41,13 +41,17 @@ class SessionManager extends DbConnection{
 
     public function sessionCheck(){
         $this->setCookiesParams();
-        $sql = "SELECT user_id FROM users WHERE username = :username";
+        $sql = "SELECT user_id,user_role
+        FROM users_metadata
+        WHERE username = :username";
         $this->prepareStmt($sql);
         $this->bind(':username',  $this->getUserName());
         if($this->run()){    
                 $row =$this->SingleRow() ? $this->SingleRow():array('user_id'=>"guest");
-                $this->setUserID($row['user_id']);
                 if($row['user_id'] === "guest") $this->setUserRole("guest");
+                $this->setUserRole($row['user_role']);
+                $this->setUserID($row['user_id']);
+                print_r($row);
                 if($this->sessionCheckIfAlreadyExists($this->userID)){
                     $this->updateUserMetaData($this->userID);
                     $this->setCookieUserName();
