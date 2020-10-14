@@ -6,12 +6,12 @@ class SessionManager extends DbConnection{
     protected string $userName;
     protected string $userRole;
 
-    public function __construct($userName){
+    public function __construct(string $userName){
         parent::__construct();
         $this->userName = $userName;    
     }
 
-    public function setUserName($name){
+    public function setUserName(string $name){
         $this->userName = $name;
         return;
     }
