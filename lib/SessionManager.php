@@ -35,14 +35,7 @@ class SessionManager extends DbConnection{
     }
 
     public function setUserRole(string $userRole){
-        // $sql = "SELECT user_role FROM users_metadata WHERE user_id = :user_id";
-        // $this->prepareStmt($sql);
-        // $this->bind(':user_id', $this->userID);
-        // $this->run();
-        // $row = $this->SingleRow() ? $this->SingleRow() : array('user_role'=>"guest");
-        //$this->userRole = $row['user_role'];
         $this->userRole = $userRole;
-        //$this->setCookieUserName();
         return;
     }
 
@@ -55,6 +48,7 @@ class SessionManager extends DbConnection{
                 $row =$this->SingleRow() ? $this->SingleRow():array('user_id'=>0);
                 $this->setUserID($row['user_id']);
                 var_dump($this->userID);
+                var_dump($this->getUserID());
                 if($this->sessionCheckIfAlreadyExists($this->userID)){
                     $this->updateUserMetaData($this->userID);
                     $this->setCookieUserName();

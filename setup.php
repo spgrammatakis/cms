@@ -84,7 +84,7 @@ if($_SERVER["REQUEST_METHOD"] = "POST"){
                 $session->setUserID(0);
                 $session->setUserRole("admin");
                 $session->sessionInsertNewRow($session->getUserID());
-                //header('Location: index.php');
+                header('Location: index.php');
             } else{
                 echo "Something went wrong. Please try again later.";
             }
