@@ -1,5 +1,5 @@
 <?php
-include 'lib/includes/autoload.inc.php';
+require __DIR__ . '/vendor/autoload.php';
 $dbh = new lib\DbConnection();
 $username = $_COOKIE['user_name'] ?? "guest";
 $session = new lib\SessionManager($username);

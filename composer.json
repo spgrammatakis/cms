@@ -1,0 +1,13 @@
+{
+    "name": "spyros/cms",
+    "authors": [
+        {
+            "name": "spyros",
+            "email": "spgrammatakis@gmail.com"
+        }
+    ],
+    "autoload": {
+        "psr-4": {"lib\\": "lib/"}
+    },
+    "require": {}
+}

@@ -1,5 +1,4 @@
 <?php
-//include 'lib/includes/autoload.inc.php';
 function installBlog()
 {
     

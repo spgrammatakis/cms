@@ -1,5 +1,5 @@
 <?php
-include 'lib/includes/autoload.inc.php';
+require __DIR__ . '/vendor/autoload.php';
 require 'install.php';
 $pdo = new lib\DbConnection();
 $username = $password = $confirm_password = $email ="";

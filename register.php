@@ -1,5 +1,5 @@
 <?php
-include 'lib/includes/autoload.inc.php';
+require __DIR__ . '/vendor/autoload.php';
 
 $pdo = new lib\DbConnection();
 
