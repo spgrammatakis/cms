@@ -51,7 +51,6 @@ class SessionManager extends DbConnection{
                 if($row['user_id'] === "guest") $this->setUserRole("guest");
                 $this->setUserRole($row['user_role']);
                 $this->setUserID($row['user_id']);
-                print_r($row);
                 if($this->sessionCheckIfAlreadyExists($this->userID)){
                     $this->updateUserMetaData($this->userID);
                     $this->setCookieUserName();
@@ -133,9 +132,6 @@ class SessionManager extends DbConnection{
     }   
 
     public function sessionInsertNewRow(string $userID){
-        echo "</br> new row user ID" . $userID;
-        echo "</br> new row user ROLE" . $this->userRole ."</br>";
-        echo "</br> new row user NAME" . $this->userName;
         $tokensToInsert = serialize($this->sesssionCreateNewToken());   
         $sql="INSERT INTO users_metadata(user_id,username,session_tokens,user_role,expire_at)
         VALUES (:user_id,:username,:session_tokens,:user_role,:expire_at)";
