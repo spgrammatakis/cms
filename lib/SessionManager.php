@@ -132,13 +132,13 @@ class SessionManager extends DbConnection{
             return array(array(bin2hex(random_bytes(20))=>
             array(        "ra"=>$_SERVER['REMOTE_ADDR'],
                           "ua"=>$_SERVER['HTTP_USER_AGENT'],
-                          "iat"=>time(),
+                          "iat"=>Utilities::getSqlDateForNow(),
                           "expire"=>mktime(0, 0, 0, date("m"),   date("d"),   date("Y")+1)
                       )));    
     }   
 
     public function sessionInsertNewRow(string $userID){
-        $tokensToInsert = serialize($this->sesssionCreateNewToken());   
+        $tokensToInsert = serialize($this->sesssionCreateNewToken());
         $sql="INSERT INTO users_metadata(user_id,username,session_tokens,user_role,expire_at)
         VALUES (:user_id,:username,:session_tokens,:user_role,:expire_at)";
         $this->prepareStmt($sql);
@@ -147,6 +147,13 @@ class SessionManager extends DbConnection{
         $this->bind(':session_tokens',$tokensToInsert);
         $this->bind(':user_role',$this->userRole);
         $this->bind(':expire_at',mktime(0, 0, 0, date("m"),   date("d"),   date("Y")+1));
+        //$this->bind(':expire_at',Utilities::getSqlDateForNow());
+        $sql = "SELECT * FROM users_metadata";
+        $this->prepareStmt($sql);
+        $this->run();
+        echo "</br>";
+        var_dump($this->All());
+        echo "</br>";
         return;
     }
     

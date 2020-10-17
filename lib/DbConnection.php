@@ -23,9 +23,9 @@ public function __construct(){
         PDO::ATTR_EMULATE_PREPARES => true    
     );
 try{
-	$this->dbh = new PDO($dsn, $this->username, $this->password, $options);
+	$this->dbh = new \PDO($dsn, $this->username, $this->password, $options);
 }
-catch(PDOException $e)
+catch(\PDOException $e)
 {
     $this->error = $e->getMessage();
     echo "Connection failed: " . $e->getMessage();
