@@ -47,8 +47,8 @@ CREATE TABLE users_metadata(
         username VARCHAR(20) NOT NULL,
         session_tokens LONGTEXT NOT NULL,
         user_role LONGTEXT NOT NULL,
-        expire_at DATETIME NOT NULL,
-        initiated_at DATETIME DEFAULT CURRENT_TIMESTAMP NOT NULL
+        expire_at TIMESTAMP NOT NULL,
+        initiated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL
 )DEFAULT CHARSET=utf8;
 
 DROP TABLE IF EXISTS users_options;

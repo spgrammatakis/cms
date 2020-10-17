@@ -145,7 +145,6 @@ class SessionManager extends DbConnection{
         $this->bind(':session_tokens',$tokensToInsert);
         $this->bind(':user_role',$this->userRole);
         $this->bind(':expire_at',mktime(0, 0, 0, date("m"),   date("d"),   date("Y")+1));
-        $this->run();
         return;
     }
     
