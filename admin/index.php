@@ -4,6 +4,8 @@ $username = $_COOKIE['user_name'] ?? "guest";
 $session = new lib\SessionManager($username);
 $session->sessionCheck();
 if(!($session->getUserRole() === "admin")){
-    echo "redirect";
+    header("HTTP/1.1 403 Not Found");
+    echo "axne";
+    exit;
 }
 ?>

@@ -36,7 +36,7 @@ CREATE TABLE users (
     created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
     email VARCHAR(30) NOT NULL,
     modification_time  DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-    is_enabled BOOLEAN NOT NULL
+    is_enabled BOOLEAN NOT NULL DEFAULT 0
 )DEFAULT CHARSET=utf8;
 
 DROP TABLE IF EXISTS users_metadata;
@@ -48,7 +48,7 @@ CREATE TABLE users_metadata(
         session_tokens LONGTEXT NOT NULL,
         user_role LONGTEXT NOT NULL,
         expire_at DATETIME NOT NULL,
-        initiated_at DATETIME DEFAULT CURRENT_TIMESTAMP
+        initiated_at DATETIME DEFAULT CURRENT_TIMESTAMP NOT NULL
 )DEFAULT CHARSET=utf8;
 
 DROP TABLE IF EXISTS users_options;
@@ -57,7 +57,6 @@ CREATE TABLE users_options(
     option_id int(10) UNSIGNED AUTO_INCREMENT PRIMARY KEY NOT NULL,
     user_role LONGTEXT NOT NULL,
     user_privileges LONGTEXT NOT NULL
-
 )DEFAULT CHARSET=utf8;
 
 INSERT INTO users_options(user_role,user_privileges)

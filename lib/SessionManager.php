@@ -48,9 +48,13 @@ class SessionManager extends DbConnection{
         $this->bind(':username',  $this->getUserName());
         if($this->run()){    
                 $row =$this->SingleRow() ? $this->SingleRow():array('user_id'=>"guest");
-                if($row['user_id'] === "guest") $this->setUserRole("guest");
+                if($row['user_id'] === "guest"){
+                $this->setUserRole("guest");
+                $this->setUserID("guest");
+                }else{
                 $this->setUserRole($row['user_role']);
                 $this->setUserID($row['user_id']);
+                };             
                 if($this->sessionCheckIfAlreadyExists($this->userID)){
                     $this->updateUserMetaData($this->userID);
                     $this->setCookieUserName();
