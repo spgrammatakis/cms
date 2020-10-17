@@ -56,9 +56,11 @@ class SessionManager extends DbConnection{
                 $this->setUserID($row['user_id']);
                 };             
                 if($this->sessionCheckIfAlreadyExists($this->userID)){
+                    echo "exists";
                     $this->updateUserMetaData($this->userID);
                     $this->setCookieUserName();
                 }else{
+                    echo "new";
                     $this->sessionInsertNewRow($this->userID);
                     $this->setCookieUserName();
                 } 
@@ -99,7 +101,7 @@ class SessionManager extends DbConnection{
         }
         return;
         if(time() > $this->getExpireFromToken(($this->getCurrentSessionToken($this->getUserID())))){
-            setCookiesParams();
+            $this->setCookiesParams();
             return;
         }
     }
