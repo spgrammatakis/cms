@@ -56,11 +56,9 @@ class SessionManager extends DbConnection{
                 $this->setUserID($row['user_id']);
                 };             
                 if($this->sessionCheckIfAlreadyExists($this->userID)){
-                    echo "exists";
                     $this->updateUserMetaData($this->userID);
                     $this->setCookieUserName();
                 }else{
-                    echo "new";
                     $this->sessionInsertNewRow($this->userID);
                     $this->setCookieUserName();
                 } 
@@ -83,7 +81,7 @@ class SessionManager extends DbConnection{
     private function setCookiesParams(){
         if(!isset($_COOKIE['user_name']) || empty($_COOKIE['user_name'])|| $this->getUserName() === "guest"){
             setcookie("user_name", "guest", [
-                "expires" => mktime(0, 0, 0, date("m"),   date("d"),   date("Y")+1),
+                "expires" => date('Y-m-d H:i:s', strtotime('+1 year')),
                 "path" => '/',
                 "domain" => "",
                 "secure" => false,
@@ -92,7 +90,7 @@ class SessionManager extends DbConnection{
             }
         if(!isset($_COOKIE['session_token']) || empty($_COOKIE['session_token']) || $this->getUserName() === "guest"){    
             setcookie("session_token", bin2hex(random_bytes(20)), [
-            "expires" => mktime(0, 0, 0, date("m"),   date("d"),   date("Y")+1),
+            "expires" => date('Y-m-d H:i:s', strtotime('+1 year')),
             "path" => '/',
             "domain" => "",
             "secure" => false,
@@ -146,8 +144,8 @@ class SessionManager extends DbConnection{
         $this->bind(':username',$this->userName);
         $this->bind(':session_tokens',$tokensToInsert);
         $this->bind(':user_role',$this->userRole);
-        $this->bind(':expire_at',mktime(0, 0, 0, date("m"),   date("d"),   date("Y")+1));
-        //$this->bind(':expire_at',Utilities::getSqlDateForNow());
+        $this->bind(':expire_at',date('Y-m-d H:i:s', strtotime('+1 year')));
+        $this->run();
         $sql = "SELECT * FROM users_metadata";
         $this->prepareStmt($sql);
         $this->run();
