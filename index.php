@@ -2,7 +2,7 @@
 require __DIR__ . '/vendor/autoload.php';
 $username = $_COOKIE['user_name'] ?? "guest";
 $session = new lib\SessionManager($username);
-$session->sessionCheck();   
+$session->sessionCheck();
 require 'templates/title.php';
 ?>
 <!DOCTYPE html>
