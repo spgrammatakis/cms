@@ -14,7 +14,7 @@ public function getPostRow($postId)
     $this->prepareStmt($sql);
     $this->bind(':post_id',$postId);
     $this->run();
-    return $this->stmt->fetch();
+    return $this->All();
 }
 public function countCommentsForPost($postId)
 {
