@@ -154,7 +154,7 @@ try {
     $this->run();
 
 }
-    catch (PDOException $e) {
+    catch (\PDOException $e) {
         exit("Connection failed: " . $e->getMessage());
     }
 Utilities::redirectAndExit('index.php');
