@@ -84,14 +84,6 @@ public function addCommentToPost($postId, array $commentData)
             );
         $this->prepareStmt($sql);
         $this->runArray($commentData);
-        if ($result === false)
-        {
-            $errorInfo = $this->errorInfo();
-            if ($errorInfo)
-            {
-                $errors[] = $errorInfo[2];
-            }
-        }
     }
     return $errors;
 }
