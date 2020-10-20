@@ -113,7 +113,6 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                 $userID = $pdo->SingleRow();
                 $session->setUserID($userID['user_id']);
                 $session->sessionInsertNewRow($session->getUserID());
-                $session->sessionCheck();
                 header("location: login.php");
             } else{
                 echo "Something went wrong. Please try again later.";
