@@ -113,7 +113,7 @@ class SessionManager extends DbConnection{
             return;
         }else{
             echo "redirecting to guest";
-            return;
+             return;
         }
     }
 
