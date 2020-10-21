@@ -55,13 +55,13 @@ if($_POST){
     <?php echo "<div class='post' id='" . $postId."'>"; ?>
     <p>
         <div id="post-title">
-            <?php echo lib\Utilities::htmlEscape($row['title']) ?>
+            <?php echo lib\Utilities::htmlEscape($row[0]['title']) ?>
         </div>
         <div id="post-body">
-        <?php echo lib\Utilities::htmlEscape($row['body']);?>
+        <?php echo lib\Utilities::htmlEscape($row[0]['body']);?>
         </div>
         <div>
-            <?php echo lib\Utilities::convertSqlDate($row['created_at']) ?>
+            <?php echo lib\Utilities::convertSqlDate($row[0]['created_at']) ?>
         </div>
         <div id="post-editor-wrapper">
         <hr style='border: 5px solid red;'>
