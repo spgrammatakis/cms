@@ -10,13 +10,9 @@ else
 {
     $postId = 0;
 }
-
-ini_set('display_errors', 1);
-ini_set('log_errors', 1);
     
 $pdo = new lib\PostManager();
 $row = $pdo->getPostRow($postId);
-print_r($row);
 if(!$row){
     header("HTTP/1.0 404 Not Found");
     echo "psofos";
