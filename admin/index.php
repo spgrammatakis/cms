@@ -18,10 +18,9 @@ if(!($session->getUserRole() === "admin")){
         <!-- <meta http-equiv="refresh" content="5"> -->
     </head>
     <body>
-<?php require dirname(__DIR__, 1) . '/templates/sidenavbar/sidenavbar.html';
-echo "</br>";
-$userManager = new lib\UserManager();
-$userManager->getAllUsers();
+<?php
+require dirname(__DIR__, 1) . '/templates/sidenavbar/sidenavbar.html';
+
 ?>
     </body>
 </html>
