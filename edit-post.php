@@ -18,7 +18,7 @@ $row = $pdo->getPostRow($postId);
 
 if (!$row)
 {
-    Utilities::redirectAndExit('index.php?not-found=1');
+    lib\Utilities::redirectAndExit('index.php?not-found=1');
 }
 
 $errors=null;
