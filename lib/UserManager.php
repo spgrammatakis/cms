@@ -31,6 +31,7 @@ class UserManager extends DbConnection{
             echo "<div class='user-table-cell'>Is Enabled</div>";
             echo "<div class='user-table-cell'>".Utilities::htmlEscape($row['is_enabled'])."</div>";
             echo "</div>";
+            echo "</br>";
         endforeach;
             echo "</div>";
         return;

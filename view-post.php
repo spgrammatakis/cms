@@ -16,6 +16,7 @@ ini_set('log_errors', 1);
     
 $pdo = new lib\PostManager();
 $row = $pdo->getPostRow($postId);
+print_r($row);
 if(!$row){
     header("HTTP/1.0 404 Not Found");
     echo "psofos";
@@ -39,7 +40,7 @@ if ($_POST && $postId !== 0)
         $postId,
         $commentData
     );
-
+    
     if (!$errors)
     {
         header('Location: ' . $_SERVER['PHP_SELF'] . "?post_id=" . $postId);
@@ -56,7 +57,7 @@ if ($_POST && $postId !== 0)
     <script type="text/javascript" src="./js/get-parent-id.js" defer></script>
         <title>
             A blog application |
-            <?php echo lib\Utilities::htmlEscape($row['title']) ?>
+            <?php echo lib\Utilities::htmlEscape($row[0]['title']) ?>
         </title>
         <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
     </head>
@@ -66,17 +67,17 @@ if ($_POST && $postId !== 0)
         <div>
         <h2>
             <?php
-            echo lib\Utilities::htmlEscape($row['title']);
+            echo lib\Utilities::htmlEscape($row[0]['title']);
             ?>
         </h2>
         </div>
         <div>
-            <?php echo lib\Utilities::convertSqlDate($row['created_at']) ?>
+            <?php echo lib\Utilities::convertSqlDate($row[0]['created_at']) ?>
         </div>
         <p>
         <div>
         <?php 
-        echo lib\Utilities::htmlEscape($row['body']);
+        echo lib\Utilities::htmlEscape($row[0]['body']);
         ?>
         </div>
         <button class='post-button'>Edit Post</button>
