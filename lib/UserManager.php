@@ -9,7 +9,7 @@ class UserManager extends DbConnection{
     {
         $this->prepareStmt("SELECT username, email, created_at, modification_time, is_enabled FROM users");
         $row  = $this->All();
-        echo "<div id=user-table>";
+            echo "<div id=user-table>";
         foreach($row as $row):
             echo "<div class='username  user-table-row'>";
             echo "<div class='user-table-cell'>Username</div>";
