@@ -1,0 +1,11 @@
+#user-table{
+    display:table;
+    border-collapse: collapse;
+  }
+.tr{
+    display:table-row;
+}
+.td{
+    display:table-cell;
+    border: #000000 solid 1px;
+}
