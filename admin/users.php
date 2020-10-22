@@ -19,10 +19,15 @@ if(!($session->getUserRole() === "admin")){
         <!-- <meta http-equiv="refresh" content="5"> -->
     </head>
     <body>
+<div class="content">
 <?php
 require dirname(__DIR__, 1) . '/templates/sidenavbar/sidenavbar.html';
 $userManager = new lib\UserManager();
 $userManager->getAllUsers();
 ?>
+</div>
+<footer>
+    footer
+</footer>
     </body>
 </html>

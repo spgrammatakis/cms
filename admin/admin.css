@@ -1,11 +1,41 @@
+html{
+    height:100%;
+}
+body{
+    margin:0;
+    min-height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+.content{
+    flex: 1 0 auto;
+    overflow:hidden;
+}
 #user-table{
     display:table;
     border-collapse: collapse;
+    display: flex;
   }
+.user-table-block{
+    display: flex;
+    align-items: flex-end;
+}
+.user-table-block-left,.user-table-block-right{
+    align-self: flex-start;
+    flex: 1;
+}
 .user-table-row{
     display:table-row;
 }
 .user-table-cell{
     display:table-cell;
     border: #000000 solid 1px;
+}
+
+footer{
+    margin:0;
+    color:white;
+    height:30px;
+    background-color: black;
+    flex-shrink: 0;
 }

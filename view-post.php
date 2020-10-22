@@ -1,7 +1,7 @@
 <?php
 
 require __DIR__ . '/vendor/autoload.php';
-// Get the post ID
+
 if ((isset($_GET['post_id']) && is_numeric($_GET['post_id'])))
 {
     $postId = $_GET['post_id'];

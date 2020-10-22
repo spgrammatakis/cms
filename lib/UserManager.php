@@ -11,6 +11,8 @@ class UserManager extends DbConnection{
         $row  = $this->All();
             echo "<div id=user-table>";
         foreach($row as $row):
+            echo "<div class='user-table-block'>";
+            echo "<div class='user-table-block-left'>";
             echo "<div class='username  user-table-row'>";
             echo "<div class='user-table-cell'>Username</div>";
             echo "<div class='user-table-cell'>".Utilities::htmlEscape($row['username'])."</div>";
@@ -31,7 +33,12 @@ class UserManager extends DbConnection{
             echo "<div class='user-table-cell'>Is Enabled</div>";
             echo "<div class='user-table-cell'>".Utilities::htmlEscape($row['is_enabled'])."</div>";
             echo "</div>";
-            echo "</br>";
+            echo "</div>";
+            echo "<div class=user-table-block-right>AXNE</div>";
+            echo "<div class='user-table-block-button'>";
+            echo "<button class='user-edit-button'>Edit User</button>";
+            echo "</div>";
+            echo "</div>";
         endforeach;
             echo "</div>";
         return;
