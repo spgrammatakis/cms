@@ -8,16 +8,16 @@ body{
     flex-direction: column;
 }
 .content{
-    flex: 1 0 auto;
+    flex: auto;
     overflow:hidden;
 
 }
 #user-table{
     display:table;
 }
-
-.user-table-block-button{
-    align-self: flex-end;
+.user-table-block{
+    display:flex;
+    flex-wrap:wrap;
 }
 
 .user-table-row{
@@ -26,6 +26,10 @@ body{
 .user-table-cell{
     display:table-cell;
     border: #000000 solid 1px;
+}
+
+.user-table-block-right{
+    visibility: hidden;
 }
 
 footer{
