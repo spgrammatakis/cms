@@ -34,7 +34,7 @@ class UserManager extends DbConnection{
             echo "<div class='user-table-cell'>".Utilities::htmlEscape($row['is_enabled'])."</div>";
             echo "</div>";
             echo "</div>";
-            echo "<div class=user-table-block-right>AXNE</div>";
+            echo "<div class='user-table-block-right' contenteditable='true'>AXNE</div>";
             echo "<div class='user-table-block-button'>";
             echo "<button class='user-edit-button'>Edit User</button>";
             echo "</div>";

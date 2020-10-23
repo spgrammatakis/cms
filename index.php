@@ -3,7 +3,6 @@ require __DIR__ . '/vendor/autoload.php';
 $username = $_COOKIE['user_name'] ?? "guest";
 $session = new lib\SessionManager($username);
 $session->sessionCheck();
-require 'templates/title.php';
 ?>
 <!DOCTYPE html>
 <html>
@@ -15,6 +14,7 @@ require 'templates/title.php';
     </head>
     <body>
         <?php
+        require 'templates/title.php';
         $postHandler = new lib\PostManager();
         $postHandler->getPosts();
         ?>
