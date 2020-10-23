@@ -39,7 +39,7 @@ if($_POST){
 <!DOCTYPE html>
 <html>
     <head>
-    
+    <meta http-equiv="Content-Security-Policy" content="script-src 'self' ;" >
     <script type="text/javascript" src="js/get-parent-id.js"></script>
     <script type="text/javascript" src="js/iframe-interactions.js"></script>
     <h2>

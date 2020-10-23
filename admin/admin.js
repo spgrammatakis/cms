@@ -4,16 +4,15 @@ function redirectToEditUser(id) {
 
     var button = document.getElementsByTagName('button');
         for(let i = 0;i<button.length;i++){
-            if(button[i].className === "user-table-edit-button"){                
+            if(button[i].className === "user-table-edit-button"){
+                button[i].parentElement.parentElement.childNodes[3].style.visibility = "hidden"; 
                 button[i].addEventListener("click", function(){
                     let  res = button[i].parentElement.childNodes[1].innerText.split("\t");
-                    redirectToEditUser(res[1]);
-                    var vis = button[i].parentElement.parentElement.childNodes[3];
-                    console.log(vis);
-                    if (vis.style.visibility === "hidden") {
-                        vis.style.visibility = "visible";
+                    redirectToEditUser(res[1]);           
+                    if (button[i].parentElement.parentElement.childNodes[3].style.visibility === "hidden") {
+                        button[i].parentElement.parentElement.childNodes[3].style.visibility = "visible";
                       } else {
-                        vis.style.visibility = "hidden";
+                        button[i].parentElement.parentElement.childNodes[3].style.visibility = "hidden";
                       }
                 });
             }
