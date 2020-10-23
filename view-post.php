@@ -85,19 +85,19 @@ if ($_POST && $postId !== 0)
         <?php echo "<div class='comment' id='" . $comment['comment_id']."'>"; ?>
                 <div class="comment-meta">
                     Comment from
-                    <?php echo lib\Utilities::htmlEscape($comment['user_name']) ?>
+                    <?php echo lib\Utilities::htmlEscape($comment['user_name']); ?>
                     on
-                    <?php echo lib\Utilities::convertSqlDate($comment['created_at']) ?>
+                    <?php echo lib\Utilities::convertSqlDate($comment['created_at']); ?>
                 </div>
                 <div class="comment-body">
-                    <?php echo lib\Utilities::htmlEscape($comment['content']) ?>
+                    <?php echo lib\Utilities::htmlEscape($comment['content']); ?>
                 </div>
                 <div class="comment-website">
-                    <?php echo lib\Utilities::htmlEscape($comment['website']) ?>
+                    <?php echo lib\Utilities::htmlEscape($comment['website']); ?>
                 </div>
         <button class='comment-button'>Edit Comment</button>
         </div>
-        <?php endforeach ?>
+        <?php endforeach; ?>
         </div>
         <?php require 'templates/comment-form.php' ?>
     </body>
