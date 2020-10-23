@@ -11,9 +11,10 @@ if(!($session->getUserRole() === "admin")){
 <!DOCTYPE html>
 <html>
     <head>
-        <meta http-equiv="Content-Security-Policy" content="script-src 'none' ;" >
+        <meta http-equiv="Content-Security-Policy" content="script-src 'self' ;" >
         <title>A blog application</title>
         <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+        <script type="text/javascript" src="admin.js" defer></script>
         <link rel="stylesheet" type="text/css" href="/templates/sidenavbar/sidenavbar.css" type="text/css">
         <link rel="stylesheet" type="text/css" href="admin.css" type="text/css">
         <!-- <meta http-equiv="refresh" content="5"> -->
@@ -49,10 +50,7 @@ $row = $userManager->getAllUsers();
                 <div class="user-table-cell">Is Enabled</div>
                 <div class="user-table-cell"><?php echo lib\Utilities::htmlEscape($row['is_enabled']);?></div> 
             </div>
-        </div>
-        <div class="user-table-block-right">AXNE</div>
-        <div class="user-table-block-button">
-            <button class="user-edit-button">Edit User</button>
+            <button class="user-table-edit-button">Edit User</button>
         </div>
 </div>
 <?php endforeach; ?>

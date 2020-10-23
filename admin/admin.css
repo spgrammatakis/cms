@@ -10,20 +10,16 @@ body{
 .content{
     flex: 1 0 auto;
     overflow:hidden;
+
 }
 #user-table{
     display:table;
-    border-collapse: collapse;
-    display: flex;
-  }
-.user-table-block{
-    display: flex;
-    align-items: flex-end;
 }
-.user-table-block-left,.user-table-block-right{
-    align-self: flex-start;
-    flex: 1;
+
+.user-table-block-button{
+    align-self: flex-end;
 }
+
 .user-table-row{
     display:table-row;
 }
