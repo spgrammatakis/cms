@@ -14,9 +14,9 @@ body{
 table{
     border-collapse: collapse;
 }
-table,tr,td{
+td:not([class="button"]){
     border: 1px solid black;
-  }
+}
 footer{
     margin:0;
     color:white;

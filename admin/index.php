@@ -42,7 +42,7 @@ foreach($row as $row):?>
                 <td class="is-enabled"><?php echo lib\Utilities::htmlEscape($row['is_enabled']);?></td>
             </tr>
             <tr>
-            <td><button class="user-table-edit-button">Edit User</button></td>
+            <td class="button"><button class="user-table-edit-button">Edit User</button></td>
             </tr>
 </table>
 <?php endforeach; ?>
