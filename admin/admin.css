@@ -12,25 +12,6 @@ body{
     overflow:hidden;
 
 }
-#user-table{
-    display:table;
-}
-.user-table-block{
-    display:flex;
-    flex-wrap:wrap;
-}
-
-.user-table-row{
-    display:table-row;
-}
-.user-table-cell{
-    display:table-cell;
-    border: #000000 solid 1px;
-}
-
-.user-table-block-right{
-    visibility: hidden;
-}
 
 footer{
     margin:0;
