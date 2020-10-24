@@ -27,51 +27,22 @@ $userManager = new lib\UserManager();
 $row = $userManager->getAllUsers();
 foreach($row as $row):?>
 <table class="user-table-block">
-            <tr class="username">
-                <td>Username</td>
-                <td><?php echo lib\Utilities::htmlEscape($row['username']);?></td>
+            <tr>
+                <th>UserName</th>
+                <th>Email</th>
+                <th>Created at</th>
+                <th>Modification Time</th>
+                <th>Is Enabled</th>
             </tr>
-            <tr class="email">
-                <td>Email</td>
-                <td><?php echo lib\Utilities::htmlEscape($row['email']);?></td> 
-            </tr>
-            <tr class="created-at">
-                <td>Created at</td>
-                <td><?php echo lib\Utilities::htmlEscape($row['created_at']);?></td>  
-            </tr>
-            <tr class="modification-time">
-                <td>Modification Time</td>
-                <td><?php echo lib\Utilities::htmlEscape($row['modification_time']);?></td> 
-            </tr>
-            <tr class="is-enabled">
-                <td>Is Enabled</td>
-                <td><?php echo lib\Utilities::htmlEscape($row['is_enabled']);?></td> 
+            <tr>
+                <td class="username"><?php echo lib\Utilities::htmlEscape($row['username']);?></td>
+                <td class="email"><?php echo lib\Utilities::htmlEscape($row['email']);?></td> 
+                <td class="created-at"><?php echo lib\Utilities::htmlEscape($row['created_at']);?></td>  
+                <td class="modificiation-time"><?php echo lib\Utilities::htmlEscape($row['modification_time']);?></td> 
+                <td class="is-enabled"><?php echo lib\Utilities::htmlEscape($row['is_enabled']);?></td>
             </tr>
             <tr>
             <td><button class="user-table-edit-button">Edit User</button></td>
-            </tr>
-        <tr class="username">
-                <td>Username</td>
-                <td><?php echo lib\Utilities::htmlEscape($row['username']);?></td>
-            </tr>
-            <tr class="email">
-                <td>Email</td>
-                <td><?php echo lib\Utilities::htmlEscape($row['email']);?></td> 
-            </tr>
-            <tr class="created-at">
-                <td>Created at</td>
-                <td><?php echo lib\Utilities::htmlEscape($row['created_at']);?></td>  
-            </tr>
-            <tr class="modification-time">
-                <td>Modification Time</td>
-                <td><?php echo lib\Utilities::htmlEscape($row['modification_time']);?></td> 
-            </tr>
-            <tr class="is-enabled">
-                <td>Is Enabled</td>
-                <td><?php echo lib\Utilities::htmlEscape($row['is_enabled']);?></td> 
-            </tr>
-            <tr>
-                <td><button class="user-table-submit-button">Submit</button></td>
             </tr>
 </table>
 <?php endforeach; ?>
