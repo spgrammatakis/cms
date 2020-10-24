@@ -14,7 +14,7 @@ body{
 table{
     border-collapse: collapse;
 }
-td:not([class="button"]){
+th,td:not([class="button"]){
     border: 1px solid black;
 }
 footer{
