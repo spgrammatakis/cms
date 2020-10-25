@@ -107,12 +107,6 @@ public function getCommentsForPost($postId)
 public function getPosts(){
     $this->prepareStmt("SELECT post_id,title,body,created_at FROM posts");
     return $row  = $this->All();
-    
-    foreach($row as $row):
-        echo "<div class=post-comment-number>";
-        echo $this->countCommentsForPost($row['post_id']). " comments";
-        echo "</div>";
-    endforeach;
 }
 
 public function addPost(){

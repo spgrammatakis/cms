@@ -37,7 +37,18 @@ if(!($session->getUserRole() === "admin")){
         </header>
         <section>
             <h1 class="comments">Comments</h1>
-            <footer><?php echo $postHandler->countCommentsForPost($row[$i]['post_id']). " comments"; ?></footer>
+            <footer>
+                <?php
+                $comment = $postHandler->getCommentsForPost($row[$i]['post_id']);
+                for($i = 0, $size = count($comment); $i < $size; ++$i):
+                ?>
+                <p>Posted by: <span><?php echo lib\Utilities::htmlEscape($comment[$i]['user_name']); ?></span></p>
+                <p><?php echo lib\Utilities::htmlEscape($comment[$i]['content']); ?></p>
+                <p><time><?php echo lib\Utilities::htmlEscape($comment[$i]['created_at']);?></time></p>
+                <p><?php echo lib\Utilities::htmlEscape($comment[$i]['website']); ?></p>
+                <?php endfor; ?>
+                <p><?php echo $postHandler->countCommentsForPost($row[$i]['post_id']). " comments"; ?></p>
+            </footer>
         </section>
         <section>
         <p><?php echo "<a href='/view-post.php?post_id=". lib\Utilities::htmlEscape($row[$i]['post_id']) ."'>Read more...</a>";?></p>
