@@ -20,10 +20,10 @@ if(!($session->getUserRole() === "admin")){
         <!-- <meta http-equiv="refresh" content="5"> -->
     </head>
     <body>
-    <div class="content">
 <?php
-require dirname(__DIR__, 1) . '/templates/sidenavbar/sidenavbar.html';
-$userManager = new lib\UserManager();
+require dirname(__DIR__, 1) . '/templates/sidenavbar/sidenavbar.html'; ?>
+<div class="content">
+<?php $userManager = new lib\UserManager();
 $row = $userManager->getAllUsers();
 for($i = 0, $size = count($row); $i < $size; ++$i):
 ?>
@@ -47,6 +47,10 @@ for($i = 0, $size = count($row); $i < $size; ++$i):
     </tr>
 </table>
 <?php endfor; ?>
+<?php   $postHandler = new lib\PostManager();
+        $postHandler->getPosts();
+?>
+<?php //comments ?>
 </div>
 <footer>
     footer

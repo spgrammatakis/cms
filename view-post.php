@@ -15,7 +15,7 @@ $pdo = new lib\PostManager();
 $row = $pdo->getPostRow($postId);
 if(!$row){
     header("HTTP/1.0 404 Not Found");
-    echo "psofos";
+    echo "axne";
     exit;
 }
 $commentData = array(

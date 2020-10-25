@@ -106,40 +106,27 @@ public function getCommentsForPost($postId)
 
 public function getPosts(){
     $this->prepareStmt("SELECT post_id,title,body,created_at FROM posts");
-    $row  = $this->All();
+    return $row  = $this->All();
     
     foreach($row as $row):
-        echo "<div class=post-title>";
-        echo Utilities::htmlEscape($row['title']);
-        echo "</div>";
-        echo "<div class=post-date>";
-        echo Utilities::convertSqlDate($row['created_at']);
-        echo "</div>";
         echo "<div class=post-comment-number>";
         echo $this->countCommentsForPost($row['post_id']). " comments";
         echo "</div>";
-        echo "<div class=post-body>";
-        echo "<p>";
-        echo Utilities::htmlEscape($row['body']);
-        echo "</p>";
-        echo "</div>";
-        echo "<a href='view-post.php?post_id=". Utilities::htmlEscape($row['post_id']) ."'>Read more...</a>";
     endforeach;
 }
 
 public function addPost(){
 if(!isset($_COOKIE["user_name"]) || empty($_COOKIE['user_name'])) return false;
-if (isset($_GET['submit'])) {
-    $title = $_GET['title'];
-    $body = $_GET['body'];
-}
+if( (!isset($_GET['title']) || empty($_COOKIE['title'])) || 
+    (!isset($_GET['body']) || empty($_COOKIE['body'])) ) return false;
 try {
+    $author_id = 0;
     $title = $_GET['title'];
-    $summary = $_GET['summary'];
     $body = $_GET['body'];
-    $sql = "INSERT INTO posts(title, body)
-            VALUES (':title', ':body')))";
+    $sql = "INSERT INTO posts(author_id,title, body)
+            VALUES (:author_id,:title, :body)";
     $this->prepareStmt($sql);
+    $this->bind(':author_id',$author_id);
     $this->bind(':title',$title);
     $this->bind(':body',$body);
     $this->run();
@@ -148,7 +135,7 @@ try {
     catch (\PDOException $e) {
         exit("Connection failed: " . $e->getMessage());
     }
-Utilities::redirectAndExit('index.php');
+//Utilities::redirectAndExit('index.php');
 }
 public function delete($commentid){
     $stmt = $this->db->prepare("DELETE FROM posts WHERE id=:id");
