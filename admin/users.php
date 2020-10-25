@@ -21,6 +21,7 @@ if(!($session->getUserRole() === "admin")){
     </head>
     <body>
 <?php require dirname(__DIR__, 1) . '/templates/sidenavbar/sidenavbar.html'; ?>
+<?php print_r($_GET);?>
 <footer>
     footer
 </footer>

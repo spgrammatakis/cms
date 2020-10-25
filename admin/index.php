@@ -25,27 +25,28 @@ if(!($session->getUserRole() === "admin")){
 require dirname(__DIR__, 1) . '/templates/sidenavbar/sidenavbar.html';
 $userManager = new lib\UserManager();
 $row = $userManager->getAllUsers();
-foreach($row as $row):?>
-<table class="user-table-block">
-            <tr>
-                <th>UserName</th>
-                <th>Email</th>
-                <th>Created at</th>
-                <th>Modification Time</th>
-                <th>Is Enabled</th>
-            </tr>
-            <tr>
-                <td class="username"><?php echo lib\Utilities::htmlEscape($row['username']);?></td>
-                <td class="email"><?php echo lib\Utilities::htmlEscape($row['email']);?></td> 
-                <td class="created-at"><?php echo lib\Utilities::htmlEscape($row['created_at']);?></td>  
-                <td class="modificiation-time"><?php echo lib\Utilities::htmlEscape($row['modification_time']);?></td> 
-                <td class="is-enabled"><?php echo lib\Utilities::htmlEscape($row['is_enabled']);?></td>
-            </tr>
-            <tr>
-            <td class="button"><button class="user-table-edit-button">Edit User</button></td>
-            </tr>
+for($i = 0, $size = count($row); $i < $size; ++$i):
+?>
+<table id="<?php echo $i; ?>" class="user-table-block">
+    <tr>
+        <th>UserName</th>
+        <th>Email</th>
+        <th>Created at</th>
+        <th>Modification Time</th>
+        <th>Is Enabled</th>
+    </tr>
+    <tr>
+        <td class="username"><?php echo lib\Utilities::htmlEscape($row[$i]['username']);?></td>
+        <td class="email"><?php echo lib\Utilities::htmlEscape($row[$i]['email']);?></td> 
+        <td class="created-at"><?php echo lib\Utilities::htmlEscape($row[$i]['created_at']);?></td>  
+        <td class="modificiation-time"><?php echo lib\Utilities::htmlEscape($row[$i]['modification_time']);?></td> 
+        <td class="is-enabled"><?php echo lib\Utilities::htmlEscape($row[$i]['is_enabled']);?></td>
+    </tr>
+    <tr>
+        <td class="button"><button class="user-table-edit-button">Edit User</button></td>
+    </tr>
 </table>
-<?php endforeach; ?>
+<?php endfor; ?>
 </div>
 <footer>
     footer
