@@ -7,7 +7,7 @@ function redirectToEditUser(username) {
             if(button[i].className === "user-table-edit-button"){
                 button[i].addEventListener("click", function(){
                     let username = document.getElementById(i).getElementsByClassName("username")[0].innerHTML;
-                    redirectToEditUser(username);       
+                    redirectToEditUser(username);
                 });
             }
         }

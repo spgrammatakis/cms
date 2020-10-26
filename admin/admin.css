@@ -10,7 +10,7 @@ body{
 }
 .content{
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     flex: auto;
     overflow:hidden;
 }
