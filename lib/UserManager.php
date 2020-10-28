@@ -12,10 +12,10 @@ class UserManager extends DbConnection{
         return $row;
     }
 
-    public function getMostUsersCountry(){
-        $this->prepareStmt("SELECT session_tokens FROM users_metadata");
+    public function getUserRoles(){
+        $this->prepareStmt("SELECT user_role FROM users_metadata");
         $row = $this->All();
-        print_r($row);
+        return $row;
     }
 
     public function getCurrentSessionToken(string $userID){
@@ -40,12 +40,12 @@ class UserManager extends DbConnection{
     }
     
     public function getRemoteAddressFromToken($unserializedTokens){
-        return  $remoteAddress = array_column($unserializedTokens[0],"ra");
+        $remoteAddress = array_column($unserializedTokens[0],"ra");
         return  $remoteAddress[0];
     }
     
     public function getExpireFromToken($unserializedTokens){
-        return $expire = array_column($unserializedTokens[0],"expire");
+        $expire = array_column($unserializedTokens[0],"expire");
         return $expire[0];
     
     }

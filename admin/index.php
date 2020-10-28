@@ -27,11 +27,12 @@ if(!($session->getUserRole() === "admin")){
 <?php
 require dirname(__DIR__, 1) . '/templates/sidenavbar/sidenavbar.html'; ?>
 <div class="content">
+<section id ="user-table-section">
 <?php $userManager = new lib\UserManager();
 $row = $userManager->getAllUsers();
 for($i = 0, $size = count($row); $i < $size; ++$i):
 ?>
-<table id="<?php echo $i; ?>" class="user-table-block">
+<table id="<?php echo $i; ?>" class="user-table">
     <tr>
         <th>UserName</th>
         <th>Email</th>
@@ -51,7 +52,8 @@ for($i = 0, $size = count($row); $i < $size; ++$i):
     </tr>
 </table>
 <?php endfor; ?>
-<section>   
+</section>
+<section id="post-section">   
 <?php
 $postHandler = new lib\PostManager();
 $row = $postHandler->getPosts(3);
@@ -85,11 +87,10 @@ for($p = 0; $p < count($row); ++$p):
 <?php endfor; ?>
 <p><?php echo "<a href='posts.php'>Show all Posts</a>";?></p>
 </section>
-<?php // statistics 
-$statistics = new UserManager();
-$statistics->getMostUsersCountry();
-?>
-<?php //comments ?>
+<section id="comment-section">
+<?php $postHandler->prepareStmt("SELECT * FROM comments"); 
+    print_r($postHandler->All());?>
+</section>
 </div>
 <footer>
     footer
