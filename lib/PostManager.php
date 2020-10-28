@@ -90,7 +90,6 @@ public function addCommentToPost($postId, array $commentData)
 
 public function getCommentsForPost($postId)
 {
-    $pdo = $this->dbh;
     $sql = "
         SELECT
             comment_id, user_name, content, created_at, website
@@ -98,11 +97,9 @@ public function getCommentsForPost($postId)
             comments
         WHERE
             post_id = :post_id";
-    $stmt = $pdo->prepare($sql);
-    $stmt->execute(
-        array('post_id' => $postId, )
-    );
-    return $stmt->fetchAll();
+    $this->prepareStmt($sql);
+    $this->bind(':post_id',$postId);
+    return $this->All();
 }
 
 public function getPosts($limit = NULL){

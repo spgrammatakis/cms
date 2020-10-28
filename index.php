@@ -28,14 +28,14 @@ $session->sessionCheck();
             <p class="post-body"><?php echo lib\Utilities::htmlEscape($row[$p]['body']); ?></p>
             <p><time class="post-date"><?php echo lib\Utilities::convertSqlDate($row[$p]['created_at']); ?></time><p>
         </header>
-        <?php echo "<section class='comment' id='" . $comment['comment_id']."'>"; ?>
-        <section class="comments">
-            <h1 class="comments">Comments</h1>
-            <footer>
-                <?php
+        <?php
                 $comment = $postHandler->getCommentsForPost($row[$p]['post_id']);
+
                 for($c = 0; $c < count($comment); ++$c):
                 ?>
+        <?php echo "<section class='comment' id='" . $comment[$c]['comment_id']."'>"; ?>
+        <h1 class="comments">Comments</h1>
+            <footer>
                 <p>Posted by: <span><?php echo lib\Utilities::htmlEscape($comment[$c]['user_name']); ?></span></p>
                 <p><?php echo lib\Utilities::htmlEscape($comment[$c]['content']); ?></p>
                 <p><time><?php echo lib\Utilities::htmlEscape($comment[$c]['created_at']);?></time></p>

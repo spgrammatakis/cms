@@ -7,7 +7,7 @@ for(let i = 0;i<button.length;i++){
     }
     if(button[i].className === "comment-report-button"){
         button[i].addEventListener("click", function(){
-            reportComment(button[i].parentElement.id);
+            reportComment(button[i].parentElement.parentElement.id);
         });
     }
 }
