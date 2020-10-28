@@ -1,9 +1,9 @@
 function redirectToEditPost(id) {  
-    window.location.href = "./edit-post.php?post_id=" + id;
+    window.location.href = "/lib/posts/edit-post.php?post_id=" + id;
     }
 
 function redirectToEditComment(id) {  
-    window.location.href = "./edit-comment.php?comment_id=" + id;
+    window.location.href = "/lib/posts/edit-comment.php?comment_id=" + id;
     }
 
     var button = document.getElementsByTagName('button');

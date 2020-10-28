@@ -1,6 +1,6 @@
 <?php
 
-require __DIR__ . '/vendor/autoload.php';
+require dirname(__DIR__, 2) . '/vendor/autoload.php';
 
 if ((isset($_GET['post_id']) && is_numeric($_GET['post_id'])))
 {
@@ -10,7 +10,7 @@ else
 {
     $postId = 0;
 }
-    
+ini_set('display_errors', '1');
 $pdo = new lib\PostManager();
 $row = $pdo->getPostRow($postId);
 if(!$row){
@@ -50,7 +50,7 @@ if ($_POST && $postId !== 0)
 <html>
     <head>
     <meta http-equiv="Content-Security-Policy" content="script-src 'self';">
-    <script type="text/javascript" src="./js/get-parent-id.js" defer></script>
+    <script type="text/javascript" src="/js/get-parent-id.js" defer></script>
         <title>
             A blog application |
             <?php echo lib\Utilities::htmlEscape($row[0]['title']) ?>
@@ -58,7 +58,7 @@ if ($_POST && $postId !== 0)
         <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
     </head>
     <body>
-    <?php require 'templates/title.php' ?>
+    <?php require dirname(__DIR__, 2).'/templates/title.php' ?>
     <?php echo "<div class='post' id='" . $postId."'>"; ?>
         <div>
         <h2>
@@ -99,6 +99,6 @@ if ($_POST && $postId !== 0)
         </div>
         <?php endforeach; ?>
         </div>
-        <?php require 'templates/comment-form.php' ?>
+        <?php require dirname(__DIR__, 2).'/templates/comment-form.php' ?>
     </body>
 </html>

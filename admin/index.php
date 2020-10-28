@@ -78,7 +78,7 @@ for($p = 0; $p < count($row); ++$p):
         <p><?php echo lib\Utilities::htmlEscape($comment[$c]['website']); ?></p>
         <p><?php echo $postHandler->countCommentsForPost($row[$p]['post_id']). " comments"; ?></p>
         <?php endfor; ?>
-        <p><?php echo "<a href='/view-post.php?post_id=". lib\Utilities::htmlEscape($row[$p]['post_id']) ."'>Read more...</a>";?></p>
+        <p><?php echo "<a href='/lib/posts/view-post.php?post_id=". lib\Utilities::htmlEscape($row[$p]['post_id']) ."'>Read more...</a>";?></p>
     </footer>
     <p><?php echo "<a href='posts.php'>Show all Posts</a>";?></p>    
 </section>

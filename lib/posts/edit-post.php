@@ -1,5 +1,5 @@
 <?php
-require __DIR__ . '/vendor/autoload.php';
+require dirname(__DIR__, 2) . '/vendor/autoload.php';
 $username = $_COOKIE['user_name'] ?? "guest";
 $session = new lib\SessionManager($username);
 $session->sessionCheck();
@@ -15,7 +15,6 @@ else
 
 $pdo = new lib\PostManager();
 $row = $pdo->getPostRow($postId);
-
 if (!$row)
 {
     lib\Utilities::redirectAndExit('index.php?not-found=1');
@@ -39,19 +38,21 @@ if($_POST){
 <!DOCTYPE html>
 <html>
     <head>
-    <meta http-equiv="Content-Security-Policy" content="script-src 'self' ;" >
-    <script type="text/javascript" src="js/get-parent-id.js"></script>
-    <script type="text/javascript" src="js/iframe-interactions.js"></script>
+    
+    <script type="text/javascript" src="/js/get-parent-id.js"></script>
+    <script type="text/javascript" src="/js/iframe-interactions.js"></script>
     <h2>
         <title>
             A blog application |
-            <?php echo lib\Utilities::htmlEscape($row['title']) ?>
+            <?php 
+            
+            echo lib\Utilities::htmlEscape($row['title']) ?>
         </title>
         <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
     </h2>
     </head>
     <body>
-    <a href="index.php"><h1>Homepage</h1></a>
+    <a href="/index.php"><h1>Homepage</h1></a>
     <?php echo "<div class='post' id='" . $postId."'>"; ?>
     <p>
         <div id="post-title">
@@ -65,7 +66,7 @@ if($_POST){
         </div>
         <div id="post-editor-wrapper">
         <hr style='border: 5px solid red;'>
-        <?php require 'templates/post-edit-form.php' ?>
+        <?php require dirname(__DIR__, 2).'/templates/post-edit-form.php' ?>
         </div>
         </p>
     </body>
