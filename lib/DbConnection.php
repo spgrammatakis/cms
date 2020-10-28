@@ -79,7 +79,6 @@ public function fetchCollumn(){
 }
 
 public function rowCount(){
-    $this->run();
     return $this->stmt->rowCount();
 }
 

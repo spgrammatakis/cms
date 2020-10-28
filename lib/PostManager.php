@@ -19,6 +19,7 @@ public function countCommentsForPost($postId)
 {
     $this->prepareStmt('SELECT * FROM comments WHERE post_id = :post_id');
     $this->bind('post_id',$postId);
+    $this->run();
     return (int) $this->rowCount();
 }
 
@@ -104,8 +105,9 @@ public function getCommentsForPost($postId)
     return $stmt->fetchAll();
 }
 
-public function getPosts(){
-    $this->prepareStmt("SELECT post_id,title,body,created_at FROM posts");
+public function getPosts($limit = NULL){
+    $limit = is_null($limit) ? PHP_INT_MAX : $limit;
+    $this->prepareStmt("SELECT post_id,title,body,created_at FROM posts LIMIT $limit");
     return $row  = $this->All();
 }
 

@@ -51,7 +51,7 @@ for($i = 0, $size = count($row); $i < $size; ++$i):
 <?php
 $postHandler = new lib\PostManager();
 $row = $postHandler->getPosts();
-for($p = 0; $p  < 3; ++$p):
+for($p = 0; count($row); ++$p):
 ?>
 <article>
 <header>

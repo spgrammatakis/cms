@@ -10,9 +10,11 @@ function installBlog()
 
     $sql = "SELECT * FROM posts";
     $pdo->prepareStmt($sql);
+    $pdo->run();
     $postCount = $pdo->rowCount();
     $sql = "SELECT * FROM comments";
     $pdo->prepareStmt($sql);
+    $pdo->run();
     $commentCount = $pdo->rowCount();
     return array($postCount, $commentCount);
 }
