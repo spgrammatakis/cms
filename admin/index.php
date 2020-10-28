@@ -27,7 +27,7 @@ if(!($session->getUserRole() === "admin")){
 <?php
 require dirname(__DIR__, 1) . '/templates/sidenavbar/sidenavbar.html'; ?>
 <div class="content">
-<section id ="user-table-section">
+<section id ="user-table">
 <?php $userManager = new lib\UserManager();
 $row = $userManager->getAllUsers();
 for($i = 0, $size = count($row); $i < $size; ++$i):
@@ -53,13 +53,13 @@ for($i = 0, $size = count($row); $i < $size; ++$i):
 </table>
 <?php endfor; ?>
 </section>
-<section id="post-section">   
+<section id="post-section">
+<article>  
 <?php
 $postHandler = new lib\PostManager();
 $row = $postHandler->getPosts(3);
 for($p = 0; $p < count($row); ++$p):
 ?>
-<article>
 <header>
     <h1 class="post-title"><?php echo lib\Utilities::htmlEscape($row[$p]['title']);?></h1>
     <p class="post-body"><?php echo lib\Utilities::htmlEscape($row[$p]['body']); ?></p>
@@ -78,21 +78,19 @@ for($p = 0; $p < count($row); ++$p):
         <p><?php echo lib\Utilities::htmlEscape($comment[$c]['website']); ?></p>
         <p><?php echo $postHandler->countCommentsForPost($row[$p]['post_id']). " comments"; ?></p>
         <?php endfor; ?>
+        <p><?php echo "<a href='/view-post.php?post_id=". lib\Utilities::htmlEscape($row[$p]['post_id']) ."'>Read more...</a>";?></p>
     </footer>
+    <p><?php echo "<a href='posts.php'>Show all Posts</a>";?></p>    
 </section>
-<section>
-<p><?php echo "<a href='/view-post.php?post_id=". lib\Utilities::htmlEscape($row[$p]['post_id']) ."'>Read more...</a>";?></p>
-</section>
-</article>
 <?php endfor; ?>
-<p><?php echo "<a href='posts.php'>Show all Posts</a>";?></p>
+</article>
 </section>
 <section id="comment-section">
 <?php $postHandler->prepareStmt("SELECT * FROM comments"); 
     print_r($postHandler->All());?>
 </section>
 </div>
-<footer>
+<footer id="page-bottom">
     footer
 </footer>
     </body>

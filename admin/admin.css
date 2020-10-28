@@ -14,6 +14,9 @@ body{
     flex: auto;
     overflow:hidden;
 }
+#post-section,#user-section,#comment-section{
+    border:1px solid black;
+}
 table{
     border-collapse: collapse;
 }
