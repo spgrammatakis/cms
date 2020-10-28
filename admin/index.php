@@ -50,7 +50,7 @@ for($i = 0, $size = count($row); $i < $size; ++$i):
 <section>   
 <?php
 $postHandler = new lib\PostManager();
-$row = $postHandler->getPosts();
+$row = $postHandler->getPosts(3);
 for($p = 0; count($row); ++$p):
 ?>
 <article>
