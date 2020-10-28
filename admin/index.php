@@ -20,7 +20,7 @@ if(!($session->getUserRole() === "admin")){
         <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
         <script type="text/javascript" src="admin.js" defer></script>
         <link rel="stylesheet" type="text/css" href="/templates/sidenavbar/sidenavbar.css" type="text/css">
-        <link rel="stylesheet" type="text/css" href="admin.css" type="text/css">
+        <link rel="stylesheet" type="text/css" href="/admin/admin.css" type="text/css">
         <!-- <meta http-equiv="refresh" content="5"> -->
     </head>
     <body>

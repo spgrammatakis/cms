@@ -50,7 +50,7 @@ if ($_POST && $postId !== 0)
 <html>
     <head>
     <meta http-equiv="Content-Security-Policy" content="script-src 'self';">
-    <script type="text/javascript" src="/js/get-parent-id.js" defer></script>
+    <script type="text/javascript" src="/js/redirect-to-edit.js" defer></script>
         <title>
             A blog application |
             <?php echo lib\Utilities::htmlEscape($row[0]['title']) ?>

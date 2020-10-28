@@ -15,7 +15,7 @@ VALUES("Here's our first post","This is the body of the first post.It is split i
 DROP TABLE IF EXISTS comments;
 
 CREATE TABLE comments (
-    comment_id INT(10) UNSIGNED AUTO_INCREMENT PRIMARY KEY NOT NULL,
+    comment_id VARCHAR(20) PRIMARY KEY NOT NULL UNIQUE,
     post_id INT(10) NOT NULL,
     user_name VARCHAR(20) NOT NULL,
     website VARCHAR(30),
@@ -24,13 +24,10 @@ CREATE TABLE comments (
     updated_at DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 )DEFAULT CHARSET=utf8;
 
-INSERT INTO comments(post_id, created_at, user_name, website, content)
-VALUES(1,now(),'Spyros','http://example.com/',"This is Spyros's contribution");
-
 DROP TABLE IF EXISTS users;
 
 CREATE TABLE users (
-    user_id VARCHAR(10) PRIMARY KEY NOT NULL UNIQUE,
+    user_id VARCHAR(20) PRIMARY KEY NOT NULL UNIQUE,
     username VARCHAR(20) NOT NULL,
     password VARCHAR(255) NOT NULL,
     created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
@@ -43,7 +40,7 @@ DROP TABLE IF EXISTS users_metadata;
 
 CREATE TABLE users_metadata(
         meta_id INT(10) UNSIGNED AUTO_INCREMENT PRIMARY KEY NOT NULL,
-        user_id VARCHAR(10) NOT NULL,
+        user_id VARCHAR(20) NOT NULL,
         username VARCHAR(20) NOT NULL,
         session_tokens LONGTEXT NOT NULL,
         user_role LONGTEXT NOT NULL,

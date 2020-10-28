@@ -75,12 +75,12 @@ public function addCommentToPost($postId, array $commentData)
         $sql = "
             INSERT INTO
             comments
-            (user_name, website, content, created_at, post_id)
-            VALUES(:user_name, :website, :content, :created_at, :post_id)
+            (comment_id,user_name, website, content, created_at, post_id)
+            VALUES(:comment_id,:user_name, :website, :content, :created_at, :post_id)
         ";
         $commentData = array_merge(
                 $commentData,
-                array('post_id' => $postId, 'created_at' => Utilities::getSqlDateForNow())
+                array('post_id' => $postId, 'created_at' => Utilities::getSqlDateForNow(), 'comment_id'=>bin2hex(random_bytes(10)))
             );
         $this->prepareStmt($sql);
         $this->runArray($commentData);

@@ -39,7 +39,7 @@ if($_POST){
 <html>
     <head>
     
-    <script type="text/javascript" src="/js/get-parent-id.js"></script>
+    <script type="text/javascript" src="/js/redirect-to-edit.js"></script>
     <script type="text/javascript" src="/js/iframe-interactions.js"></script>
     <h2>
         <title>

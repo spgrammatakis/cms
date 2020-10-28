@@ -99,7 +99,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
             $param_username = $username;
             $param_password = password_hash($password, PASSWORD_DEFAULT);
             $param_email    = $email;
-            $pdo->bind(':user_id',bin2hex(random_bytes(5)));
+            $pdo->bind(':user_id',bin2hex(random_bytes(10)));
             $pdo->bind(':username', $param_username);
             $pdo->bind(':password', $param_password);
             $pdo->bind(':email', $param_email);
