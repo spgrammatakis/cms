@@ -63,7 +63,6 @@ class SessionManager extends DbConnection{
                     $this->setCookieUserName();
                 } 
         }
-
     }
 
     private function setCookieUserName(){
@@ -98,7 +97,8 @@ class SessionManager extends DbConnection{
             "samesite" => "Strict"]);
         }
         return;
-        if(time() > $this->getExpireFromToken(($this->getCurrentSessionToken($this->getUserID())))){
+        $expireTime = $this->getExpireFromToken(($this->getCurrentSessionToken($this->getUserID())));
+        if(time() < $expireTime[0]){
             $this->setCookiesParams();
             return;
         }
@@ -150,7 +150,11 @@ class SessionManager extends DbConnection{
     }
     
     public function updateUserMetaData(string $userID){
-        if(!isset($userID) || empty($userID)) return false;
+        if(!isset($userID) || empty($userID)) {return false;}
+        $expireTime = $this->getExpireFromToken(($this->getCurrentSessionToken($this->getUserID())));
+        if(time() < $expireTime[0]){
+        return false;
+        }
         $tokensToAppend = $this->sesssionCreateNewToken();  
         $userRole = $this->userRole;
         $sessionTokenFromDB[] = $this->getCurrentSessionToken($userID);
@@ -159,13 +163,13 @@ class SessionManager extends DbConnection{
         $sql="
         UPDATE users_metadata
         SET session_tokens = '$serializedTokens', user_role = '$userRole'
-        WHERE user_id =  '$userID' "; 
+        WHERE user_id =  '$userID'"; 
         $this->prepareStmt($sql);
         return $this->run();
     }
     
     public function getCurrentSessionToken(string $userID){
-        if(!isset($_COOKIE["user_name"]) || empty($_COOKIE['user_name'])) return false;
+        if(!isset($_COOKIE["user_name"]) || empty($_COOKIE['user_name'])) {return false;}
         $sql = "SELECT session_tokens FROM users_metadata WHERE user_id = :user_id";
         $this->prepareStmt($sql);
         $this->bind(':user_id', $userID);

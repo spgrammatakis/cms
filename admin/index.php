@@ -1,4 +1,8 @@
 <?php
+
+use lib\SessionManager;
+use lib\UserManager;
+
 require dirname(__DIR__, 1) . '/vendor/autoload.php';
 $username = $_COOKIE['user_name'] ?? "guest";
 $session = new lib\SessionManager($username);
@@ -51,7 +55,7 @@ for($i = 0, $size = count($row); $i < $size; ++$i):
 <?php
 $postHandler = new lib\PostManager();
 $row = $postHandler->getPosts(3);
-for($p = 0; count($row); ++$p):
+for($p = 0; $p < count($row); ++$p):
 ?>
 <article>
 <header>
@@ -81,6 +85,10 @@ for($p = 0; count($row); ++$p):
 <?php endfor; ?>
 <p><?php echo "<a href='posts.php'>Show all Posts</a>";?></p>
 </section>
+<?php // statistics 
+$statistics = new UserManager();
+$statistics->getMostUsersCountry();
+?>
 <?php //comments ?>
 </div>
 <footer>
