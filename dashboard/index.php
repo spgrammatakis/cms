@@ -76,13 +76,13 @@ for($p = 0; $p < count($row); ++$p):
         ?>
         <p>Posted by: <span><?php echo lib\Utilities::htmlEscape($comment[$c]['user_name']); ?></span></p>
         <p><?php echo lib\Utilities::htmlEscape($comment[$c]['content']); ?></p>
+        <p class="comment-website"> Website: <span><?php echo lib\Utilities::htmlEscape($comment[$c]['website']); ?></span></p>
         <p><time><?php echo lib\Utilities::htmlEscape($comment[$c]['created_at']);?></time></p>
-        <p><?php echo lib\Utilities::htmlEscape($comment[$c]['website']); ?></p>
         <p><?php echo $postHandler->countCommentsForPost($row[$p]['post_id']). " comments"; ?></p>
         <?php endfor; ?>
         <p><?php echo "<a href='/lib/posts/view-post.php?post_id=". lib\Utilities::htmlEscape($row[$p]['post_id']) ."'>Read more...</a>";?></p>
     </footer>
-    <p><a href='posts.php'>Show all Posts</a></p>    
+    <p><a href='/dashboard/manageposts/posts.php'>Show all Posts</a></p>    
 </section>
 <?php endfor; ?>
 </section>

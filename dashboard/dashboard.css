@@ -1,4 +1,5 @@
 html{
+    font-family: Courier;
     height:100%;
 }
 body{
@@ -23,4 +24,13 @@ table{
 }
 th,td:not([class="button"]){
     border: 1px solid black;
+}
+
+.comment-website span{
+    font-weight: bold;
+    font-style: italic;
+}
+
+footer {
+    border:1px black solid;
 }
