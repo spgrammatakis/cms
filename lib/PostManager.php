@@ -15,6 +15,7 @@ public function getPostRow($postId)
     $this->bind(':post_id',$postId);
     return $this->All();
 }
+
 public function countCommentsForPost($postId)
 {
     $this->prepareStmt('SELECT * FROM comments WHERE post_id = :post_id');
@@ -88,10 +89,25 @@ public function addCommentToPost($postId, array $commentData)
     return $errors;
 }
 
+public function reportComment($id){
+
+}
+
+public function getReportedComments(){
+    $sql="SELECT
+            *
+        FROM
+            comments
+        WHERE
+            reported = FALSE
+        ";
+    $this->prepareStmt($sql);
+    return $this->All();
+}
+
 public function getCommentsForPost($postId)
 {
-    $sql = "
-        SELECT
+    $sql = "SELECT
             comment_id, user_name, content, created_at, website
         FROM
             comments
