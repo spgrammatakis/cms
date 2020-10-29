@@ -70,7 +70,7 @@ for($p = 0; $p < count($row); ++$p):
     <h1 class="comments">Post Comments</h1>
     <footer>
         <?php
-        $comment = $postHandler->getCommentsForPost($row[$p]['post_id']);
+        $comment = $postHandler->getCommentsForPost($row[$p]['post_id'],3);
         for($c = 0; $c < count($comment); ++$c):
         ?>
         <p>Posted by: <span><?php echo lib\Utilities::htmlEscape($comment[$c]['user_name']); ?></span></p>
@@ -81,7 +81,7 @@ for($p = 0; $p < count($row); ++$p):
         <?php endfor; ?>
         <p><?php echo "<a href='/lib/posts/view-post.php?post_id=". lib\Utilities::htmlEscape($row[$p]['post_id']) ."'>Read more...</a>";?></p>
     </footer>
-    <p><?php echo "<a href='posts.php'>Show all Posts</a>";?></p>    
+    <p><a href='posts.php'>Show all Posts</a></p>    
 </section>
 <?php endfor; ?>
 </section>
@@ -95,7 +95,7 @@ for($p = 0; $p < count($row); ++$p):
         <p><?php echo lib\Utilities::htmlEscape($comment[$r]['content']); ?></p>
         <p><time><?php echo lib\Utilities::htmlEscape($comment[$r]['created_at']);?></time></p>
         <p><?php echo lib\Utilities::htmlEscape($comment[$r]['website']); ?></p>
-        <p><?php echo $postHandler->countCommentsForPost($row[$r]['post_id']). " comments"; ?></p>
+        <p><a href='posts.php'>Show Reported Comments</a></p> 
     <?php endfor; ?>
 </section>
 </section>

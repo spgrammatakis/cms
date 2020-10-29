@@ -113,34 +113,42 @@ public function commentCheckIfAlreadyExists(string $commentID){
     return $this->rowCount() == 1;
 }
 
-public function getReportedComments(){
+public function getReportedComments($limit = NULL){
+    $limit = is_null($limit) ? PHP_INT_MAX : $limit;    
     $sql="SELECT
             *
         FROM
             comments
         WHERE
             reported = TRUE
-        ";
+        LIMIT
+            :limit";
     $this->prepareStmt($sql);
+    $this->bind(":limit",$limit);
     return $this->All();
 }
 
-public function getCommentsForPost($postId)
+public function getCommentsForPost($postId,$limit = NULL)
 {
+    $limit = is_null($limit) ? PHP_INT_MAX : $limit;
     $sql = "SELECT
             comment_id, user_name, content, created_at, website
         FROM
             comments
         WHERE
-            post_id = :post_id";
+            post_id = :post_id
+        LIMIT
+            :limit";
     $this->prepareStmt($sql);
     $this->bind(':post_id',$postId);
+    $this->bind(":limit",$limit);
     return $this->All();
 }
 
 public function getPosts($limit = NULL){
     $limit = is_null($limit) ? PHP_INT_MAX : $limit;
-    $this->prepareStmt("SELECT post_id,title,body,created_at FROM posts LIMIT $limit");
+    $this->prepareStmt("SELECT post_id,title,body,created_at FROM posts LIMIT :limit");
+    $this->bind(":limit",$limit);
     return $row  = $this->All();
 }
 
