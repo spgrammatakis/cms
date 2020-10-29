@@ -14,9 +14,9 @@ if(!($session->getUserRole() === "admin")){
         <meta http-equiv="Content-Security-Policy" content="script-src 'self' ;" >
         <title>A blog application</title>
         <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
-        <script type="text/javascript" src="/dashboard/admin.js" defer></script>
+        <script type="text/javascript" src="/dashboard/dashboard.js" defer></script>
         <link rel="stylesheet" type="text/css" href="/templates/sidenavbar/sidenavbar.css" type="text/css">
-        <link rel="stylesheet" type="text/css" href="/dashboard/admin.css" type="text/css">
+        <link rel="stylesheet" type="text/css" href="/dashboard/dashboard.css" type="text/css">
         <!-- <meta http-equiv="refresh" content="5"> -->
     </head>
     <body>
