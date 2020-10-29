@@ -106,7 +106,7 @@ class SessionManager extends DbConnection{
 
     public function redirectUser($userRole){
         if($userRole === "admin"){
-            header('Location: ../admin/');
+            header('Location: /dashboard/');
             return;
         }elseif($userRole === "author"){
             echo "redirecting to author";

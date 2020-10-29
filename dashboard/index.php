@@ -18,9 +18,9 @@ if(!($session->getUserRole() === "admin")){
         <meta http-equiv="Content-Security-Policy" content="script-src 'self' ;" >
         <title>A blog application</title>
         <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
-        <script type="text/javascript" src="admin.js" defer></script>
+        <script type="text/javascript" src="/dashboard/admin.js" defer></script>
         <link rel="stylesheet" type="text/css" href="/templates/sidenavbar/sidenavbar.css" type="text/css">
-        <link rel="stylesheet" type="text/css" href="/admin/admin.css" type="text/css">
+        <link rel="stylesheet" type="text/css" href="/dashboard/admin.css" type="text/css">
         <!-- <meta http-equiv="refresh" content="5"> -->
     </head>
     <body>
@@ -95,7 +95,7 @@ for($p = 0; $p < count($row); ++$p):
         <p><?php echo lib\Utilities::htmlEscape($comment[$r]['content']); ?></p>
         <p><time><?php echo lib\Utilities::htmlEscape($comment[$r]['created_at']);?></time></p>
         <p><?php echo lib\Utilities::htmlEscape($comment[$r]['website']); ?></p>
-        <p><a href='posts.php'>Show Reported Comments</a></p> 
+        <p><a href='/dashboard/comments.php'>Show Reported Comments</a></p> 
     <?php endfor; ?>
 </section>
 </section>

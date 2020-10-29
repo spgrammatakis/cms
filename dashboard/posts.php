@@ -17,9 +17,9 @@ if(!($session->getUserRole() === "admin")){
         <meta http-equiv="Content-Security-Policy" content="script-src 'self' ;" >
         <title>A blog application</title>
         <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
-        <script type="text/javascript" src="admin.js" defer></script>
+        <script type="text/javascript" src="/dashboard/admin.js" defer></script>
         <link rel="stylesheet" type="text/css" href="/templates/sidenavbar/sidenavbar.css" type="text/css">
-        <link rel="stylesheet" type="text/css" href="admin.css" type="text/css">
+        <link rel="stylesheet" type="text/css" href="/dashboard/admin.css" type="text/css">
     </head>
     <body>
 <?php require dirname(__DIR__, 1) . '/templates/sidenavbar/sidenavbar.html'; ?>
