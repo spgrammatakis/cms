@@ -26,8 +26,9 @@ if(!($session->getUserRole() === "admin")){
     <body>
 <?php
 require dirname(__DIR__, 1) . '/templates/sidenavbar/sidenavbar.html'; ?>
-<div class="content">
+<section class="content">
 <section id ="user-table">
+<h1 class="users">Users</h1>
 <?php $userManager = new lib\UserManager();
 $row = $userManager->getAllUsers();
 for($i = 0, $size = count($row); $i < $size; ++$i):
@@ -53,8 +54,8 @@ for($i = 0, $size = count($row); $i < $size; ++$i):
 </table>
 <?php endfor; ?>
 </section>
-<section id="post-section">
-<article>  
+<section id="post-section"> 
+<h1 class="posts">Posts</h1>
 <?php
 $postHandler = new lib\PostManager();
 $row = $postHandler->getPosts(3);
@@ -66,7 +67,7 @@ for($p = 0; $p < count($row); ++$p):
     <p><time class="post-date"><?php echo lib\Utilities::convertSqlDate($row[$p]['created_at']); ?></time><p>
 </header>
 <section>
-    <h1 class="comments">Comments</h1>
+    <h1 class="comments">Post Comments</h1>
     <footer>
         <?php
         $comment = $postHandler->getCommentsForPost($row[$p]['post_id']);
@@ -83,13 +84,21 @@ for($p = 0; $p < count($row); ++$p):
     <p><?php echo "<a href='posts.php'>Show all Posts</a>";?></p>    
 </section>
 <?php endfor; ?>
-</article>
 </section>
 <section id="comment-section">
-<?php $postHandler->prepareStmt("SELECT * FROM comments"); 
-    print_r($postHandler->All());?>
+<h1 class="reported-comments">Reported Comments</h1>
+<?php 
+    $reportedComment = $postHandler->getReportedComments();
+    for($r = 0; $r < count($reportedComment); ++$r):   
+?>
+        <p>Posted by: <span><?php echo lib\Utilities::htmlEscape($comment[$r]['user_name']); ?></span></p>
+        <p><?php echo lib\Utilities::htmlEscape($comment[$r]['content']); ?></p>
+        <p><time><?php echo lib\Utilities::htmlEscape($comment[$r]['created_at']);?></time></p>
+        <p><?php echo lib\Utilities::htmlEscape($comment[$r]['website']); ?></p>
+        <p><?php echo $postHandler->countCommentsForPost($row[$r]['post_id']). " comments"; ?></p>
+    <?php endfor; ?>
 </section>
-</div>
+</section>
 <footer id="page-bottom">
     footer
 </footer>

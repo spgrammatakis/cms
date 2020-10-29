@@ -4,10 +4,10 @@ namespace lib;
 use \Datetime;
 
 class Utilities{
-    public static function redirectAndExit($script)
+    public static function redirectAndExit()
     {
         header('HTTP/1.0 404 Not Found');
-        include '../templates/404.php';
+        include '/templates/404.php';
         exit;
     }
     

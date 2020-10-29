@@ -101,6 +101,7 @@ public function reportComment(string $id){
     $this->bind(':reported',1);
     $this->bind(':comment_id',$id);
     $this->run();
+    echo "reported";
     return;
 }
 
@@ -163,7 +164,7 @@ try {
     catch (\PDOException $e) {
         exit("Connection failed: " . $e->getMessage());
     }
-//Utilities::redirectAndExit('index.php');
+Utilities::redirectAndExit();
 }
 public function delete($commentid){
     $stmt = $this->db->prepare("DELETE FROM posts WHERE id=:id");
