@@ -30,7 +30,7 @@ require dirname(__DIR__, 1) . '/templates/sidenavbar/sidenavbar.html'; ?>
 <section id ="user-table">
 <h1 class="users">Users</h1>
 <?php $userManager = new lib\UserManager();
-$row = $userManager->getAllUsers();
+$row = $userManager->getAllUsers(3);
 for($i = 0, $size = count($row); $i < $size; ++$i):
 ?>
 <table id="<?php echo $i; ?>" class="user-table">
@@ -95,7 +95,7 @@ for($p = 0; $p < count($row); ++$p):
         <p><?php echo lib\Utilities::htmlEscape($comment[$r]['content']); ?></p>
         <p><time><?php echo lib\Utilities::htmlEscape($comment[$r]['created_at']);?></time></p>
         <p><?php echo lib\Utilities::htmlEscape($comment[$r]['website']); ?></p>
-        <p><a href='/dashboard/comments.php'>Show Reported Comments</a></p> 
+        <p><a href='/dashboard/comments.php'>Show All Reported Comments</a></p> 
     <?php endfor; ?>
 </section>
 </section>
