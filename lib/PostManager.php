@@ -89,8 +89,27 @@ public function addCommentToPost($postId, array $commentData)
     return $errors;
 }
 
-public function reportComment($id){
+public function reportComment(string $id){
+    if(!($this->commentCheckIfAlreadyExists($id))){
+        echo "Comment not found";
+        return false;}
+    $sql = "UPDATE comments
+    SET reported=:reported
+    WHERE comment_id=:comment_id
+    "; 
+    $this->prepareStmt($sql);
+    $this->bind(':reported',1);
+    $this->bind(':comment_id',$id);
+    $this->run();
+    return;
+}
 
+public function commentCheckIfAlreadyExists(string $commentID){
+    $sql = "SELECT comment_id FROM comments WHERE comment_id = :comment_id";
+    $this->prepareStmt($sql);
+    $this->bind(':comment_id', $commentID);
+    $this->run();
+    return $this->rowCount() == 1;
 }
 
 public function getReportedComments(){
@@ -99,7 +118,7 @@ public function getReportedComments(){
         FROM
             comments
         WHERE
-            reported = FALSE
+            reported = TRUE
         ";
     $this->prepareStmt($sql);
     return $this->All();
