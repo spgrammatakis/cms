@@ -30,7 +30,3 @@ th,td:not([class="button"]){
     font-weight: bold;
     font-style: italic;
 }
-
-footer {
-    border:1px black solid;
-}
