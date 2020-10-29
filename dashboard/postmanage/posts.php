@@ -56,8 +56,5 @@ if(!($session->getUserRole() === "admin")){
     </article>
 </div>
         <?php endfor; ?>
-<footer id="page-bottom">
-    footer
-</footer>
     </body>
 </html>

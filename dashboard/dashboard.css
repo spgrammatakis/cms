@@ -5,6 +5,7 @@ body{
     margin:0;
     min-height: 100%;
     display: flex;
+    flex:auto;
     flex-direction: column;
 
 }
@@ -22,11 +23,4 @@ table{
 }
 th,td:not([class="button"]){
     border: 1px solid black;
-}
-#page-bottom{
-    margin:0;
-    color:white;
-    height:30px;
-    background-color: black;
-    flex-shrink: 0;
 }

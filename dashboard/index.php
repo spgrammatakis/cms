@@ -100,8 +100,5 @@ for($p = 0; $p < count($row); ++$p):
     <?php endfor; ?>
 </section>
 </section>
-<footer id="page-bottom">
-    footer
-</footer>
     </body>
 </html>
