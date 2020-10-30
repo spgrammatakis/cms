@@ -39,7 +39,7 @@ for($i = 0, $size = count($row); $i < $size; ++$i):
         <th>Email</th>
         <th>Created at</th>
         <th>Modification Time</th>
-        <th>Is Enabled</th>
+        <th>Reported</th>
     </tr>
     <tr>
         <td class="username"><?php echo lib\Utilities::htmlEscape($row[$i]['username']);?></td>
