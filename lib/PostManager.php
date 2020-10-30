@@ -89,20 +89,28 @@ public function addCommentToPost($postId, array $commentData)
     return $errors;
 }
 
-public function reporPost(string $id){
-    if(!($this->commentCheckIfAlreadyExists($id))){
-        echo "Comment not found";
+public function reportPost(string $id){
+    if(!($this->postCheckIfAlreadyExists($id))){
+        echo "Post not found";
         return false;}
-    $sql = "UPDATE comments
+    $sql = "UPDATE posts
     SET reported=:reported
-    WHERE comment_id=:comment_id
+    WHERE post_id=:post_id
     "; 
     $this->prepareStmt($sql);
     $this->bind(':reported',1);
-    $this->bind(':comment_id',$id);
+    $this->bind(':post_id',$id);
     $this->run();
     echo "reported";
     return;
+}
+
+public function postCheckIfAlreadyExists(string $postID){
+    $sql = "SELECT post_id FROM posts WHERE post_id = :post_id";
+    $this->prepareStmt($sql);
+    $this->bind(':post_id', $postID);
+    $this->run();
+    return $this->rowCount() == 1;
 }
 
 public function reportComment(string $id){

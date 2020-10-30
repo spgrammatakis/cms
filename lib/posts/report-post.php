@@ -8,9 +8,9 @@ if(!isset($_COOKIE["user_name"]) || empty($_COOKIE['user_name'])){
     exit;
     return;
 };
-if(!isset($_GET['comment_id']) || empty($_GET['comment_id'])){
+if(!isset($_GET['post_id']) || empty($_GET['post_id'])){
     exit;
 }else{
     $handler = new PostManager();
-    $handler->reportComment($_GET['comment_id']);
+    $handler->reportPost($_GET['post_id']);
 }
