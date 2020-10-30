@@ -1,5 +1,5 @@
 function redirectToEditUser(username) {  
-    window.location.href = "./users.php?user=" + username;
+    window.location.href = "/dashboard/manageusers/all-users.php?user=" + username;
     }
 
     var button = document.getElementsByTagName('button');
