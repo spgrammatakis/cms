@@ -1,7 +1,7 @@
 DROP TABLE IF EXISTS posts;
 
 CREATE TABLE posts (
-post_id INT(10) UNSIGNED AUTO_INCREMENT PRIMARY KEY NOT NULL,
+post_id VARCHAR(20) PRIMARY KEY NOT NULL,
 author_id INT(10) NOT NULL,
 title VARCHAR(50) NOT NULL,
 body VARCHAR(255) NOT NULL,
@@ -9,8 +9,8 @@ created_at DATETIME DEFAULT CURRENT_TIMESTAMP NOT NULL,
 updated_at DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 )DEFAULT CHARSET=utf8;
 
-INSERT INTO posts(title, body, author_id, created_at)
-VALUES("Here's our first post","This is the body of the first post.It is split into paragraphs.",1,now());
+INSERT INTO posts(post_id,title, body, author_id, created_at)
+VALUES("f2b8de889c344ab5bae0","Here's our first post","This is the body of the first post.It is split into paragraphs.",1,now());
 
 DROP TABLE IF EXISTS comments;
 
