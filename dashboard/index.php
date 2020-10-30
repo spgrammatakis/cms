@@ -131,8 +131,8 @@ for($p = 0; $p < count($row); ++$p):
     </tr>
 </table>
     </section>
-    <p><a href='/dashboard/reported-comments.php'>Show All Reported Users</a></p>
     <?php endfor; ?>
+    <p><a href='/dashboard/reported-comments.php'>Show All Reported Users</a></p>
 </section>
 </section>
     </body>
