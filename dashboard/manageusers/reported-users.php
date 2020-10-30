@@ -22,7 +22,7 @@ if(!($session->getUserRole() === "admin")){
 <?php require dirname(__DIR__, 2) . '/templates/sidenavbar/sidenavbar.html'; ?>
 <div class="container">
 <section id ="user-section">
-<h1 class="users">Users</h1>
+<h1 class="users">Reported Users</h1>
 <?php $userManager = new lib\UserManager();
 $row = $userManager->getReportedUsers();
 if(count($row) === 0){
