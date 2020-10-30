@@ -2,7 +2,7 @@
 
 require dirname(__DIR__, 2) . '/vendor/autoload.php';
 
-if ((isset($_GET['post_id']) && is_numeric($_GET['post_id'])))
+if ((isset($_GET['post_id'])))
 {
     $postId = $_GET['post_id'];
 }

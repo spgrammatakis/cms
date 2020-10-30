@@ -2,7 +2,7 @@ DROP TABLE IF EXISTS posts;
 
 CREATE TABLE posts (
 post_id VARCHAR(20) PRIMARY KEY NOT NULL,
-author_id INT(10) NOT NULL,
+author_id VARCHAR(20) NOT NULL,
 title VARCHAR(50) NOT NULL,
 body VARCHAR(255) NOT NULL,
 created_at DATETIME DEFAULT CURRENT_TIMESTAMP NOT NULL,
@@ -10,13 +10,13 @@ updated_at DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 )DEFAULT CHARSET=utf8;
 
 INSERT INTO posts(post_id,title, body, author_id, created_at)
-VALUES("f2b8de889c344ab5bae0","Here's our first post","This is the body of the first post.It is split into paragraphs.",1,now());
+VALUES("f2b8de889c344ab5bae0","Here's our first post","This is the body of the first post.It is split into paragraphs.","9b7ccd4e565085f4093c",now());
 
 DROP TABLE IF EXISTS comments;
 
 CREATE TABLE comments (
     comment_id VARCHAR(20) PRIMARY KEY NOT NULL UNIQUE,
-    post_id INT(10) NOT NULL,
+    post_id VARCHAR(20) NOT NULL,
     user_name VARCHAR(20) NOT NULL,
     website VARCHAR(30),
     content LONGTEXT NOT NULL,

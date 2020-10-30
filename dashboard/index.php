@@ -49,6 +49,7 @@ for($i = 0, $size = count($row); $i < $size; ++$i):
     </tr>
     <tr>
         <td class="button"><button class="user-table-edit-button">Edit User</button></td>
+        <td class="button"><button class='comment-report-button'>Report</button></td>
     </tr>
 </table>
 <?php endfor; ?>
@@ -84,7 +85,8 @@ for($p = 0; $p < count($row); ++$p):
         <?php endfor; ?>
         <p><?php echo "<a href='/lib/posts/view-post.php?post_id=". lib\Utilities::htmlEscape($row[$p]['post_id']) ."'>Read more...</a>";?></p>
     </footer>
-    <p><a href='/dashboard/manageposts/all-posts.php'>Show all Posts</a></p>    
+    <p><a href='/dashboard/manageposts/all-posts.php'>Show all Posts</a></p>
+    <p><button class='comment-report-button'>Report</button></p>    
 </section>
 <?php endfor; ?>
 </section>
@@ -101,6 +103,37 @@ for($p = 0; $p < count($row); ++$p):
         <p><?php echo lib\Utilities::htmlEscape($comment[$r]['website']); ?></p>
     </section>
     <p><a href='/dashboard/comments.php'>Show All Reported Comments</a></p>
+    <?php endfor; ?>
+</section>
+<section id="reported-users">
+<h1 class="reported-comments">Reported Users</h1>
+<?php 
+    $reportedUser = $userManager->getReportedUsers();
+    for($r = 0; $r < count($reportedUser); ++$r): 
+?>
+    <section class="reported-users">
+    <table id="<?php echo $i; ?>" class="reported-user-table">
+    <tr>
+        <th>UserName</th>
+        <th>Email</th>
+        <th>Created at</th>
+        <th>Modification Time</th>
+        <th>Reported</th>
+    </tr>
+    <tr>
+        <td class="username"><?php echo lib\Utilities::htmlEscape($row[$r]['username']);?></td>
+        <td class="email"><?php echo lib\Utilities::htmlEscape($row[$r]['email']);?></td> 
+        <td class="created-at"><?php echo lib\Utilities::htmlEscape($row[$r]['created_at']);?></td>  
+        <td class="modificiation-time"><?php echo lib\Utilities::htmlEscape($row[$r]['modification_time']);?></td> 
+        <td class="reported"><?php echo lib\Utilities::htmlEscape($row[$r]['reported']);?></td>
+    </tr>
+    <tr>
+        <td class="button"><button class="reported-user-table-edit-button">Edit User</button></td>
+        <td class="button"><button class='user-report-button'>Report</button></td>
+    </tr>
+</table>
+    </section>
+    <p><a href='/dashboard/reported-comments.php'>Show All Reported Users</a></p>
     <?php endfor; ?>
 </section>
 </section>

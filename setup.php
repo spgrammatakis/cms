@@ -1,6 +1,8 @@
 <?php
+
 require __DIR__ . '/vendor/autoload.php';
 require 'install.php';
+
 $pdo = new lib\DbConnection();
 $username = $password = $confirm_password = $email ="";
 $username_err = $password_err = $confirm_password_err = $email_err  ="";
