@@ -91,7 +91,7 @@ for($p = 0; $p < count($row); ++$p):
 <section id="reported-comments">
 <h1 class="reported-comments">Reported Comments</h1>
 <?php 
-    $reportedComment = $postHandler->getReportedComments();
+    $reportedComment = $postHandler->getReportedComments(3);
     for($r = 0; $r < count($reportedComment); ++$r): 
 ?>
     <section class="comment">
@@ -106,7 +106,7 @@ for($p = 0; $p < count($row); ++$p):
 <section id="reported-users">
 <h1 class="reported-comments">Reported Users</h1>
 <?php 
-    $reportedUser = $userManager->getReportedUsers();
+    $reportedUser = $userManager->getReportedUsers(3);
     for($r = 0; $r < count($reportedUser); ++$r): 
 ?>
     <section class="reported-users">
