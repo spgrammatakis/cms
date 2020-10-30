@@ -22,30 +22,23 @@ if(!($session->getUserRole() === "admin")){
 <?php require dirname(__DIR__, 2) . '/templates/sidenavbar/sidenavbar.html'; ?>
 <?php
         $postHandler = new lib\PostManager();
-        $row = $postHandler->getReportedComments();
-        if(count($row) === 0){
+        $comment = $postHandler->getReportedComments();
+        if(count($comment) === 0){
             echo "No Reported Comments";
             exit;
         }
-        for($c = 0; $c  < count($row); ++$c):
+        for($c = 0; $c  < count($comment); ++$c):
         ?>
 <div class="container">
         <section>
-            <h1 class="comments">Comments</h1>
-                <?php
-                for($c = 0; $c < count($comment); ++$c):
-                ?>
+            <h1 class="comments">Reported Comments</h1>
                 <p>Posted by: <span><?php echo lib\Utilities::htmlEscape($comment[$c]['user_name']); ?></span></p>
                 <p><?php echo lib\Utilities::htmlEscape($comment[$c]['content']); ?></p>
                 <p><time><?php echo lib\Utilities::htmlEscape($comment[$c]['created_at']);?></time></p>
                 <p><?php echo lib\Utilities::htmlEscape($comment[$c]['website']); ?></p>
                 <p><?php echo lib\Utilities::htmlEscape($comment[$c]['comment_id']); ?></p>
-                <?php endfor; ?>
-        </section>
-        <section>
-        <p><?php echo "<a href='/lib/posts/view-post.php?post_id=". lib\Utilities::htmlEscape($row[$p]['post_id']) ."'>Read more...</a>";?></p>
+        <?php endfor; ?>
         </section>
 </div>
-        <?php endfor; ?>
     </body>
 </html>

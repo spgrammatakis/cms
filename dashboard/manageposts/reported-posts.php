@@ -32,6 +32,7 @@ if(!($session->getUserRole() === "admin")){
 <div class="container">
     <article>
         <header>
+        <h1 class="posts">Reported Posts</h1>
             <h1 class="post-title"><?php echo lib\Utilities::htmlEscape($row[$p]['title']);?></h1>
             <p class="post-body"><?php echo lib\Utilities::htmlEscape($row[$p]['body']); ?></p>
             <p><time class="post-date"><?php echo lib\Utilities::convertSqlDate($row[$p]['created_at']); ?></time><p>
