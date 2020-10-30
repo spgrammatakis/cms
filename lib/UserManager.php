@@ -8,7 +8,7 @@ class UserManager extends DbConnection{
     public function getAllUsers($limit = NULL)
     {
         $limit = is_null($limit) ? PHP_INT_MAX : $limit;    
-        $this->prepareStmt("SELECT username, email, created_at, modification_time, is_enabled FROM users LIMIT :limit");
+        $this->prepareStmt("SELECT username, email, created_at, modification_time, reported FROM users LIMIT :limit");
         $this->bind(':limit',$limit);
         $row  = $this->All();
         return $row;

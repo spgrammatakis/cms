@@ -46,14 +46,15 @@ for($i = 0, $size = count($row); $i < $size; ++$i):
         <td class="email"><?php echo lib\Utilities::htmlEscape($row[$i]['email']);?></td> 
         <td class="created-at"><?php echo lib\Utilities::htmlEscape($row[$i]['created_at']);?></td>  
         <td class="modificiation-time"><?php echo lib\Utilities::htmlEscape($row[$i]['modification_time']);?></td> 
-        <td class="is-enabled"><?php echo lib\Utilities::htmlEscape($row[$i]['is_enabled']);?></td>
+        <td class="reported"><?php echo lib\Utilities::htmlEscape($row[$i]['reported']);?></td>
     </tr>
     <tr>
         <td class="button"><button class="user-table-edit-button">Edit User</button></td>
     </tr>
 </table>
 <?php endfor; ?>
-<p><a href='/dashboard/users.php'>Show All Users</a></p> 
+<p><a href='/dashboard/users.php'>Show All Users</a></p>
+<p><a href='/dashboard/reported-users.php'>Show Reported Users</a></p> 
 </section>
 <section id="post-section"> 
 <h1 class="posts">Posts</h1>
