@@ -49,7 +49,6 @@ for($i = 0, $size = count($row); $i < $size; ++$i):
     </tr>
     <tr>
         <td class="button"><button class="user-table-edit-button">Edit User</button></td>
-        <td class="button"><button class='user-report-button'>Report User</button></td>
     </tr>
 </table>
 <?php endfor; ?>
@@ -80,13 +79,12 @@ for($p = 0; $p < count($row); ++$p):
         <p class="comment-website"> Website: <span><?php echo lib\Utilities::htmlEscape($comment[$c]['website']); ?></span></p>
         <p><?php echo lib\Utilities::htmlEscape($comment[$c]['content']); ?></p>
         <p><time><?php echo lib\Utilities::htmlEscape($comment[$c]['created_at']);?></time></p>
-        <p><?php echo $postHandler->countCommentsForPost($row[$p]['post_id']). " comments"; ?></p>
         </section>
         <?php endfor; ?>
+        <p><?php echo $postHandler->countCommentsForPost($row[$p]['post_id']). " comments"; ?></p>
         <p><?php echo "<a href='/lib/posts/view-post.php?post_id=". lib\Utilities::htmlEscape($row[$p]['post_id']) ."'>Read more...</a>";?></p>
     </footer>
-    <p><a href='/dashboard/manageposts/all-posts.php'>Show all Posts</a></p>
-    <p><button class='post-report-button'>Report Post</button></p>    
+    <p><a href='/dashboard/manageposts/all-posts.php'>Show all Posts</a></p>    
 </section>
 <?php endfor; ?>
 </section>
@@ -102,8 +100,8 @@ for($p = 0; $p < count($row); ++$p):
         <p><time><?php echo lib\Utilities::htmlEscape($comment[$r]['created_at']);?></time></p>
         <p><?php echo lib\Utilities::htmlEscape($comment[$r]['website']); ?></p>
     </section>
-    <p><a href='/dashboard/comments.php'>Show All Reported Comments</a></p>
     <?php endfor; ?>
+    <p><a href='/dashboard/comments.php'>Show All Reported Comments</a></p>
 </section>
 <section id="reported-users">
 <h1 class="reported-comments">Reported Users</h1>
@@ -129,7 +127,6 @@ for($p = 0; $p < count($row); ++$p):
     </tr>
     <tr>
         <td class="button"><button class="reported-user-table-edit-button">Edit User</button></td>
-        <td class="button"><button class='user-report-button'>Report User</button></td>
     </tr>
 </table>
     </section>

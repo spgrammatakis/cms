@@ -34,18 +34,20 @@ $session->sessionCheck();
                 for($c = 0; $c < count($comment); ++$c):
                 ?>
         <?php echo "<section class='comment' id='" . $comment[$c]['comment_id']."'>"; ?>
-        <h1 class="comments">Comments</h1>
+        <h1 class="comments">Comments</h1>  
             <footer>
-                <p>Posted by: <span><?php echo lib\Utilities::htmlEscape($comment[$c]['user_name']); ?></span></p>
+                <p>Posted by: <span><?php echo lib\Utilities::htmlEscape($comment[$c]['user_name']); ?></span>
+                <span><button class='user-report-button'>Report User</button></span></p>
                 <p><?php echo lib\Utilities::htmlEscape($comment[$c]['content']); ?></p>
                 <p><time><?php echo lib\Utilities::htmlEscape($comment[$c]['created_at']);?></time></p>
                 <p><?php echo lib\Utilities::htmlEscape($comment[$c]['website']); ?></p>
-                <button class='comment-report-button'>Report</button>
+                <button class='comment-report-button'>Report Comment</button>
                 <?php endfor; ?>
             </footer>
         </section>
         <section>
         <p><?php echo $postHandler->countCommentsForPost($row[$p]['post_id']). " comments"; ?></p>
+        <p><button class='post-report-button'>Report Post</button></p>
         <p><?php echo "<a href='/lib/posts/view-post.php?post_id=". lib\Utilities::htmlEscape($row[$p]['post_id']) ."'>Read more...</a>";?></p>
         </section>
     </article>
