@@ -105,6 +105,21 @@ public function reportPost(string $id){
     return;
 }
 
+public function getReportedPosts($limit = NULL){
+    $limit = is_null($limit) ? PHP_INT_MAX : $limit;    
+    $sql="SELECT
+            *
+        FROM
+            posts
+        WHERE
+            reported = TRUE
+        LIMIT
+            :limit";
+    $this->prepareStmt($sql);
+    $this->bind(":limit",$limit);
+    return $this->All();
+}
+
 public function postCheckIfAlreadyExists(string $postID){
     $sql = "SELECT post_id FROM posts WHERE post_id = :post_id";
     $this->prepareStmt($sql);

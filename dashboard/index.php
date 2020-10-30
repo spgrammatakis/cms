@@ -84,7 +84,8 @@ for($p = 0; $p < count($row); ++$p):
         <p><?php echo $postHandler->countCommentsForPost($row[$p]['post_id']). " comments"; ?></p>
         <p><?php echo "<a href='/lib/posts/view-post.php?post_id=". lib\Utilities::htmlEscape($row[$p]['post_id']) ."'>Read more...</a>";?></p>
     </footer>
-    <p><a href='/dashboard/manageposts/all-posts.php'>Show all Posts</a></p>    
+    <p><a href='/dashboard/manageposts/all-posts.php'>Show all Posts</a></p>
+    <p><a href='/dashboard/manageposts/reported-posts.php'>Show all Reported Posts</a></p>     
 </section>
 <?php endfor; ?>
 </section>

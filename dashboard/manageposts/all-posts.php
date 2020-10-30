@@ -1,7 +1,4 @@
 <?php
-
-use lib\PostManager;
-
 require dirname(__DIR__, 2) . '/vendor/autoload.php';
 $username = $_COOKIE['user_name'] ?? "guest";
 $session = new lib\SessionManager($username);
@@ -22,7 +19,7 @@ if(!($session->getUserRole() === "admin")){
         <link rel="stylesheet" type="text/css" href="/dashboard/dashboard.css" type="text/css">
     </head>
     <body>
-<?php require dirname(__DIR__, 1) . '/templates/sidenavbar/sidenavbar.html'; ?>
+<?php require dirname(__DIR__, 2) . '/templates/sidenavbar/sidenavbar.html'; ?>
 <?php
         $postHandler = new lib\PostManager();
         $row = $postHandler->getPosts();
