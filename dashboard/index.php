@@ -49,7 +49,7 @@ for($i = 0, $size = count($row); $i < $size; ++$i):
     </tr>
     <tr>
         <td class="button"><button class="user-table-edit-button">Edit User</button></td>
-        <td class="button"><button class='comment-report-button'>Report</button></td>
+        <td class="button"><button class='user-report-button'>Report User</button></td>
     </tr>
 </table>
 <?php endfor; ?>
@@ -86,11 +86,11 @@ for($p = 0; $p < count($row); ++$p):
         <p><?php echo "<a href='/lib/posts/view-post.php?post_id=". lib\Utilities::htmlEscape($row[$p]['post_id']) ."'>Read more...</a>";?></p>
     </footer>
     <p><a href='/dashboard/manageposts/all-posts.php'>Show all Posts</a></p>
-    <p><button class='comment-report-button'>Report</button></p>    
+    <p><button class='post-report-button'>Report Post</button></p>    
 </section>
 <?php endfor; ?>
 </section>
-<section id="reported-post-comments">
+<section id="reported-comments">
 <h1 class="reported-comments">Reported Comments</h1>
 <?php 
     $reportedComment = $postHandler->getReportedComments();
@@ -129,7 +129,7 @@ for($p = 0; $p < count($row); ++$p):
     </tr>
     <tr>
         <td class="button"><button class="reported-user-table-edit-button">Edit User</button></td>
-        <td class="button"><button class='user-report-button'>Report</button></td>
+        <td class="button"><button class='user-report-button'>Report User</button></td>
     </tr>
 </table>
     </section>

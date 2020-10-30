@@ -34,4 +34,28 @@ class UserManager extends DbConnection{
         $this->bind(":limit",$limit);
         return $this->All();
     }
+
+    public function reportUser(string $id){
+        if(!($this->userCheckIfAlreadyExists($id))){
+            echo "user not found";
+            return false;}
+        $sql = "UPDATE users
+        SET reported=:reported
+        WHERE user_id=:user_id
+        "; 
+        $this->prepareStmt($sql);
+        $this->bind(':reported',1);
+        $this->bind(':user_id',$id);
+        $this->run();
+        echo "reported";
+        return;
+    }
+    
+    public function userCheckIfAlreadyExists(string $userID){
+        $sql = "SELECT user_id FROM posts WHERE user_id = :user_id";
+        $this->prepareStmt($sql);
+        $this->bind(':user_id', $userID);
+        $this->run();
+        return $this->rowCount() == 1;
+    }
 }

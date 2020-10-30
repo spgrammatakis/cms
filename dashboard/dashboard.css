@@ -16,7 +16,7 @@ body{
     flex: auto;
     overflow:hidden;
 }
-#post-section,#user-section,#comment-section,#reported-comment,#reported-users{
+#post-section,#user-section,#comment-section,#reported-comments,#reported-users{
     border:1px solid black;
 }
 table{
@@ -24,6 +24,9 @@ table{
 }
 th,td:not([class="button"]){
     border: 1px solid black;
+}
+#reported-comments,#reported-users{
+    width:20%;
 }
 #user-section{
     width:30%;
