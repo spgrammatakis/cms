@@ -84,7 +84,7 @@ for($p = 0; $p < count($row); ++$p):
         <?php endfor; ?>
         <p><?php echo "<a href='/lib/posts/view-post.php?post_id=". lib\Utilities::htmlEscape($row[$p]['post_id']) ."'>Read more...</a>";?></p>
     </footer>
-    <p><a href='/dashboard/manageposts/posts.php'>Show all Posts</a></p>    
+    <p><a href='/dashboard/manageposts/all-posts.php'>Show all Posts</a></p>    
 </section>
 <?php endfor; ?>
 </section>
