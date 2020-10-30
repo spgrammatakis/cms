@@ -23,6 +23,10 @@ if(!($session->getUserRole() === "admin")){
 <?php
         $postHandler = new lib\PostManager();
         $row = $postHandler->getReportedPosts();
+        if(count($row) === 0){
+            echo "No Reported Posts";
+            exit;
+        }
         for($p = 0; $p  < count($row); ++$p):
         ?>
 <div class="container">

@@ -52,8 +52,8 @@ for($i = 0, $size = count($row); $i < $size; ++$i):
     </tr>
 </table>
 <?php endfor; ?>
-<p><a href='/dashboard/users.php'>Show All Users</a></p>
-<p><a href='/dashboard/reported-users.php'>Show Reported Users</a></p> 
+<p><a href='/dashboard/manageusers/all-users.php'>Show All Users</a></p>
+<p><a href='/dashboard/manageusers/reported-users.php'>Show Reported Users</a></p> 
 </section>
 <section id="post-section"> 
 <h1 class="posts">Posts</h1>
