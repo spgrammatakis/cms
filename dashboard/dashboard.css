@@ -35,6 +35,10 @@ th,td:not([class="button"]){
     background-color: darkgrey;
 }
 
+h1{
+    text-align: center;
+}
+
 .reported-comments{
     color:red;
 }
