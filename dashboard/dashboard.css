@@ -16,7 +16,7 @@ body{
     flex: auto;
     overflow:hidden;
 }
-#post-section,#user-section,#comment-section{
+#post-section,#user-section,#comment-section,#reported-comment,#reported-users{
     border:1px solid black;
 }
 table{
