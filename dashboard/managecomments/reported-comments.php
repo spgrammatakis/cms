@@ -24,7 +24,7 @@ if(!($session->getUserRole() === "admin")){
         $postHandler = new lib\PostManager();
         $row = $postHandler->getReportedPosts();
         if(count($row) === 0){
-            echo "No Reported Posts";
+            echo "No Reported Comment";
             exit;
         }
         for($p = 0; $p  < count($row); ++$p):

@@ -104,7 +104,7 @@ for($p = 0; $p < count($row); ++$p):
         <p><?php echo lib\Utilities::htmlEscape($comment[$r]['website']); ?></p>
     </section>
     <?php endfor; ?>
-    <p><a href='/dashboard/comments.php'>Show All Reported Comments</a></p>
+    <p><a href='/dashboard/managecomments/reported-comments.php'>Show All Reported Comments</a></p>
 </section>
 <section id="reported-users">
 <h1 class="reported-comments">Reported Users</h1>
@@ -134,7 +134,7 @@ for($p = 0; $p < count($row); ++$p):
 </table>
     </section>
     <?php endfor; ?>
-    <p><a href='/dashboard/reported-comments.php'>Show All Reported Users</a></p>
+    <p><a href='/dashboard/manageusers/reported-users.php'>Show All Reported Users</a></p>
 </section>
 </section>
     </body>
