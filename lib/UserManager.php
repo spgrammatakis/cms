@@ -52,7 +52,7 @@ class UserManager extends DbConnection{
     }
     
     public function userCheckIfAlreadyExists(string $userID){
-        $sql = "SELECT user_id FROM posts WHERE user_id = :user_id";
+        $sql = "SELECT user_id FROM users WHERE user_id = :user_id";
         $this->prepareStmt($sql);
         $this->bind(':user_id', $userID);
         $this->run();
