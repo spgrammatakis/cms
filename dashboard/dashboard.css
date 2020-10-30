@@ -25,6 +25,12 @@ table{
 th,td:not([class="button"]){
     border: 1px solid black;
 }
+#user-section{
+    width:30%;
+}
+#post-section{
+    width:30%;
+}
 
 .comment-website span{
     font-weight: bold;

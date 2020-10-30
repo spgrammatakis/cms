@@ -26,7 +26,7 @@ if(!($session->getUserRole() === "admin")){
 <?php
 require dirname(__DIR__, 1) . '/templates/sidenavbar/sidenavbar.html'; ?>
 <section class="content">
-<section id ="user-table">
+<section id ="user-section">
 <h1 class="users">Users</h1>
 <?php $userManager = new lib\UserManager();
 $row = $userManager->getAllUsers(3);
