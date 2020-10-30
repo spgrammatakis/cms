@@ -30,3 +30,11 @@ th,td:not([class="button"]){
     font-weight: bold;
     font-style: italic;
 }
+
+.comment:hover{
+    background-color: darkgrey;
+}
+
+.reported-comments{
+    color:red;
+}

@@ -67,18 +67,20 @@ for($p = 0; $p < count($row); ++$p):
     <p class="post-body"><?php echo lib\Utilities::htmlEscape($row[$p]['body']); ?></p>
     <p><time class="post-date"><?php echo lib\Utilities::convertSqlDate($row[$p]['created_at']); ?></time><p>
 </header>
-<section>
+<section id="post-comments">
     <h1 class="comments">Post Comments</h1>
     <footer>
         <?php
         $comment = $postHandler->getCommentsForPost($row[$p]['post_id'],3);
         for($c = 0; $c < count($comment); ++$c):
         ?>
+        <section class="comment">
         <p>Posted by: <span><?php echo lib\Utilities::htmlEscape($comment[$c]['user_name']); ?></span></p>
         <p class="comment-website"> Website: <span><?php echo lib\Utilities::htmlEscape($comment[$c]['website']); ?></span></p>
         <p><?php echo lib\Utilities::htmlEscape($comment[$c]['content']); ?></p>
         <p><time><?php echo lib\Utilities::htmlEscape($comment[$c]['created_at']);?></time></p>
         <p><?php echo $postHandler->countCommentsForPost($row[$p]['post_id']). " comments"; ?></p>
+        </section>
         <?php endfor; ?>
         <p><?php echo "<a href='/lib/posts/view-post.php?post_id=". lib\Utilities::htmlEscape($row[$p]['post_id']) ."'>Read more...</a>";?></p>
     </footer>
@@ -86,17 +88,19 @@ for($p = 0; $p < count($row); ++$p):
 </section>
 <?php endfor; ?>
 </section>
-<section id="comment-section">
+<section id="reported-post-comments">
 <h1 class="reported-comments">Reported Comments</h1>
 <?php 
     $reportedComment = $postHandler->getReportedComments();
-    for($r = 0; $r < count($reportedComment); ++$r):   
+    for($r = 0; $r < count($reportedComment); ++$r): 
 ?>
+    <section class="comment">
         <p>Posted by: <span><?php echo lib\Utilities::htmlEscape($comment[$r]['user_name']); ?></span></p>
         <p><?php echo lib\Utilities::htmlEscape($comment[$r]['content']); ?></p>
         <p><time><?php echo lib\Utilities::htmlEscape($comment[$r]['created_at']);?></time></p>
         <p><?php echo lib\Utilities::htmlEscape($comment[$r]['website']); ?></p>
-        <p><a href='/dashboard/comments.php'>Show All Reported Comments</a></p> 
+    </section>
+    <p><a href='/dashboard/comments.php'>Show All Reported Comments</a></p>
     <?php endfor; ?>
 </section>
 </section>
