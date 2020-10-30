@@ -26,13 +26,13 @@ th,td:not([class="button"]){
     border: 1px solid black;
 }
 #reported-comments,#reported-users{
-    width:20%;
+    max-width:20%;
 }
 #user-section{
-    width:30%;
+    max-width:50%;
 }
 #post-section{
-    width:30%;
+    max-width:30%;
 }
 
 .comment-website span{

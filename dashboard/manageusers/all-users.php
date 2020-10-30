@@ -30,12 +30,14 @@ for($i = 0, $size = count($row); $i < $size; ++$i):
 <table id="<?php echo $i; ?>" class="user-table">
     <tr>
         <th>UserName</th>
+        <th>UserID</th>
         <th>Email</th>
         <th>Created at</th>
         <th>Modification Time</th>
         <th>Reported</th>
     </tr>
     <tr>
+        <td class="user-id"><?php echo lib\Utilities::htmlEscape($row[$i]['user_id']);?></td>
         <td class="username"><?php echo lib\Utilities::htmlEscape($row[$i]['username']);?></td>
         <td class="email"><?php echo lib\Utilities::htmlEscape($row[$i]['email']);?></td> 
         <td class="created-at"><?php echo lib\Utilities::htmlEscape($row[$i]['created_at']);?></td>  
