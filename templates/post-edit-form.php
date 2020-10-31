@@ -1,4 +1,4 @@
-<h1>Edit Post</h1>
+<h3>Edit Post</h3>
 <form method="post" id="post-edit">
 <p>
         <label for="post-title">Name:</label>

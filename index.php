@@ -24,7 +24,7 @@ $session->sessionCheck();
 <div class="container">
 <?php for($p = 0; $p  < count($row); ++$p): ?>
     <?php echo "<section class='post' id='" . $row[$p]['post_id']."'>"; ?>
-    <article id="TEST">
+    <article>
         <header>
             <h1 class="post-title"><?php echo lib\Utilities::htmlEscape($row[$p]['title']);?></h1>
             <p class="post-body"><?php echo lib\Utilities::htmlEscape($row[$p]['body']); ?></p>
