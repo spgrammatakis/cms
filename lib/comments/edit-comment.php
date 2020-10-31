@@ -17,15 +17,20 @@ else
     http_response_code(403);
     exit;
 }
-
+$pdo = new lib\PostManager();
 $errors=null;
 if($_POST){
     $commentData = array(
-        "comment_id" => $row['comment_id'],
-        "website" => $_POST['content'],
-        "content" => $_POST['content']
+        "comment-id" => $commentID,
+        "comment-website" => $_POST['comment-website'],
+        "comment-text" => $_POST['comment-text']
     );
     $errors=$pdo->updateComment($commentData);
+    if (!$errors)
+    {
+        header('Location: ' . $_SERVER['PHP_SELF'] . "?comment_id=" . $commentID);
+        exit;
+    }
 }
 ?>
 <!DOCTYPE html>
