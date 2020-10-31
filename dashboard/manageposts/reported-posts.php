@@ -4,7 +4,7 @@ $username = $_COOKIE['user_name'] ?? "guest";
 $session = new lib\SessionManager($username);
 $session->sessionCheck();
 if(!($session->getUserRole() === "admin")){
-    header("HTTP/1.1 403 Not Found");
+    http_response_code(403);
     exit;
 }
 ?>
@@ -29,7 +29,7 @@ if(!($session->getUserRole() === "admin")){
         }
         for($p = 0; $p  < count($row); ++$p):
         ?>
-<div class="container">
+<section class="container">
     <article>
         <header>
         <h1 class="posts">Reported Posts</h1>
@@ -56,7 +56,7 @@ if(!($session->getUserRole() === "admin")){
         <p><?php echo "<a href='/lib/posts/view-post.php?post_id=". lib\Utilities::htmlEscape($row[$p]['post_id']) ."'>Read more...</a>";?></p>
         </section>
     </article>
-</div>
+</section>
         <?php endfor; ?>
     </body>
 </html>

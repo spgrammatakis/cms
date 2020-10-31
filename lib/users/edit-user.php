@@ -3,7 +3,7 @@ require dirname(__DIR__, 2) . '/vendor/autoload.php';
 $username = $_COOKIE['user_name'] ?? "guest";
 $session = new lib\SessionManager($username);
 $session->sessionCheck();
-if(!($session->getUserRole() === "admin")){
+if($session->getUserRole() === "guest"){
     http_response_code(403);
     exit;
 }
@@ -25,7 +25,6 @@ if($_POST){
         "email" => $_POST['email']
     );
     $errors=$pdo->updateUserAndMetadata($userData);
-    echo $errors;
 }
 ?>
 <!DOCTYPE html>

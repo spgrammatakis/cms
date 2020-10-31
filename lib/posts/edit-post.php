@@ -13,16 +13,12 @@ if (isset($_GET['post_id']))
 }
 else
 {
-    $postId = 0;
+    http_response_code(403);
+    exit;
 }
 
 $pdo = new lib\PostManager();
 $row = $pdo->getPostRow($postId);
-if (!$row)
-{
-    http_response_code(404);
-    exit;
-}
 
 $errors=null;
 if($_POST){

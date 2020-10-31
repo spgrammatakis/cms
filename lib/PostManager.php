@@ -146,6 +146,13 @@ public function commentCheckIfAlreadyExists(string $commentID){
     return $this->rowCount() == 1;
 }
 
+public function getUserComments(string $username){
+    $sql="SELECT * FROM comments WHERE user_name=:user_name";
+    $this->prepareStmt($sql);
+    $this->bind(':user_name', $username);
+    return $this->All();
+}
+
 public function getReportedComments($limit = NULL){
     $limit = is_null($limit) ? PHP_INT_MAX : $limit;    
     $sql="SELECT

@@ -3,7 +3,7 @@ function redirectToEditPost(id) {
     }
 
 function redirectToEditComment(id) {  
-    window.location.href = "/lib/posts/edit-comment.php?comment_id=" + id;
+    window.location.href = "/lib/comments/edit-comment.php?comment_id=" + id;
     }
 
     var button = document.getElementsByTagName('button');
