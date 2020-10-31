@@ -40,7 +40,6 @@ if($_POST){
     <head>
     
     <script type="text/javascript" src="/js/redirect-to-edit.js"></script>
-    <script type="text/javascript" src="/js/iframe-interactions.js"></script>
     <link rel="stylesheet" type="text/css" href="/lib/includes/style.css" type="text/css">
     <h2>
         <title>

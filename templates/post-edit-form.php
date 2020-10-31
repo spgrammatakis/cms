@@ -1,30 +1,26 @@
-<html>
-<head>
-</head>
-<body>
-<form method="post" id="post-edit" onsubmit="copyToHidden()">
-<h3>Edit your post</h3>
+<h1>Edit Post</h1>
+<form method="post" id="post-edit">
 <p>
-        <textarea
-            id="post-title-textarea"
-            name="post-title-textarea"
-            form="post-edit"
-            style="display:none;"
-        ></textarea>
+        <label for="post-title">Name:</label>
+        <input
+            type="text"
+            id="post-title"
+            name="post-title
+            value="<?php echo lib\Utilities::htmlEscape($row[0]['title']);?>"
+        >
     </p>
     <p>
-        <textarea
-            id="post-body-textarea"
-            name="post-body-textarea"
-            form="post-edit"
-            style="display:none;"
-        ></textarea>
+        <label for="post-body">
+            Body:
+        </label>
+        <input
+            type="text"
+            id="post-body"
+            name="post-body"
+            rows="8"
+            cols="70"
+            value="<?php echo lib\Utilities::htmlEscape($row[0]['body']); ?>"
+        />
     </p>
-</br>
-<iframe id="post-editor-iframe" width="50%" height="600" onload="ifameInit()" style="border-style:none" src="/templates/text-editor/text-editor.html">
-</iframe>
-    </p>
-    <input type="submit" value="Finish Edit"/>
+    <input type="submit" value="Finish Edit" />
 </form>
-</body>
-</html>
