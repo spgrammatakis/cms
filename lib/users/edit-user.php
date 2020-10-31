@@ -24,7 +24,7 @@ if($_POST){
         "password" => password_hash($_POST['new-password'], PASSWORD_DEFAULT),
         "email" => $_POST['email']
     );
-    $errors=$pdo->updateUser($userData);
+    $errors=$pdo->updateUserAndMetadata($userData);
     echo $errors;
 }
 ?>

@@ -27,7 +27,7 @@ class UserManager extends DbConnection{
         return $row;
     }
     
-    public function updateUser(array $userData){
+    public function updateUserAndMetadata(array $userData){
         $sql = "
         UPDATE users
         SET username=:username, password=:password, email=:email
