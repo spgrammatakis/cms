@@ -1,6 +1,7 @@
 <?php
-
 require dirname(__DIR__, 2) . '/vendor/autoload.php';
+$username = $_COOKIE['user_name'] ?? "guest";
+$session = new lib\SessionManager($username);
 
 if ((isset($_GET['post_id'])))
 {
@@ -99,6 +100,13 @@ if ($_POST && $postId !== 0)
         </div>
         <?php endforeach; ?>
         </div>
-        <?php require dirname(__DIR__, 2).'/templates/comment-form.php' ?>
+        <?php
+        $session->sessionCheck();
+        if($session->getUserRole() === "guest"){
+            echo "You must be logged in to Comment";
+        }else{
+            require dirname(__DIR__, 2).'/templates/comment-form.php';
+        }
+        ?>
     </body>
 </html>
