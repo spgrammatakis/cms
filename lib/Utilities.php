@@ -3,14 +3,7 @@
 namespace lib;
 use \Datetime;
 
-class Utilities{
-    public static function redirectAndExit()
-    {
-        header('HTTP/1.0 404 Not Found');
-        include '/templates/404.php';
-        exit;
-    }
-    
+class Utilities{    
     public static function getSqlDateForNow()
     {
         return date('Y-m-d H:i:s');
