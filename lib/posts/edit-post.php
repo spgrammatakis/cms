@@ -65,8 +65,7 @@ if($_POST){
         </div>
         <div id="post-editor-wrapper">
         <hr style='border: 5px solid red;'>
-        <?php require dirname(__DIR__, 2).'/templates/post-edit-form.php'; 
-            print_r($_POST);?>
+        <?php require dirname(__DIR__, 2).'/templates/post-edit-form.php'; ?>
         </div>
         </p>
     </body>

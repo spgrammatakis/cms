@@ -19,9 +19,7 @@
             name="post-body-textarea"
             rows="8"
             cols="70"
-            value="<?php echo lib\Utilities::htmlEscape($row[0]['body']); ?>"
-        >
-        </textarea>
+        ><?php echo lib\Utilities::htmlEscape($row[0]['body']); ?></textarea>
     </p>
     <input type="submit" value="Finish Edit" />
 </form>
