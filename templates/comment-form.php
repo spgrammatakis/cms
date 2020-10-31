@@ -7,7 +7,6 @@
             type="text"
             id="comment-website"
             name="comment-website"
-            value="<?php echo lib\Utilities::htmlEscape($commentData['website']) ?>"
         />
     </p>
     <p>
@@ -19,7 +18,7 @@
             name="comment-text"
             rows="8"
             cols="70"
-        ><?php echo lib\Utilities::htmlEscape($commentData['content']) ?></textarea>
+        ></textarea>
     </p>
     <input type="submit" value="Submit comment" />
 </form>
