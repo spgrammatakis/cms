@@ -14,8 +14,7 @@ ini_set('display_errors', '1');
 $pdo = new lib\PostManager();
 $row = $pdo->getPostRow($postId);
 if(!$row){
-    header("HTTP/1.0 404 Not Found");
-    echo "axne";
+    http_response_code(404);
     exit;
 }
 $commentData = array(
@@ -54,7 +53,7 @@ if ($_POST && $postId !== 0)
     <link rel="stylesheet" type="text/css" href="/lib/includes/style.css" type="text/css">
         <title>
             A blog application |
-            <?php echo lib\Utilities::htmlEscape($row[0]['title']) ?>
+            <?php echo lib\Utilities::htmlEscape($row['title']) ?>
         </title>
         <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
     </head>
@@ -64,17 +63,17 @@ if ($_POST && $postId !== 0)
         <div>
         <h2>
             <?php
-            echo lib\Utilities::htmlEscape($row[0]['title']);
+            echo lib\Utilities::htmlEscape($row['title']);
             ?>
         </h2>
         </div>
         <div>
-            <?php echo lib\Utilities::convertSqlDate($row[0]['created_at']) ?>
+            <?php echo lib\Utilities::convertSqlDate($row['created_at']) ?>
         </div>
         <p>
         <div>
         <?php 
-        echo lib\Utilities::htmlEscape($row[0]['body']);
+        echo lib\Utilities::htmlEscape($row['body']);
         ?>
         </div>
         <button class='post-button'>Edit Post</button>

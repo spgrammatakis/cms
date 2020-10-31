@@ -13,7 +13,7 @@ public function getPostRow($postId)
     $sql ="SELECT post_id,title, body, created_at FROM posts WHERE post_id = :post_id";
     $this->prepareStmt($sql);
     $this->bind(':post_id',$postId);
-    return $this->All();
+    return $this->SingleRow();
 }
 
 public function countCommentsForPost($postId)
