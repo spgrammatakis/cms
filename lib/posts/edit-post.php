@@ -27,7 +27,6 @@ if($_POST){
     echo $postTitle;
     echo $postBody;
     $errors=$pdo->updatePost($postId,$postTitle,$postBody);
-    var_dump($errors);
     if (!$errors)
     {
         header('Location: ' . $_SERVER['PHP_SELF'] . "?post_id=" . $postId);
@@ -38,7 +37,7 @@ if($_POST){
 <!DOCTYPE html>
 <html>
     <head>
-    
+    <meta http-equiv="Content-Security-Policy" content="script-src 'self' ;" >
     <script type="text/javascript" src="/js/redirect-to-edit.js"></script>
     <link rel="stylesheet" type="text/css" href="/lib/includes/style.css" type="text/css">
     <h2>
