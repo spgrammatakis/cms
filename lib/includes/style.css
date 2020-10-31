@@ -1,0 +1,21 @@
+html{
+    font-family: Courier;
+    height:100%;
+}
+body{
+    margin:0;
+    min-height: 100%;
+    display: flex;
+    flex:auto;
+    flex-direction: column;
+
+}
+.content{
+    display: flex;
+    flex-direction: row;
+    flex: auto;
+    overflow:hidden;
+}
+h1{
+    text-align: center;
+}

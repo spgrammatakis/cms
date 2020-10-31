@@ -51,6 +51,7 @@ if ($_POST && $postId !== 0)
     <head>
     <meta http-equiv="Content-Security-Policy" content="script-src 'self';">
     <script type="text/javascript" src="/js/redirect-to-edit.js" defer></script>
+    <link rel="stylesheet" type="text/css" href="/lib/includes/style.css" type="text/css">
         <title>
             A blog application |
             <?php echo lib\Utilities::htmlEscape($row[0]['title']) ?>

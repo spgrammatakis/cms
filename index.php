@@ -11,6 +11,7 @@ $session->sessionCheck();
         <title>A blog application</title>
         <meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
         <script type="text/javascript" src="/js/report-post-comment.js" defer></script>
+        <link rel="stylesheet" type="text/css" href="/lib/includes/style.css" type="text/css">
         <!-- <meta http-equiv="refresh" content="5"> -->
     </head>
     <body>
@@ -55,8 +56,5 @@ $session->sessionCheck();
     </section>
     <?php endfor; ?>
 </div>
-<footer id="page-bottom">
-    footer
-</footer>
     </body>
 </html>

@@ -75,7 +75,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 <head>
     <meta charset="UTF-8">
     <title>Login</title>
-	<link rel="stylesheet" type="text/css" href="./includes/register.css">
+	<link rel="stylesheet" type="text/css" href="/lib/includes/style.css" type="text/css">
 </head>
 <body>
 <a href="./index.php">Homepage</a>
