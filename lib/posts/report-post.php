@@ -1,14 +1,13 @@
 <?php
 require dirname(__DIR__, 2) . '/vendor/autoload.php';
 $handler = new lib\PostManager();
-if(!isset($_COOKIE["user_name"]) || empty($_COOKIE['user_name'])){
-    exit;
-    return;
-};
-if(!isset($_GET['post_id']) || empty($_GET['post_id'])){
-    exit;
+if (    (!isset($_COOKIE["user_name"]) || empty($_COOKIE['user_name']))
+    ||  (!isset($_COOKIE["session_token"]) || empty($_COOKIE['session_token']))
+    ||  (!isset($_GET['post_id']) || empty($_GET['post_id']))
+    )
+    {
+    http_response_code(403);
 }else{
-    
     $handler = new lib\PostManager();
     $handler->reportPost($_GET['post_id']);
 }
