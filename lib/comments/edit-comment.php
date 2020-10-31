@@ -52,14 +52,13 @@ for($c = 0, $size = count($row); $c < $size; ++$c):
                 <p><?php echo lib\Utilities::htmlEscape($row[$c]['content']); ?></p>
                 <p><time><?php echo lib\Utilities::htmlEscape($row[$c]['created_at']);?></time></p>
                 <p><?php echo lib\Utilities::htmlEscape($row[$c]['website']); ?></p>
-                <p><?php echo $postHandler->countCommentsForPost($row[$c]['post_id']). " comments"; ?></p>
         </section>
         <section>
         <p><?php echo "<a href='/lib/posts/view-post.php?post_id=". lib\Utilities::htmlEscape($row[$c]['post_id']) ."'>Read more...</a>";?></p>
         </section>
 </section>
         <?php endfor; ?>
-<?php require dirname(__DIR__, 2).'/templates/user-edit-form.php'; ?>
+<?php require dirname(__DIR__, 2).'/templates/comment-form.php'; ?>
 </section>
     </body>
 </html>
