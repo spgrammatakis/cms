@@ -28,7 +28,6 @@ class UserManager extends DbConnection{
     }
     
     public function updateUser(array $userData){
-        print_r($userData);
         $sql = "
         UPDATE users
         SET username=:username, password=:password, email=:email
@@ -39,7 +38,22 @@ class UserManager extends DbConnection{
         $this->bind(':username',$userData['username']);
         $this->bind(':password',$userData['password']);
         $this->bind(':email',$userData['email']);
-        return $this->run();
+        if($this->run()){
+            $sql = "
+            UPDATE users_metadata
+            SET username=:username
+            WHERE user_id=:user_id
+            ";
+            $this->prepareStmt($sql);
+            $this->bind(':user_id',$userData['user_id']);
+            $this->bind(':username',$userData['username']);
+            $this->run();
+            return $this->run();
+        }else{
+            return false;
+        }
+
+
     }
 
     public function getReportedUsers($limit = NULL){
