@@ -37,8 +37,8 @@ class UserManager extends DbConnection{
 
     public function reportUser(string $id){
         if(!($this->userCheckIfAlreadyExists($id))){
-            echo "user not found";
-            return false;}
+            return http_response_code(404);
+        }
         $sql = "UPDATE users
         SET reported=:reported
         WHERE user_id=:user_id

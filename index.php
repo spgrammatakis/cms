@@ -37,13 +37,13 @@ $session->sessionCheck();
                 ?>
         <?php echo "<section class='comment' id='" . $comment[$c]['comment_id']."'>"; ?>
         <h1 class="comments">Comments</h1>  
-            <footer>
+            <footer id="user-report-footer">
                 <p>Posted by: <span><?php echo lib\Utilities::htmlEscape($comment[$c]['user_name']); ?></span>
-                <span><button class='user-report-button'>Report User</button></span></p>
+                <span><button id='user-report-button'>Report User</button></span></p>
                 <p><?php echo lib\Utilities::htmlEscape($comment[$c]['content']); ?></p>
                 <p><time><?php echo lib\Utilities::htmlEscape($comment[$c]['created_at']);?></time></p>
                 <p><?php echo lib\Utilities::htmlEscape($comment[$c]['website']); ?></p>
-                <button class='comment-report-button' >Report Comment</button>
+                <button id='comment-report-button'>Report Comment</button>
                 <?php endfor; ?>
             </footer>
         </section>
