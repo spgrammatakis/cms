@@ -22,7 +22,7 @@ if (!$row)
 
 $errors=null;
 if($_POST){
-    $postTitle=$_POST['post-title-textarea'];
+    $postTitle=$_POST['post-title'];
     $postBody=$_POST['post-body-textarea'];
     echo $postTitle;
     echo $postBody;
@@ -65,7 +65,8 @@ if($_POST){
         </div>
         <div id="post-editor-wrapper">
         <hr style='border: 5px solid red;'>
-        <?php require dirname(__DIR__, 2).'/templates/post-edit-form.php' ?>
+        <?php require dirname(__DIR__, 2).'/templates/post-edit-form.php'; 
+            print_r($_POST);?>
         </div>
         </p>
     </body>
