@@ -1,7 +1,6 @@
 <?php
 require __DIR__ . '/vendor/autoload.php';
-
-$pdo = new lib\DbConnection();
+$pdo = new lib\UserManager();
 
 $username = $password = $confirm_password = $email = $role ="";
 $username_err = $password_err = $confirm_password_err = $email_err  = $role_err ="";
@@ -22,50 +21,27 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     }
     
 
-    if(empty(trim($_POST["username"]))){
+    if(empty(trim($_POST["username"])) || !isset($_COOKIE["user_name"])){
         $username_err = "Please enter a username.";
-    } else{        
-        $sql = "SELECT user_id FROM users WHERE username = :username";    
-        $pdo->prepareStmt($sql);
-        $param_username = trim($_POST["username"]);
-        $pdo->bind(':username', $param_username);
-
-            if($pdo->run()){
-                if($pdo->rowCount() == 1){
+    }else{      
+        if($pdo->userNameCheckIfAlreadyExists(trim($_POST["username"]))){
                     $username_err = "This username is already taken.";
                 } else{
                     $username = trim($_POST["username"]);
                 }
-            } else{
-                echo "Oops! Something went wrong. Please try again later.";
-            }
 
     }
 
-        if(empty(trim($_POST["email"]))){
-            if (filter_var($_POST["email"], FILTER_VALIDATE_EMAIL)){
+    if(empty(trim($_POST["email"]))){
+        if (filter_var($_POST["email"], FILTER_VALIDATE_EMAIL)){
             $email_err = "Please enter an email.";
             }
         } else{
-
-            $sql = "SELECT user_id FROM users WHERE email = :email";
-            
-            $pdo->prepareStmt($sql);
-                $param_email = trim($_POST["email"]);
-
-                $pdo->bind('email', $param_email);
-                
-                if($pdo->run()){
-                    if($pdo->rowCount() == 1){
+            if($pdo->userEmailCheckIfAlreadyExists(trim($_POST["email"]))){
                         $email_err = "This email is already taken.";
                     } else{
                         $email = trim($_POST["email"]);
                     }
-                } else{
-                    echo "Oops! Something went wrong. Please try again later.";
-                }
-             
-
          }
     
 
