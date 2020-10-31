@@ -91,8 +91,7 @@ public function addCommentToPost($postId, array $commentData)
 
 public function reportPost(string $id){
     if(!($this->postCheckIfAlreadyExists($id))){
-        echo "Post not found";
-        return false;}
+        return http_response_code(404);}
     $sql = "UPDATE posts
     SET reported=:reported
     WHERE post_id=:post_id
@@ -101,8 +100,7 @@ public function reportPost(string $id){
     $this->bind(':reported',1);
     $this->bind(':post_id',$id);
     $this->run();
-    echo "reported";
-    return;
+    return http_response_code(200);
 }
 
 public function getReportedPosts($limit = NULL){
@@ -130,8 +128,7 @@ public function postCheckIfAlreadyExists(string $postID){
 
 public function reportComment(string $id){
     if(!($this->commentCheckIfAlreadyExists($id))){
-        echo "Comment not found";
-        return false;}
+        return http_response_code(404);}
     $sql = "UPDATE comments
     SET reported=:reported
     WHERE comment_id=:comment_id
@@ -140,8 +137,7 @@ public function reportComment(string $id){
     $this->bind(':reported',1);
     $this->bind(':comment_id',$id);
     $this->run();
-    echo "reported";
-    return;
+    return http_response_code(200);
 }
 
 public function commentCheckIfAlreadyExists(string $commentID){

@@ -43,7 +43,7 @@ $session->sessionCheck();
                 <p><?php echo lib\Utilities::htmlEscape($comment[$c]['content']); ?></p>
                 <p><time><?php echo lib\Utilities::htmlEscape($comment[$c]['created_at']);?></time></p>
                 <p><?php echo lib\Utilities::htmlEscape($comment[$c]['website']); ?></p>
-                <button id='comment-report-button'>Report Comment</button>
+                <button class='comment-report-button'>Report Comment</button>
                 <?php endfor; ?>
             </footer>
         </section>

@@ -1,8 +1,9 @@
 var button = document.getElementsByTagName('button');
+const reponseDiv = document.createElement("span");
 for(let i = 0;i<button.length;i++){
     if(button[i].className === "comment-report-button"){
         button[i].addEventListener("click", function(){
-        var id =button[i].closest('section').id;
+        var id = button[i].closest('section').id;
         theUrl = "/lib/comments/report-comment.php?comment_id=" + id;
         var xhttp = new XMLHttpRequest();
         xhttp.open("GET", theUrl, true);
@@ -21,7 +22,6 @@ for(let i = 0;i<button.length;i++){
       var xhttp = new XMLHttpRequest();
       xhttp.open("GET", theUrl, true);
       xhttp.send();
-      console.log(this.response);
       xhttp.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
        console.log(this.response);
@@ -36,23 +36,21 @@ for(let i = 0;i<button.length;i++){
     const xhttp = new XMLHttpRequest();
     xhttp.open("GET", theUrl, true);
     xhttp.onreadystatechange = function() {
-      if (this.readyState == 4 && this.status == 200) {
-        var newDiv = document.createElement("span"); 
+      if (this.readyState == 4 && this.status == 200) { 
         var responseText = "User Reported";
-        const newContent = document.createTextNode(responseText); 
-        newDiv.appendChild(newContent);
-        const currentDiv = document.getElementById('user-report-button').closest('p');
-        document.getElementById('user-report-footer').insertBefore(newDiv, currentDiv); 
+        var childToAppend = document.createTextNode(responseText); 
+        reponseDiv.appendChild(childToAppend);
+        var currentDiv = document.getElementById('user-report-button').closest('p');
+        document.getElementById('user-report-footer').insertBefore(reponseDiv, currentDiv);
+
       }
       if(this.readyState < 4 && this.status == 404){
-        var newDiv = document.createElement("span"); 
         var responseText = "User Not Found";
-        const newContent = document.createTextNode(responseText); 
-        newDiv.appendChild(newContent);
-        const currentDiv = document.getElementById('user-report-button').closest('p');
-        document.getElementById('user-report-footer').insertBefore(newDiv, currentDiv); 
+        var childToAppend = document.createTextNode(responseText); 
+        reponseDiv.appendChild(childToAppend);
+        var currentDiv = document.getElementById('user-report-button').closest('p');
+        document.getElementById('user-report-footer').insertBefore(reponseDiv, currentDiv);
       }
-
     };
     xhttp.send();
     });

@@ -47,8 +47,7 @@ class UserManager extends DbConnection{
         $this->bind(':reported',1);
         $this->bind(':user_id',$id);
         $this->run();
-        echo "reported";
-        return;
+        return http_response_code(200);
     }
     
     public function userCheckIfAlreadyExists(string $userID){
