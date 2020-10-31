@@ -18,7 +18,7 @@ DROP TABLE IF EXISTS comments;
 CREATE TABLE comments (
     comment_id VARCHAR(20) PRIMARY KEY NOT NULL UNIQUE,
     post_id VARCHAR(20) NOT NULL,
-    user_name VARCHAR(20) NOT NULL,
+    user_id VARCHAR(20) NOT NULL,
     website VARCHAR(30),
     content LONGTEXT NOT NULL,
     reported BOOLEAN NOT NULL DEFAULT 0,

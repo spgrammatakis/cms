@@ -2,7 +2,7 @@
 require dirname(__DIR__, 2) . '/vendor/autoload.php';
 $username = $_COOKIE['user_name'] ?? "guest";
 $session = new lib\SessionManager($username);
-
+$session->sessionCheck();
 if ((isset($_GET['post_id'])))
 {
     $postId = $_GET['post_id'];
@@ -18,25 +18,17 @@ if(!$row){
     http_response_code(404);
     exit;
 }
-$commentData = array(
-    'user_name' => '',
-    'website' => '',
-    'content' => '',
-);
 
 $errors = null;
 if ($_POST && $postId !== 0)
 {
     $commentData = array(
-        'user_name' => $_POST['comment-name'],
+        'user_id' => $session->getUserID(),
         'website' => $_POST['comment-website'],
         'content' => $_POST['comment-text'],
     );
-    $errors = $pdo->addCommentToPost(
-        $postId,
-        $commentData
-    );
     
+    $errors = $pdo->addCommentToPost($postId,$commentData); 
     if (!$errors)
     {
         header('Location: ' . $_SERVER['PHP_SELF'] . "?post_id=" . $postId);
@@ -101,10 +93,10 @@ if ($_POST && $postId !== 0)
         <?php endforeach; ?>
         </div>
         <?php
-        $session->sessionCheck();
         if($session->getUserRole() === "guest"){
             echo "<h1>You must be logged in to Comment</h1>";
         }else{
+            echo "<h3>Add your comment</h3>";
             require dirname(__DIR__, 2).'/templates/comment-form.php';
         }
         ?>

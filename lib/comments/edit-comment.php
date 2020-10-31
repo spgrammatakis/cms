@@ -63,7 +63,9 @@ for($c = 0, $size = count($row); $c < $size; ++$c):
         </section>
 </section>
         <?php endfor; ?>
-<?php require dirname(__DIR__, 2).'/templates/comment-form.php'; ?>
+<?php 
+echo "<h3>Edit Comment</h3>";
+require dirname(__DIR__, 2).'/templates/comment-form.php'; ?>
 </section>
     </body>
 </html>

@@ -59,7 +59,7 @@ public function updatePost($postId,$postTitle,$postBody){
 public function addCommentToPost($postId, array $commentData)
 {
     $errors = array();
-
+    
     if (empty($commentData['user_name']))
     {
         $errors['user_name'] = 'A name is required';
@@ -74,8 +74,8 @@ public function addCommentToPost($postId, array $commentData)
         $sql = "
             INSERT INTO
             comments
-            (comment_id,user_name, website, content, created_at, post_id)
-            VALUES(:comment_id,:user_name, :website, :content, :created_at, :post_id)
+            (comment_id,user_id, website, content, created_at, post_id)
+            VALUES(:comment_id,:user_id, :website, :content, :created_at, :post_id)
         ";
         $commentData = array_merge(
                 $commentData,
@@ -184,7 +184,7 @@ public function getCommentsForPost($postId,$limit = NULL)
 {
     $limit = is_null($limit) ? PHP_INT_MAX : $limit;
     $sql = "SELECT
-            comment_id, user_name, content, created_at, website
+            comment_id, user_id, content, created_at, website
         FROM
             comments
         WHERE
