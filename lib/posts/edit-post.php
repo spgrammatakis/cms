@@ -21,6 +21,7 @@ $row = $pdo->getPostRow($postId);
 if (!$row)
 {
     http_response_code(404);
+    exit;
 }
 
 $errors=null;

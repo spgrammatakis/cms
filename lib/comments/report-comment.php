@@ -8,6 +8,7 @@ if (    (!isset($_COOKIE["user_name"]) || empty($_COOKIE['user_name']))
     )
     {
     http_response_code(403);
+    exit;
 }else{
     $handler = new lib\PostManager();
     $handler->reportComment($_GET['comment_id']);
