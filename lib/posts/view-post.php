@@ -26,7 +26,6 @@ if ($_POST)
 {
     $commentData = array(
         'user_id' => $session->getUserID(),
-        'website' => $_POST['comment-website'],
         'content' => $_POST['comment-text'],
     );
     
@@ -86,9 +85,6 @@ if ($_POST)
                 </div>
                 <div class="comment-body">
                     <?php echo lib\Utilities::htmlEscape($comment['content']); ?>
-                </div>
-                <div class="comment-website">
-                    <?php echo lib\Utilities::htmlEscape($comment['website']); ?>
                 </div>
         <button class='comment-button'>Edit Comment</button>
         </div>

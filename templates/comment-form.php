@@ -1,15 +1,5 @@
 <form method="post" id="comment-form">
     <p>
-        <label for="comment-website">
-            Website:
-        </label>
-        <input
-            type="text"
-            id="comment-website"
-            name="comment-website"
-        />
-    </p>
-    <p>
         <label for="comment-text">
             Comment:
         </label>

@@ -22,7 +22,6 @@ $errors=null;
 if($_POST){
     $commentData = array(
         "comment-id" => $commentID,
-        "comment-website" => $_POST['comment-website'],
         "comment-text" => $_POST['comment-text']
     );
     $errors=$pdo->updateComment($commentData);
@@ -56,7 +55,6 @@ for($c = 0, $size = count($row); $c < $size; ++$c):
                 <p>Posted by: <span><?php echo lib\Utilities::htmlEscape($row[$c]['user_name']); ?></span></p>
                 <p><?php echo lib\Utilities::htmlEscape($row[$c]['content']); ?></p>
                 <p><time><?php echo lib\Utilities::htmlEscape($row[$c]['created_at']);?></time></p>
-                <p><?php echo lib\Utilities::htmlEscape($row[$c]['website']); ?></p>
         </section>
         <section>
         <p><?php echo "<a href='/lib/posts/view-post.php?post_id=". lib\Utilities::htmlEscape($row[$c]['post_id']) ."'>Read more...</a>";?></p>

@@ -62,8 +62,8 @@ public function addCommentToPost($postId, array $commentData)
         $sql = "
             INSERT INTO
             comments
-            (comment_id,user_id, website, content, created_at, post_id)
-            VALUES(:comment_id,:user_id, :website, :content, :created_at, :post_id)
+            (comment_id,user_id,content, created_at, post_id)
+            VALUES(:comment_id,:user_id, :content, :created_at, :post_id)
         ";
         $commentData = array_merge(
                 $commentData,
@@ -142,12 +142,11 @@ public function getUserComments(string $username){
 
 public function updateComment($commentData){
     $sql = "UPDATE comments
-    SET content=:content,website=:website
+    SET content=:content
     WHERE comment_id=:comment_id
     "; 
     $this->prepareStmt($sql);
     $this->bind(':content',$commentData['comment-text']);
-    $this->bind(':website',$commentData['comment-website']);
     $this->bind(':comment_id',$commentData['comment-id']);
     return $this->run();
 
@@ -171,7 +170,7 @@ public function getCommentsForPost($postId,$limit = NULL)
 {
     $limit = is_null($limit) ? PHP_INT_MAX : $limit;
     $sql = "SELECT
-            comment_id, user_id, content, created_at, website
+            comment_id, user_id, content, created_at
         FROM
             comments
         WHERE
