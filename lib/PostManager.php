@@ -58,19 +58,7 @@ public function updatePost($postId,$postTitle,$postBody){
 
 public function addCommentToPost($postId, array $commentData)
 {
-    $errors = array();
-    
-    if (empty($commentData['user_name']))
-    {
-        $errors['user_name'] = 'A name is required';
-    }
-    if (empty($commentData['content']))
-    {
-        $errors['content'] = 'A comment is required';
-    }
 
-    if (!$errors)
-    {
         $sql = "
             INSERT INTO
             comments
@@ -83,8 +71,7 @@ public function addCommentToPost($postId, array $commentData)
             );
         $this->prepareStmt($sql);
         $this->runArray($commentData);
-    }
-    return $errors;
+    return;
 }
 
 public function reportPost(string $id){
@@ -195,6 +182,14 @@ public function getCommentsForPost($postId,$limit = NULL)
     $this->bind(':post_id',$postId);
     $this->bind(":limit",$limit);
     return $this->All();
+}
+
+public function getUserNameFromID(string $id){
+    $sql = "SELECT username FROM users WHERE user_id=:user_id";
+    $this->prepareStmt($sql);
+    $this->bind(':user_id',$id);
+    $row = $this->SingleRow();
+    return $row['username'];
 }
 
 public function getPosts($limit = NULL){

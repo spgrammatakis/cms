@@ -1,4 +1,4 @@
-<form method="post">
+<form method="post" id="comment-form">
     <p>
         <label for="comment-website">
             Website:

@@ -9,7 +9,8 @@ if ((isset($_GET['post_id'])))
 }
 else
 {
-    $postId = 0;
+    http_response_code(403);
+    exit;
 }
 ini_set('display_errors', '1');
 $pdo = new lib\PostManager();
@@ -20,7 +21,8 @@ if(!$row){
 }
 
 $errors = null;
-if ($_POST && $postId !== 0)
+
+if ($_POST)
 {
     $commentData = array(
         'user_id' => $session->getUserID(),
@@ -78,7 +80,7 @@ if ($_POST && $postId !== 0)
         <?php echo "<div class='comment' id='" . $comment['comment_id']."'>"; ?>
                 <div class="comment-meta">
                     Comment from
-                    <?php echo lib\Utilities::htmlEscape($comment['user_name']); ?>
+                    <?php echo lib\Utilities::htmlEscape($pdo->getUserNameFromID($comment['user_id'])); ?>
                     on
                     <?php echo lib\Utilities::convertSqlDate($comment['created_at']); ?>
                 </div>
