@@ -103,7 +103,7 @@ if ($_POST && $postId !== 0)
         <?php
         $session->sessionCheck();
         if($session->getUserRole() === "guest"){
-            echo "You must be logged in to Comment";
+            echo "<h1>You must be logged in to Comment</h1>";
         }else{
             require dirname(__DIR__, 2).'/templates/comment-form.php';
         }
