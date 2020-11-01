@@ -15,11 +15,11 @@ if(!($session->getUserRole() === "admin")){
         <title>A blog application</title>
         <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
         <script type="text/javascript" src="/dashboard/dashboard.js" defer></script>
-        <link rel="stylesheet" type="text/css" href="/templates/sidenavbar/sidenavbar.css" type="text/css">
+        <link rel="stylesheet" type="text/css" href="/templates/dashboardNavbar/dashboardNavbar.css" type="text/css">
         <link rel="stylesheet" type="text/css" href="/dashboard/dashboard.css" type="text/css">
     </head>
     <body>
-<?php require dirname(__DIR__, 2) . '/templates/sidenavbar/sidenavbar.html'; ?>
+<?php require dirname(__DIR__, 2) . '/templates/dashboardNavbar/dashboardNavbar.html'; ?>
 <div class="container">
 <section id ="user-section">
 <h1 class="users">Reported Users</h1>
@@ -41,7 +41,7 @@ for($i = 0, $size = count($row); $i < $size; ++$i):
         <th>Reported</th>
     </tr>
     <tr>
-        <td class="user-id"><?php echo lib\Utilities::htmlEscape($row[$i]['user_id']);?></td>
+        <td class="user-id"><?php echo lib\Utilities::htmlEscape($userManager->$row[$i]['user_id']);?></td>
         <td class="username"><?php echo lib\Utilities::htmlEscape($row[$i]['username']);?></td>
         <td class="email"><?php echo lib\Utilities::htmlEscape($row[$i]['email']);?></td> 
         <td class="created-at"><?php echo lib\Utilities::htmlEscape($row[$i]['created_at']);?></td>  

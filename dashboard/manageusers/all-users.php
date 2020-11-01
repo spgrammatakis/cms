@@ -15,11 +15,11 @@ if(!($session->getUserRole() === "admin")){
         <title>A blog application</title>
         <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
         <script type="text/javascript" src="/dashboard/dashboard.js" defer></script>
-        <link rel="stylesheet" type="text/css" href="/templates/sidenavbar/sidenavbar.css" type="text/css">
+        <link rel="stylesheet" type="text/css" href="/templates/dashboardNavbar/dashboardNavbar.css" type="text/css">
         <link rel="stylesheet" type="text/css" href="/dashboard/dashboard.css" type="text/css">
     </head>
     <body>
-<?php require dirname(__DIR__, 2) . '/templates/sidenavbar/sidenavbar.html'; ?>
+<?php require dirname(__DIR__, 2) . '/templates/dashboardNavbar/dashboardNavbar.html'; ?>
 <div class="container">
 <section id ="user-section">
 <h1 class="users">Users</h1>

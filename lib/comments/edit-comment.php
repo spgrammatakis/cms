@@ -38,11 +38,11 @@ if($_POST){
         <meta http-equiv="Content-Security-Policy" content="script-src 'self' ;" >
         <title>A blog application</title>
         <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
-        <link rel="stylesheet" type="text/css" href="/templates/sidenavbar/sidenavbar.css" type="text/css">
+        <link rel="stylesheet" type="text/css" href="/templates/dashboardNavbar/dashboardNavbar.css" type="text/css">
         <link rel="stylesheet" type="text/css" href="/dashboard/dashboard.css" type="text/css">
     </head>
     <body>
-<?php require dirname(__DIR__, 2) . '/templates/sidenavbar/sidenavbar.html'; ?>
+<?php require dirname(__DIR__, 2) . '/templates/dashboardNavbar/dashboardNavbar.html'; ?>
 <section class="container">
 <section id ="user-section">
 <?php $comment = new lib\PostManager();

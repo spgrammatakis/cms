@@ -183,14 +183,6 @@ public function getCommentsForPost($postId,$limit = NULL)
     return $this->All();
 }
 
-public function getUserNameFromID(string $id){
-    $sql = "SELECT username FROM users WHERE user_id=:user_id";
-    $this->prepareStmt($sql);
-    $this->bind(':user_id',$id);
-    $row = $this->SingleRow();
-    return $row['username'];
-}
-
 public function getPosts($limit = NULL){
     $limit = is_null($limit) ? PHP_INT_MAX : $limit;
     $this->prepareStmt("SELECT post_id,title,body,created_at FROM posts LIMIT :limit");

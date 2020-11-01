@@ -19,6 +19,7 @@ $session->sessionCheck();
         <?php
         require 'templates/title.php';
         $postHandler = new lib\PostManager();
+        $userHandler = new lib\UserManager();
         $row = $postHandler->getPosts();
         ?>
 <div class="container">
@@ -38,7 +39,7 @@ $session->sessionCheck();
         <?php echo "<section class='comment' id='" . $comment[$c]['comment_id']."'>"; ?>
         <h1 class="comments">Comments</h1>  
             <footer class="user" id="<?php echo $comment[$c]['user_id'];?>">
-                <p>Posted by: <span><?php echo lib\Utilities::htmlEscape($postHandler->getUserNameFromID($comment[$c]['user_id'])); ?></span>
+                <p>Posted by: <span><?php echo lib\Utilities::htmlEscape($userHandler->getUserNameFromID($comment[$c]['user_id'])); ?></span>
                 <span><button class='user-report-button'>Report User</button></span></p>
                 <p><?php echo lib\Utilities::htmlEscape($comment[$c]['content']); ?></p>
                 <p><time><?php echo lib\Utilities::htmlEscape($comment[$c]['created_at']);?></time></p>

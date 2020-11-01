@@ -18,13 +18,13 @@ if(!($session->getUserRole() === "admin")){
         <title>A blog application</title>
         <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
         <script type="text/javascript" src="/dashboard/dashboard.js" defer></script>
-        <link rel="stylesheet" type="text/css" href="/templates/sidenavbar/sidenavbar.css" type="text/css">
+        <link rel="stylesheet" type="text/css" href="/templates/dashboardNavbar/dashboardNavbar.css" type="text/css">
         <link rel="stylesheet" type="text/css" href="/dashboard/dashboard.css" type="text/css">
         <!-- <meta http-equiv="refresh" content="5"> -->
     </head>
     <body>
 <?php
-require dirname(__DIR__, 1) . '/templates/sidenavbar/sidenavbar.html'; ?>
+require dirname(__DIR__, 1) . '/templates/dashboardNavbar/dashboardNavbar.html'; ?>
 <section class="content">
 <section id="all-user-section">
 <section id ="user-section">
