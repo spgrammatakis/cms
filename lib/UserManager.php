@@ -32,10 +32,10 @@ class UserManager extends DbConnection{
         print_r($userData);
         $this->prepareStmt($sql);
         $this->bind(':username',$userData['current-username']);
-        if($this->run && $this->rowCount == 1){
+        if($this->run() && $this->rowCount() == 1){
             $row = $this->SingleRow();
-            $hashed_password = $row['password'];
-            if(password_verify($userData['current-passowrd'],$hashed_password)){
+            $password = $row['password'];
+            if(password_verify($userData['current-password'],$password)){
                 $sql = "
                 UPDATE users
                 SET username=:username, password=:password, email=:email
