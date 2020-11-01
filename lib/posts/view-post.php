@@ -15,6 +15,7 @@ else
 ini_set('display_errors', '1');
 $pdo = new lib\PostManager();
 $row = $pdo->getPostRow($postId);
+$userHandler = new lib\UserManager();
 if(!$row){
     http_response_code(404);
     exit;
@@ -45,6 +46,7 @@ if ($_POST)
     <meta http-equiv="Content-Security-Policy" content="script-src 'self';">
     <script type="text/javascript" src="/js/redirect-to-edit.js" defer></script>
     <link rel="stylesheet" type="text/css" href="/lib/includes/style.css" type="text/css">
+    <link rel="stylesheet" type="text/css" href="/templates/navbar/navbar.css" type="text/css">
         <title>
             A blog application |
             <?php echo lib\Utilities::htmlEscape($row['title']) ?>
@@ -52,7 +54,7 @@ if ($_POST)
         <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
     </head>
     <body>
-    <?php require dirname(__DIR__, 2).'/templates/title.php' ?>
+    <?php require dirname(__DIR__, 2).'/templates/navbar/navbar.html' ?>
     <?php echo "<div class='post' id='" . $postId."'>"; ?>
         <div>
         <h2>
@@ -79,7 +81,7 @@ if ($_POST)
         <?php echo "<div class='comment' id='" . $comment['comment_id']."'>"; ?>
                 <div class="comment-meta">
                     Comment from
-                    <?php echo lib\Utilities::htmlEscape($pdo->getUserNameFromID($comment['user_id'])); ?>
+                    <?php echo lib\Utilities::htmlEscape($userHandler->getUserNameFromID($comment['user_id'])); ?>
                     on
                     <?php echo lib\Utilities::convertSqlDate($comment['created_at']); ?>
                 </div>

@@ -75,10 +75,11 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 <head>
     <meta charset="UTF-8">
     <title>Login</title>
-	<link rel="stylesheet" type="text/css" href="/lib/includes/style.css" type="text/css">
+    <link rel="stylesheet" type="text/css" href="/lib/includes/style.css" type="text/css">
+    <link rel="stylesheet" type="text/css" href="/templates/navbar/navbar.css" type="text/css">
 </head>
 <body>
-<a href="./index.php">Homepage</a>
+<?php require 'templates/navbar/navbar.html'; ?>
     <div class="form-area">
         <div class="form">
             <h2>Login</h2>

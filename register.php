@@ -103,8 +103,10 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 <head>
     <meta charset="UTF-8">
     <link rel="stylesheet" type="text/css" href="/lib/includes/style.css" type="text/css">
+    <link rel="stylesheet" type="text/css" href="/templates/navbar/navbar.css" type="text/css">
     <title>Register</title>
 </head>
+<?php require 'templates/navbar/navbar.html'; ?>
 <body>
     <div class="form-area">
         <div class="form">

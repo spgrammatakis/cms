@@ -1,0 +1,26 @@
+#navigation-bar{
+  background-color: black;
+}
+ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow:hidden;
+  }
+  li{
+    border: none;
+    background-color: inherit;
+    cursor: pointer;
+    display: inline-block;
+  }
+  li a { 
+    color: white;
+    text-decoration: none;
+    background-color:black;
+    padding: 20px;
+    display: inline-block;
+  }
+  
+  li a:hover{
+    background-color: red;
+    }

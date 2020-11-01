@@ -38,6 +38,7 @@ if($_POST){
     <meta http-equiv="Content-Security-Policy" content="script-src 'self' ;" >
     <script type="text/javascript" src="/js/redirect-to-edit.js"></script>
     <link rel="stylesheet" type="text/css" href="/lib/includes/style.css" type="text/css">
+    <link rel="stylesheet" type="text/css" href="/templates/navbar/navbar.css" type="text/css">
     <h2>
         <title>
             A blog application
@@ -46,7 +47,7 @@ if($_POST){
     </h2>
     </head>
     <body>
-    <a href="/index.php"><h1>Homepage</h1></a>
+    <?php require dirname(__DIR__, 2) . '/templates/dashboardNavbar/dashboardNavbar.html'; ?>
     <?php
 
         $postHandler = new lib\PostManager();

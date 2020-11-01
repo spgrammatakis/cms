@@ -12,12 +12,12 @@ $session->sessionCheck();
         <meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
         <script type="text/javascript" src="/js/report-post-comment-user.js" defer></script>
         <link rel="stylesheet" type="text/css" href="/lib/includes/style.css" type="text/css">
+        <link rel="stylesheet" type="text/css" href="/templates/navbar/navbar.css" type="text/css">
         <!-- <meta http-equiv="refresh" content="5"> -->
     </head>
-    <body>
-    <a href="/setup.php">Setup</a>  
+    <body>  
         <?php
-        require 'templates/title.php';
+        require 'templates/navbar/navbar.html';
         $postHandler = new lib\PostManager();
         $userHandler = new lib\UserManager();
         $row = $postHandler->getPosts();
