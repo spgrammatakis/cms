@@ -10,9 +10,6 @@ updated_at DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
 reported BOOLEAN NOT NULL DEFAULT 0
 )DEFAULT CHARSET=utf8;
 
-INSERT INTO posts(post_id,title, body, author_id, created_at)
-VALUES("f2b8de889c344ab5bae0","Here's our first post","This is the body of the first post.It is split into paragraphs.","9b7ccd4e565085f4093c",now());
-
 DROP TABLE IF EXISTS comments;
 
 CREATE TABLE comments (
