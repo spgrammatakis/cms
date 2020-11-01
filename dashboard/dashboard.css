@@ -2,6 +2,7 @@ html{
     font-family: Courier;
     height:100%;
 }
+
 body{
     margin:0;
     min-height: 100%;
@@ -10,33 +11,28 @@ body{
     flex-direction: column;
 
 }
+
 .content{
     display: flex;
     flex-direction: row;
     flex: auto;
 
 }
+
 #all-user-section{
     display: flex;
     flex-direction: column;
 }
+
 #non-reported-posts-section,#reported-posts-section,#user-section,#comments-section,#reported-comments,#reported-users{
     border:1px solid black;
 }
+
 table{
     border-collapse: collapse;
 }
 th,td:not([class="button"]){
     border: 1px solid black;
-}
-
-.comment-website span{
-    font-weight: bold;
-    font-style: italic;
-}
-
-.comment:hover{
-    background-color: darkgrey;
 }
 
 h1{
