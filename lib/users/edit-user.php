@@ -20,8 +20,10 @@ $errors=null;
 if($_POST){
     $userData = array(
         "user_id" => $row['user_id'],
+        "current-username" => $row['username'],
         "username" => $_POST['username'],
         "password" => password_hash($_POST['new-password'], PASSWORD_DEFAULT),
+        "current-password"=>$_POST['current-password'],
         "email" => $_POST['email']
     );
     $errors=$pdo->updateUserAndMetadata($userData);

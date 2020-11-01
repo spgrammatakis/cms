@@ -11,6 +11,7 @@
     <p>
         <label for="new-user-password">New Password:</label>
         <input
+            type="password"
             id="new-user-password"
             name="new-password"
         />
@@ -18,6 +19,7 @@
     <p>
         <label for="current-user-password">Current Password:</label>
         <input
+            type="password"
             id="current-user-password"
             name="current-password"
         />

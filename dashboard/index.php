@@ -145,7 +145,7 @@ for($p = 0; $p < count($row); ++$p):
     for($r = 0; $r < count($reportedComment); ++$r): 
 ?>
     <section class="comment">
-        <p>Posted by: <<span><?php echo lib\Utilities::htmlEscape($userManager->getUserNameFromID($reportedComment[$r]['user_id'])); ?></span></p>
+        <p>Posted by: <span><?php echo lib\Utilities::htmlEscape($userManager->getUserNameFromID($reportedComment[$r]['user_id'])); ?></span></p>
         <p><?php echo lib\Utilities::htmlEscape($reportedComment[$r]['content']); ?></p>
         <p><time><?php echo lib\Utilities::htmlEscape($reportedComment[$r]['created_at']);?></time></p>
         <p><?php echo lib\Utilities::htmlEscape($reportedComment[$r]['website']); ?></p>

@@ -28,32 +28,41 @@ class UserManager extends DbConnection{
     }
     
     public function updateUserAndMetadata(array $userData){
-        $sql = "
-        UPDATE users
-        SET username=:username, password=:password, email=:email
-        WHERE user_id=:user_id
-        ";
+        $sql="SELECT username,password FROM users WHERE username=:username";
+        print_r($userData);
         $this->prepareStmt($sql);
-        $this->bind(':user_id',$userData['user_id']);
-        $this->bind(':username',$userData['username']);
-        $this->bind(':password',$userData['password']);
-        $this->bind(':email',$userData['email']);
-        if($this->run()){
-            $sql = "
-            UPDATE users_metadata
-            SET username=:username
-            WHERE user_id=:user_id
-            ";
-            $this->prepareStmt($sql);
-            $this->bind(':user_id',$userData['user_id']);
-            $this->bind(':username',$userData['username']);
-            $this->run();
-            return $this->run();
-        }else{
-            return false;
+        $this->bind(':username',$userData['current-username']);
+        if($this->run && $this->rowCount == 1){
+            $row = $this->SingleRow();
+            $hashed_password = $row['password'];
+            if(password_verify($userData['current-passowrd'],$hashed_password)){
+                $sql = "
+                UPDATE users
+                SET username=:username, password=:password, email=:email
+                WHERE user_id=:user_id
+                ";
+                $this->prepareStmt($sql);
+                $this->bind(':user_id',$userData['user_id']);
+                $this->bind(':username',$userData['username']);
+                $this->bind(':password',$userData['password']);
+                $this->bind(':email',$userData['email']);
+                if($this->run()){
+                    $sql = "
+                    UPDATE users_metadata
+                    SET username=:username
+                    WHERE user_id=:user_id
+                    ";
+                    $this->prepareStmt($sql);
+                    $this->bind(':user_id',$userData['user_id']);
+                    $this->bind(':username',$userData['username']);
+                    $this->run();
+                    return $this->run();
+                }else{
+                    return false;
+                }    
+
+            }
         }
-
-
     }
 
     public function getUserNameFromID(string $id){
