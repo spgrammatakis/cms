@@ -29,7 +29,6 @@ class UserManager extends DbConnection{
     
     public function updateUserAndMetadata(array $userData){
         $sql="SELECT username,password FROM users WHERE username=:username";
-        print_r($userData);
         $this->prepareStmt($sql);
         $this->bind(':username',$userData['current-username']);
         if($this->run() && $this->rowCount() == 1){

@@ -57,10 +57,8 @@ class SessionManager extends DbConnection{
                 };             
                 if($this->sessionCheckIfAlreadyExists($this->userID)){
                     $this->updateUserMetaData($this->userID);
-                    $this->setCookieUserName();
                 }else{
                     $this->sessionInsertNewRow($this->userID);
-                    $this->setCookieUserName();
                 } 
         }
     }
@@ -72,18 +70,6 @@ class SessionManager extends DbConnection{
         $this->prepareStmt($sql);
         $this->bind(':user_role',$userRole);
         return $this->SingleRow();
-    }
-
-    private function setCookieUserName(){
-        $sql = "SELECT users.username 
-        FROM users 
-        INNER JOIN users_metadata ON users_metadata.user_id = users.user_id 
-        WHERE users.user_id = :user_id";
-        $this->prepareStmt($sql);
-        $this->bind(':user_id', $this->userID);
-        $row['user_name'] = $this->run();
-        $this->userName = $row['user_name'];
-        return;
     }
 
     private function setCookiesParams(){

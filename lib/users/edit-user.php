@@ -9,7 +9,6 @@ if( !isset($_GET['user'])
     http_response_code(403);
     exit;
 }
-$session->setUserName($username);
 $userHandler = new lib\UserManager();
 $row = $userHandler->getUserRow(trim($_GET['user']));
 if (!$row)
@@ -19,8 +18,12 @@ if (!$row)
 }
 $userPrivileges = $session->getUserPrivileges($session->getUserRole());
 $userPrivileges = json_decode($userPrivileges['user_privileges'], true);
-print_r($userPrivileges);
-$errors=null;
+if( (($session->getUserName() !== $row['username']) && ($userPrivileges['edit_self'] === 1))
+    || ($userPrivileges['edit_user']=== 1) ){
+}else{
+    http_response_code(403);
+    exit;
+}
 if($_POST){
     $userData = array(
         "user_id" => $row['user_id'],
@@ -30,7 +33,6 @@ if($_POST){
         "current-password"=>trim($_POST['current-password']),
         "email" => trim($_POST['email'])
     );
-    if($userData['current-username'])
     $userHandler->updateUserAndMetadata($userData);
 }
 ?>
