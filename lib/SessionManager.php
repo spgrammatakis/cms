@@ -65,6 +65,15 @@ class SessionManager extends DbConnection{
         }
     }
 
+    public function getUserPrivileges(string $userRole){
+        $sql =" SELECT user_privileges  
+                FROM users_options 
+                WHERE user_role=:user_role";
+        $this->prepareStmt($sql);
+        $this->bind(':user_role',$userRole);
+        return $this->SingleRow();
+    }
+
     private function setCookieUserName(){
         $sql = "SELECT users.username 
         FROM users 

@@ -3,30 +3,35 @@ require dirname(__DIR__, 2) . '/vendor/autoload.php';
 $username = $_COOKIE['user_name'] ?? "guest";
 $session = new lib\SessionManager($username);
 $session->sessionCheck();
-if($session->getUserRole() === "guest"){
+if( !isset($_GET['user']) 
+    || empty($_GET['user'])
+    || $session->getUserRole() === "guest"){
     http_response_code(403);
     exit;
 }
 $session->setUserName($username);
-$pdo = new lib\UserManager();
-$row = $pdo->getUserRow($username);
+$userHandler = new lib\UserManager();
+$row = $userHandler->getUserRow(trim($_GET['user']));
 if (!$row)
 {
     http_response_code(404);
     exit;
 }
-
+$userPrivileges = $session->getUserPrivileges($session->getUserRole());
+$userPrivileges = json_decode($userPrivileges['user_privileges'], true);
+print_r($userPrivileges);
 $errors=null;
 if($_POST){
     $userData = array(
         "user_id" => $row['user_id'],
         "current-username" => $row['username'],
-        "username" => trim($_POST['username']),
+        "new-username" => trim($_POST['username']),
         "password" => password_hash($_POST['new-password'], PASSWORD_DEFAULT),
-        "current-password"=>$_POST['current-password'],
+        "current-password"=>trim($_POST['current-password']),
         "email" => trim($_POST['email'])
     );
-    $errors=$pdo->updateUserAndMetadata($userData);
+    if($userData['current-username'])
+    $userHandler->updateUserAndMetadata($userData);
 }
 ?>
 <!DOCTYPE html>
