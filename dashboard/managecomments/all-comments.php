@@ -35,7 +35,6 @@ if(!($session->getUserRole() === "admin")){
                 <p>Posted by: <span><?php echo lib\Utilities::htmlEscape($userHandler->getUserNameFromID($comment[$c]['user_id'])); ?></span></p>
                 <p><?php echo lib\Utilities::htmlEscape($comment[$c]['content']); ?></p>
                 <p><time><?php echo lib\Utilities::htmlEscape($comment[$c]['created_at']);?></time></p>
-                <p><?php echo lib\Utilities::htmlEscape($comment[$c]['website']); ?></p>
                 <p><?php echo "<a href='/lib/posts/view-post.php?post_id=". lib\Utilities::htmlEscape($comment[$c]['post_id']) ."'>Read more...</a>";?></p>
                 <?php endfor; ?>
             </footer>

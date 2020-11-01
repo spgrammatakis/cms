@@ -37,13 +37,15 @@ if($session->getUserRole() === "guest"){
             <footer>
                 <?php
                 $comment = $postHandler->getCommentsForPost($row[$p]['post_id']);
+                $userHandler = new lib\UserManager();
                 for($c = 0; $c < count($comment); ++$c):
                 ?>
-                <p>Posted by: <span><?php echo lib\Utilities::htmlEscape($comment[$c]['user_name']); ?></span></p>
+                <p>Posted by: <span><?php echo lib\Utilities::htmlEscape($userHandler->getUserNameFromID($comment[$c]['user_id'])); ?></span></p>
                 <p><?php echo lib\Utilities::htmlEscape($comment[$c]['content']); ?></p>
                 <p><time><?php echo lib\Utilities::htmlEscape($comment[$c]['created_at']);?></time></p>
                 <p><?php echo lib\Utilities::htmlEscape($comment[$c]['website']); ?></p>
                 <p><?php echo $postHandler->countCommentsForPost($row[$p]['post_id']). " comments"; ?></p>
+                <p><?php echo "<a href='/lib/posts/edit-post.php?post_id=". lib\Utilities::htmlEscape($row[$p]['post_id']) ."'>Edit Post</a>";?></p>
                 <?php endfor; ?>
             </footer>
         </section>
