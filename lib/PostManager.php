@@ -133,10 +133,17 @@ public function commentCheckIfAlreadyExists(string $commentID){
     return $this->rowCount() == 1;
 }
 
-public function getUserComments(string $username){
-    $sql="SELECT * FROM comments WHERE user_name=:user_name";
+public function getCommentRow(string $commentID){
+    $sql="SELECT * FROM comments WHERE comment_id=:comment_id";
     $this->prepareStmt($sql);
-    $this->bind(':user_name', $username);
+    $this->bind(':comment_id', $commentID);
+    return $this->SingleRow();
+}
+
+public function getUserComments(string $userID){
+    $sql="SELECT * FROM comments WHERE user_id=:user_id";
+    $this->prepareStmt($sql);
+    $this->bind(':user_id', $userID);
     return $this->All();
 }
 

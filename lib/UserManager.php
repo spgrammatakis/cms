@@ -64,6 +64,14 @@ class UserManager extends DbConnection{
         }
     }
 
+    public function getUserIDFromName(string $username){
+        $sql = "SELECT user_id FROM users WHERE username=:username";
+        $this->prepareStmt($sql);
+        $this->bind(':username',$username);
+        $row = $this->SingleRow();
+        return $row['user_id'];
+    }
+
     public function getUserNameFromID(string $id){
         $sql = "SELECT username FROM users WHERE user_id=:user_id";
         $this->prepareStmt($sql);

@@ -7,7 +7,7 @@ if($session->getUserRole() === "guest"){
     http_response_code(403);
     exit;
 }
-
+$userManager = new lib\UserManager();
 if (isset($_GET['comment_id']))
 {
     $commentID = $_GET['comment_id'];
@@ -46,21 +46,19 @@ if($_POST){
 <section class="container">
 <section id ="user-section">
 <?php $comment = new lib\PostManager();
-$row = $comment->getUserComments($username);
-for($c = 0, $size = count($row); $c < $size; ++$c):
+$row = $comment->getCommentRow($commentID);
 ?>
 <section class="container">
         <section>
             <h1 class="comments">Comments</h1>
-                <p>Posted by: <span><?php echo lib\Utilities::htmlEscape($row[$c]['user_name']); ?></span></p>
-                <p><?php echo lib\Utilities::htmlEscape($row[$c]['content']); ?></p>
-                <p><time><?php echo lib\Utilities::htmlEscape($row[$c]['created_at']);?></time></p>
+                <p>Posted by:<?php echo lib\Utilities::htmlEscape($userManager->getUserNameFromID($row['user_id'])); ?></span></p>
+                <p><?php echo lib\Utilities::htmlEscape($row['content']); ?></p>
+                <p><time><?php echo lib\Utilities::htmlEscape($row['created_at']);?></time></p>
         </section>
         <section>
-        <p><?php echo "<a href='/lib/posts/view-post.php?post_id=". lib\Utilities::htmlEscape($row[$c]['post_id']) ."'>Read more...</a>";?></p>
+        <p><?php echo "<a href='/lib/posts/view-post.php?post_id=". lib\Utilities::htmlEscape($row['post_id']) ."'>Read more...</a>";?></p>
         </section>
 </section>
-        <?php endfor; ?>
 <?php 
 echo "<h3>Edit Comment</h3>";
 require dirname(__DIR__, 2).'/templates/comment-form.php'; ?>
