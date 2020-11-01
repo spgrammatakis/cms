@@ -39,18 +39,16 @@ if($_POST){
     <script type="text/javascript" src="/js/redirect-to-edit.js"></script>
     <link rel="stylesheet" type="text/css" href="/lib/includes/style.css" type="text/css">
     <link rel="stylesheet" type="text/css" href="/templates/navbar/navbar.css" type="text/css">
-    <h2>
         <title>
-            A blog application
+            A blog application |
+            <?php echo lib\Utilities::htmlEscape($row['title']) ?>
         </title>
         <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
-    </h2>
     </head>
     <body>
     <?php require dirname(__DIR__, 2) . '/templates/dashboardNavbar/dashboardNavbar.html'; ?>
 <div class="container">
     <?php echo "<section class='post' id='" . $row['post_id']."'>"; ?>
-    <?php print_r($row);?>
     <article>
         <header>
             <h1 class="post-title"><?php echo lib\Utilities::htmlEscape($row['title']);?></h1>
