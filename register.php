@@ -14,10 +14,10 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
         $sql = "SELECT user_role FROM users_options ";
         $pdo->prepareStmt($sql);
         $tempArray = $pdo->fetchCollumn();
-        if(!(in_array($_POST["role"], $tempArray))){
+        if(!(in_array(trim($_POST["role"]), $tempArray))){
             $role_err = "Invalid Role";
         }
-        $role = $_POST["role"];
+        $role = trim($_POST["role"]);
     }
     
 
@@ -33,7 +33,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     }
 
     if(empty(trim($_POST["email"]))){
-        if (filter_var($_POST["email"], FILTER_VALIDATE_EMAIL)){
+        if (filter_var(trim($_POST["email"]), FILTER_VALIDATE_EMAIL)){
             $email_err = "Please enter an email.";
             }
         } else{
@@ -108,29 +108,28 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 </head>
 <?php require 'templates/navbar/navbar.html'; ?>
 <body>
-    <div class="form-area">
-        <div class="form">
+        <section id="form-area">
             <h2>Sign Up</h2>
-            <p>Please fill this form to create an account.</p>
+            <p>Create an account.</p>
             <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
                 <div class="form-user">
                     <label>Username</label>
-                    <input type="text" name="username" value="<?php echo $username; ?>" placeholder="Type Username">
+                    <input type="text" name="username" placeholder="Type Username">
                     <span class="help-block"><?php echo $username_err; ?></span>
                 </div>
                 <div class="form-email">
                     <label>E-mail</label>
-                    <input type="email" name="email"  value="<?php echo $email ?>" placeholder="Enter email">
+                    <input type="email" name="email"  placeholder="Enter email">
                     <span class="help-block"><?php echo $email_err; ?></span>
                 </div>                
                 <div class="form-pass">
                     <label>Password</label>
-                    <input type="password" name="password" value="<?php echo $password; ?>" placeholder="Enter Password">
+                    <input type="password" name="password" placeholder="Enter Password">
                     <span class="help-block"><?php echo $password_err; ?></span>
                 </div>
                 <div class="form-confirm">
                     <label>Confirm Password</label>
-                    <input type="password" name="confirm_password"  value="<?php echo $confirm_password; ?>" placeholder="Confirm Password">
+                    <input type="password" name="confirm_password" placeholder="Confirm Password">
                     <span class="help-block"><?php echo $confirm_password_err; ?></span>
                 </div>
                 <div class="form-role">
@@ -145,10 +144,9 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                     <input type="submit" class="submit-btn btn"  value="Submit">
                     <input type="reset" class="reset-btn btn" value="Reset">
                 </div>
-                <p>Already have an account? <a href="login.php">Login here</a>.</p>
             </form>
+            <p>Already have an account? <a href="login.php">Login here</a>.</p>
             <a href="index.php">Homepage</a>
-        </div>
-    </div>        
+    </section>       
 </body>
 </html>
