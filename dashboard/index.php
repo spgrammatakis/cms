@@ -14,7 +14,6 @@ if($session->getUserRole() === "guest"){
         <meta http-equiv="Content-Security-Policy" content="script-src 'self' ;" >
         <title>A blog application</title>
         <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
-        <script type="text/javascript" src="/dashboard/dashboard.js" defer></script>
         <link rel="stylesheet" type="text/css" href="/templates/dashboardNavbar/dashboardNavbar.css" type="text/css">
         <link rel="stylesheet" type="text/css" href="/dashboard/dashboard.css" type="text/css">
         <!-- <meta http-equiv="refresh" content="5"> -->
@@ -47,10 +46,8 @@ for($i = 0, $size = count($row); $i < $size; ++$i):
         <td class="modificiation-time"><?php echo lib\Utilities::htmlEscape($row[$i]['modification_time']);?></td> 
         <td class="reported"><?php echo lib\Utilities::htmlEscape($row[$i]['reported']);?></td>
     </tr>
-    <tr>
-        <td class="button"><button class="user-edit-button">Edit User</button></td>
-    </tr>
 </table>
+<p class="report"><?php echo "<a href='/lib/users/edit-user.php?user_id=". lib\Utilities::htmlEscape($row[$i]['user_id']) ."'>Edit User</a>";?></p>
 <?php endfor; ?>
 <p><a href='/dashboard/manageusers/all-users.php'>Show All Users</a></p>
 <p><a href='/dashboard/manageusers/reported-users.php'>Show Reported Users</a></p> 
@@ -78,11 +75,8 @@ for($i = 0, $size = count($row); $i < $size; ++$i):
         <td class="modificiation-time"><?php echo lib\Utilities::htmlEscape($row[$r]['modification_time']);?></td> 
         <td class="reported"><?php echo lib\Utilities::htmlEscape($row[$r]['reported']);?></td>
     </tr>
-    <tr>
-        <td class="report"><?php echo "<a href='/lib/users/edit-user.php?user_id=". lib\Utilities::htmlEscape($row[$r]['user_id']) ."'>Edit User</a>";?></td>
-        
-    </tr>
 </table>
+<p class="report"><?php echo "<a href='/lib/users/edit-user.php?user_id=". lib\Utilities::htmlEscape($row[$r]['user_id']) ."'>Edit User</a>";?></p>
     <?php endfor; ?>
     <p><a href='/dashboard/manageusers/reported-users.php'>Show All Reported Users</a></p>
 </section>

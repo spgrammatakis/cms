@@ -3,14 +3,14 @@ require dirname(__DIR__, 2) . '/vendor/autoload.php';
 $username = $_COOKIE['user_name'] ?? "guest";
 $session = new lib\SessionManager($username);
 $session->sessionCheck();
-if( !isset($_GET['user']) 
-    || empty($_GET['user'])
+if( (!isset($_GET['user_id']) 
+    || empty($_GET['user_id']))
     || $session->getUserRole() === "guest"){
     http_response_code(403);
     exit;
 }
 $userHandler = new lib\UserManager();
-$row = $userHandler->getUserRow(trim($_GET['user']));
+$row = $userHandler->getUserRow(trim($_GET['user_id']));
 if (!$row)
 {
     http_response_code(404);
@@ -71,10 +71,8 @@ for($i = 0, $size = count($row); $i < $size; ++$i):
         <td class="modificiation-time"><?php echo lib\Utilities::htmlEscape($row[$i]['modification_time']);?></td> 
         <td class="reported"><?php echo lib\Utilities::htmlEscape($row[$i]['reported']);?></td>
     </tr>
-    <tr>
-        <td class="button"><button class="user-edit-button">Edit User</button></td>
-    </tr>
 </table>
+<p><?php echo "<a href='/lib/users/edit-user.php?user_id=". lib\Utilities::htmlEscape($row[$i]['user_id']) ."'>Edit user</a>";?></p>
 <?php endfor; ?>
 </section>
 <?php require dirname(__DIR__, 2).'/templates/user-edit-form.php'; ?>

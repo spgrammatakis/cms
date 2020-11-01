@@ -14,7 +14,6 @@ if(!($session->getUserRole() === "admin")){
         <meta http-equiv="Content-Security-Policy" content="script-src 'self' ;" >
         <title>A blog application</title>
         <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
-        <script type="text/javascript" src="/dashboard/dashboard.js" defer></script>
         <link rel="stylesheet" type="text/css" href="/templates/dashboardNavbar/dashboardNavbar.css" type="text/css">
         <link rel="stylesheet" type="text/css" href="/dashboard/dashboard.css" type="text/css">
     </head>

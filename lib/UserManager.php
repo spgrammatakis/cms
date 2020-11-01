@@ -14,9 +14,9 @@ class UserManager extends DbConnection{
         return $row;
     }
 
-    public function getUserRow(string $username){
-        $this->prepareStmt("SELECT * FROM users WHERE username=:username");
-        $this->bind(':username',$username);
+    public function getUserRow(string $userID){
+        $this->prepareStmt("SELECT * FROM users WHERE user_id=:user_id");
+        $this->bind(':user_id',$userID);
         return $this->SingleRow();
 
     }
