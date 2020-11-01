@@ -21,64 +21,64 @@ if($session->getUserRole() === "guest"){
 <?php
 require dirname(__DIR__, 1) . '/templates/dashboardNavbar/dashboardNavbar.html'; ?>
 <section class="content">
-<section id="all-user-section">
-<section id ="user-section">
-<h1 class="users">Users</h1>
-<?php $userManager = new lib\UserManager();
-$row = $userManager->getAllUsers(3);
-for($i = 0, $size = count($row); $i < $size; ++$i):
-?>
-<table id="<?php echo $i; ?>" class="user-table">
-    <tr>
-        <th>UserID</th>
-        <th>Username</th>
-        <th>Email</th>
-        <th>Created at</th>
-        <th>Modification Time</th>
-        <th>Reported</th>
-    </tr>
-    <tr>
-        <td class="user-id"><?php echo lib\Utilities::htmlEscape($row[$i]['user_id']);?></td>
-        <td class="username"><?php echo lib\Utilities::htmlEscape($row[$i]['username']);?></td>
-        <td class="email"><?php echo lib\Utilities::htmlEscape($row[$i]['email']);?></td> 
-        <td class="created-at"><?php echo lib\Utilities::htmlEscape($row[$i]['created_at']);?></td>  
-        <td class="modificiation-time"><?php echo lib\Utilities::htmlEscape($row[$i]['modification_time']);?></td> 
-        <td class="reported"><?php echo lib\Utilities::htmlEscape($row[$i]['reported']);?></td>
-    </tr>
-</table>
-<p class="report"><?php echo "<a href='/lib/users/edit-user.php?user_id=". lib\Utilities::htmlEscape($row[$i]['user_id']) ."'>Edit User</a>";?></p>
-<?php endfor; ?>
-<p><a href='/dashboard/manageusers/all-users.php'>Show All Users</a></p>
-<p><a href='/dashboard/manageusers/reported-users.php'>Show Reported Users</a></p> 
-</section>
-<section id="reported-users">
-<h1 class="reported-users">Reported Users</h1>
-<?php 
-    $reportedUser = $userManager->getReportedUsers(3);
-    for($i = 0; $i < count($reportedUser); ++$i): 
-?>
-    <table id="<?php echo $i; ?>" class="reported-user-table">
-    <tr>
-        <th>UserID</th>
-        <th>Username</th>
-        <th>Email</th>
-        <th>Created at</th>
-        <th>Modification Time</th>
-        <th>Reported</th>
-    </tr>
-    <tr>
-        <td class="username"><?php echo lib\Utilities::htmlEscape($row[$i]['user_id']);?></td>
-        <td class="username"><?php echo lib\Utilities::htmlEscape($row[$i]['username']);?></td>
-        <td class="email"><?php echo lib\Utilities::htmlEscape($row[$i]['email']);?></td> 
-        <td class="created-at"><?php echo lib\Utilities::htmlEscape($row[$i]['created_at']);?></td>  
-        <td class="modificiation-time"><?php echo lib\Utilities::htmlEscape($row[$i]['modification_time']);?></td> 
-        <td class="reported"><?php echo lib\Utilities::htmlEscape($row[$i]['reported']);?></td>
-    </tr>
-</table>
-<p class="report"><?php echo "<a href='/lib/users/edit-user.php?user_id=". lib\Utilities::htmlEscape($row[$r]['user_id']) ."'>Edit User</a>";?></p>
-    <?php endfor; ?>
-    <p><a href='/dashboard/manageusers/reported-users.php'>Show All Reported Users</a></p>
-</section>
+    <section id="all-user-section">
+            <section id ="user-section">
+                <h1 class="users">Users</h1>
+                <?php $userManager = new lib\UserManager();
+                $row = $userManager->getAllUsers(3);
+                for($i = 0, $size = count($row); $i < $size; ++$i):
+                ?>
+                <table id="<?php echo $i; ?>" class="user-table">
+                    <tr>
+                        <th>UserID</th>
+                        <th>Username</th>
+                        <th>Email</th>
+                        <th>Created at</th>
+                        <th>Modification Time</th>
+                        <th>Reported</th>
+                    </tr>
+                    <tr>
+                        <td class="user-id"><?php echo lib\Utilities::htmlEscape($row[$i]['user_id']);?></td>
+                        <td class="username"><?php echo lib\Utilities::htmlEscape($row[$i]['username']);?></td>
+                        <td class="email"><?php echo lib\Utilities::htmlEscape($row[$i]['email']);?></td> 
+                        <td class="created-at"><?php echo lib\Utilities::htmlEscape($row[$i]['created_at']);?></td>  
+                        <td class="modificiation-time"><?php echo lib\Utilities::htmlEscape($row[$i]['modification_time']);?></td> 
+                        <td class="reported"><?php echo lib\Utilities::htmlEscape($row[$i]['reported']);?></td>
+                    </tr>
+                </table>
+                <p class="report"><?php echo "<a href='/lib/users/edit-user.php?user_id=". lib\Utilities::htmlEscape($row[$i]['user_id']) ."'>Edit User</a>";?></p>
+                <?php endfor; ?>
+                <p><a href='/dashboard/manageusers/all-users.php'>Show All Users</a></p>
+                <p><a href='/dashboard/manageusers/reported-users.php'>Show Reported Users</a></p> 
+            </section>
+            <section id="reported-users">
+                <h1 class="reported-users">Reported Users</h1>
+                <?php 
+                    $reportedUser = $userManager->getReportedUsers(3);
+                    for($i = 0; $i < count($reportedUser); ++$i): 
+                ?>
+                <table id="<?php echo $i; ?>" class="reported-user-table">
+                <tr>
+                    <th>UserID</th>
+                    <th>Username</th>
+                    <th>Email</th>
+                    <th>Created at</th>
+                    <th>Modification Time</th>
+                    <th>Reported</th>
+                </tr>
+                <tr>
+                    <td class="username"><?php echo lib\Utilities::htmlEscape($row[$i]['user_id']);?></td>
+                    <td class="username"><?php echo lib\Utilities::htmlEscape($row[$i]['username']);?></td>
+                    <td class="email"><?php echo lib\Utilities::htmlEscape($row[$i]['email']);?></td> 
+                    <td class="created-at"><?php echo lib\Utilities::htmlEscape($row[$i]['created_at']);?></td>  
+                    <td class="modificiation-time"><?php echo lib\Utilities::htmlEscape($row[$i]['modification_time']);?></td> 
+                    <td class="reported"><?php echo lib\Utilities::htmlEscape($row[$i]['reported']);?></td>
+                </tr>
+                </table>
+                <p class="report"><?php echo "<a href='/lib/users/edit-user.php?user_id=". lib\Utilities::htmlEscape($row[$r]['user_id']) ."'>Edit User</a>";?></p>
+                <?php endfor; ?>
+                <p><a href='/dashboard/manageusers/reported-users.php'>Show All Reported Users</a></p>
+            </section>
     </section>
 <section id="all-post-section">
 <section id="non-reported-posts-section">

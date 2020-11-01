@@ -20,35 +20,35 @@ if(!($session->getUserRole() === "admin")){
     <body>
 <?php require dirname(__DIR__, 2) . '/templates/dashboardNavbar/dashboardNavbar.html'; ?>
 <div class="container">
-<section id ="user-section">
-<h1 class="users">Users</h1>
-<?php $userManager = new lib\UserManager();
-$row = $userManager->getAllUsers();
-for($i = 0, $size = count($row); $i < $size; ++$i):
-?>
-<table id="<?php echo $i; ?>" class="user-table">
-    <tr>
-        <th>UserName</th>
-        <th>UserID</th>
-        <th>Email</th>
-        <th>Created at</th>
-        <th>Modification Time</th>
-        <th>Reported</th>
-    </tr>
-    <tr>
-        <td class="user-id"><?php echo lib\Utilities::htmlEscape($row[$i]['user_id']);?></td>
-        <td class="username"><?php echo lib\Utilities::htmlEscape($row[$i]['username']);?></td>
-        <td class="email"><?php echo lib\Utilities::htmlEscape($row[$i]['email']);?></td> 
-        <td class="created-at"><?php echo lib\Utilities::htmlEscape($row[$i]['created_at']);?></td>  
-        <td class="modificiation-time"><?php echo lib\Utilities::htmlEscape($row[$i]['modification_time']);?></td> 
-        <td class="reported"><?php echo lib\Utilities::htmlEscape($row[$i]['reported']);?></td>
-    </tr>
-    <tr>
-        <td class="button"><button class="user-edit-button">Edit User</button></td>
-    </tr>
-</table>
-<?php endfor; ?>
-</section>
+    <section id ="user-section">
+        <h1 class="users">Users</h1>
+            <?php $userManager = new lib\UserManager();
+            $row = $userManager->getAllUsers();
+            for($i = 0, $size = count($row); $i < $size; ++$i):
+            ?>
+                <table id="<?php echo $i; ?>" class="user-table">
+                    <tr>
+                        <th>UserName</th>
+                        <th>UserID</th>
+                        <th>Email</th>
+                        <th>Created at</th>
+                        <th>Modification Time</th>
+                        <th>Reported</th>
+                    </tr>
+                    <tr>
+                        <td class="user-id"><?php echo lib\Utilities::htmlEscape($row[$i]['user_id']);?></td>
+                        <td class="username"><?php echo lib\Utilities::htmlEscape($row[$i]['username']);?></td>
+                        <td class="email"><?php echo lib\Utilities::htmlEscape($row[$i]['email']);?></td> 
+                        <td class="created-at"><?php echo lib\Utilities::htmlEscape($row[$i]['created_at']);?></td>  
+                        <td class="modificiation-time"><?php echo lib\Utilities::htmlEscape($row[$i]['modification_time']);?></td> 
+                        <td class="reported"><?php echo lib\Utilities::htmlEscape($row[$i]['reported']);?></td>
+                    </tr>
+                    <tr>
+                        <td class="button"><button class="user-edit-button">Edit User</button></td>
+                    </tr>
+                </table>
+            <?php endfor; ?>
+                </section>
 </div>
     </body>
 </html>
