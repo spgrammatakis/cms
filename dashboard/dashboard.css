@@ -37,7 +37,7 @@ h1{
     color:red;
 }
 
-.reported-comments~section {
+#reported-comments,#reported-users,#reported-posts{
     border: 1px solid red;
 }
 

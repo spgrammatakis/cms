@@ -103,7 +103,7 @@ for($p = 0; $p < count($row); ++$p):
     <p><a href='/dashboard/manageposts/reported-posts.php'>Show all Reported Posts</a></p>     
 <?php endfor; ?>
 </section>
-<section id="reported-posts-section">
+<section id="reported-posts">
 <h1 class="reported-posts">Reported Posts</h1>
 <?php
 $postHandler = new lib\PostManager();
