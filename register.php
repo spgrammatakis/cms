@@ -2,25 +2,10 @@
 require __DIR__ . '/vendor/autoload.php';
 $pdo = new lib\UserManager();
 
-$username = $password = $confirm_password = $email = $role ="";
-$username_err = $password_err = $confirm_password_err = $email_err  = $role_err ="";
+$username = $password = $confirm_password = $email ="";
+$username_err = $password_err = $confirm_password_err = $email_err ="";
 
 if($_SERVER["REQUEST_METHOD"] == "POST"){
-
-    
-    if(empty(trim($_POST["role"]))){
-        $role_err = "Invalid role";
-    }else{
-        $sql = "SELECT user_role FROM users_options ";
-        $pdo->prepareStmt($sql);
-        $tempArray = $pdo->fetchCollumn();
-        if(!(in_array(trim($_POST["role"]), $tempArray))){
-            $role_err = "Invalid Role";
-        }
-        $role = trim($_POST["role"]);
-    }
-    
-
     if(empty(trim($_POST["username"])) || !isset($_COOKIE["user_name"])){
         $username_err = "Please enter a username.";
     }else{      
@@ -67,8 +52,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     if( empty($username_err) && 
         empty($password_err) && 
         empty($confirm_password_err) && 
-        empty($email_err) &&
-        empty($role_err)){
+        empty($email_err)){
         
         $sql = "INSERT INTO users (user_id,username, password, email) VALUES (:user_id,:username, :password, :email)";
         $pdo->prepareStmt($sql);
@@ -82,7 +66,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 
             if($pdo->run()){            
                 $session = new lib\SessionManager($param_username);
-                $session->setUserRole($role);
+                $session->setUserRole("guest");
                 $sql = "SELECT user_id FROM users WHERE username=:username";
                 $pdo->prepareStmt($sql);
                 $pdo->bind(":username",$param_username);
@@ -131,14 +115,6 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                     <label>Confirm Password</label>
                     <input type="password" name="confirm_password" placeholder="Confirm Password">
                     <span class="help-block"><?php echo $confirm_password_err; ?></span>
-                </div>
-                <div class="form-role">
-                <select name="role">
-                <option value="admin">Admin</option>
-                <option value="author">Author</option>
-                <option value="commenter">Commenter</option>
-                </select>
-                <span class="help-block"><?php echo $role_err; ?></span>
                 </div>
                 <div class="form-submit">
                     <input type="submit" class="submit-btn btn"  value="Submit">
