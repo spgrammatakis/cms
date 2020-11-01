@@ -16,7 +16,6 @@ if($session->getUserRole() === "guest"){
         <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
         <link rel="stylesheet" type="text/css" href="/templates/dashboardNavbar/dashboardNavbar.css" type="text/css">
         <link rel="stylesheet" type="text/css" href="/dashboard/dashboard.css" type="text/css">
-        <!-- <meta http-equiv="refresh" content="5"> -->
     </head>
     <body>
 <?php

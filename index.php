@@ -13,7 +13,6 @@ $session->sessionCheck();
         <script type="text/javascript" src="/js/report-post-comment-user.js" defer></script>
         <link rel="stylesheet" type="text/css" href="/lib/includes/style.css" type="text/css">
         <link rel="stylesheet" type="text/css" href="/templates/navbar/navbar.css" type="text/css">
-        <!-- <meta http-equiv="refresh" content="5"> -->
     </head>
     <body>  
         <?php
@@ -21,6 +20,9 @@ $session->sessionCheck();
         $postHandler = new lib\PostManager();
         $userHandler = new lib\UserManager();
         $row = $postHandler->getPosts();
+        if(count($row) === 0){
+            echo "<a href='/lib/posts/add-post.php'>No posts</a>";
+        }
         ?>
 <div class="container">
 <?php for($p = 0; $p  < count($row); ++$p): ?>
