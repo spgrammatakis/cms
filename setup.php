@@ -1,7 +1,5 @@
 <?php
-
 require __DIR__ . '/vendor/autoload.php';
-require 'install.php';
 
 $pdo = new lib\DbConnection();
 $username = $password = $confirm_password = $email ="";
@@ -101,9 +99,11 @@ if($_SERVER["REQUEST_METHOD"] = "POST"){
 <head>
     <meta charset="UTF-8">
     <title>Register</title>
-	<link rel="stylesheet" type="text/css" href="./includes/register.css">
+	<link rel="stylesheet" type="text/css" href="/lib/includes/style.css">
 </head>
 <body>
+    
+    <?php  require __DIR__ . '/lib/install.php' ?>
     <div class="form-area">
         <div class="form">
             <p>Please fill this form to create an admin account.</p>
@@ -129,8 +129,8 @@ if($_SERVER["REQUEST_METHOD"] = "POST"){
                     <span class="help-block"><?php echo $confirm_password_err; ?></span>
                 </div>
                 <div class="form-submit">
-                    <input type="submit" class="submit-btn btn"  value="Submit">
-                    <input type="reset" class="reset-btn btn" value="Reset">
+                    <input type="submit" value="Submit">
+                    <input type="reset"  value="Reset">
                 </div>
                 <div>
                 </div>

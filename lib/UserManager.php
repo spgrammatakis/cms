@@ -7,26 +7,39 @@ class UserManager extends DbConnection{
     }
     public function getAllUsers($limit = NULL)
     {
-        $limit = is_null($limit) ? PHP_INT_MAX : $limit;    
-        $this->prepareStmt("SELECT * FROM users LIMIT :limit");
+        $limit = is_null($limit) ? PHP_INT_MAX : $limit;
+        $sql = "SELECT * FROM users LIMIT :limit";    
+        $this->prepareStmt($sql);
         $this->bind(':limit',$limit);
         $row  = $this->All();
         return $row;
     }
 
     public function getUserRow(string $userID){
-        $this->prepareStmt("SELECT * FROM users WHERE user_id=:user_id");
+        $sql = "SELECT * FROM users WHERE user_id=:user_id";
+        $this->prepareStmt($sql);
         $this->bind(':user_id',$userID);
         return $this->SingleRow();
 
     }
 
     public function getUserRoles(){
-        $this->prepareStmt("SELECT user_role FROM users_metadata");
+        $sql = "SELECT user_role FROM users_metadata";
+        $this->prepareStmt($sql);
         $row = $this->All();
         return $row;
     }
     
+    public function changeUserRole(string $userID,string $userRole){
+        $sql = "UPDATE users_metadata
+        SET user_role=:user_role
+        WHERE user_id=:user_id";
+        $this->prepareStmt($sql);
+        $this->bind(':user_role',$userRole);
+        $this->bind(':user_id',$userID);
+        return $this->run();
+    }
+
     public function updateUserAndMetadata(array $userData){
         $sql="SELECT username,password FROM users WHERE username=:username";
         $this->prepareStmt($sql);
