@@ -48,7 +48,7 @@ for($i = 0, $size = count($row); $i < $size; ++$i):
         <td class="reported"><?php echo lib\Utilities::htmlEscape($row[$i]['reported']);?></td>
     </tr>
     <tr>
-        <td class="button"><button class="user-table-edit-button">Edit User</button></td>
+        <td class="button"><button class="user-edit-button">Edit User</button></td>
     </tr>
 </table>
 <?php endfor; ?>
@@ -79,7 +79,8 @@ for($i = 0, $size = count($row); $i < $size; ++$i):
         <td class="reported"><?php echo lib\Utilities::htmlEscape($row[$r]['reported']);?></td>
     </tr>
     <tr>
-        <td class="button"><button class="reported-user-table-edit-button">Edit User</button></td>
+        <td class="report"><?php echo "<a href='/lib/users/edit-user.php?user_id=". lib\Utilities::htmlEscape($row[$r]['user_id']) ."'>Edit User</a>";?></td>
+        
     </tr>
 </table>
     <?php endfor; ?>
@@ -98,6 +99,7 @@ for($p = 0; $p < count($row); ++$p):
     <h1 class="post-title"><?php echo lib\Utilities::htmlEscape($row[$p]['title']);?></h1>
     <p class="post-body"><?php echo lib\Utilities::htmlEscape($row[$p]['body']); ?></p>
     <p><time class="post-date"><?php echo lib\Utilities::convertSqlDate($row[$p]['created_at']); ?></time><p>
+    <p><?php echo "<a href='/lib/posts/edit-post.php?post_id=". lib\Utilities::htmlEscape($row[$p]['post_id']) ."'>Edit Post</a>";?></p>
 </header>
     <p><a href='/dashboard/manageposts/all-posts.php'>Show all Posts</a></p>
     <p><a href='/dashboard/manageposts/reported-posts.php'>Show all Reported Posts</a></p>     
@@ -114,6 +116,7 @@ for($p = 0; $p < count($row); ++$p):
     <h1 class="post-title"><?php echo lib\Utilities::htmlEscape($row[$p]['title']);?></h1>
     <p class="post-body"><?php echo lib\Utilities::htmlEscape($row[$p]['body']); ?></p>
     <p><time class="post-date"><?php echo lib\Utilities::convertSqlDate($row[$p]['created_at']); ?></time><p>
+    <p><?php echo "<a href='/lib/posts/edit-post.php?post_id=". lib\Utilities::htmlEscape($row[$p]['post_id']) ."'>Edit Post</a>";?></p>
 </header>     
 <?php endfor; ?>
 <p><a href='/dashboard/manageposts/reported-posts.php'>Show all Reported Posts</a></p>
@@ -130,6 +133,7 @@ for($p = 0; $p < count($row); ++$p):
         <p>Posted by: <span><?php echo lib\Utilities::htmlEscape($userManager->getUserNameFromID($comments[$c]['user_id'])); ?></span></p>
         <p><?php echo lib\Utilities::htmlEscape($comments[$c]['content']); ?></p>
         <p><time><?php echo lib\Utilities::htmlEscape($comments[$c]['created_at']);?></time></p>
+        <p><?php echo "<a href='/lib/comments/edit-comment.php?comment_id=". lib\Utilities::htmlEscape($comments[$c]['comment_id']) ."'>Edit comment</a>";?></p>
     </section>
     <?php endfor; ?>
     <p><a href='/dashboard/managecomments/all-comments.php'>Show All Comments</a></p>
@@ -145,7 +149,7 @@ for($p = 0; $p < count($row); ++$p):
         <p>Posted by: <span><?php echo lib\Utilities::htmlEscape($userManager->getUserNameFromID($reportedComment[$r]['user_id'])); ?></span></p>
         <p><?php echo lib\Utilities::htmlEscape($reportedComment[$r]['content']); ?></p>
         <p><time><?php echo lib\Utilities::htmlEscape($reportedComment[$r]['created_at']);?></time></p>
-        <p><?php echo lib\Utilities::htmlEscape($reportedComment[$r]['website']); ?></p>
+        <p><?php echo "<a href='/lib/comments/edit-comment.php?comment_id=". lib\Utilities::htmlEscape($reportedComment[$r]['comment_id']) ."'>Edit comment</a>";?></p>
     </section>
     <?php endfor; ?>
     <p><a href='/dashboard/managecomments/reported-comments.php'>Show All Reported Comments</a></p>

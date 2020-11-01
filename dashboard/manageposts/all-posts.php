@@ -45,7 +45,7 @@ if($session->getUserRole() === "guest"){
                 <p><time><?php echo lib\Utilities::htmlEscape($comment[$c]['created_at']);?></time></p>
                 <p><?php echo lib\Utilities::htmlEscape($comment[$c]['website']); ?></p>
                 <p><?php echo $postHandler->countCommentsForPost($row[$p]['post_id']). " comments"; ?></p>
-                <p><?php echo "<a href='/lib/posts/edit-post.php?post_id=". lib\Utilities::htmlEscape($row[$p]['post_id']) ."'>Edit Post</a>";?></p>
+                <button class="user-edit-button">Edit User</button>
                 <?php endfor; ?>
             </footer>
         </section>

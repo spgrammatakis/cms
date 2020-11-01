@@ -25,7 +25,7 @@ border-top:1px solid black;
 table{
     border-collapse: collapse;
 }
-th,td:not([class="button"]){
+th,td:not([class="report"]){
     border: 1px solid black;
 }
 

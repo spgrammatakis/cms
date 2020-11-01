@@ -72,7 +72,7 @@ for($i = 0, $size = count($row); $i < $size; ++$i):
         <td class="reported"><?php echo lib\Utilities::htmlEscape($row[$i]['reported']);?></td>
     </tr>
     <tr>
-        <td class="button"><button class="user-table-edit-button">Edit User</button></td>
+        <td class="button"><button class="user-edit-button">Edit User</button></td>
     </tr>
 </table>
 <?php endfor; ?>
