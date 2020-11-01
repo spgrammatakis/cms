@@ -20,7 +20,7 @@ body{
     display: flex;
     flex-direction: column;
 }
-#post-section,#user-section,#comment-section,#reported-comments,#reported-users{
+#non-reported-posts-section,#reported-posts-section,#user-section,#comments-section,#reported-comments,#reported-users{
     border:1px solid black;
 }
 table{
@@ -43,7 +43,7 @@ h1{
     text-align: center;
 }
 
-.reported-comments{
+.reported-comments,.reported-posts,.reported-users{
     color:red;
 }
 

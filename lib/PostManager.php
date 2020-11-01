@@ -166,6 +166,12 @@ public function getReportedComments($limit = NULL){
     return $this->All();
 }
 
+public function getAllComments($limit = NULL){
+$sql="SELECT * FROM comments";
+$this->prepareStmt($sql);
+return $this->All();
+}
+
 public function getCommentsForPost($postId,$limit = NULL)
 {
     $limit = is_null($limit) ? PHP_INT_MAX : $limit;
