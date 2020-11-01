@@ -55,12 +55,8 @@ $row = $comment->getCommentRow($commentID);
                 <p><?php echo lib\Utilities::htmlEscape($row['content']); ?></p>
                 <p><time><?php echo lib\Utilities::htmlEscape($row['created_at']);?></time></p>
         </section>
-        <section>
-        <p><?php echo "<a href='/lib/posts/view-post.php?post_id=". lib\Utilities::htmlEscape($row['post_id']) ."'>Read more...</a>";?></p>
-        </section>
 </section>
 <?php 
-echo "<h3>Edit Comment</h3>";
 require dirname(__DIR__, 2).'/templates/comment-form.php'; ?>
 </section>
     </body>

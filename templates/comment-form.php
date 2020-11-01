@@ -1,3 +1,4 @@
+<h3>Edit Comment</h3>
 <form method="post" id="comment-form">
     <p>
         <label for="comment-text">
