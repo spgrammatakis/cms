@@ -56,6 +56,7 @@ $row = $comment->getCommentRow($commentID);
                 <p><time><?php echo lib\Utilities::htmlEscape($row['created_at']);?></time></p>
         </section>
 </section>
+<h3>Edit Comment</h3>
 <?php 
 require dirname(__DIR__, 2).'/templates/comment-form.php'; ?>
 </section>
