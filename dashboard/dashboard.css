@@ -14,7 +14,11 @@ body{
     display: flex;
     flex-direction: row;
     flex: auto;
-    overflow:hidden;
+
+}
+#all-user-section{
+    display: flex;
+    flex-direction: column;
 }
 #post-section,#user-section,#comment-section,#reported-comments,#reported-users{
     border:1px solid black;
@@ -24,15 +28,6 @@ table{
 }
 th,td:not([class="button"]){
     border: 1px solid black;
-}
-#reported-comments,#reported-users{
-    min-width:20%;
-}
-#user-section{
-    max-width:50%;
-}
-#post-section{
-    max-width:30%;
 }
 
 .comment-website span{

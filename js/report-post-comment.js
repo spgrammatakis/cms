@@ -68,7 +68,7 @@ for(let i = 0;i<button.length;i++){
 
   if(button[i].className === "user-report-button"){
     button[i].addEventListener("click", function(){
-    const id =button[i].closest('section').id;
+    const id =button[i].closest('footer').id;
     var theUrl = "/lib/users/report-user.php?user_id=" + id;
     const xhttp = new XMLHttpRequest();
     xhttp.open("GET", theUrl, true);

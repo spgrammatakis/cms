@@ -23,7 +23,7 @@ $session->sessionCheck();
         ?>
 <div class="container">
 <?php for($p = 0; $p  < count($row); ++$p): ?>
-    <?php echo "<section class='post' id='" . $row[$p]['post_id']."'>"; ?>
+    <section class="post" id="<?php echo lib\Utilities::htmlEscape($row[$p]['post_id']);?>">
     <article>
         <header>
             <h1 class="post-title"><?php echo lib\Utilities::htmlEscape($row[$p]['title']);?></h1>
@@ -37,7 +37,7 @@ $session->sessionCheck();
                 ?>
         <?php echo "<section class='comment' id='" . $comment[$c]['comment_id']."'>"; ?>
         <h1 class="comments">Comments</h1>  
-            <footer id="user-report-footer">
+            <footer class="user" id="<?php echo $comment[$c]['user_id'];?>">
                 <p>Posted by: <span><?php echo lib\Utilities::htmlEscape($postHandler->getUserNameFromID($comment[$c]['user_id'])); ?></span>
                 <span><button class='user-report-button'>Report User</button></span></p>
                 <p><?php echo lib\Utilities::htmlEscape($comment[$c]['content']); ?></p>

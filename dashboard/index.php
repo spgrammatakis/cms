@@ -26,6 +26,7 @@ if(!($session->getUserRole() === "admin")){
 <?php
 require dirname(__DIR__, 1) . '/templates/sidenavbar/sidenavbar.html'; ?>
 <section class="content">
+<section id="all-user-section">
 <section id ="user-section">
 <h1 class="users">Users</h1>
 <?php $userManager = new lib\UserManager();
@@ -57,6 +58,35 @@ for($i = 0, $size = count($row); $i < $size; ++$i):
 <p><a href='/dashboard/manageusers/all-users.php'>Show All Users</a></p>
 <p><a href='/dashboard/manageusers/reported-users.php'>Show Reported Users</a></p> 
 </section>
+<section id="reported-users">
+<h1 class="reported-comments">Reported Users</h1>
+<?php 
+    $reportedUser = $userManager->getReportedUsers(3);
+    for($r = 0; $r < count($reportedUser); ++$r): 
+?>
+    <table id="<?php echo $i; ?>" class="reported-user-table">
+    <tr>
+        <th>UserName</th>
+        <th>Email</th>
+        <th>Created at</th>
+        <th>Modification Time</th>
+        <th>Reported</th>
+    </tr>
+    <tr>
+        <td class="username"><?php echo lib\Utilities::htmlEscape($row[$r]['username']);?></td>
+        <td class="email"><?php echo lib\Utilities::htmlEscape($row[$r]['email']);?></td> 
+        <td class="created-at"><?php echo lib\Utilities::htmlEscape($row[$r]['created_at']);?></td>  
+        <td class="modificiation-time"><?php echo lib\Utilities::htmlEscape($row[$r]['modification_time']);?></td> 
+        <td class="reported"><?php echo lib\Utilities::htmlEscape($row[$r]['reported']);?></td>
+    </tr>
+    <tr>
+        <td class="button"><button class="reported-user-table-edit-button">Edit User</button></td>
+    </tr>
+</table>
+    <?php endfor; ?>
+    <p><a href='/dashboard/manageusers/reported-users.php'>Show All Reported Users</a></p>
+</section>
+    </section>
 <section id="post-section"> 
 <h1 class="posts">Posts</h1>
 <?php
@@ -105,36 +135,6 @@ for($p = 0; $p < count($row); ++$p):
     </section>
     <?php endfor; ?>
     <p><a href='/dashboard/managecomments/reported-comments.php'>Show All Reported Comments</a></p>
-</section>
-<section id="reported-users">
-<h1 class="reported-comments">Reported Users</h1>
-<?php 
-    $reportedUser = $userManager->getReportedUsers(3);
-    for($r = 0; $r < count($reportedUser); ++$r): 
-?>
-    <section class="reported-users">
-    <table id="<?php echo $i; ?>" class="reported-user-table">
-    <tr>
-        <th>UserName</th>
-        <th>Email</th>
-        <th>Created at</th>
-        <th>Modification Time</th>
-        <th>Reported</th>
-    </tr>
-    <tr>
-        <td class="username"><?php echo lib\Utilities::htmlEscape($row[$r]['username']);?></td>
-        <td class="email"><?php echo lib\Utilities::htmlEscape($row[$r]['email']);?></td> 
-        <td class="created-at"><?php echo lib\Utilities::htmlEscape($row[$r]['created_at']);?></td>  
-        <td class="modificiation-time"><?php echo lib\Utilities::htmlEscape($row[$r]['modification_time']);?></td> 
-        <td class="reported"><?php echo lib\Utilities::htmlEscape($row[$r]['reported']);?></td>
-    </tr>
-    <tr>
-        <td class="button"><button class="reported-user-table-edit-button">Edit User</button></td>
-    </tr>
-</table>
-    </section>
-    <?php endfor; ?>
-    <p><a href='/dashboard/manageusers/reported-users.php'>Show All Reported Users</a></p>
 </section>
 </section>
     </body>

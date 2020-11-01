@@ -9,6 +9,7 @@ if (    (!isset($_COOKIE["user_name"]) || empty($_COOKIE['user_name']))
     http_response_code(403);
     exit;
 }else{
+    echo "axne";
     $handler = new lib\UserManager();
     $handler->reportUser($_GET['user_id']);
 }

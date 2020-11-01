@@ -63,7 +63,7 @@ class UserManager extends DbConnection{
             FROM
                 users
             WHERE
-                reported = TRUE
+                reported = 1
             LIMIT
                 :limit";
         $this->prepareStmt($sql);
