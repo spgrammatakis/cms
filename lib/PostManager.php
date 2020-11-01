@@ -203,32 +203,28 @@ public function getPosts($limit = NULL){
     return $row  = $this->All();
 }
 
-public function addPost(){
-if(!isset($_COOKIE["user_name"]) || empty($_COOKIE['user_name'])) return false;
-if( (!isset($_GET['title']) || empty($_COOKIE['title'])) || 
-    (!isset($_GET['body']) || empty($_COOKIE['body'])) ) return false;
-try {
-    $author_id = 0;
-    $title = $_GET['title'];
-    $body = $_GET['body'];
-    $sql = "INSERT INTO posts(author_id,title, body)
-            VALUES (:author_id,:title, :body)";
+public function addPost(array $postData){
+    $sql = "INSERT INTO posts(post_id,author_id,title, body, created_at)
+            VALUES (:post_id,:author_id, :title, :body, :created_at)";
     $this->prepareStmt($sql);
-    $this->bind(':author_id',$author_id);
-    $this->bind(':title',$title);
-    $this->bind(':body',$body);
+    $this->bind(':post_id',$postData['post-id']);
+    $this->bind(':author_id',$postData['author-id']);
+    $this->bind(':title',$postData['post-title']);
+    $this->bind(':body',$postData['post-body']);
+    $this->bind(':created_at',Utilities::getSqlDateForNow());
     $this->run();
+}
 
+public function deletePost(){
+    
 }
-    catch (\PDOException $e) {
-        exit("Connection failed: " . $e->getMessage());
-    }
-}
-public function delete($commentid){
-    $stmt = $this->db->prepare("DELETE FROM posts WHERE id=:id");
-    $stmt->bindparam(":id",$commentid);
-    $stmt->execute();
-    return true;
+
+public function deleteComment($commentID){
+    $sql = "DELETE FROM comments WHERE comment_id=:comment_id";
+    $this->prepareStmt($sql);
+    $this->bind(":comment_id",$commentID);
+    return $this->run;
    }
 }
+
 ?>

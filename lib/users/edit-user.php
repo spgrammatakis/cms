@@ -26,14 +26,16 @@ if( (($session->getUserName() !== $row['username']) && ($userPrivileges['edit_se
 }
 if($_POST){
     $userData = array(
-        "user_id" => $row['user_id'],
+        "user_id" => $row['user-id'],
         "current-username" => $row['username'],
         "new-username" => trim($_POST['username']),
         "password" => password_hash($_POST['new-password'], PASSWORD_DEFAULT),
         "current-password"=>trim($_POST['current-password']),
         "email" => trim($_POST['email'])
     );
-    $userHandler->updateUserAndMetadata($userData);
+    if($userData['current-username'] !== $userData['new-username']){
+        $userHandler->updateUserAndMetadata($userData);
+    }
 }
 ?>
 <!DOCTYPE html>

@@ -41,7 +41,7 @@ class UserManager extends DbConnection{
                 WHERE user_id=:user_id
                 ";
                 $this->prepareStmt($sql);
-                $this->bind(':user_id',$userData['user_id']);
+                $this->bind(':user_id',$userData['user-id']);
                 $this->bind(':username',$userData['new-username']);
                 $this->bind(':password',$userData['password']);
                 $this->bind(':email',$userData['email']);
@@ -52,7 +52,7 @@ class UserManager extends DbConnection{
                     WHERE user_id=:user_id
                     ";
                     $this->prepareStmt($sql);
-                    $this->bind(':user_id',$userData['user_id']);
+                    $this->bind(':user_id',$userData['user-id']);
                     $this->bind(':username',$userData['new-username']);
                     $this->run();
                     return $this->run();
