@@ -114,9 +114,9 @@ for($p = 0; $p < count($row); ++$p):
     <h1 class="post-title"><?php echo lib\Utilities::htmlEscape($row[$p]['title']);?></h1>
     <p class="post-body"><?php echo lib\Utilities::htmlEscape($row[$p]['body']); ?></p>
     <p><time class="post-date"><?php echo lib\Utilities::convertSqlDate($row[$p]['created_at']); ?></time><p>
-</header>
-    <p><a href='/dashboard/manageposts/reported-posts.php'>Show all Reported Posts</a></p>     
-<?php endfor; ?> 
+</header>     
+<?php endfor; ?>
+<p><a href='/dashboard/manageposts/reported-posts.php'>Show all Reported Posts</a></p>
 </section>
 </section>
 <section id="all-comments-section">

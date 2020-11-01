@@ -14,18 +14,12 @@ body{
 
 .content{
     display: flex;
-    flex-direction: row;
-    flex: auto;
-
-}
-
-#all-user-section{
-    display: flex;
     flex-direction: column;
+    flex: auto;
 }
 
 #non-reported-posts-section,#reported-posts-section,#user-section,#comments-section,#reported-comments,#reported-users{
-    border:1px solid black;
+border-top:1px solid black;
 }
 
 table{
@@ -45,4 +39,8 @@ h1{
 
 .reported-comments~section {
     border: 1px solid red;
+}
+
+#all-post-section,#all-user-section,#all-comments-section{
+    border:1px solid black;
 }
