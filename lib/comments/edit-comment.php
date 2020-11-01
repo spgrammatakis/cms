@@ -44,21 +44,19 @@ if($_POST){
     <body>
 <?php require dirname(__DIR__, 2) . '/templates/dashboardNavbar/dashboardNavbar.html'; ?>
 <section class="container">
-<section id ="user-section">
-<?php $comment = new lib\PostManager();
-$row = $comment->getCommentRow($commentID);
-?>
-<section class="container">
-        <section>
+    <section id ="user-section">
+        <?php $comment = new lib\PostManager();
+        $row = $comment->getCommentRow($commentID);
+        ?>
+            <section class="container">
             <h1 class="comments">Comments</h1>
                 <p>Posted by:<?php echo lib\Utilities::htmlEscape($userManager->getUserNameFromID($row['user_id'])); ?></span></p>
                 <p><?php echo lib\Utilities::htmlEscape($row['content']); ?></p>
                 <p><time><?php echo lib\Utilities::htmlEscape($row['created_at']);?></time></p>
-        </section>
-</section>
-<h3>Edit Comment</h3>
-<?php 
-require dirname(__DIR__, 2).'/templates/comment-form.php'; ?>
-</section>
+            </section>
+            <h3>Edit Comment</h3>
+        <?php 
+        require dirname(__DIR__, 2).'/templates/comment-form.php'; ?>
+    </section>
     </body>
 </html>
