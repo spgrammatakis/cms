@@ -107,7 +107,7 @@ class SessionManager extends DbConnection{
             echo "redirecting to author";
             return;
         }else{
-            echo "redirecting to guest";
+            header('Location: /index.php');
              return;
         }
     }
