@@ -48,22 +48,18 @@ if($_POST){
     </head>
     <body>
     <?php require dirname(__DIR__, 2) . '/templates/dashboardNavbar/dashboardNavbar.html'; ?>
-    <?php
-
-        $postHandler = new lib\PostManager();
-        $post = $postHandler->getPosts();
-        ?>
 <div class="container">
-    <?php echo "<section class='post' id='" . $row[0]['post_id']."'>"; ?>
+    <?php echo "<section class='post' id='" . $row['post_id']."'>"; ?>
+    <?php print_r($row);?>
     <article>
         <header>
-            <h1 class="post-title"><?php echo lib\Utilities::htmlEscape($row[0]['title']);?></h1>
-            <p class="post-body"><?php echo lib\Utilities::htmlEscape($row[0]['body']); ?></p>
-            <p><time class="post-date"><?php echo lib\Utilities::convertSqlDate($row[0]['created_at']); ?></time><p>
+            <h1 class="post-title"><?php echo lib\Utilities::htmlEscape($row['title']);?></h1>
+            <p class="post-body"><?php echo lib\Utilities::htmlEscape($row['body']); ?></p>
+            <p><time class="post-date"><?php echo lib\Utilities::convertSqlDate($row['created_at']); ?></time><p>
         </header>
         <section>
-        <p><?php echo $postHandler->countCommentsForPost($row[0]['post_id']). " comments"; ?></p>
-        <p><?php echo "<a href='/lib/posts/view-post.php?post_id=". lib\Utilities::htmlEscape($row[0]['post_id']) ."'>Read more...</a>";?></p>
+        <p><?php echo $pdo->countCommentsForPost($row['post_id']). " comments"; ?></p>
+        <p><?php echo "<a href='/lib/posts/view-post.php?post_id=". lib\Utilities::htmlEscape($row['post_id']) ."'>Read more...</a>";?></p>
         </section>
     </article>
     </section>
