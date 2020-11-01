@@ -118,7 +118,6 @@ for($p = 0; $p < count($row); ++$p):
     <p class="post-body"><?php echo lib\Utilities::htmlEscape($row[$p]['body']); ?></p>
     <p><time class="post-date"><?php echo lib\Utilities::convertSqlDate($row[$p]['created_at']); ?></time><p>
 </header>
-    <p><a href='/dashboard/manageposts/all-posts.php'>Show all Posts</a></p>
     <p><a href='/dashboard/manageposts/reported-posts.php'>Show all Reported Posts</a></p>     
 <?php endfor; ?> 
 </section>
