@@ -10,7 +10,7 @@ $session->sessionCheck();
         <meta http-equiv="Content-Security-Policy" content="script-src 'self' ;" >
         <title>A blog application</title>
         <meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
-        <script type="text/javascript" src="/js/report-post-comment.js" defer></script>
+        <script type="text/javascript" src="/js/report-post-comment-user.js" defer></script>
         <link rel="stylesheet" type="text/css" href="/lib/includes/style.css" type="text/css">
         <!-- <meta http-equiv="refresh" content="5"> -->
     </head>
