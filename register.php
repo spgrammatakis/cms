@@ -1,7 +1,6 @@
 <?php
 require __DIR__ . '/vendor/autoload.php';
 $pdo = new lib\UserManager();
-
 $username = $password = $confirm_password = $email ="";
 $username_err = $password_err = $confirm_password_err = $email_err ="";
 
@@ -58,12 +57,10 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
         $pdo->prepareStmt($sql);
             $param_username = $username;
             $param_password = password_hash($password, PASSWORD_DEFAULT);
-            $param_email    = $email;
             $pdo->bind(':user_id',bin2hex(random_bytes(10)));
             $pdo->bind(':username', $param_username);
             $pdo->bind(':password', $param_password);
-            $pdo->bind(':email', $param_email);
-
+            $pdo->bind(':email', $email);
             if($pdo->run()){            
                 $session = new lib\SessionManager($param_username);
                 $session->setUserRole("guest");
@@ -73,7 +70,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                 $userID = $pdo->SingleRow();
                 $session->setUserID($userID['user_id']);
                 $session->sessionInsertNewRow($session->getUserID());
-                header("location: login.php");
+                //header("location: login.php");
             } else{
                 echo "Something went wrong. Please try again later.";
             }

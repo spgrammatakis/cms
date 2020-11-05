@@ -1,10 +1,11 @@
 <?php
 require __DIR__ . '/vendor/autoload.php';
+ini_set('display_errors', '1');
 $pdo = new lib\UserManager();
 $username = $password = $confirm_password = $email ="";
 $username_err = $password_err = $confirm_password_err = $email_err  ="";
 
-if($_SERVER["REQUEST_METHOD"] = "POST"){
+if($_SERVER["REQUEST_METHOD"] == "POST"){
     if(empty(trim($_POST["username"])) || !isset($_COOKIE["user_name"])){
         $username_err = "Please enter a username.";
     }else{      
@@ -15,6 +16,7 @@ if($_SERVER["REQUEST_METHOD"] = "POST"){
                 }
 
     }
+
     if(empty(trim($_POST["email"]))){
         if (filter_var(trim($_POST["email"]), FILTER_VALIDATE_EMAIL)){
             $email_err = "Please enter an email.";
@@ -47,19 +49,21 @@ if($_SERVER["REQUEST_METHOD"] = "POST"){
     }
     
 
-    if(empty($username_err) && empty($password_err) && empty($confirm_password_err) && empty($email_err)){
+    if( empty($username_err) && 
+        empty($password_err) && 
+        empty($confirm_password_err) && 
+        empty($email_err)){  
         $sql = "INSERT INTO users (user_id,username, password, email) VALUES (:user_id,:username, :password, :email)";
-        $param_password = password_hash($password, PASSWORD_DEFAULT);
-        $param_email    = $email;
         $pdo->prepareStmt($sql);
+        $param_password = password_hash($password, PASSWORD_DEFAULT);
+        $param_id = bin2hex(random_bytes(10));
         $pdo->bind(':user_id', bin2hex(random_bytes(10)));
         $pdo->bind(':username', $username);
-        $pdo->bind(':password', password_hash($password, PASSWORD_DEFAULT));
+        $pdo->bind(':password', $param_password);
         $pdo->bind(':email', $email);
-        $pdo->run();
             if($pdo->run()){
-                $session = new lib\SessionManager($param_username);
-                $session->setUserID($param_id);
+                $session = new lib\SessionManager($username);
+                $session->setUserID(bin2hex(random_bytes(10)));
                 $session->setUserRole("admin");
                 $session->sessionInsertNewRow($session->getUserID());
                 //header('Location: index.php');
@@ -81,7 +85,6 @@ if($_SERVER["REQUEST_METHOD"] = "POST"){
 <body>
     
     <?php 
-    require __DIR__ . '/lib/install.php';
     require 'templates/navbar/navbar.html'; 
     ?>
     <div class="form-area">
@@ -116,6 +119,7 @@ if($_SERVER["REQUEST_METHOD"] = "POST"){
                 </div>
             </form>
         </div>
-    </div>        
+    </div>
+    <?php require __DIR__ . '/lib/install.php'; ?>        
 </body>
 </html>
