@@ -12,7 +12,7 @@ else
     http_response_code(403);
     exit;
 }
-ini_set('display_errors', '1');
+
 $pdo = new lib\PostManager();
 $row = $pdo->getPostRow($postId);
 $userHandler = new lib\UserManager();

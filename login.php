@@ -31,6 +31,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
         $dbh->prepareStmt($sql);
         $param_username =trim($_POST["username"]);                
         $dbh->bind(':username', $param_username);
+        print_r($dbh);
             if($dbh->run()){              
                     if($dbh->rowCount() == 1){
                                 $row = $dbh->SingleRow();
