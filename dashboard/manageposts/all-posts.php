@@ -49,6 +49,7 @@ if($session->getUserRole() === "guest"){
             </footer>
         </section>
         <section>
+        <p><?php echo "<a href='/lib/posts/edit-post.php?post_id=". lib\Utilities::htmlEscape($postRow[$p]['post_id']) ."'>Edit Post</a>";?></p>
         <p><?php echo "<a href='/lib/posts/view-post.php?post_id=". lib\Utilities::htmlEscape($postRow[$p]['post_id']) ."'>Read more...</a>";?></p>
         </section>
     </article>

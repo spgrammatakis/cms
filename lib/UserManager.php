@@ -42,21 +42,20 @@ class UserManager extends DbConnection{
         $sql="SELECT username,password FROM users WHERE username=:username";
         $this->prepareStmt($sql);
         $this->bind(':username',$userData['current-username']);
-        if($this->run() && $this->rowCount() == 1){
-            $row = $this->SingleRow();
-            $password = $row['password'];
+        if($this->rowCount() == 1){
+            $userRow = $this->SingleRow();
+            $password = $userRow['password'];
+            print_r($userRow);
             if(password_verify($userData['current-password'],$password)){
-                $sql = "
-                UPDATE users
-                SET username=:username, password=:password, email=:email
-                WHERE user_id=:user_id
-                ";
+                echo "axne";
+                $sql = "UPDATE users SET username=:username, password=:password, email=:email WHERE user_id=:user_id";
                 $this->prepareStmt($sql);
                 $this->bind(':user_id',$userData['user-id']);
                 $this->bind(':username',$userData['new-username']);
-                $this->bind(':password',$userData['password']);
-                $this->bind(':email',$userData['email']);
+                $this->bind(':password',$userData['new-password']);
+                $this->bind(':email',$userData['new-email']);
                 if($this->run()){
+                    echo "axoxi";
                     $sql = "UPDATE users_metadata SET username=:username WHERE user_id=:user_id";
                     $this->prepareStmt($sql);
                     $this->bind(':user_id',$userData['user-id']);

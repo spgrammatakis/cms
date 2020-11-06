@@ -43,10 +43,8 @@ if(!($session->getUserRole() === "admin")){
                         <td class="modificiation-time"><?php echo lib\Utilities::htmlEscape($userRow[$i]['modification_time']);?></td> 
                         <td class="reported"><?php echo lib\Utilities::htmlEscape($userRow[$i]['reported']);?></td>
                     </tr>
-                    <tr>
-                        <td class="button"><button class="user-edit-button">Edit User</button></td>
-                    </tr>
                 </table>
+                <p><?php echo "<a href='/lib/users/edit-user.php?user_id=". lib\Utilities::htmlEscape($userRow[$i]['user_id']) ."'>Edit User</a>";?></p>
             <?php endfor; ?>
                 </section>
 </div>

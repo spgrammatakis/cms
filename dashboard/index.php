@@ -87,7 +87,7 @@ require dirname(__DIR__, 1) . '/templates/dashboardNavbar/dashboardNavbar.html';
 <?php
 $postHandler = new lib\PostManager();
 $postRow = $postHandler->getPosts(3);
-for($i = 0; $i < count($row); ++$i):
+for($i = 0; $i < count($postRow); ++$i):
 ?>
 <header>
     <h1 class="post-title"><?php echo lib\Utilities::htmlEscape($postRow[$i]['title']);?></h1>
@@ -104,7 +104,7 @@ for($i = 0; $i < count($row); ++$i):
 <?php
 $postHandler = new lib\PostManager();
 $reportedPostRow = $postHandler->getReportedPosts(3);
-for($i = 0; $i < count($row); ++$i):
+for($i = 0; $i < count($reportedPostRow); ++$i):
 ?>
 <header>
     <h1 class="post-title"><?php echo lib\Utilities::htmlEscape($reportedPostRow[$i]['title']);?></h1>
@@ -121,7 +121,7 @@ for($i = 0; $i < count($row); ++$i):
 <h1 class="non-reported-comments">Comments</h1>
 <?php 
     $commentRow = $postHandler->getAllComments(3);
-    for($i = 0; $i < count($comments); ++$i): 
+    for($i = 0; $i < count($commentRow); ++$i): 
 ?>
     <section class="non-reported-comment">
         <p>Posted by: <span><?php echo lib\Utilities::htmlEscape($userManager->getUserNameFromID($commentRow[$i]['user_id'])); ?></span></p>

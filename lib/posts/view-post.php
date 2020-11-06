@@ -21,22 +21,15 @@ if(!$postRow){
     exit;
 }
 
-$errors = null;
-
-if ($_POST)
+print_r($session);
+if($_SERVER["REQUEST_METHOD"] == "POST")
 {
     $commentData = array(
         'user_id' => $session->getUserID(),
         'content' => $_POST['comment-text'],
     );
-    
-    $errors = $pdo->addCommentToPost($postId,$commentData); 
-    if (!$errors)
-    {
-        header('Location: ' . $_SERVER['PHP_SELF'] . "?post_id=" . $postId);
-        exit;
-    }
-
+    print_r($commentData);
+    $pdo->addCommentToPost($postId,$commentData); 
 }
 
 ?>

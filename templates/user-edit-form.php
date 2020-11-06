@@ -5,7 +5,7 @@
         <label for="username">New Name:</label>
         <input
             id="username"
-            name="username"
+            name="new-username"
         >
     </p>
     <p>
@@ -28,8 +28,8 @@
         <label for="user-emal">Email:</label>
         <input
             id="user-email"
-            name="email"
-        ><?php echo lib\Utilities::htmlEscape($row['email']) ?>
+            name="new-email"
+        >
     </p>
     <input type="submit" value="Finish Edit" />
 </form>

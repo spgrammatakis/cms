@@ -80,6 +80,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 </head>
 <body>
 <?php require 'templates/navbar/navbar.html'; ?>
+<section clas="form-area">
         <section class="form">
             <h2>Login</h2>
             <p>Please fill in your credentials to login.</p>
@@ -99,6 +100,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                 </section>
                 <p>Don't have an account? <a href="register.php">Sign up now</a>.</p>
             </form>
-        </section>   
+        </section>
+</section>   
 </body>
 </html>

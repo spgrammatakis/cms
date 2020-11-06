@@ -11,7 +11,7 @@ if($session->getUserRole() === "guest"){
 $pdo = new lib\PostManager();
 $userHandler = new lib\UserManager();
 $errors=null;
-if($_POST){
+if($_SERVER["REQUEST_METHOD"] == "POST"){
     $postData = array(
         "post-id" => bin2hex(random_bytes(10)),
         "post-title" => trim($_POST['post-title']),
@@ -31,7 +31,6 @@ if($_POST){
     <link rel="stylesheet" type="text/css" href="/templates/navbar/navbar.css" type="text/css">
         <title>
             A blog application |
-            <?php echo lib\Utilities::htmlEscape($row['title']) ?>
         </title>
         <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
     </head>
@@ -39,7 +38,9 @@ if($_POST){
     <?php require dirname(__DIR__, 2) . '/templates/dashboardNavbar/dashboardNavbar.html'; ?>
 <section class="container">
     <h3>New Post</h3>
+    <section class="form">
     <?php require dirname(__DIR__, 2).'/templates/post-add-form.php'; ?>
+    </section>
 </section>
     </body>
 </html>
