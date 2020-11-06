@@ -2,8 +2,14 @@
 require __DIR__ . '/vendor/autoload.php';
 ini_set('display_errors', '1');
 $pdo = new lib\UserManager();
+
 $username = $password = $confirm_password = $email ="";
 $username_err = $password_err = $confirm_password_err = $email_err  ="";
+
+$db = $pdo->getDatabase();
+$sql = file_get_contents($db);
+$pdo->prepareStmt($sql);
+$pdo->run();
 
 if($_SERVER["REQUEST_METHOD"] == "POST"){
     if(empty(trim($_POST["username"])) || !isset($_COOKIE["user_name"])){
@@ -69,7 +75,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                 //header('Location: index.php');
             } else{
                 echo "Something went wrong. Please try again later.";
-            }
+            } 
     }
     
 }
@@ -120,6 +126,24 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
             </form>
         </div>
     </div>
-    <?php require __DIR__ . '/lib/install.php'; ?>        
+<?php
+            $sql = "SELECT COUNT(post_id) FROM posts WHERE reported=0";
+            $pdo->prepareStmt($sql);
+            $postCount = $pdo->fetchCollumn();
+            if($postCount[0] > 0) {echo "New Posts Created" . $postCount[0] . "</br>";}
+            
+            
+            $sql = "SELECT COUNT(comment_id) FROM comments WHERE reported=0";
+            $pdo->prepareStmt($sql);
+            $commentCount = $pdo->fetchCollumn();
+            if($commentCount[0] > 0) {echo "New Comments Created" . $commentCount[0] . "</br>";}
+            
+            
+            $sql = "SELECT COUNT(user_id) FROM users WHERE reported=0";
+            $pdo->prepareStmt($sql);
+            $userCount = $pdo->fetchCollumn();
+            if($userCount[0] > 0) {echo "New User Created : " . $userCount[0] . "</br>";}
+              
+?>
 </body>
 </html>

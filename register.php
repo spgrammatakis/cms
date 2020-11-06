@@ -120,6 +120,6 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
             </form>
             <p>Already have an account? <a href="login.php">Login here</a>.</p>
             <a href="index.php">Homepage</a>
-    </section>       
+    </section>
 </body>
 </html>
