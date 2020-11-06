@@ -47,7 +47,6 @@ class UserManager extends DbConnection{
             $password = $userRow['password'];
             print_r($userRow);
             if(password_verify($userData['current-password'],$password)){
-                echo "axne";
                 $sql = "UPDATE users SET username=:username, password=:password, email=:email WHERE user_id=:user_id";
                 $this->prepareStmt($sql);
                 $this->bind(':user_id',$userData['user-id']);
@@ -55,7 +54,6 @@ class UserManager extends DbConnection{
                 $this->bind(':password',$userData['new-password']);
                 $this->bind(':email',$userData['new-email']);
                 if($this->run()){
-                    echo "axoxi";
                     $sql = "UPDATE users_metadata SET username=:username WHERE user_id=:user_id";
                     $this->prepareStmt($sql);
                     $this->bind(':user_id',$userData['user-id']);

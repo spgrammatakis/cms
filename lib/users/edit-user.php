@@ -25,7 +25,6 @@ if( (($session->getUserName() !== $userRow['username']) && ($userPrivileges['edi
     exit;
 }
 if($_POST){
-    print_r($_POST);
     $userData = array(
         "user-id" => $userRow['user_id'],
         "current-username" => $userRow['username'],
@@ -34,7 +33,6 @@ if($_POST){
         "current-password"=>trim($_POST['current-password']),
         "new-email" => trim($_POST['new-email'])
     );
-    print_r($userData);
     if($userData['current-username'] !== $userData['new-username']){
         $userHandler->updateUserAndMetadata($userData);
     }
