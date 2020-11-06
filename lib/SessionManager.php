@@ -41,9 +41,7 @@ class SessionManager extends DbConnection{
 
     public function sessionCheck(){
         $this->setCookiesParams();
-        $sql = "SELECT user_id,user_role
-        FROM users_metadata
-        WHERE username = :username";
+        $sql = "SELECT user_id,user_role FROM users_metadata WHERE username = :username";
         $this->prepareStmt($sql);
         $this->bind(':username',  $this->getUserName());
         if($this->run()){    
@@ -64,16 +62,16 @@ class SessionManager extends DbConnection{
     }
 
     public function getUserPrivileges(string $userRole){
-        $sql =" SELECT user_privileges  
-                FROM users_options 
-                WHERE user_role=:user_role";
+        $sql =" SELECT user_privileges  FROM users_options WHERE user_role=:user_role";
         $this->prepareStmt($sql);
         $this->bind(':user_role',$userRole);
         return $this->SingleRow();
     }
 
     private function setCookiesParams(){
-        if(!isset($_COOKIE['user_name']) || empty($_COOKIE['user_name'])|| $this->getUserName() === "guest"){
+        if( !isset($_COOKIE['user_name'])   
+            || empty($_COOKIE['user_name'])    
+            || $this->getUserName() === "guest"){
             setcookie("user_name", "guest", [
                 "expires" => strtotime("+1 year"),
                 "path" => '/',
@@ -82,7 +80,9 @@ class SessionManager extends DbConnection{
                 "httponly" => true,
                 "samesite" => "Strict"]);
             }
-        if(!isset($_COOKIE['session_token']) || empty($_COOKIE['session_token']) || $this->getUserName() === "guest"){    
+        if(!isset($_COOKIE['session_token']) 
+        || empty($_COOKIE['session_token']) 
+        || $this->getUserName() === "guest"){    
             setcookie("session_token", bin2hex(random_bytes(20)), [
             "expires" => strtotime("+1 year"),
             "path" => '/',

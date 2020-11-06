@@ -59,15 +59,14 @@ public function updatePost($postId,$postTitle,$postBody){
 public function addCommentToPost($postId, array $commentData)
 {
 
-        $sql = "
-            INSERT INTO
-            comments
-            (comment_id,user_id,content, created_at, post_id)
-            VALUES(:comment_id,:user_id, :content, :created_at, :post_id)
+        $sql = "INSERT INTO comments (comment_id,user_id,content, created_at, post_id)
+                VALUES(:comment_id,:user_id, :content, :created_at, :post_id)
         ";
         $commentData = array_merge(
                 $commentData,
-                array('post_id' => $postId, 'created_at' => Utilities::getSqlDateForNow(), 'comment_id'=>bin2hex(random_bytes(10)))
+                array(  'post_id' => $postId, 
+                        'created_at' => Utilities::getSqlDateForNow(), 
+                        'comment_id'=>bin2hex(random_bytes(10)))
             );
         $this->prepareStmt($sql);
         $this->runArray($commentData);
@@ -77,10 +76,7 @@ public function addCommentToPost($postId, array $commentData)
 public function reportPost(string $id){
     if(!($this->postCheckIfAlreadyExists($id))){
         return http_response_code(404);}
-    $sql = "UPDATE posts
-    SET reported=:reported
-    WHERE post_id=:post_id
-    "; 
+    $sql = "UPDATE posts SET reported=:reported WHERE post_id=:post_id"; 
     $this->prepareStmt($sql);
     $this->bind(':reported',1);
     $this->bind(':post_id',$id);
@@ -90,14 +86,7 @@ public function reportPost(string $id){
 
 public function getReportedPosts($limit = NULL){
     $limit = is_null($limit) ? PHP_INT_MAX : $limit;    
-    $sql="SELECT
-            *
-        FROM
-            posts
-        WHERE
-            reported = TRUE
-        LIMIT
-            :limit";
+    $sql="SELECT * FROM posts WHERE reported = TRUE LIMIT :limit";
     $this->prepareStmt($sql);
     $this->bind(":limit",$limit);
     return $this->All();
@@ -114,10 +103,7 @@ public function postCheckIfAlreadyExists(string $postID){
 public function reportComment(string $id){
     if(!($this->commentCheckIfAlreadyExists($id))){
         return http_response_code(404);}
-    $sql = "UPDATE comments
-    SET reported=:reported
-    WHERE comment_id=:comment_id
-    "; 
+    $sql = "UPDATE comments SET reported=:reported WHERE comment_id=:comment_id"; 
     $this->prepareStmt($sql);
     $this->bind(':reported',1);
     $this->bind(':comment_id',$id);
@@ -148,10 +134,7 @@ public function getUserComments(string $userID){
 }
 
 public function updateComment($commentData){
-    $sql = "UPDATE comments
-    SET content=:content
-    WHERE comment_id=:comment_id
-    "; 
+    $sql = "UPDATE comments SET content=:content WHERE comment_id=:comment_id"; 
     $this->prepareStmt($sql);
     $this->bind(':content',$commentData['comment-text']);
     $this->bind(':comment_id',$commentData['comment-id']);
@@ -160,14 +143,7 @@ public function updateComment($commentData){
 }
 public function getReportedComments($limit = NULL){
     $limit = is_null($limit) ? PHP_INT_MAX : $limit;    
-    $sql="SELECT
-            *
-        FROM
-            comments
-        WHERE
-            reported = TRUE
-        LIMIT
-            :limit";
+    $sql="SELECT * FROM comments WHERE reported = TRUE LIMIT :limit";
     $this->prepareStmt($sql);
     $this->bind(":limit",$limit);
     return $this->All();
@@ -182,14 +158,10 @@ return $this->All();
 public function getCommentsForPost($postId,$limit = NULL)
 {
     $limit = is_null($limit) ? PHP_INT_MAX : $limit;
-    $sql = "SELECT
-            comment_id, user_id, content, created_at
-        FROM
-            comments
-        WHERE
-            post_id = :post_id
-        LIMIT
-            :limit";
+    $sql = "SELECT comment_id, user_id, content, created_at
+            FROM    comments
+            WHERE   post_id = :post_id
+            LIMIT   :limit";
     $this->prepareStmt($sql);
     $this->bind(':post_id',$postId);
     $this->bind(":limit",$limit);
@@ -198,7 +170,10 @@ public function getCommentsForPost($postId,$limit = NULL)
 
 public function getPosts($limit = NULL){
     $limit = is_null($limit) ? PHP_INT_MAX : $limit;
-    $this->prepareStmt("SELECT post_id,title,body,created_at FROM posts LIMIT :limit");
+    $sql = "SELECT post_id,title,body,created_at 
+            FROM posts 
+            LIMIT :limit";
+    $this->prepareStmt($sql);
     $this->bind(":limit",$limit);
     return $row  = $this->All();
 }

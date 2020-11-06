@@ -93,30 +93,30 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
             <h2>Sign Up</h2>
             <p>Create an account.</p>
             <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
-                <div class="form-user">
+                <section class="form-user">
                     <label>Username</label>
                     <input type="text" name="username" placeholder="Type Username">
                     <span class="help-block"><?php echo $username_err; ?></span>
-                </div>
-                <div class="form-email">
+                </section>
+                <section class="form-email">
                     <label>E-mail</label>
                     <input type="email" name="email"  placeholder="Enter email">
                     <span class="help-block"><?php echo $email_err; ?></span>
-                </div>                
-                <div class="form-pass">
+                </section>                
+                <section class="form-pass">
                     <label>Password</label>
                     <input type="password" name="password" placeholder="Enter Password">
                     <span class="help-block"><?php echo $password_err; ?></span>
-                </div>
-                <div class="form-confirm">
+                </section>
+                <section class="form-confirm">
                     <label>Confirm Password</label>
                     <input type="password" name="confirm_password" placeholder="Confirm Password">
                     <span class="help-block"><?php echo $confirm_password_err; ?></span>
-                </div>
-                <div class="form-submit">
+                </section>
+                <section class="form-submit">
                     <input type="submit" class="submit-btn btn"  value="Submit">
                     <input type="reset" class="reset-btn btn" value="Reset">
-                </div>
+                </section>
             </form>
             <p>Already have an account? <a href="login.php">Login here</a>.</p>
             <a href="index.php">Homepage</a>

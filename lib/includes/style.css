@@ -24,7 +24,7 @@ form{
     display:flex;
     flex-direction: column;
 }
-form div {
+form section {
     width:20%;
     display:inline-block;
 }

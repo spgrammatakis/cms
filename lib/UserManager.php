@@ -31,9 +31,7 @@ class UserManager extends DbConnection{
     }
     
     public function changeUserRole(string $userID,string $userRole){
-        $sql = "UPDATE users_metadata
-        SET user_role=:user_role
-        WHERE user_id=:user_id";
+        $sql = "UPDATE users_metadata SET user_role=:user_role WHERE user_id=:user_id";
         $this->prepareStmt($sql);
         $this->bind(':user_role',$userRole);
         $this->bind(':user_id',$userID);
@@ -59,11 +57,7 @@ class UserManager extends DbConnection{
                 $this->bind(':password',$userData['password']);
                 $this->bind(':email',$userData['email']);
                 if($this->run()){
-                    $sql = "
-                    UPDATE users_metadata
-                    SET username=:username
-                    WHERE user_id=:user_id
-                    ";
+                    $sql = "UPDATE users_metadata SET username=:username WHERE user_id=:user_id";
                     $this->prepareStmt($sql);
                     $this->bind(':user_id',$userData['user-id']);
                     $this->bind(':username',$userData['new-username']);
@@ -96,14 +90,7 @@ class UserManager extends DbConnection{
 
     public function getReportedUsers($limit = NULL){
         $limit = is_null($limit) ? PHP_INT_MAX : $limit;    
-        $sql="SELECT
-                *
-            FROM
-                users
-            WHERE
-                reported = 1
-            LIMIT
-                :limit";
+        $sql="SELECT * FROM users WHERE reported = 1 LIMIT :limit";
         $this->prepareStmt($sql);
         $this->bind(":limit",$limit);
         return $this->All();
@@ -129,10 +116,7 @@ class UserManager extends DbConnection{
         if(!($this->userIDCheckIfAlreadyExists($id))){
             return http_response_code(404);
         }
-        $sql = "UPDATE users
-        SET reported=:reported
-        WHERE user_id=:user_id
-        "; 
+        $sql = "UPDATE users SET reported=:reported WHERE user_id=:user_id"; 
         $this->prepareStmt($sql);
         $this->bind(':reported',1);
         $this->bind(':user_id',$id);

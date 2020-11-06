@@ -80,27 +80,25 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 </head>
 <body>
 <?php require 'templates/navbar/navbar.html'; ?>
-    <div class="form-area">
-        <div class="form">
+        <section class="form">
             <h2>Login</h2>
             <p>Please fill in your credentials to login.</p>
             <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
-                <div class="username">
+                <section class="username">
                     <label>Username</label>
                     <input type="text" name="username" value="<?php echo $username; ?>"  placeholder="Enter password">
                     <span class=""><?php echo $username_err; ?></span>
-                </div>    
-                <div class="password">
+                </section>    
+                <section class="password">
                     <label>Password</label>
                     <input type="password" name="password" placeholder="Enter password">
                     <span class=""><?php echo $password_err; ?></span>
-                </div>
-                <div class="submit">
+                </section>
+                <section class="submit">
                     <input type="submit" class="submit-btn btn" value="Login">
-                </div>
+                </section>
                 <p>Don't have an account? <a href="register.php">Sign up now</a>.</p>
             </form>
-        </div>
-    </div>    
+        </section>   
 </body>
 </html>

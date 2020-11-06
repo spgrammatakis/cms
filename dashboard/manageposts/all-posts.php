@@ -21,35 +21,35 @@ if($session->getUserRole() === "guest"){
 <?php require dirname(__DIR__, 2) . '/templates/dashboardNavbar/dashboardNavbar.html'; ?>
 <?php
         $postHandler = new lib\PostManager();
-        $row = $postHandler->getPosts();
-        for($p = 0; $p  < count($row); ++$p):
+        $postRow = $postHandler->getPosts();
+        for($p = 0; $p  < count($postRow); ++$p):
         ?>
 <div class="container">
     <article>
         <header>
-            <h1 class="post-title"><?php echo lib\Utilities::htmlEscape($row[$p]['title']);?></h1>
-            <p class="post-body"><?php echo lib\Utilities::htmlEscape($row[$p]['body']); ?></p>
-            <p><time class="post-date"><?php echo lib\Utilities::convertSqlDate($row[$p]['created_at']); ?></time><p>
+            <h1 class="post-title"><?php echo lib\Utilities::htmlEscape($postRow[$p]['title']);?></h1>
+            <p class="post-body"><?php echo lib\Utilities::htmlEscape($postRow[$p]['body']); ?></p>
+            <p><time class="post-date"><?php echo lib\Utilities::convertSqlDate($postRow[$p]['created_at']); ?></time><p>
         </header>
         <section>
             <h1 class="comments">Comments</h1>
             <footer>
                 <?php
-                $comment = $postHandler->getCommentsForPost($row[$p]['post_id']);
+                $commentRow = $postHandler->getCommentsForPost($postRow[$p]['post_id']);
                 $userHandler = new lib\UserManager();
-                for($c = 0; $c < count($comment); ++$c):
+                for($c = 0; $c < count($commentRow); ++$c):
                 ?>
-                <p>Posted by: <span><?php echo lib\Utilities::htmlEscape($userHandler->getUserNameFromID($comment[$c]['user_id'])); ?></span></p>
-                <p><?php echo lib\Utilities::htmlEscape($comment[$c]['content']); ?></p>
-                <p><time><?php echo lib\Utilities::htmlEscape($comment[$c]['created_at']);?></time></p>
-                <p><?php echo lib\Utilities::htmlEscape($comment[$c]['website']); ?></p>
-                <p><?php echo $postHandler->countCommentsForPost($row[$p]['post_id']). " comments"; ?></p>
+                <p>Posted by: <span><?php echo lib\Utilities::htmlEscape($userHandler->getUserNameFromID($commentRow[$c]['user_id'])); ?></span></p>
+                <p><?php echo lib\Utilities::htmlEscape($commentRow[$c]['content']); ?></p>
+                <p><time><?php echo lib\Utilities::htmlEscape($commentRow[$c]['created_at']);?></time></p>
+                <p><?php echo lib\Utilities::htmlEscape($commentRow[$c]['website']); ?></p>
+                <p><?php echo $postHandler->countCommentsForPost($postRow[$p]['post_id']). " comments"; ?></p>
                 <button class="user-edit-button">Edit User</button>
                 <?php endfor; ?>
             </footer>
         </section>
         <section>
-        <p><?php echo "<a href='/lib/posts/view-post.php?post_id=". lib\Utilities::htmlEscape($row[$p]['post_id']) ."'>Read more...</a>";?></p>
+        <p><?php echo "<a href='/lib/posts/view-post.php?post_id=". lib\Utilities::htmlEscape($postRow[$p]['post_id']) ."'>Read more...</a>";?></p>
         </section>
     </article>
 </div>

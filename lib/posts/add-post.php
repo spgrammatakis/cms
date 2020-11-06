@@ -37,9 +37,9 @@ if($_POST){
     </head>
     <body>
     <?php require dirname(__DIR__, 2) . '/templates/dashboardNavbar/dashboardNavbar.html'; ?>
-<div class="container">
+<section class="container">
     <h3>New Post</h3>
     <?php require dirname(__DIR__, 2).'/templates/post-add-form.php'; ?>
-</div>
+</section>
     </body>
 </html>

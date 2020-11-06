@@ -28,14 +28,14 @@ if(!($session->getUserRole() === "admin")){
                 <?php
                 $postHandler = new lib\PostManager();
                 $userHandler = new lib\UserManager();
-                $comment = $postHandler->getAllComments();
-                for($c = 0; $c < count($comment); ++$c):
+                $commentRow = $postHandler->getAllComments();
+                for($c = 0; $c < count($commentRow); ++$c):
                 ?>
-                <p>Posted by: <span><?php echo lib\Utilities::htmlEscape($userHandler->getUserNameFromID($comment[$c]['user_id'])); ?></span></p>
-                <p><?php echo lib\Utilities::htmlEscape($comment[$c]['content']); ?></p>
-                <p><time><?php echo lib\Utilities::htmlEscape($comment[$c]['created_at']);?></time></p>
-                <p><?php echo "<a href='/lib/comment/edit-comment.php?comment_id=". lib\Utilities::htmlEscape($comment[$c]['comment_id']) ."'>Edit comment</a>";?></p>
-                <p><?php echo "<a href='/lib/posts/view-post.php?post_id=". lib\Utilities::htmlEscape($comment[$c]['post_id']) ."'>Go To Post</a>";?></p>
+                <p>Posted by: <span><?php echo lib\Utilities::htmlEscape($userHandler->getUserNameFromID($commentRow[$c]['user_id'])); ?></span></p>
+                <p><?php echo lib\Utilities::htmlEscape($commentRow[$c]['content']); ?></p>
+                <p><time><?php echo lib\Utilities::htmlEscape($commentRow[$c]['created_at']);?></time></p>
+                <p><?php echo "<a href='/lib/comment/edit-comment.php?comment_id=". lib\Utilities::htmlEscape($commentRow[$c]['comment_id']) ."'>Edit comment</a>";?></p>
+                <p><?php echo "<a href='/lib/posts/view-post.php?post_id=". lib\Utilities::htmlEscape($commentRow[$c]['post_id']) ."'>Go To Post</a>";?></p>
                 <?php endfor; ?>
             </footer>
         </section>

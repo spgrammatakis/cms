@@ -10,15 +10,15 @@ if( (!isset($_GET['user_id'])
     exit;
 }
 $userHandler = new lib\UserManager();
-$row = $userHandler->getUserRow(trim($_GET['user_id']));
-if (!$row)
+$userRow = $userHandler->getUserRow(trim($_GET['user_id']));
+if (!$userRow)
 {
     http_response_code(404);
     exit;
 }
 $userPrivileges = $session->getUserPrivileges($session->getUserRole());
 $userPrivileges = json_decode($userPrivileges['user_privileges'], true);
-if( (($session->getUserName() !== $row['username']) && ($userPrivileges['edit_self'] === 1))
+if( (($session->getUserName() !== $userRow['username']) && ($userPrivileges['edit_self'] === 1))
     || ($userPrivileges['edit_user']=== 1) ){
 }else{
     http_response_code(403);
@@ -26,8 +26,8 @@ if( (($session->getUserName() !== $row['username']) && ($userPrivileges['edit_se
 }
 if($_POST){
     $userData = array(
-        "user_id" => $row['user-id'],
-        "current-username" => $row['username'],
+        "user_id" => $userRow['user-id'],
+        "current-username" => $userRow['username'],
         "new-username" => trim($_POST['username']),
         "password" => password_hash($_POST['new-password'], PASSWORD_DEFAULT),
         "current-password"=>trim($_POST['current-password']),
@@ -53,8 +53,8 @@ if($_POST){
 <section id ="user-section">
 <h1 class="users">Users</h1>
 <?php $userManager = new lib\UserManager();
-$row = $userManager->getAllUsers();
-for($i = 0, $size = count($row); $i < $size; ++$i):
+$userRow = $userManager->getAllUsers();
+for($i = 0, $size = count($userRow); $i < $size; ++$i):
 ?>
 <table id="<?php echo $i; ?>" class="user-table">
     <tr>
@@ -66,15 +66,15 @@ for($i = 0, $size = count($row); $i < $size; ++$i):
         <th>Reported</th>
     </tr>
     <tr>
-        <td class="user-id"><?php echo lib\Utilities::htmlEscape($row[$i]['user_id']);?></td>
-        <td class="username"><?php echo lib\Utilities::htmlEscape($row[$i]['username']);?></td>
-        <td class="email"><?php echo lib\Utilities::htmlEscape($row[$i]['email']);?></td> 
-        <td class="created-at"><?php echo lib\Utilities::htmlEscape($row[$i]['created_at']);?></td>  
+        <td class="user-id"><?php echo lib\Utilities::htmlEscape($userRow[$i]['user_id']);?></td>
+        <td class="username"><?php echo lib\Utilities::htmlEscape($userRow[$i]['username']);?></td>
+        <td class="email"><?php echo lib\Utilities::htmlEscape($userRow[$i]['email']);?></td> 
+        <td class="created-at"><?php echo lib\Utilities::htmlEscape($userRow[$i]['created_at']);?></td>  
         <td class="modificiation-time"><?php echo lib\Utilities::htmlEscape($row[$i]['modification_time']);?></td> 
-        <td class="reported"><?php echo lib\Utilities::htmlEscape($row[$i]['reported']);?></td>
+        <td class="reported"><?php echo lib\Utilities::htmlEscape($userRow[$i]['reported']);?></td>
     </tr>
 </table>
-<p><?php echo "<a href='/lib/users/edit-user.php?user_id=". lib\Utilities::htmlEscape($row[$i]['user_id']) ."'>Edit user</a>";?></p>
+<p><?php echo "<a href='/lib/users/edit-user.php?user_id=". lib\Utilities::htmlEscape($userRow[$i]['user_id']) ."'>Edit user</a>";?></p>
 <?php endfor; ?>
 </section>
 <?php require dirname(__DIR__, 2).'/templates/user-edit-form.php'; ?>

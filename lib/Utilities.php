@@ -11,7 +11,6 @@ class Utilities{
     
     public static function htmlEscape($html)
     {
-        //return htmlentities($html, ENT_HTML5, 'UTF-8');
         $array = array(
             1 => "<b>",
             2 => "<strong>",

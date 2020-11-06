@@ -22,21 +22,21 @@ if(!($session->getUserRole() === "admin")){
 <?php
         $postHandler = new lib\PostManager();
         $userHandler = new lib\UserManager();
-        $comment = $postHandler->getReportedComments();
-        if(count($comment) === 0){
+        $commentRow = $postHandler->getReportedComments();
+        if(count($commentRow) === 0){
             echo "No Reported Comments";
             exit;
         }
-        for($c = 0; $c  < count($comment); ++$c):
+        for($c = 0; $c  < count($commentRow); ++$c):
         ?>
 <div class="container">
         <section>
             <h1 class="comments">Reported Comments</h1>
-                <p>Posted by: <span><?php echo lib\Utilities::htmlEscape($userHandler->getUserNameFromID($comment[$c]['user_id'])); ?></span></p>
-                <p><?php echo lib\Utilities::htmlEscape($comment[$c]['content']); ?></p>
-                <p><time><?php echo lib\Utilities::htmlEscape($comment[$c]['created_at']);?></time></p>
-                <p><?php echo lib\Utilities::htmlEscape($comment[$c]['website']); ?></p>
-                <p>Comment ID: <span><?php echo lib\Utilities::htmlEscape($comment[$c]['comment_id']); ?></span></p>
+                <p>Posted by: <span><?php echo lib\Utilities::htmlEscape($userHandler->getUserNameFromID($commentRow[$c]['user_id'])); ?></span></p>
+                <p><?php echo lib\Utilities::htmlEscape($commentRow[$c]['content']); ?></p>
+                <p><time><?php echo lib\Utilities::htmlEscape($commentRow[$c]['created_at']);?></time></p>
+                <p><?php echo lib\Utilities::htmlEscape($commentRow[$c]['website']); ?></p>
+                <p>Comment ID: <span><?php echo lib\Utilities::htmlEscape($commentRow[$c]['comment_id']); ?></span></p>
         <?php endfor; ?>
         </section>
 </div>

@@ -14,9 +14,9 @@ else
 }
 
 $pdo = new lib\PostManager();
-$row = $pdo->getPostRow($postId);
+$postRow = $pdo->getPostRow($postId);
 $userHandler = new lib\UserManager();
-if(!$row){
+if(!$postRow){
     http_response_code(404);
     exit;
 }
@@ -49,7 +49,7 @@ if ($_POST)
     <link rel="stylesheet" type="text/css" href="/templates/navbar/navbar.css" type="text/css">
         <title>
             A blog application |
-            <?php echo lib\Utilities::htmlEscape($row['title']) ?>
+            <?php echo lib\Utilities::htmlEscape($postRow['title']) ?>
         </title>
         <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
     </head>
@@ -59,34 +59,34 @@ if ($_POST)
         <div>
         <h2>
             <?php
-            echo lib\Utilities::htmlEscape($row['title']);
+            echo lib\Utilities::htmlEscape($postRow['title']);
             ?>
         </h2>
         </div>
         <div>
-            <?php echo lib\Utilities::convertSqlDate($row['created_at']) ?>
+            <?php echo lib\Utilities::convertSqlDate($postRow['created_at']) ?>
         </div>
         <p>
         <div>
         <?php 
-        echo lib\Utilities::htmlEscape($row['body']);
+        echo lib\Utilities::htmlEscape($postRow['body']);
         ?>
         </div>
         <button class='post-button'>Edit Post</button>
         </p>
         <h3><?php echo $pdo->countCommentsForPost($postId) ?> comments</h3>
         </div>
-        <?php foreach ($pdo->getCommentsForPost($postId) as $comment): ?>
+        <?php foreach ($pdo->getCommentsForPost($postId) as $commentRow): ?>
         <hr>
-        <?php echo "<div class='comment' id='" . $comment['comment_id']."'>"; ?>
+        <?php echo "<div class='comment' id='" . $commentRow['comment_id']."'>"; ?>
                 <div class="comment-meta">
                     Comment from
-                    <?php echo lib\Utilities::htmlEscape($userHandler->getUserNameFromID($comment['user_id'])); ?>
+                    <?php echo lib\Utilities::htmlEscape($userHandler->getUserNameFromID($commentRow['user_id'])); ?>
                     on
-                    <?php echo lib\Utilities::convertSqlDate($comment['created_at']); ?>
+                    <?php echo lib\Utilities::convertSqlDate($commentRow['created_at']); ?>
                 </div>
                 <div class="comment-body">
-                    <?php echo lib\Utilities::htmlEscape($comment['content']); ?>
+                    <?php echo lib\Utilities::htmlEscape($commentRow['content']); ?>
                 </div>
         <button class='comment-button'>Edit Comment</button>
         </div>

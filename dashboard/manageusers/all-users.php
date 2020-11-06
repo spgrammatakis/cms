@@ -23,8 +23,8 @@ if(!($session->getUserRole() === "admin")){
     <section id ="user-section">
         <h1 class="users">Users</h1>
             <?php $userManager = new lib\UserManager();
-            $row = $userManager->getAllUsers();
-            for($i = 0, $size = count($row); $i < $size; ++$i):
+            $userRow = $userManager->getAllUsers();
+            for($i = 0, $size = count($userRow); $i < $size; ++$i):
             ?>
                 <table id="<?php echo $i; ?>" class="user-table">
                     <tr>
@@ -36,12 +36,12 @@ if(!($session->getUserRole() === "admin")){
                         <th>Reported</th>
                     </tr>
                     <tr>
-                        <td class="user-id"><?php echo lib\Utilities::htmlEscape($row[$i]['user_id']);?></td>
-                        <td class="username"><?php echo lib\Utilities::htmlEscape($row[$i]['username']);?></td>
-                        <td class="email"><?php echo lib\Utilities::htmlEscape($row[$i]['email']);?></td> 
-                        <td class="created-at"><?php echo lib\Utilities::htmlEscape($row[$i]['created_at']);?></td>  
-                        <td class="modificiation-time"><?php echo lib\Utilities::htmlEscape($row[$i]['modification_time']);?></td> 
-                        <td class="reported"><?php echo lib\Utilities::htmlEscape($row[$i]['reported']);?></td>
+                        <td class="user-id"><?php echo lib\Utilities::htmlEscape($userRow[$i]['user_id']);?></td>
+                        <td class="username"><?php echo lib\Utilities::htmlEscape($userRow[$i]['username']);?></td>
+                        <td class="email"><?php echo lib\Utilities::htmlEscape($userRow[$i]['email']);?></td> 
+                        <td class="created-at"><?php echo lib\Utilities::htmlEscape($userRow[$i]['created_at']);?></td>  
+                        <td class="modificiation-time"><?php echo lib\Utilities::htmlEscape($userRow[$i]['modification_time']);?></td> 
+                        <td class="reported"><?php echo lib\Utilities::htmlEscape($userRow[$i]['reported']);?></td>
                     </tr>
                     <tr>
                         <td class="button"><button class="user-edit-button">Edit User</button></td>

@@ -17,14 +17,14 @@ else
     http_response_code(403);
     exit;
 }
-$pdo = new lib\PostManager();
+$postHandler = new lib\PostManager();
 $errors=null;
 if($_POST){
     $commentData = array(
         "comment-id" => $commentID,
         "comment-text" => $_POST['comment-text']
     );
-    $errors=$pdo->updateComment($commentData);
+    $errors=$postHandler->updateComment($commentData);
     if (!$errors)
     {
         header('Location: ' . $_SERVER['PHP_SELF'] . "?comment_id=" . $commentID);
@@ -45,14 +45,12 @@ if($_POST){
 <?php require dirname(__DIR__, 2) . '/templates/dashboardNavbar/dashboardNavbar.html'; ?>
 <section class="container">
     <section id ="user-section">
-        <?php $comment = new lib\PostManager();
-        $row = $comment->getCommentRow($commentID);
-        ?>
+        <?php $postRow = $postHandler->getCommentRow($commentID);?>
             <section class="container">
             <h1 class="comments">Comments</h1>
-                <p>Posted by:<?php echo lib\Utilities::htmlEscape($userManager->getUserNameFromID($row['user_id'])); ?></span></p>
-                <p><?php echo lib\Utilities::htmlEscape($row['content']); ?></p>
-                <p><time><?php echo lib\Utilities::htmlEscape($row['created_at']);?></time></p>
+                <p>Posted by:<?php echo lib\Utilities::htmlEscape($userManager->getUserNameFromID($postRow['user_id'])); ?></span></p>
+                <p><?php echo lib\Utilities::htmlEscape($postRow['content']); ?></p>
+                <p><time><?php echo lib\Utilities::htmlEscape($postRow['created_at']);?></time></p>
             </section>
             <h3>Edit Comment</h3>
         <?php 
