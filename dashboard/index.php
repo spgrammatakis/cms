@@ -137,10 +137,10 @@ for($i = 0; $i < count($row); ++$i):
 <h1 class="reported-comments">Reported Comments</h1>
 <?php 
     $reportedCommentRow = $postHandler->getReportedComments(3);
-    for($i = 0; $i < count($reportedComment); ++$i): 
+    for($i = 0; $i < count($reportedCommentRow); ++$i): 
 ?>
     <section class="comment">
-        <p>Posted by: <span><?php echo lib\Utilities::htmlEscape($userManager->getUserNameFromID($reportedComment[$i]['user_id'])); ?></span></p>
+        <p>Posted by: <span><?php echo lib\Utilities::htmlEscape($userManager->getUserNameFromID($reportedCommentRow[$i]['user_id'])); ?></span></p>
         <p><?php echo lib\Utilities::htmlEscape($reportedCommentRow[$i]['content']); ?></p>
         <p><time><?php echo lib\Utilities::htmlEscape($reportedCommentRow[$i]['created_at']);?></time></p>
         <p><?php echo "<a href='/lib/comments/edit-comment.php?comment_id=". lib\Utilities::htmlEscape($reportedCommentRow[$i]['comment_id']) ."'>Edit comment</a>";?></p>
