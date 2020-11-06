@@ -36,7 +36,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     </head>
     <body>
     <?php require dirname(__DIR__, 2) . '/templates/dashboardNavbar/dashboardNavbar.html'; ?>
-<section class="container">
+<section class="form-area">
     <h3>New Post</h3>
     <section class="form">
     <?php require dirname(__DIR__, 2).'/templates/post-add-form.php'; ?>

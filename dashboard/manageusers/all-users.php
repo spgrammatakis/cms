@@ -20,8 +20,8 @@ if(!($session->getUserRole() === "admin")){
     <body>
 <?php require dirname(__DIR__, 2) . '/templates/dashboardNavbar/dashboardNavbar.html'; ?>
 <div class="container">
+<h1 class="users">Users</h1>
     <section id ="user-section">
-        <h1 class="users">Users</h1>
             <?php $userManager = new lib\UserManager();
             $userRow = $userManager->getAllUsers();
             for($i = 0, $size = count($userRow); $i < $size; ++$i):

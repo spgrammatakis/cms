@@ -19,6 +19,7 @@ if($session->getUserRole() === "guest"){
     </head>
     <body>
 <?php require dirname(__DIR__, 2) . '/templates/dashboardNavbar/dashboardNavbar.html'; ?>
+<h1 class="comments">Posts</h1>
 <?php
         $postHandler = new lib\PostManager();
         $postRow = $postHandler->getPosts();

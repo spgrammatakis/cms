@@ -1,13 +1,13 @@
 <form method="post" id="post-edit">
-<p>
+<section class= "post-title">
         <label for="post-title">Title:</label>
         <input
             type="text"
             id="post-title"
             name="post-title"
         >
-    </p>
-    <p>
+</section>
+<section class= "post-body">
         <label for="post-body">
             Body:
         </label>
@@ -18,6 +18,8 @@
             rows="8"
             cols="70"
         ></textarea>
-    </p>
+</section>
+<section class= "submite">
     <input type="submit" value="Finish Edit" />
+</section>
 </form>

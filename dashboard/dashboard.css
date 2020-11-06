@@ -16,6 +16,7 @@ body{
     display: flex;
     flex-direction: column;
     flex: auto;
+    overflow:hidden;
 }
 
 #non-reported-posts-section,#reported-posts-section,#user-section,#comments-section,#reported-comments,#reported-users{
@@ -43,4 +44,20 @@ h1{
 
 #all-post-section,#all-user-section,#all-comments-section{
     border:1px solid black;
+}
+
+form{
+    display:flex;
+    flex-direction: column;
+}
+form section {
+    width:20%;
+    display:inline-block;
+}
+form label{
+    float:left;
+}
+
+form input{
+    float:right;
 }
