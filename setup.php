@@ -12,7 +12,8 @@ $pdo->prepareStmt($sql);
 $pdo->run();
 
 if($_SERVER["REQUEST_METHOD"] == "POST"){
-    if(empty(trim($_POST["username"])) || !isset($_COOKIE["user_name"])){
+    print_r($_POST);
+    if(empty(trim($_POST["username"]))){
         $username_err = "Please enter a username.";
     }else{      
         if($pdo->userNameCheckIfAlreadyExists(trim($_POST["username"]))){
@@ -63,13 +64,13 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
         $pdo->prepareStmt($sql);
         $param_password = password_hash($password, PASSWORD_DEFAULT);
         $param_id = bin2hex(random_bytes(10));
-        $pdo->bind(':user_id', bin2hex(random_bytes(10)));
+        $pdo->bind(':user_id', $param_id);
         $pdo->bind(':username', $username);
         $pdo->bind(':password', $param_password);
         $pdo->bind(':email', $email);
             if($pdo->run()){
                 $session = new lib\SessionManager($username);
-                $session->setUserID(bin2hex(random_bytes(10)));
+                $session->setUserID($param_id);
                 $session->setUserRole("admin");
                 $session->sessionInsertNewRow($session->getUserID());
                 //header('Location: index.php');
