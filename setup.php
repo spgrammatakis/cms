@@ -1,6 +1,6 @@
 <?php
 require __DIR__ . '/vendor/autoload.php';
-ini_set('display_errors', '1');
+
 $pdo = new lib\UserManager();
 
 $username = $password = $confirm_password = $email ="";
@@ -12,7 +12,7 @@ $pdo->prepareStmt($sql);
 $pdo->run();
 
 if($_SERVER["REQUEST_METHOD"] == "POST"){
-    print_r($_POST);
+
     if(empty(trim($_POST["username"]))){
         $username_err = "Please enter a username.";
     }else{      
