@@ -56,6 +56,5 @@ $session->sessionCheck();
             </article>
             <?php endfor; ?>
     </section>
-</section>
     </body>
 </html>
