@@ -41,7 +41,6 @@ if($_SERVER["REQUEST_METHOD"] == "POST")
     <link rel="stylesheet" type="text/css" href="/lib/includes/style.css" type="text/css">
     <link rel="stylesheet" type="text/css" href="/templates/navbar/navbar.css" type="text/css">
         <title>
-            A blog application |
             <?php echo lib\Utilities::htmlEscape($postRow['title']) ?>
         </title>
         <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />

@@ -71,13 +71,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 ?>
  
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Login</title>
-    <link rel="stylesheet" type="text/css" href="/lib/includes/style.css" type="text/css">
-    <link rel="stylesheet" type="text/css" href="/templates/navbar/navbar.css" type="text/css">
-</head>
+<?php require 'templates/header/header.html';?>
 <body>
 <?php require 'templates/navbar/navbar.html'; ?>
 <section clas="form-area">
