@@ -5,7 +5,7 @@ $username = $_COOKIE['user_name'] ?? "guest";
 $session = new lib\SessionManager($username);
 $session->sessionCheck();
 if($session->getUserRole() === "guest"){
-    header("HTTP/1.1 403 Not Found");
+    http_response_code(403);
     exit;
 }
 ?>
