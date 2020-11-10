@@ -1,14 +1,19 @@
 <?php
 require __DIR__ . '/vendor/autoload.php';
-$pdo = new lib\UserManager();
+$userHandler = new lib\UserManager();
 $username = $password = $confirm_password = $email ="";
 $username_err = $password_err = $confirm_password_err = $email_err ="";
-
+$xsrf_err = "";
 if($_SERVER["REQUEST_METHOD"] == "POST"){
+    $xsrfToken = hash_hmac('sha256', '/register.php', $userHandler->getUserIDFromName($username));
+    if (!(hash_equals($xsrfToken, $_POST['xsrf']))) {
+        $xsrf_err = "Invalid Token";
+        exit;
+    }
     if(empty(trim($_POST["username"])) || !isset($_COOKIE["user_name"])){
         $username_err = "Please enter a username.";
     }else{      
-        if($pdo->userNameCheckIfAlreadyExists(trim($_POST["username"]))){
+        if($userHandler->userNameCheckIfAlreadyExists(trim($_POST["username"]))){
                     $username_err = "This username is already taken.";
                 } else{
                     $username = trim($_POST["username"]);
@@ -21,7 +26,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
             $email_err = "Please enter an email.";
             }
         } else{
-            if($pdo->userEmailCheckIfAlreadyExists(trim($_POST["email"]))){
+            if($userHandler->userEmailCheckIfAlreadyExists(trim($_POST["email"]))){
                         $email_err = "This email is already taken.";
                     } else{
                         $email = trim($_POST["email"]);
@@ -54,20 +59,20 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
         empty($email_err)){
         
         $sql = "INSERT INTO users (user_id,username, password, email) VALUES (:user_id,:username, :password, :email)";
-        $pdo->prepareStmt($sql);
+        $userHandler->prepareStmt($sql);
             $param_username = $username;
             $param_password = password_hash($password, PASSWORD_DEFAULT);
-            $pdo->bind(':user_id',bin2hex(random_bytes(10)));
-            $pdo->bind(':username', $param_username);
-            $pdo->bind(':password', $param_password);
-            $pdo->bind(':email', $email);
-            if($pdo->run()){            
+            $userHandler->bind(':user_id',bin2hex(random_bytes(10)));
+            $userHandler->bind(':username', $param_username);
+            $userHandler->bind(':password', $param_password);
+            $userHandler->bind(':email', $email);
+            if($userHandler->run()){            
                 $session = new lib\SessionManager($param_username);
                 $session->setUserRole("guest");
                 $sql = "SELECT user_id FROM users WHERE username=:username";
-                $pdo->prepareStmt($sql);
-                $pdo->bind(":username",$param_username);
-                $userID = $pdo->SingleRow();
+                $userHandler->prepareStmt($sql);
+                $userHandler->bind(":username",$param_username);
+                $userID = $userHandler->SingleRow();
                 $session->setUserID($userID['user_id']);
                 $session->sessionInsertNewRow($session->getUserID());
                 //header("location: login.php");
@@ -107,6 +112,10 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                     <label>Confirm Password</label>
                     <input type="password" name="confirm_password" placeholder="Confirm Password">
                     <span class="help-block"><?php echo $confirm_password_err; ?></span>
+                </section>
+                <section class="form-xsrf">
+                <input type='hidden' name='xsrf' value="<?php echo hash_hmac('sha256', '/register.php', $userHandler->getUserIDFromName($username));?>"/>
+                <span class="help-block"><?php echo $xsrf_err; ?></span>
                 </section>
                 <section class="form-submit">
                     <input type="submit" class="submit-btn btn"  value="Submit">

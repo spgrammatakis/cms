@@ -73,7 +73,7 @@ class UserManager extends DbConnection{
         $this->prepareStmt($sql);
         $this->bind(':username',$username);
         $row = $this->SingleRow();
-        return $row['user_id'];
+        return $row['user_id'] ?? "guest";
     }
 
     public function getUserNameFromID(string $id){
@@ -81,7 +81,7 @@ class UserManager extends DbConnection{
         $this->prepareStmt($sql);
         $this->bind(':user_id',$id);
         $row = $this->SingleRow();
-        return $row['username'];
+        return $row['username'] ?? "guest";
     }
     
 
