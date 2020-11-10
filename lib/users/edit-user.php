@@ -26,10 +26,11 @@ if( (($session->getUserName() !== $userRow['username']) && ($userPrivileges['edi
     exit;
 }
 if($_POST){
-    $xsrfToken = hash_hmac('sha256', __FILE__, $userHandler->getUserIDFromName($username));
+    $xsrfToken = hash_hmac('sha256', basename($_SERVER['PHP_SELF']), $userHandler->getUserIDFromName($username));
+    $xsrf_err = "Invalid Token";
+    echo $xsrfToken."</br>";
+    echo $_POST['xsrf'];
     if (!(hash_equals($xsrfToken, $_POST['xsrf']))) {
-            $xsrf_err = "Invalid Token";
-            exit;
         }
     $userData = array(
         "user-id" => $userRow['user_id'],

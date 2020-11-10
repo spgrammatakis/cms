@@ -45,7 +45,6 @@ class UserManager extends DbConnection{
         if($this->rowCount() == 1){
             $userRow = $this->SingleRow();
             $password = $userRow['password'];
-            print_r($userRow);
             if(password_verify($userData['current-password'],$password)){
                 $sql = "UPDATE users SET username=:username, password=:password, email=:email WHERE user_id=:user_id";
                 $this->prepareStmt($sql);

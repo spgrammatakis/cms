@@ -6,7 +6,7 @@ $username = $password = $confirm_password = $email ="";
 $username_err = $password_err = $confirm_password_err = $email_err ="";
 $xsrf_err = "";
 if($_SERVER["REQUEST_METHOD"] == "POST"){
-    $xsrfToken = hash_hmac('sha256', __FILE__, $userHandler->getUserIDFromName($user));
+    $xsrfToken = hash_hmac('sha256', basename($_SERVER['PHP_SELF']), $userHandler->getUserIDFromName($user));
     if (!(hash_equals($xsrfToken, $_POST['xsrf']))) {
         $xsrf_err = "Invalid Token";
         exit;
@@ -117,7 +117,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                     <span class="help-block"><?php echo $confirm_password_err; ?></span>
                 </section>
                 <section class="form-xsrf">
-                <input type='hidden' name='xsrf' value="<?php echo hash_hmac('sha256', __FILE__, $userHandler->getUserIDFromName($user));?>"/>
+                <input type='hidden' name='xsrf' value="<?php echo hash_hmac('sha256', 'register.php', $userHandler->getUserIDFromName($user));?>"/>
                 <span class="help-block"><?php echo $xsrf_err; ?></span>
                 </section>
                 <section class="form-submit">
