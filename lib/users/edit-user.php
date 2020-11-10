@@ -1,5 +1,6 @@
 <?php
 require dirname(__DIR__, 2) . '/vendor/autoload.php';
+$userNameError = $newPasswordError = $currentPasswordError = $emailError = $xsrfError = '';
 $username = $_COOKIE['user_name'] ?? "guest";
 $session = new lib\SessionManager($username);
 $session->sessionCheck();
@@ -28,9 +29,12 @@ if( (($session->getUserName() !== $userRow['username']) && ($userPrivileges['edi
 if($_POST){
     $xsrfToken = hash_hmac('sha256', basename($_SERVER['PHP_SELF']), $userHandler->getUserIDFromName($username));
     if (!(hash_equals($xsrfToken, $_POST['xsrf']))) {
-        $xsrf_err = "Invalid Token";
+        $xsrfError = "Invalid Token";
         exit;
         }
+        if (filter_var(trim($_POST["email"]), FILTER_VALIDATE_EMAIL)){
+            $emailError = "Please enter an email.";
+            }
     $userData = array(
         "user-id" => $userRow['user_id'],
         "current-username" => $userRow['username'],

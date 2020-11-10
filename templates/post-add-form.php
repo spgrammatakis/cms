@@ -23,6 +23,6 @@
     <input type="submit" value="Finish Edit" />
 </section>
 <section>
-    <input type='hidden' name='xsrf' value="<?php echo hash_hmac('sha256', __FILE__, $session->getUserID($username));?>"/>
+    <input type='hidden' name='xsrf' value="<?php echo hash_hmac('sha256', 'add-post.php', $session->getUserID($username));?>"/>
 </section>
 </form>

@@ -24,18 +24,15 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     }
 
     if(empty(trim($_POST["email"]))){
-        if (filter_var(trim($_POST["email"]), FILTER_VALIDATE_EMAIL)){
-            $email_err = "Please enter an email.";
-            }
+        $email_err = "Please enter an email.";
         } else{
-            if($userHandler->userEmailCheckIfAlreadyExists(trim($_POST["email"]))){
+            if(($userHandler->userEmailCheckIfAlreadyExists(trim($_POST["email"]))) &&
+                (filter_var(trim($_POST["email"]), FILTER_VALIDATE_EMAIL))){
                         $email_err = "This email is already taken.";
                     } else{
                         $email = trim($_POST["email"]);
                     }
          }
-    
-
     if(empty(trim($_POST['password']))){
         $password_err = "Please enter a password.";     
     } elseif(strlen(trim($_POST['password'])) < 5){

@@ -24,14 +24,13 @@ form{
     display:flex;
     flex-direction: column;
 }
-form section {
+form section{
     width:20%;
     display:inline-block;
 }
 form label{
     float:left;
 }
-
 form input{
     float:right;
 }
