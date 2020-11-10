@@ -122,11 +122,11 @@ class SessionManager extends DbConnection{
     }
     
     public function sesssionCreateNewToken(){
-            return array(array(bin2hex(random_bytes(20))=>
-            array(        "ra"=>$_SERVER['REMOTE_ADDR'],
-                          "ua"=>$_SERVER['HTTP_USER_AGENT'],
-                          "iat"=>Utilities::getSqlDateForNow(),
-                          "expire"=>mktime(0, 0, 0, date("m"),   date("d"),   date("Y")+1)
+            return array(   array(bin2hex(random_bytes(20))=>
+                            array(  "ra"=>$_SERVER['REMOTE_ADDR'],
+                                "ua"=>$_SERVER['HTTP_USER_AGENT'],
+                                "iat"=>Utilities::getSqlDateForNow(),
+                                "expire"=>strtotime("+1 year")
                       )));    
     }   
 
