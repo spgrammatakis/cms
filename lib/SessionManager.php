@@ -127,7 +127,7 @@ class SessionManager extends DbConnection{
                                     "ua"=>$_SERVER['HTTP_USER_AGENT'],
                                     "iat"=>Utilities::getSqlDateForNow(),
                                     "expire"=>strtotime("+1 year")
-                      )));    
+                        )));    
     }   
 
     public function sessionInsertNewRow(string $userID){
