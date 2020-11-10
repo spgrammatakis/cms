@@ -1,11 +1,15 @@
 <?php
 require __DIR__ . '/vendor/autoload.php';
 $userHandler = new lib\UserManager();
+$user = $_COOKIE['user_name'] ?? "guest";
 $username = $password = $confirm_password = $email ="";
 $username_err = $password_err = $confirm_password_err = $email_err ="";
 $xsrf_err = "";
 if($_SERVER["REQUEST_METHOD"] == "POST"){
-    $xsrfToken = hash_hmac('sha256', '/register.php', $userHandler->getUserIDFromName($username));
+    $xsrfToken = hash_hmac('sha256', '/register.php', $userHandler->getUserIDFromName($user));
+    echo $userHandler->getUserIDFromName($user)."</br>";
+    echo $xsrfToken."</br>";
+    echo $_POST['xsrf'];
     if (!(hash_equals($xsrfToken, $_POST['xsrf']))) {
         $xsrf_err = "Invalid Token";
     }
@@ -52,10 +56,11 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     }
 
 
-    if( empty($username_err) && 
-        empty($password_err) && 
-        empty($confirm_password_err) && 
-        empty($email_err)){
+    if( empty($username_err)            && 
+        empty($password_err)            && 
+        empty($confirm_password_err)    && 
+        empty($email_err)               &&
+        empty($xsrf_err) ){
         
         $sql = "INSERT INTO users (user_id,username, password, email) VALUES (:user_id,:username, :password, :email)";
         $userHandler->prepareStmt($sql);
@@ -113,7 +118,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                     <span class="help-block"><?php echo $confirm_password_err; ?></span>
                 </section>
                 <section class="form-xsrf">
-                <input type='hidden' name='xsrf' value="<?php echo hash_hmac('sha256', '/register.php', $userHandler->getUserIDFromName($username));?>"/>
+                <input type='hidden' name='xsrf' value="<?php echo hash_hmac('sha256', '/register.php', $userHandler->getUserIDFromName($user));?>"/>
                 <span class="help-block"><?php echo $xsrf_err; ?></span>
                 </section>
                 <section class="form-submit">
