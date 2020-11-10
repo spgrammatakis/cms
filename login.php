@@ -7,10 +7,13 @@ $session->sessionCheck();
 
 $username = $password = "";
 $username_err = $password_err = "";
- 
+$xsrf_err="";
 
 if($_SERVER["REQUEST_METHOD"] == "POST"){
- 
+    $xsrfToken = hash_hmac('sha256', __FILE__, $userHandler->getUserIDFromName($user));
+    if (!(hash_equals($xsrfToken, $_POST['xsrf']))) {
+        $xsrf_err = "Invalid Token";
+    } 
 
     if(empty(trim($_POST["username"]))){
         $username_err = 'Please enter username.';
@@ -91,6 +94,9 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                 </section>
                 <section class="submit">
                     <input type="submit" class="submit-btn btn" value="Login">
+                </section>
+                <section>
+                <input type='hidden' name='xsrf' value="<?php echo hash_hmac('sha256', __FILE__, $userHandler->getUserIDFromName($user));?>"/>
                 </section>
                 <p>Don't have an account? <a href="register.php">Sign up now</a>.</p>
             </form>
