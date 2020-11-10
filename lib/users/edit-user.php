@@ -16,6 +16,7 @@ if (!$userRow)
     http_response_code(404);
     exit;
 }
+
 $userPrivileges = $session->getUserPrivileges($session->getUserRole());
 $userPrivileges = json_decode($userPrivileges['user_privileges'], true);
 if( (($session->getUserName() !== $userRow['username']) && ($userPrivileges['edit_self'] === 1))
@@ -25,6 +26,10 @@ if( (($session->getUserName() !== $userRow['username']) && ($userPrivileges['edi
     exit;
 }
 if($_POST){
+    $xsrfToken = hash_hmac('sha256', __FILE__, $userHandler->getUserIDFromName($username));
+    if (!(hash_equals($xsrfToken, $_POST['xsrf']))) {
+            $xsrf_err = "Invalid Token";
+        }
     $userData = array(
         "user-id" => $userRow['user_id'],
         "current-username" => $userRow['username'],
@@ -52,8 +57,8 @@ if($_POST){
 <section class="container">
 <section id ="user-section">
 <h1 class="users">Users</h1>
-<?php $userManager = new lib\UserManager();
-$userRow = $userManager->getAllUsers();
+<?php 
+$userRow = $userHandler->getAllUsers();
 for($i = 0, $size = count($userRow); $i < $size; ++$i):
 ?>
 <table id="<?php echo $i; ?>" class="user-table">

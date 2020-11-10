@@ -34,4 +34,7 @@
 <section class= "submit">
     <input type="submit" value="Finish Edit" />
 </section>
+<section>
+    <input type='hidden' name='xsrf' value="<?php echo hash_hmac('sha256', __FILE__, $userHandler->getUserIDFromName($username));?>"/>
+</section>
 </form>

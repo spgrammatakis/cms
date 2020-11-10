@@ -13,8 +13,8 @@ else
     exit;
 }
 
-$pdo = new lib\PostManager();
-$postRow = $pdo->getPostRow($postId);
+$postHandler = new lib\PostManager();
+$postRow = $postHandler->getPostRow($postId);
 $userHandler = new lib\UserManager();
 if(!$postRow){
     http_response_code(404);
@@ -23,11 +23,16 @@ if(!$postRow){
 
 if($_SERVER["REQUEST_METHOD"] == "POST")
 {
+    $xsrfToken = hash_hmac('sha256', __FILE__, $session->getUserID($username));
+    if (!(hash_equals($xsrfToken, $_POST['xsrf']))) {
+            $xsrf_err = "Invalid Token";
+        }
+
     $commentData = array(
         'user_id' => $session->getUserID(),
         'content' => $_POST['comment-text'],
     );
-    $pdo->addCommentToPost($postId,$commentData); 
+    $postHandler->addCommentToPost($postId,$commentData); 
 }
 
 ?>
@@ -64,9 +69,9 @@ if($_SERVER["REQUEST_METHOD"] == "POST")
         </div>
         <button class='post-button'>Edit Post</button>
         </p>
-        <h3><?php echo $pdo->countCommentsForPost($postId) ?> comments</h3>
+        <h3><?php echo $postHandler->countCommentsForPost($postId) ?> comments</h3>
         </div>
-        <?php foreach ($pdo->getCommentsForPost($postId) as $commentRow): ?>
+        <?php foreach ($postHandler->getCommentsForPost($postId) as $commentRow): ?>
         <hr>
         <?php echo "<div class='comment' id='" . $commentRow['comment_id']."'>"; ?>
                 <div class="comment-meta">
