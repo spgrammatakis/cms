@@ -7,9 +7,6 @@ $username_err = $password_err = $confirm_password_err = $email_err ="";
 $xsrf_err = "";
 if($_SERVER["REQUEST_METHOD"] == "POST"){
     $xsrfToken = hash_hmac('sha256', '/register.php', $userHandler->getUserIDFromName($user));
-    echo $userHandler->getUserIDFromName($user)."</br>";
-    echo $xsrfToken."</br>";
-    echo $_POST['xsrf'];
     if (!(hash_equals($xsrfToken, $_POST['xsrf']))) {
         $xsrf_err = "Invalid Token";
     }
