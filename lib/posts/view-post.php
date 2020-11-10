@@ -21,14 +21,12 @@ if(!$postRow){
     exit;
 }
 
-print_r($session);
 if($_SERVER["REQUEST_METHOD"] == "POST")
 {
     $commentData = array(
         'user_id' => $session->getUserID(),
         'content' => $_POST['comment-text'],
     );
-    print_r($commentData);
     $pdo->addCommentToPost($postId,$commentData); 
 }
 

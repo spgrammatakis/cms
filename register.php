@@ -8,7 +8,6 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     $xsrfToken = hash_hmac('sha256', '/register.php', $userHandler->getUserIDFromName($username));
     if (!(hash_equals($xsrfToken, $_POST['xsrf']))) {
         $xsrf_err = "Invalid Token";
-        exit;
     }
     if(empty(trim($_POST["username"])) || !isset($_COOKIE["user_name"])){
         $username_err = "Please enter a username.";
