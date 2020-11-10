@@ -5,31 +5,31 @@ $username = $_COOKIE['user_name'] ?? "guest";
 $session = new lib\SessionManager($username);
 $session->sessionCheck();
 
-$username = $password = "";
-$username_err = $password_err = "";
-$xsrf_err="";
+$postUsername = $postPassword = "";
+$usernameError = $passwordError = "";
+$xsrfError="";
 
 if($_SERVER["REQUEST_METHOD"] == "POST"){
     $xsrfToken = hash_hmac('sha256', basename($_SERVER['PHP_SELF']), $session->getUserID($username));
     if (!(hash_equals($xsrfToken, $_POST['xsrf']))) {
-        $xsrf_err = "Invalid Token";
+        $xsrfError = "Invalid Token";
         exit;
     } 
 
     if(empty(trim($_POST["username"]))){
-        $username_err = 'Please enter username.';
+        $usernameError = 'Please enter username.';
     } else{        
-        $username = trim($_POST["username"]);
+        $postUsername = trim($_POST["username"]);
     }
     
 
     if(empty(trim($_POST['password']))){
-        $password_err = 'Please enter your password.';
+        $passwordError = 'Please enter your password.';
     } else{
-        $password = trim($_POST['password']);
+        $postPassword = trim($_POST['password']);
     }
 
-    if(empty($username_err) && empty($password_err)){
+    if(empty($usernameError) && empty($passwordError)){
 
         $sql = "SELECT username, password FROM users WHERE username = :username";
         $dbh->prepareStmt($sql);
@@ -39,7 +39,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                     if($dbh->rowCount() == 1){
                                 $row = $dbh->SingleRow();
                                 $hashed_password = $row['password'];
-                                if(password_verify($password, $hashed_password)){
+                                if(password_verify($postPassword, $hashed_password)){
                                     setcookie("user_name", $row['username'], [
                                         "expires" => mktime(0, 0, 0, date("m"),   date("d"),   date("Y")+1),
                                         "path" => '/',
@@ -59,11 +59,11 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                                     $session->redirectUser($session->getUserRole());
                                 } else{
                                     
-                                    $password_err = 'The password you entered was not valid.';
+                                    $passwordError = 'The password you entered was not valid.';
                                 }
                             
                     } else{
-                        $username_err = 'No account found with that username.';
+                        $usernameError = 'No account found with that username.';
                     }   
             } else{
                 echo "Oops! Something went wrong. Please try again later.";
@@ -85,13 +85,13 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
             <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
                 <section class="username">
                     <label>Username</label>
-                    <input type="text" name="username" value="<?php echo $username; ?>"  placeholder="Enter password">
-                    <span class=""><?php echo $username_err; ?></span>
+                    <input type="text" name="username" placeholder="Enter password">
+                    <span class=""><?php echo $usernameError; ?></span>
                 </section>    
                 <section class="password">
                     <label>Password</label>
                     <input type="password" name="password" placeholder="Enter password">
-                    <span class=""><?php echo $password_err; ?></span>
+                    <span class=""><?php echo $passwordError; ?></span>
                 </section>
                 <section class="submit">
                     <input type="submit" class="submit-btn btn" value="Login">

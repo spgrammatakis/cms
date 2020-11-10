@@ -8,7 +8,7 @@ if($session->getUserRole() === "guest"){
     exit;
 }
 
-$pdo = new lib\PostManager();
+$postHandler = new lib\PostManager();
 $userHandler = new lib\UserManager();
 if($_SERVER["REQUEST_METHOD"] == "POST"){
 
@@ -24,7 +24,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
         "post-body" => trim($_POST['post-body']),
         "author-id" => $userHandler->getUserIDFromName($username)
     );
-    $pdo->addPost($postData);
+    $postHandler->addPost($postData);
 }
 ?>
 <!DOCTYPE html>
