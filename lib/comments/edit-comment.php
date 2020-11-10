@@ -7,6 +7,7 @@ if($session->getUserRole() === "guest"){
     http_response_code(403);
     exit;
 }
+
 $userManager = new lib\UserManager();
 if (isset($_GET['comment_id']))
 {
@@ -20,16 +21,17 @@ else
 $postHandler = new lib\PostManager();
 $errors=null;
 if($_POST){
+    
+    $xsrfToken = hash_hmac('sha256', __FILE__, $session->getUserID($username));
+    if (!(hash_equals($xsrfToken, $_POST['xsrf']))) {
+            $xsrf_err = "Invalid Token";
+        }
+
     $commentData = array(
         "comment-id" => $commentID,
         "comment-text" => $_POST['comment-text']
     );
-    $errors=$postHandler->updateComment($commentData);
-    if (!$errors)
-    {
-        header('Location: ' . $_SERVER['PHP_SELF'] . "?comment_id=" . $commentID);
-        exit;
-    }
+   $postHandler->updateComment($commentData);
 }
 ?>
 <!DOCTYPE html>
