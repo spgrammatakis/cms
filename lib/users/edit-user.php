@@ -29,6 +29,7 @@ if($_POST){
     $xsrfToken = hash_hmac('sha256', __FILE__, $userHandler->getUserIDFromName($username));
     if (!(hash_equals($xsrfToken, $_POST['xsrf']))) {
             $xsrf_err = "Invalid Token";
+            exit;
         }
     $userData = array(
         "user-id" => $userRow['user_id'],

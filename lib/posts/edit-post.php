@@ -25,6 +25,7 @@ if($_POST){
     $xsrfToken = hash_hmac('sha256', __FILE__, $session->getUserID($username));
     if (!(hash_equals($xsrfToken, $_POST['xsrf']))) {
             $xsrf_err = "Invalid Token";
+            exit;
         }
     $postTitle=$_POST['post-title'];
     $postBody=$_POST['post-body-textarea'];
