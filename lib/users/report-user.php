@@ -1,14 +1,17 @@
 <?php
 require dirname(__DIR__, 2) . '/vendor/autoload.php';
 $handler = new lib\UserManager();
-if (    (!isset($_COOKIE["user_name"]) || empty($_COOKIE['user_name']))
-    ||  (!isset($_COOKIE["session_token"]) || empty($_COOKIE['session_token']))
-    ||  (!isset($_GET['user_id']) || empty($_GET['user_id']))
-    )
-    {
+$session = new lib\SessionManager($username);
+$session->sessionCheck();
+if($session->getUserRole() === "guest"){
     http_response_code(403);
     exit;
 }else{
+    $xsrfToken = hash_hmac('sha256', basename($_SERVER['PHP_SELF']), $session->getUserID($username));
+    if (!(hash_equals($xsrfToken, $_GET['xsrf']))) {
+            http_response_code(403);
+            exit;
+        }
     $handler = new lib\UserManager();
     $handler->reportUser($_GET['user_id']);
 }

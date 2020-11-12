@@ -19,7 +19,7 @@ $session->sessionCheck();
         ?>
     <section class="container">
         <?php for($p = 0; $p  < count($postRow); ++$p): ?>
-        <section class="post" id="<?php echo lib\Utilities::htmlEscape($postRow[$p]['post_id']);?>">
+        <section class="post" id="<?php echo lib\Utilities::htmlEscape($postRow[$p]['post_id']);?>" data-xsrf="<?php echo hash_hmac('sha256', 'report-post.php', $session->getUserID($username));?>">
             <article>
                 <header>
                     <h1 class="post-title"><?php echo lib\Utilities::htmlEscape($postRow[$p]['title']);?></h1>
@@ -31,9 +31,10 @@ $session->sessionCheck();
                         $comment = $postHandler->getCommentsForPost($postRow[$p]['post_id']);
                         for($c = 0; $c < count($comment); ++$c):
                         ?>
-                <?php echo "<section class='comment' id='" . $comment[$c]['comment_id']."'>"; ?>
+                <section class="comment" id="<?php echo $comment[$c]['comment_id']; ?>" data-xsrf="<?php echo hash_hmac('sha256', 'report-comment.php', $session->getUserID($username));?>">
+
                 <h1 class="comments">Comments</h1>  
-                    <footer class="user" id="<?php echo $comment[$c]['user_id'];?>">
+                    <footer class="user" id="<?php echo $comment[$c]['user_id'];?>" data-xsrf="<?php echo hash_hmac('sha256', 'report-user.php', $session->getUserID($username));?>">
                         <p>Posted by: <span><?php echo lib\Utilities::htmlEscape($userHandler->getUserNameFromID($comment[$c]['user_id'])); ?></span>
                         <span><button class='user-report-button'>Report User</button></span></p>
                         <p><?php echo lib\Utilities::htmlEscape($comment[$c]['content']); ?></p>
@@ -44,7 +45,7 @@ $session->sessionCheck();
         </section>
                 <section>
                 <p><?php echo $postHandler->countCommentsForPost($postRow[$p]['post_id']). " comments"; ?></p>
-                <p><?php echo "<a href='/lib/posts/view-post.php?post_id=". lib\Utilities::htmlEscape($postRow[$p]['post_id']) ."'>Read more...</a>";?></p>
+                <p><a href="/lib/posts/view-post.php?post_id=<?php echo  lib\Utilities::htmlEscape($postRow[$p]['post_id']) ?>">Read more ...</a></p>
                 </section>
             </article>
             <?php endfor; ?>

@@ -2,9 +2,10 @@ var button = document.getElementsByTagName('button');
 for(let i = 0;i<button.length;i++){
     if(button[i].className === "comment-report-button"){
         button[i].addEventListener("click", function(){
-        var id = button[i].closest('section').id;
-        theUrl = "/lib/comments/report-comment.php?comment_id=" + id;
-        var xhttp = new XMLHttpRequest();
+        let id = button[i].closest('section').id;
+        let xsrfToken = button[i].closest('section').dataset.xsrf;
+        let theUrl = "/lib/comments/report-comment.php?comment_id=" + id +"&xsrf=" + xsrfToken;
+        let xhttp = new XMLHttpRequest();
         xhttp.open("GET", theUrl, true);
         xhttp.send();
         xhttp.onreadystatechange = function() {
@@ -36,7 +37,8 @@ for(let i = 0;i<button.length;i++){
     if(button[i].className === "post-report-button"){
       button[i].addEventListener("click", function(){
       let id = button[i].closest('section').id;
-      theUrl = "/lib/posts/report-post.php?post_id=" + id;
+      let xsrfToken = button[i].closest('section').dataset.xsrf;
+      let theUrl = "/lib/posts/report-post.php?post_id=" + id +"&xsrf=" + xsrfToken;
       let xhttp = new XMLHttpRequest();
       xhttp.open("GET", theUrl, true);
       xhttp.send();
@@ -68,8 +70,9 @@ for(let i = 0;i<button.length;i++){
 
   if(button[i].className === "user-report-button"){
     button[i].addEventListener("click", function(){
-    const id =button[i].closest('footer').id;
-    var theUrl = "/lib/users/report-user.php?user_id=" + id;
+    let id =button[i].closest('footer').id;
+    let xsrfToken = button[i].closest('footer').dataset.userXsrf;
+    let theUrl = "/lib/users/report-user.php?user_id=" + id +"&xsrf=" + xsrfToken;
     const xhttp = new XMLHttpRequest();
     xhttp.open("GET", theUrl, true);
     xhttp.onreadystatechange = function() {

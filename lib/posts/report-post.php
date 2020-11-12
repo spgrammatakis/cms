@@ -8,6 +8,11 @@ if($session->getUserRole() === "guest"){
     http_response_code(403);
     exit;
 }else{
+    $xsrfToken = hash_hmac('sha256', basename($_SERVER['PHP_SELF']), $session->getUserID($username));
+    if (!(hash_equals($xsrfToken, $_GET['xsrf']))) {
+            http_response_code(403);
+            exit;
+        }
     $handler = new lib\PostManager();
     $handler->reportPost($_GET['post_id']);
 }
