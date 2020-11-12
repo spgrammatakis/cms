@@ -71,7 +71,7 @@ for(let i = 0;i<button.length;i++){
   if(button[i].className === "user-report-button"){
     button[i].addEventListener("click", function(){
     let id =button[i].closest('footer').id;
-    let xsrfToken = button[i].closest('footer').dataset.userXsrf;
+    let xsrfToken = button[i].closest('footer').dataset.xsrf;
     let theUrl = "/lib/users/report-user.php?user_id=" + id +"&xsrf=" + xsrfToken;
     const xhttp = new XMLHttpRequest();
     xhttp.open("GET", theUrl, true);

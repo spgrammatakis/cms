@@ -31,7 +31,7 @@ if(!($session->getUserRole() === "admin")){
         ?>
 <div class="container">
         <section>
-            <h1 class="comments">Reported Comments</h1>
+            <h1 class="reported-comments">Reported Comments</h1>
                 <p>Posted by: <span><?php echo lib\Utilities::htmlEscape($userHandler->getUserNameFromID($commentRow[$c]['user_id'])); ?></span></p>
                 <p><?php echo lib\Utilities::htmlEscape($commentRow[$c]['content']); ?></p>
                 <p><time><?php echo lib\Utilities::htmlEscape($commentRow[$c]['created_at']);?></time></p>

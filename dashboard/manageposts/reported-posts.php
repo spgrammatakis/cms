@@ -29,9 +29,8 @@ if(!($session->getUserRole() === "admin")){
         for($p = 0; $p  < count($postRow); ++$p):
         ?>
 <section class="container">
-    <article>
-        <header>
-        <h1 class="posts">Reported Posts</h1>
+    <header>
+        <h1 class="reported-posts">Reported Posts</h1>
             <h1 class="post-title"><?php echo lib\Utilities::htmlEscape($postRow[$p]['title']);?></h1>
             <p class="post-body"><?php echo lib\Utilities::htmlEscape($postRow[$p]['body']); ?></p>
             <p><time class="post-date"><?php echo lib\Utilities::convertSqlDate($postRow[$p]['created_at']); ?></time><p>
@@ -53,8 +52,7 @@ if(!($session->getUserRole() === "admin")){
         </section>
         <section>
         <p><?php echo "<a href='/lib/posts/view-post.php?post_id=". lib\Utilities::htmlEscape($postRowow[$p]['post_id']) ."'>Read more...</a>";?></p>
-        </section>
-    </article>
+    </section>
 </section>
         <?php endfor; ?>
     </body>

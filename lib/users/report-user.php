@@ -1,6 +1,7 @@
 <?php
 require dirname(__DIR__, 2) . '/vendor/autoload.php';
 $handler = new lib\UserManager();
+$username = $_COOKIE['user_name'] ?? "guest";
 $session = new lib\SessionManager($username);
 $session->sessionCheck();
 if($session->getUserRole() === "guest"){
