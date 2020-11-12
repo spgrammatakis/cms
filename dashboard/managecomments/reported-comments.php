@@ -37,6 +37,7 @@ if(!($session->getUserRole() === "admin")){
                 <p><time><?php echo lib\Utilities::htmlEscape($commentRow[$c]['created_at']);?></time></p>
                 <p><?php echo lib\Utilities::htmlEscape($commentRow[$c]['website']); ?></p>
                 <p>Comment ID: <span><?php echo lib\Utilities::htmlEscape($commentRow[$c]['comment_id']); ?></span></p>
+                <p><a href="/lib/comments/edit-comment.php?comment_id=<?php echo lib\Utilities::htmlEscape($commentRow[$c]['comment_id']); ?>">Edit Comment</a></p>
         <?php endfor; ?>
         </section>
 </div>
