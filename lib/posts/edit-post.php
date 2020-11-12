@@ -40,7 +40,7 @@ if($_POST){
 <!DOCTYPE html>
 <html>
     <head>
-    <meta http-equiv="Content-Security-Policy" content="script-src 'self' ;" >
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self' ;" >
     <script type="text/javascript" src="/js/redirect-to-edit.js"></script>
     <link rel="stylesheet" type="text/css" href="/lib/includes/style.css" type="text/css">
     <link rel="stylesheet" type="text/css" href="/templates/navbar/navbar.css" type="text/css">

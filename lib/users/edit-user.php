@@ -51,7 +51,7 @@ if($_POST){
 <!DOCTYPE html>
 <html>
     <head>
-        <meta http-equiv="Content-Security-Policy" content="script-src 'self' ;" >
+        <meta http-equiv="Content-Security-Policy" content="default-src 'self' ;" >
         <title>A blog application</title>
         <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
         <link rel="stylesheet" type="text/css" href="/templates/dashboardNavbar/dashboardNavbar.css" type="text/css">
