@@ -61,3 +61,6 @@ form label{
 form input{
     float:right;
 }
+button{
+    max-width: 100px;
+}

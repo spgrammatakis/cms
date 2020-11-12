@@ -34,3 +34,6 @@ form label{
 form input{
     float:right;
 }
+button, form input{
+    max-width: 200px;
+}
