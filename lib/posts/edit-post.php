@@ -28,7 +28,7 @@ if($_POST){
             exit;
         }
     $postTitle=$_POST['post-title'];
-    $postBody=$_POST['post-body-textarea'];
+    $postBody=$_POST['post-body'];
     $errors=$postHandler->updatePost($postId,$postTitle,$postBody);
     if (!$errors)
     {

@@ -13,8 +13,8 @@
         </label>
         <textarea
             type="text"
-            id="post-body"
-            name="post-body-textarea"
+            id="post-body-textarea"
+            name="post-body"
             rows="8"
             cols="70"
         ></textarea>
