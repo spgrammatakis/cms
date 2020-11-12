@@ -61,7 +61,7 @@ if($_POST){
         </header>
         <section>
         <p><?php echo $postHandler->countCommentsForPost($postRow['post_id']). " comments"; ?></p>
-        <p><?php echo "<a href='/lib/posts/view-post.php?post_id=". lib\Utilities::htmlEscape($postRow['post_id']) ."'>Read more...</a>";?></p>
+        <p><a href="/lib/posts/view-post.php?post_id=<?php echo  lib\Utilities::htmlEscape($postRow[$p]['post_id']) ?>">Read more ...</a></p>
         </section>
     </article>
     </section>

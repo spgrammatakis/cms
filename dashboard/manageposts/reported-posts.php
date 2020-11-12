@@ -51,7 +51,7 @@ if(!($session->getUserRole() === "admin")){
             </footer>
         </section>
         <section>
-        <p><?php echo "<a href='/lib/posts/view-post.php?post_id=". lib\Utilities::htmlEscape($postRowow[$p]['post_id']) ."'>Read more...</a>";?></p>
+        <p><a href="/lib/posts/view-post.php?post_id=<?php echo  lib\Utilities::htmlEscape($postRow[$p]['post_id']) ?>">Read more ...</a></p>
     </section>
 </section>
         <?php endfor; ?>
